@@ -4,3 +4,4 @@ Repositorio principal do projeto de PI do grupo 10
 Rafael Santana Lima
 Yagho Chinaglia
 Mariana dos Santos Xavier
+Vinicius Faria Cerqueira
