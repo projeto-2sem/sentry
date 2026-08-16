@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+    --azul-escuro: #2218A7;
+    --azul-medio: #4235F2;
+    --gradiente-fundo: linear-gradient(to bottom right,#4235F2, #2218A7, #1A1190);
+}
+
+.card {
+    background-color: #00000081;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-between; */
+    color: #fafafa;
+    min-width: fit-content;
+    min-height: fit-content;
+    width: 70%;
+    padding: 20px 10px;
+    gap: 10px;
+    box-shadow: 9px 8px 2px #14141479;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.login {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradiente-fundo); 
+}   
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 20px;
+    margin: 10px 0;
+}
+
+.card h2 {
+    margin: 0;
+}
+
+.card input {
+    border-radius: 3px;
+    border: var(--azul-escuro);
+    height: 20px;
+}
+
+.card button {
+    width: fit-content;
+    padding: 5px 30px ;
+    background: var(--azul-escuro);
+    color: #fafafa;
+    border: var(--azul-escuro);
+    border-radius: 3px;
+    box-shadow: 3px 2px 2px #110C5F;
+}
+.card-login a {
+    color: rgba(250, 250, 250, 0.750);
+}
