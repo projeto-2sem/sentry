@@ -164,6 +164,11 @@ body {
   padding: 20px 0;
 }
 
+.card-cadastro {
+  display: grid;
+  grid-template-columns: 200px 200px;
+}
+
 .card h2 {
   margin: 0;
   font-size: 30px;
