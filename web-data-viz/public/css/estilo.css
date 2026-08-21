@@ -4,37 +4,110 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: black;
+  background-color: rgb(0, 10, 44);
 }
 
 :root {
-  --tamanho-header: 80px;
+  --tamanho-header: 5rem;
   --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-  --tamanho-footer: 65px;
+  --tamanho-footer:  4.0625rem;;
 }
-
+.escudo{
+display: flex;
+align-items: center;
+}
+.texto{
+font-size: 1rem;    
+font-weight: 400;
+line-height: 1.6;
+color: #d5d5d5;   
+margin: 0 0 0.9375rem 0;
+font-family: Geist monospace;
+  text-align: left;
+}
+.mensagem p {
+  text-align: left;
+  margin: 0 0 0.9375rem 0;
+} 
+.conteudo-banner{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+width: 50%;     
+}
+.conteudo-banner p{
+margin: 0;
+padding: 0;
+font-size: 36px;
+width: 100%;  
+}
+.conteudo-banner button{
+  margin-top: 1.875rem;
+}
+.logo{
+justify-content: center;
+}
+.destaque{
+  color: #3a32cd;
+}
+.logo img{
+width: 11.25rem;
+height: auto;
+}
+.escudo img{
+width: 2.5rem;  
+height: auto;
+}
+.escudo-maior img{
+width: 6.25rem;
+height: auto;
+  
+}
 .container {
   display: flex;
   width: 80%;
   margin: auto;
 }
 
-.header {
+.header{
   height: var(--tamanho-header);
-  border-bottom: 2px solid #32b9cd;
+  border-bottom: 2px solid #3a32cd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
-.header .container {
-  justify-content: space-between;
+.conteudo-header{
+ display: flex;
+  flex-direction: row;
   align-items: center;
-  height: 100%;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 1.875rem;   
+  box-sizing: border-box;
 }
 
 .header a {
   text-decoration: none;
-  color: #e3b062;
+  color: #f0ece5;
+}
+
+.icone-cadastro{
+background-color: #07034f;
+width: 5.625rem;
+display: flex;
+justify-content: center;
+align-items: center;
+border: 2px solid rgb(47, 47, 181);
+height: 1.875rem;
+border-radius: 0.3125rem;
+}
+
+.icone-cadastro:hover{
+  background-color: #3a32cd;
 }
 
 .agora {
@@ -42,12 +115,20 @@ body {
 }
 
 .navbar {
-  width: 300px;
+  width: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1.5625rem;
   list-style: none;
-  color: #e3b062;
+  color: #62e3c9;
+  margin: 0;
+  padding: 0;
+}
+
+.header .container > img {
+  margin-left: auto;  
+  margin-right: auto; 
 }
 
 .titulo {
@@ -64,32 +145,45 @@ body {
 
 .banner {
   height: var(--tamanho-banner);
-  color: white;
+  color: rgb(255, 255, 255);
   background-image: url('../assets/imgs/bg-jelly-fish-para-home.png');
   background-size: cover;
+  font-family: 'Geist', sans-serif;
+}
+
+.banner button{
+margin-top: 1.875rem; 
+  padding: 0.75rem 1.75rem; 
+  background-color: transparent;
+  border: 1px solid #3a32cd;
+  border-radius:  0.3125rem;
+  color: #fff;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+
+}
+
+.banner button:hover {
+  background-color: #3a32cd;
 }
 
 .banner .container {
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
 }
 
-.banner .container p {
-  width: 50%;
-  margin: 0;
-  padding: 0;
-  font-size: 36px;
-}
-
 .banner .container span {
-  font-weight: 800;
+  color: blue ;
 }
 
 /* MISSÃO VISÃO VALORES */
 
 .social {
-  background-color: #e5e5e5;
+  background-color: #020d1f;
   display: flex;
 }
 
@@ -98,24 +192,41 @@ body {
 }
 
 .box img {
-  width: 170px;
+  width: 100%;
+  max-width: 26.25rem;     
+  height: auto;
+  margin: 0;
+  border-radius: 0.5rem;
+}
+.mensagem{
+ color: #fff;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.875rem;   
+  max-width:  30rem;
+  flex-shrink: 0;
+  align-items: flex-start; 
+  text-align: left;
+    font-family: 'Geist Mono', sans-serif;
 }
 
 .social .container .boxes {
-  display: flex;
-  justify-content: space-between;
+ display: flex;
+  align-items: flex-start;   
+  justify-content: flex-start;
+  gap: 2.5rem;
   width: 100%;
-  padding: 30px 0;
+  padding: 1.875rem 0;
 }
 
-.social p {
-  text-align: center;
-}
+
 
 .box {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  color: white;
+  flex: 1;
 }
 
 /* FOOTER */
