@@ -1,72 +1,241 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="./js/sessao.js"></script>
+    <link rel="stylesheet" href="./css/home.css" />
+  </head>
 
-    <link rel="stylesheet" href="./css/home.css">
-</head>
+  <body>
+    <header>
+      <div class="header-container">
+        <a href="#" class="logo">
+          <img src="assets/imgs/escudo_sentry.png" alt="Escudo" />
+          <img src="assets/imgs/logo.png" alt="SENTRY" />
+        </a>
 
-<body>
-  <header>
-    <img src="assets/imgs/escudo_sentry.png" alt="Escudo">
-    <img src="assets/imgs/logo.png" alt="SENTRY">
-    <nav>
-      <ul class="navbar">
-        <li><a href="#">Home</a></li>
-        <li><a href="">Solução</a></li>
-        <li><a href="">Benefícios</a></li>
-        <li><a href="">Entrar</a></li>
-        <li><a href="" class="cadastro">Cadastre-se</a></li>
-      </ul>
-    </nav>
-  </header>
-  
+        <button
+          class="menu-btn"
+          id="menu-btn"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav id="nav">
+          <ul class="navbar">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Solução</a></li>
+            <li><a href="#">Benefícios</a></li>
+            <li><a href="#">Entrar</a></li>
+            <li><a href="#" class="cadastro">Cadastre-se</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
     <div class="banner">
       <div class="container">
         <div class="conteudo-banner">
-        <p>PROTEGENDO A <span>INFRAESTRUTURA QUE</span> MANTÉM SUA OPERAÇÃO <span> EM MOVIMENTO </span>.</p>
-        <button>Conheça a Solução →</button>  
-        </div>    
-      </div>
-    </div>
-
-    <div class="social">
-      <div class="container">
-          <div class="escudo-maior"><img src="assets/imgs/escudo_sentry.png"></div>  
-        <div class="boxes">
-          <div class="mensagem">
-            <p>Uma camada extra de
-            <span class="destaque">confiabilidade</span> para o
-            <span class="destaque">sistema SCADA</span></p>
-
-            <p class="texto">O SCADA (Supervisory Control and Data Acquisition)
-               centraliza as informações de milhares de sensores
-                espalhados por toda a plataforma offshore,
-                 permitindo que operadores supervisionem processos
-                  industriais críticos em tempo real.</p>
-
-            <p class="texto">Os servidores que hospedam esse serviço ficam
-               alocados diretamente nas plataformas e precisam operar sem interrupção. A SENTRY monitora continuamente a infraestrutura desses servidores — processador, memória, armazenamento e rede — identificando sinais de degradação antes que eles comprometam a supervisão da operação.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/operador.png">
-            
-          </div>
+          <p>
+            PROTEGENDO A <span class="destaque">INFRAESTRUTURA QUE</span> MANTÉM
+            SUA OPERAÇÃO <span class="destaque"> EM MOVIMENTO </span>.
+          </p>
+          <button>Conheça a Solução →</button>
         </div>
       </div>
     </div>
-  
+
+    <section>
+      <div class="section2">
+        <div class="container-sct2">
+          <div class="escudo-section2">
+            <img src="assets/imgs/escudo_sentry.png" />
+          </div>
+          <div class="content">
+            <div class="mensagem">
+              <p>
+                Uma camada extra de
+                <span class="destaque">confiabilidade</span> para o
+                <span class="destaque">sistema SCADA</span>
+              </p>
+
+              <p class="texto">
+                O SCADA (Supervisory Control and Data Acquisition) centraliza as
+                informações de milhares de sensores espalhados por toda a
+                plataforma offshore, permitindo que operadores supervisionem
+                processos industriais críticos em tempo real.
+              </p>
+
+              <p class="texto">
+                Os servidores que hospedam esse serviço ficam alocados
+                diretamente nas plataformas e precisam operar sem interrupção. A
+                SENTRY monitora continuamente a infraestrutura desses servidores
+                — processador, memória, armazenamento e rede — identificando
+                sinais de degradação antes que eles comprometam a supervisão da
+                operação.
+              </p>
+            </div>
+            <div class="img-sct2">
+              <img src="assets/imgs/operador.png" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section3">
+        <div class="container-sct2">
+          <div class="titulo">
+            <h2>
+              COMO <span class="destaque">FUNCIONA</span> NOSSA
+              <span class="destaque">SOLUÇÃO</span>?
+            </h2>
+          </div>
+
+          <div class="card-carrossel">
+            <div class="card">
+              <div class="card-img">
+                <img id="card-img" src="" alt="" />
+              </div>
+
+              <div class="card-content">
+                <div class="card-icon" id="card-icon"></div>
+                <h3 id="card-title"></h3>
+                <p id="card-text"></p>
+              </div>
+
+              <div class="card-nav">
+                <button id="prev-btn" aria-label="Card anterior">←</button>
+                <button id="next-btn" aria-label="Próximo card">→</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section4">
+        <div class="titulo">
+          <h2>BENEFÍCIOS</h2>
+        </div>
+
+        <div class="cards-sct4">
+          <div class="card4">
+            <div class="card4-content">
+              <img src="" alt="" />
+              <h5>Disponibilidade</h5>
+              <p>
+                Servidores SCADA monitorados sem interrupção, garantindo que a
+                supervisão da plataforma nunca fique no escuro.
+              </p>
+            </div>
+          </div>
+
+          <div class="card4">
+            <div class="card4-content">
+              <img src="" alt="" />
+              <h5>Monitoramento 24/7</h5>
+              <p>
+                Acompanhamento contínuo de CPU, memória, disco e rede, todos os
+                dias, a qualquer hora.
+              </p>
+            </div>
+          </div>
+
+          <div class="card4">
+            <div class="card4-content">
+              <img src="" alt="" />
+              <h5>Insights</h5>
+              <p>
+                Dados de desempenho transformados em alertas e indicadores
+                claros para decisões rápidas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section5">
+        <div class="titulo-sct5">
+          <h2>NOSSOS DIFERENCIAIS</h2>
+        </div>
+        <div class="grid-sct5">
+          <div
+            class="card-diferencial card-grande"
+            style="
+              background-image: url();
+            "
+          >
+            <div class="overlay">
+              <h3>Monitoramento focado no SCADA</h3>
+              <p>Monitoramento com total foco na infraestrutura do SCADA</p>
+            </div>
+          </div>
+
+          <div
+            class="card-diferencial"
+            style="background-image: url();"
+          >
+            <div class="overlay">
+              <h3>Segurança</h3>
+              <p>Prezamos pela privacidade e segurança de sua aplicação</p>
+            </div>
+          </div>
+
+          <div
+            class="card-diferencial"
+            style="
+              background-image: url();
+            "
+          >
+            <div class="overlay">
+              <h3>Visão holística</h3>
+              <p>Buscando o melhor para o seu sistema SCADA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section6">
+        <div class="sct6-container">
+          <div class="sct6-content">
+            <h2>Transforme dados em <span class="destaque"> ações inteligentes.</span></h2>
+            <p>Veja a falha antes que ela aconteça</p>
+          </div>
+          <button>COMECE AGORA →</button>
+        </div>
+      </div>
+    </section>
+
     <div class="footer">
       <div class="container">
-        <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023-2026</h4>
+        <div class="cima">
+          <div class="logo">
+            <img src="assets/imgs/logo-footer.png" alt="Logo Sentry">
+          </div>
+          <div class="container-links">
+            <div class="links">
+              <a href=""></a>
+            </div>
+          </div>
+        </div>
+        <div class="baixo">
+
+        </div>
       </div>
     </div>
   </body>
-
 </html>
+<script></script>
