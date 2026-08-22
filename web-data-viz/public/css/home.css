@@ -1,3 +1,164 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap');
 
 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    background-color: #071224;
+    border-bottom: 2px solid #0d56df;
+    position: relative;
+}
+
+.header-container{
+    max-width: 1800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 16px 24px;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.escudo{
+    grid-column: 1;
+    justify-self: start;
+}
+
+.escudo img{
+    height: 40px;
+}
+
+.logo{
+    grid-column: 2;
+    justify-self: center;
+}
+
+.logo img{
+    height: 24px;
+}
+
+nav#nav{
+    grid-column: 3;
+    justify-self: end;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+}
+
+.navbar li a{
+    font-family: "Geist", sans-serif;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.navbar li a:hover{
+    color: #0d56df;
+}
+
+.navbar .cadastro{
+    border: 1px solid #0d56df;
+    padding: 8px 16px;
+    border-radius: 6px;
+     color: #60a5fa;
+}
+
+.navbar .cadastro:hover{
+    background-color: #152744;
+    color: #ffff;
+}
+
+.menu-btn{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 20;
+    grid-column: 3;
+    justify-self: end;
+}
+
+.menu-btn span{
+    width: 26px;
+    height: 2px;
+    background-color: #e5e7eb;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.menu-btn.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-btn.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .menu-btn {
+    display: flex;
+  }
+
+  nav#nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #071224;
+    border-top: 1px solid rgba(59, 130, 246, 0.2);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  nav#nav.active {
+    max-height: 400px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+  }
+
+  .navbar .cadastro {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (min-width: 1440px) {
+  .header-container {
+    padding: 16px 60px;
+  }
+}
+
+@media (min-width: 1800px) {
+  .header-container {
+    padding: 16px 100px;
+  }
+}
