@@ -14,6 +14,7 @@ header{
     background-color: #071224;
     border-bottom: 2px solid #0d56df;
     position: relative;
+    z-index: 100;
 }
 
 .header-container{
@@ -401,10 +402,10 @@ section{
     border: #0d56df 1px solid;
     border-radius: 20px;
     min-width: auto;
+    max-width: 650px;
+    min-height: 280px;
+    padding: 50px 34px;
     flex: 1;
-    max-width: 400px;
-    min-height: 200px;
-    padding: 36px 26px;
 }
 
 .card4-content{
@@ -413,7 +414,7 @@ section{
     justify-content: center;
     align-items: flex-start;
     gap: 14px;
-    padding: 4px 8px;
+    width: 100%;
 }
 
 .card4-content img{
@@ -423,16 +424,126 @@ section{
 .card4-content h5{
     color: #e5e7eb;
     font-family: "Geist", sans-serif;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .card4-content p{
     color: #e5e7eb;
     font-family: "Geist Mono", sans-serif;
-    font-size: 12px;
+    font-size: 14px;
 }
 
+/* Quinta Section */
+.section5{
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px clamp(24px, 5vw, 100px);
+  width: 100%;
+}
 
+.titulo-sct5{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+}
+
+.titulo-sct5 h2{
+  color: #e5e7eb;
+  font-family: "Geist Mono", sans-serif;
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 32px);
+}
+
+.grid-sct5{
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 24px;
+  height: 600px;
+}
+
+.card-diferencial{
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+.card-grande{
+  grid-row: span 2;
+}
+
+.card-diferencial::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
+}
+
+.texto-card5{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px;
+  z-index: 2;
+  transition: transform 0.35s ease;
+}
+
+.texto-card5 h3{
+  color: #ffff;
+  font-family: "Geist", sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.texto-card5 p{
+  color: #cbd5e1;
+  font-family: "Geist Mono", monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.card-diferencial:hover .texto-card5{
+    transform: translateY(-12px);
+}
+
+/* ADAPTAÇÃO A OUTRAS TELAS */
+
+
+@media (min-width: 1440px) {
+  .header-container {
+    padding: 16px 60px;
+  }
+}
+
+@media (min-width: 1800px) {
+  .header-container {
+    padding: 16px 100px;
+  }
+}
+
+@media (max-width: 900px) {
+  .cards-sct4 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card4 {
+    max-width: 100%;
+    width: 100%;
+  }
+}
 
 @media (max-width: 768px) {
   .menu-btn {
@@ -514,29 +625,5 @@ section{
   }
 
   
-}
-
-@media (min-width: 1440px) {
-  .header-container {
-    padding: 16px 60px;
-  }
-}
-
-@media (min-width: 1800px) {
-  .header-container {
-    padding: 16px 100px;
-  }
-}
-
-@media (max-width: 900px) {
-  .cards-sct4 {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .card4 {
-    max-width: 100%;
-    width: 100%;
-  }
 }
 
