@@ -74,47 +74,97 @@
                 plataforma offshore, permitindo que operadores supervisionem
                 processos industriais críticos em tempo real.
               </p>
-
             </div>
           </div>
-           <div class="img-sct2">
-              <img src="assets/imgs/operador.png" />
-            </div>
+          <div class="img-sct2">
+            <img src="assets/imgs/operador.png" />
+          </div>
         </div>
       </div>
     </section>
 
     <section>
-      <div class="section3">
-        <div class="container-sct2">
-          <div class="titulo">
-            <h2>
-              COMO <span class="destaque">FUNCIONA</span> NOSSA
-              <span class="destaque">SOLUÇÃO</span>?
-            </h2>
-          </div>
+  <div class="section3">
+    <div class="container-sct3">
+      <div class="titulo">
+        <h2>
+          COMO <span class="destaque">FUNCIONA</span> NOSSA
+          <span class="destaque">SOLUÇÃO</span>?
+        </h2>
+      </div>
 
-          <div class="card-carrossel">
-            <div class="card">
-              <div class="card-img">
-                <img id="card-img" src="" alt="" />
-              </div>
+      <div class="carrossel">
 
-              <div class="card-content">
-                <div class="card-icon" id="card-icon"></div>
-                <h3 id="card-title"></h3>
-                <p id="card-text"></p>
-              </div>
+        <input type="radio" name="carrossel" id="c1" class="carrossel-radio" checked>
+        <input type="radio" name="carrossel" id="c2" class="carrossel-radio">
+        <input type="radio" name="carrossel" id="c3" class="carrossel-radio">
+        <input type="radio" name="carrossel" id="c4" class="carrossel-radio">
 
-              <div class="card-nav">
-                <button id="prev-btn" aria-label="Card anterior">←</button>
-                <button id="next-btn" aria-label="Próximo card">→</button>
-              </div>
+        <div class="carrossel-borda">
+
+          <div class="card" id="card1">
+            <div class="card-img">
+              <img src="assets/imgs/cpu.png" alt="Monitoramento de CPU">
+            </div>
+            <div class="card-texto">
+              <div class="card-icon"><img src="assets/icon/cpu.png" alt=""></div>
+              <h3>Monitoramento de CPU</h3>
+              <p>Acompanhe o uso do processador em tempo real e identifique possíveis situações de sobrecarga antes que afetem o desempenho do servidor.</p>
             </div>
           </div>
+
+          <div class="card" id="card2">
+            <div class="card-img">
+              <img src="assets/imgs/rede.png" alt="Monitoramento de Rede">
+            </div>
+            <div class="card-texto">
+              <div class="card-icon"><img src="assets/icon/rede.png" alt=""></div>
+              <h3>Monitoramento de Rede</h3>
+              <p>Monitore a latência e o tráfego de rede para garantir a comunicação contínua entre os sensores e o sistema SCADA.</p>
+            </div>
+          </div>
+
+          <div class="card" id="card3">
+            <div class="card-img">
+              <img src="assets/imgs/disco.png" alt="Monitoramento de Disco">
+            </div>
+            <div class="card-texto">
+              <div class="card-icon"><img src="assets/icon/disco.png" alt=""></div>
+              <h3>Monitoramento de Disco</h3>
+              <p>Acompanhe o espaço em disco utilizado e receba alertas antes que a capacidade se esgote.</p>
+            </div>
+          </div>
+
+          <div class="card" id="card4">
+            <div class="card-img">
+              <img src="assets/imgs/ram.png" alt="Monitoramento de RAM">
+            </div>
+            <div class="card-texto">
+              <div class="card-icon"><img src="assets/icon/ram.png" alt=""></div>
+              <h3>Monitoramento de RAM</h3>
+              <p>Visualize o consumo de memória RAM e antecipe gargalos que podem comprometer a estabilidade do sistema.</p>
+            </div>
+          </div>
+
+          <div class="card-nav">
+            <label for="c4" class="nav-btn prev" data-active="c1">←</label>
+            <label for="c1" class="nav-btn prev" data-active="c2">←</label>
+            <label for="c2" class="nav-btn prev" data-active="c3">←</label>
+            <label for="c3" class="nav-btn prev" data-active="c4">←</label>
+
+            <span class="contador"></span>
+
+            <label for="c2" class="nav-btn next" data-active="c1">→</label>
+            <label for="c3" class="nav-btn next" data-active="c2">→</label>
+            <label for="c4" class="nav-btn next" data-active="c3">→</label>
+            <label for="c1" class="nav-btn next" data-active="c4">→</label>
+          </div>
+
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
     <section>
       <div class="section4">

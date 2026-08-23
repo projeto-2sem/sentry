@@ -145,7 +145,7 @@ nav#nav{
 
 .conteudo-banner p{
     font-family: "Geist", sans-serif;
-    font-size: clamp(32px, 5vw, 52px); /*mínimo, preferido, máximo*/
+    font-size: clamp(32px, 5vw, 52px);
     font-weight: 600;
     color: #ffff;
     line-height: 1.2;
@@ -171,6 +171,7 @@ nav#nav{
   background-color: #11357a;
 }
 
+/* Segunda Section */
 section{
     background-color: #000817;
 }
@@ -236,6 +237,137 @@ section{
     display: block;
 }
 
+/* Terceira section */
+
+.container-sct3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.titulo{
+    position: relative;
+    align-self: center;
+}
+
+.titulo h2{
+    color: #e5e7eb;
+    font-family: "Geist", sans-serif;
+    font-size: clamp(28px, 4vw, 32px);
+}
+
+.carrossel{
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+}
+
+.carrossel-radio{
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.carrossel-borda{
+    position: relative;
+    border: 1px solid #0d56df;
+    border-radius: 20px;
+    padding: 40px;
+    min-height: 420px;
+}
+
+.card{
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.card-img img{
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+}
+
+.card-icon img {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 16px;
+}
+
+.card-texto h3 {
+  font-family: "Geist Mono", monospace;
+  color: #ffffff;
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.card-texto p {
+  font-family: "Geist Mono", monospace;
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.card-nav {
+  position: absolute;
+  bottom: 24px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-btn {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #0d56df;
+  border-radius: 8px;
+  color: #60a5fa;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-btn:hover {
+  background-color: #0d56df;
+  color: #fff;
+}
+
+.contador {
+  font-family: "Geist Mono", monospace;
+  color: #cbd5e1;
+  font-size: 14px;
+  min-width: 32px;
+  text-align: center;
+}
+
+#c1:checked ~ .carrossel-borda #card1,
+#c2:checked ~ .carrossel-borda #card2,
+#c3:checked ~ .carrossel-borda #card3,
+#c4:checked ~ .carrossel-borda #card4 {
+  display: grid;
+}
+
+#c1:checked ~ .carrossel-borda .nav-btn[data-active="c1"],
+#c2:checked ~ .carrossel-borda .nav-btn[data-active="c2"],
+#c3:checked ~ .carrossel-borda .nav-btn[data-active="c3"],
+#c4:checked ~ .carrossel-borda .nav-btn[data-active="c4"] {
+  display: flex;
+}
+
+#c1:checked ~ .carrossel-borda .contador::before { content: "1/4"; }
+#c2:checked ~ .carrossel-borda .contador::before { content: "2/4"; }
+#c3:checked ~ .carrossel-borda .contador::before { content: "3/4"; }
+#c4:checked ~ .carrossel-borda .contador::before { content: "4/4"; }
+
 @media (max-width: 768px) {
   .menu-btn {
     display: flex;
@@ -296,6 +428,23 @@ section{
 
   .img-sct2 img {
     height: 300px;
+  }
+
+  .carrossel-borda {
+    padding: 24px;
+  }
+
+  .card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card-img img {
+    height: 220px;
+  }
+
+  .card-nav {
+    right: 24px;
   }
 
   
