@@ -1,132 +1,302 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-*{
+@import url('https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+:root {
+  --first-color: #030A14;
+  --second-color: #0B1624;
+  --third-color: #2F81F7;
+  --text-color: #FFF;
+  --hover: #101D2D;
+  --contrast: rgba(0, 0, 0, 0.5);
+}
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+body {
+  background-color: var(--first-color);
+  color: var(--text-color);
+}
+
+h1,
+h2 {
+  font-family: "Geist Mono", monospace;
+  font-weight: bold;
+}
+
+p,
+span {
   font-family: "Montserrat", sans-serif;
 }
 
-body, html{
-  width: 100%;
-  height: 100%;
-  background: #f4f7fb;
-}
-.container{
-  width: 20%;
-  min-width: 240px;
-  height: 100%;
-}
-.sidebar {
-  background-color: #091522;
-  color: #f8fafc;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px 12px 28px;
+
+a {
+  color: var(--text-color);
 }
 
-.sidebar_top_wrapper{
+.container {
   display: flex;
-  align-items: center;
+  width: 100%;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  background-color: var(--second-color);
+  height: 100vh;
+  padding: 1rem 2rem;
   justify-content: space-between;
-  height: 44px;
+  transition: 0.5s ease;
+}
+
+.sidebar_logo img {
+  width: 5.5rem;
+  background-color: #2F81F7;
+  border-radius: 1rem;
+  margin-right: 1.5rem;
 }
 
 .sidebar_logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: .2px;
 }
 
-.sidebar_logo img {
-  width: 42px;
-  height: 42px;
-  border-radius: 9px;
-  object-fit: cover;
+.sidebar_logo span {
+  font-size: 1.7rem;
+  font-family: "Geist Mono", monospace;
+  font-weight: bold;
+}
+
+.sidebar_account_photo {
+  width: 5rem;
+}
+
+.sidebar_top_wrapper {
+  display: flex;
+  justify-content: space-between;
 }
 
 .sidebar_close {
-  border: 0;
   background: none;
-  color: #d9e0e8;
-  font-family: "Geist Mono", monospace;
-  font-size: 25px;
-  line-height: 1;
-  padding: 7px 10px;
+  border: none;
   cursor: pointer;
+}
+
+.sidebar_close i {
+  color: var(--text-color);
+  font-size: 1.7rem;
 }
 
 .sidebar_mid_wrapper {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin-top: 72px;
-  margin-bottom: auto;
 }
 
-.sidebar_mid_item,
-.sidebar_bot_leave {
+.sidebar_list {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 40px;
-  padding: 0 8px;
-  border-radius: 5px;
-  color: #f3f6fa;
-  font-size: 13px;
-  text-decoration: none;
+  flex-direction: column;
 }
 
-.sidebar_mid_item:hover,
-.sidebar_mid_item.is_active,
-.sidebar_bot_leave:hover {
-  background: #07101b;
+
+.sidebar_items {
+  padding: 1rem 1rem;
+  font-size: 1.3rem;
+  transition: 0.5s ease;
+  display: flex;
+  gap: 1rem;
 }
 
+.sidebar_items p {
+  font-size: 1.3rem;
+}
+
+.sidebar_items span {
+  display: flex;
+  gap: 1rem;
+}
+
+.selected_items {
+  background-color: var(--contrast);
+}
+
+.sidebar_items:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: 0.5s ease;
+}
 
 .sidebar_bot_wrapper {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1rem;
 }
 
 .sidebar_account_wrapper {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 8px;
+  gap: 1rem;
 }
 
-.sidebar_account_photo {
-  width: 38px;
-  height: 38px;
-  border-radius: 40%;
-  object-fit: cover;
+.card_logout {
+  height: 2.3rem;
+  display: flex;
+  align-items: center;
+  width: 70%;
 }
+
+.card_logout span {
+  font-size: 1.3rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  margin-left: 1rem;
+}
+
+.card_logout i {
+  font-size: 1.7rem;
+}
+
 
 .sidebar_account_infos {
   display: flex;
-  min-width: 0;
   flex-direction: column;
-  gap: 2px;
+  gap: 0.5rem;
 }
 
-.sidebar_account_infos strong {
-  font-size: 12px;
-  font-weight: 600;
+.sidebar_account_infos p:last-child {
+  color: rgba(255, 255, 255, 0.5);
 }
 
-.sidebar_account_infos span {
-  color: #9aa8b8;
-  font-size: 9px;
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 3rem;
+  gap: 2rem;
 }
 
-.sidebar_bot_leave {
-  width: 78%;
+.server-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.server-header .title-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+
+.title-header time {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+}
+
+.new-server {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.btn-add-server {
+  background-color: var(--third-color);
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  color: var(--text-color);
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.server-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.server-content-header h2 {
+  font-family: "Geist", sans-serif;
+  font-weight: 800;
+}
+
+.server-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.server-card {
+  background-color: var(--second-color);
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2rem;
+  box-shadow: 0 3px 3px rgba(255, 255, 255, 0.1);
+  gap: 2rem;
+}
+
+.server-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.server-card-details {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.server-card-details-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #15803D;
+  color: #BBF7D0;
+  border-radius: 0.7rem;
+  width: 5rem;
+  height: 2rem;
+}
+
+.server-card-info {
+  display: flex;
+  color: rgba(255, 255, 255, 0.4);
+  gap: 4rem;
+}
+
+.server-card-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.server-card-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.server-card-actions i {
+  font-size: 1.4rem;
+  color: var(--text-color);
+}
+
+/* CLOSED */
+.sidebar.closed {
+  width: 10%;
+}
+
+.sidebar.closed .text-sidebar {
+  display: none;
+  transition: 0.5s ease;
+}
+
+.sidebar.closed .selected_items {
+  background-color: transparent;
 }
