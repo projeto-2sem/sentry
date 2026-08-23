@@ -3,7 +3,6 @@
 :root {
     --azul-escuro: #071224;
     --azul-medio: #0D56DF;
-    --gradiente-fundo: linear-gradient(to bottom right, #4235F2, #2218A7, #1A1190);
 }
 
 body {
@@ -18,7 +17,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .card {
@@ -30,7 +29,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     color: #fafafa;
     min-width: 310px;
     min-height: fit-content;
@@ -54,7 +53,6 @@ body {
 .formulario {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     padding: 0 20px;
     margin: 10px 0;
 }
@@ -63,16 +61,26 @@ body {
     display: flex;
     flex-direction: column;
     gap: 3px;
+    position: relative;
+    font-weight: 700;
 }
 
-.card input {
+.campo img {
+    width: 20px;
+    position: absolute;
+    bottom: 5px;
+    left: 7px;
+}
+
+.campo input {
     border-radius: 4px;
     background: var(--azul-escuro);
     border-color: var(--azul-medio);
     border-style: solid;
     border-width: 1px;
     width: 250px;
-    height: 25px;
+    height: 30px;
+    padding-left: 35px;
 }
 
 .card button {
@@ -86,6 +94,10 @@ body {
     font-weight: 600;
 }
 
+.botao:hover {
+    background-color: #346dc9;
+    cursor: pointer;
+}
 
 .footer {
     display: flex;
@@ -97,7 +109,20 @@ body {
     padding: 10px;
 }
 
-.card-cadastro {
-    display: grid;
-    column-gap: 200px 200px;
+  @media (width >= 48rem) {
+    .md\:grid {
+      display: grid;
+    }
+    .md\:w-auto {
+      width: auto;
+    }
+    .md\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .md\:gap-x-5 {
+      column-gap: calc(var(--spacing) * 5);
+    }
+    .md\:gap-y-7 {
+      row-gap: calc(var(--spacing) * 7);
+    }
 }

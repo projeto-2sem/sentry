@@ -3,3 +3,5 @@ package-lock.json
 
 .env
 .env.dev
+
+npx @tailwindcss/cli -i public/css/staly.css -o public/css/output.css --watch

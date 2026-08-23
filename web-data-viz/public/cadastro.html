@@ -18,46 +18,55 @@
 <body onload="listar()"
   class="flex flex-col bg-[#071224] md:bg-[url('../assets/bgd_imgs/fundo-cadastro.png')] bg-cover bg-repeat">
 
-  <div class="login">
+  <div class="login justify-end mb-9 md:justify-center mt-7">
     <div class="alerta_erro">
       <div class="card_erro" id="cardErro">
         <span id="mensagem_erro"></span>
       </div>
     </div>
     <!-- <div class="container"> -->
-    <div class="card card-cadastro md:w-xl">
-      <div class="text">
-        <h2>Crie sua conta</h2>
-        <p>Preencha os dados abaixo para se cadastrar</p>
+    <div class="card relative md:w-xl md:h-[525px] md:p-2">
+      <div class="card-top">
+        <img class="w-6 h-6 hover:cursor-pointer" src="./assets/icon/voltar.png" alt="Voltar">
+        <div class="text-conta">
+          <h2 class="text-2xl font-bold">Crie sua conta</h2>
+          <p class="m-1 text-xs">Preencha os dados abaixo para se cadastrar</p>
+        </div>
       </div>
-      <div class="formulario grid-cols-2">
+      <div class="formulario gap-1.5 md:grid md:grid-cols-2 md:w-auto md:gap-y-7 md:gap-x-5">
         <div class="campo">
           <span>Nome Completo</span>
+          <img src="./assets/icon/adicionar-usuario.png" alt="">
           <input id="nome_input" type="text" placeholder="Digite seu nome completo" />
         </div>
         <div class="campo">
-          <span>Código de ativação:</span>
-          <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
+          <span>Cargo/Função:</span>
+          <img src="./assets/icon/trabalhador.png" alt="">
+          <input id="codigo_input" type="text" placeholder="Ex: Engenheiro, Técnico..." />
         </div>
         <div class="campo">
           <span>E-mail:</span>
+          <img src="./assets/icon/adicionar-usuario.png" alt="">
           <input id="email_input" type="text" placeholder="seuemail@exemplo.com" />
         </div>
         <div class="campo">
           <span>Código de ativação:</span>
+          <img src="./assets/icon/usuario-com-monitor-de-computador-e-graficos-de-barras.png" alt="">
           <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
         </div>
         <div class="campo">
           <span>Senha:</span>
+          <img src="./assets/icon/cadeado.png" alt="">
           <input id="senha_input" type="password" placeholder="******" />
         </div>
         <div class="campo">
           <span>Confirmação da Senha:</span>
+          <img src="./assets/icon/cadeado.png" alt="">
           <input id="confirmacao_senha_input" type="password" placeholder="******" />
         </div>
-        <button class="botao" onclick="cadastrar()">Continuar</button>
       </div>
-      <p>Já possui conta? <a href="./login.html">Faça login</a></p>
+      <button class="botao w-8" onclick="cadastrar()">Continuar →</button>
+      <p>Já possui conta? <a class="text-blue-700" href="./login.html">Faça login</a></p>
       <div id="div_aguardar" class="loading-div">
         <!-- <img src="./assets/circle-loading.gif" id="loading-gif" /> -->
       </div>
