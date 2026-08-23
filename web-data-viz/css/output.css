@@ -208,6 +208,12 @@
   .w-40 {
     width: calc(var(--spacing) * 40);
   }
+  .border-collapse {
+    border-collapse: collapse;
+  }
+  .resize {
+    resize: both;
+  }
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -219,6 +225,10 @@
   }
   .justify-center {
     justify-content: center;
+  }
+  .border {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
   }
   .bg-\[\#071224\] {
     background-color: #071224;
@@ -246,6 +256,13 @@
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
+  }
+  .underline {
+    text-decoration-line: underline;
+  }
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
   }
   @media (width >= 48rem) {
     .md\:w-md {
@@ -295,14 +312,13 @@ body {
 }
 .card-top {
   display: flex;
-  width: 95%;
-  gap: 5px;
+  width: 90%;
+  justify-content: center;
 }
 .text-conta {
   text-align: center;
   margin: 0px;
   padding: auto;
-  width: 90%;
 }
 .formulario {
   display: flex;
@@ -348,14 +364,26 @@ body {
   display: grid;
   column-gap: 200px 200px;
 }
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
 @property --tw-font-weight {
   syntax: "*";
   inherits: false;
 }
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
+      --tw-border-style: solid;
       --tw-font-weight: initial;
+      --tw-outline-style: solid;
     }
   }
 }
