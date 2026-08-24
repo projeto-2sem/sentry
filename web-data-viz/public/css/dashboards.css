@@ -63,6 +63,7 @@ a {
   background-color: #2F81F7;
   border-radius: 1rem;
   margin-right: 1.5rem;
+  transition: 0.5s   ease-in-out;
 }
 
 .sidebar_logo {
@@ -78,6 +79,7 @@ a {
 
 .sidebar_account_photo {
   width: 5rem;
+  transition: 0.5 ease-in-out;
 }
 
 .sidebar_top_wrapper {
@@ -290,7 +292,7 @@ main {
 
 /* CLOSED */
 .sidebar.closed {
-  width: 10%;
+  width: 7%;
 }
 
 .sidebar.closed .text-sidebar {
@@ -300,4 +302,23 @@ main {
 
 .sidebar.closed .selected_items {
   background-color: transparent;
+}
+
+.sidebar.closed .sidebar_logo img {
+  width: 3rem;
+  transition: 0.5s ease;
+}
+
+.sidebar.closed .sidebar_account_photo {
+  width: 3rem;
+  transition: 0.5 ease;
+}
+
+.sidebar.closed .sidebar_account_photo {
+  width: 3rem;
+  transition: 0.5 ease;
+}
+
+.sidebar.closed .sidebar_close i {
+  font-size: 1rem;
 }
