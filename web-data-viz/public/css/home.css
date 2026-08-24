@@ -569,6 +569,122 @@ section{
   background-color: #073384;
 }
 
+/* Footer */
+
+.footer{
+    background-color: #05101f;
+    border-top: 1px solid rgba(59, 130, 246, 0.15);
+    padding-top: 60px;
+}
+
+.footer .container{
+    padding: 0 clamp(24px, 5vw, 100px);
+}
+
+.cima{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 50px;
+}
+
+.footer-brand{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-brand .logo img{
+    height: 100px;
+}
+
+.footer-social{
+    display: flex;
+    gap: 12px;
+}
+
+.footer-social a{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #152744;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.footer-social a:hover{
+    background-color: #0d56df;
+}
+
+.footer-social img{
+    width: 16px;
+    height: 16px;
+}
+
+.footer-col{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.footer-col h4{
+    color: #ffffff;
+    font-family: "Geist", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.footer-col a{
+    color: #94a3b8;
+    font-family: "Geist Mono", monospace;
+    font-size: 13px;
+    text-decoration: none;
+    transition: 0.2s;
+    width: fit-content;
+}
+
+.footer-col a:hover{
+    color: #60a5fa;
+}
+
+.baixo{
+    border-top: 1px solid rgba(148, 163, 184, 0.15);
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.baixo p{
+    color: #64748b;
+    font-family: "Geist Mono", monospace;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.baixo-links{
+    display: flex;
+    gap: 24px;
+}
+
+.baixo-links a{
+    color: #64748b;
+    font-family: "Geist Mono", monospace;
+    font-size: 12px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.baixo-links a:hover{
+    color: #60a5fa;
+}
+
+
 /* ADAPTAÇÃO A OUTRAS TELAS */
 
 
@@ -674,6 +790,19 @@ section{
   .card-nav {
     right: 24px;
   }
+
+  .cima{
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-brand{
+        grid-column: span 2;
+    }
+
+    .baixo{
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
   
 }
