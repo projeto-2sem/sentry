@@ -50,7 +50,7 @@ a {
 .sidebar {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 17.5rem;
   background-color: var(--second-color);
   min-height: 100vh;
   padding: 1rem 2rem;
@@ -59,32 +59,33 @@ a {
 }
 
 .sidebar_logo img {
-  width: 5.5rem;
+  width: 4rem;
   background-color: #2F81F7;
   border-radius: 1rem;
-  margin-right: 1.5rem;
-  transition: 0.5s   ease-in-out;
+  transition: 0.5s ease-in-out;
 }
 
 .sidebar_logo {
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
 .sidebar_logo span {
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   font-family: "Geist Mono", monospace;
   font-weight: bold;
 }
 
 .sidebar_account_photo {
-  width: 5rem;
+  width: 4rem;
   transition: 0.5 ease-in-out;
 }
 
 .sidebar_top_wrapper {
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 .sidebar_close {
@@ -271,7 +272,7 @@ main {
 .server-card-info {
   display: flex;
   color: rgba(255, 255, 255, 0.4);
-  gap: 4rem;
+  gap: 2rem;
 }
 
 .server-card-actions {
@@ -292,7 +293,7 @@ main {
 
 /* CLOSED */
 .sidebar.closed {
-  width: 7%;
+  width: 7rem;
 }
 
 .sidebar.closed .text-sidebar {
@@ -305,12 +306,12 @@ main {
 }
 
 .sidebar.closed .sidebar_logo img {
-  width: 3rem;
+  width: 2.5rem;
   transition: 0.5s ease;
 }
 
 .sidebar.closed .sidebar_account_photo {
-  width: 3rem;
+  width: 2.5rem;
   transition: 0.5 ease;
 }
 
@@ -321,4 +322,66 @@ main {
 
 .sidebar.closed .sidebar_close i {
   font-size: 1rem;
+}
+
+.mobile-navbar {
+  display: none;
+}
+
+
+@media (max-width: 768px) {
+
+  main {
+    padding: 1.5rem;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .server-card {
+    padding: 3rem;
+  }
+
+  .server-card-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .server-card-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mobile-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--second-color);
+
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .sidebar_list_mobile {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .sidebar_items_mobile i {
+    font-size: 1.5rem;
+  }
+
+  .selected_items {
+    background-color: transparent;
+    color: var(--third-color);
+  }
 }
