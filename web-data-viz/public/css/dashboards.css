@@ -128,7 +128,7 @@ a {
 }
 
 .selected_items {
-  background-color: var(--contrast);
+  color: var(--third-color);
 }
 
 .sidebar_items:hover {
@@ -302,7 +302,7 @@ main {
 }
 
 .sidebar.closed .selected_items {
-  background-color: transparent;
+  color: var(--third-color);
 }
 
 .sidebar.closed .sidebar_logo img {
