@@ -34,7 +34,6 @@ h1 {
 
 .content-create p {
     font-size: 1.3rem;
-    line-height: 1.5;
 }
 
 main {
@@ -48,13 +47,13 @@ main {
     min-height: 80vh;
     min-width: 40vw;
     max-width: 50vw;
-    padding: 1rem 5rem;
+    padding: 3rem 5rem 1rem 5rem;
     background-color: var(--primary-color);
     border-radius: 2rem;
     border: 1px solid var(--secondary-color);
     display: flex;
     flex-direction: column;
-    gap: 4rem;
+    gap: 5rem;
 }
 
 .header-form {
@@ -153,7 +152,6 @@ main {
 }
 
 .content-footer {
-    margin-top: 1rem;
     text-align: center;
     height: 100%;
 }
