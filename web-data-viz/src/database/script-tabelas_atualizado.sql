@@ -1,14 +1,7 @@
+DROP DATABASE IF EXISTS sentry;
+
 CREATE DATABASE if not exists sentry;
 USE sentry;
-
-drop table if exists usuario;
-drop table if exists codigo_ativacao;
-drop table if exists servidor_medicao;
-drop table if exists servidor;
-drop table if exists empresa;
-drop table if exists tipo_medicao;
-drop table if exists sistema_operacional;
-drop table if exists endereco;
 
 CREATE TABLE endereco (
   idEndereco INT PRIMARY KEY AUTO_INCREMENT,
@@ -23,19 +16,6 @@ CREATE TABLE endereco (
   data_atualizacao datetime default current_timestamp on update current_timestamp
 );
  
-CREATE TABLE sistema_operacional (
-  idSistemaOperacional INT PRIMARY KEY AUTO_INCREMENT,
-  nome VARCHAR(45) NOT NULL
-);
- 
-CREATE TABLE tipo_medicao (
-  idTipoMedicao INT PRIMARY KEY AUTO_INCREMENT,
-  nome VARCHAR(45) NOT NULL,
-  unidade_medida VARCHAR(45),
-  apelido VARCHAR(45) NOT NULL,
-  descricao TEXT
-);
- 
 CREATE TABLE empresa (
   idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
   nome_fantasia VARCHAR(255),
@@ -46,7 +26,7 @@ CREATE TABLE empresa (
   data_atualizacao datetime default current_timestamp on update current_timestamp,
   FOREIGN KEY (enderecoId) REFERENCES endereco(idEndereco)
 );
- 
+
 CREATE TABLE codigo_ativacao (
   idCodigo INT PRIMARY KEY AUTO_INCREMENT,
   codigo_ativacao VARCHAR(10) NOT NULL UNIQUE,
@@ -56,7 +36,28 @@ CREATE TABLE codigo_ativacao (
   data_atualizacao datetime default current_timestamp on update current_timestamp,
   FOREIGN KEY (empresaId) REFERENCES empresa(idEmpresa)
 );
- 
+
+
+CREATE TABLE usuario (
+  idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(255),
+  email VARCHAR(255),
+  senha VARCHAR(255),
+  empresaId INT NOT NULL,
+  cargo VARCHAR(30) DEFAULT 'Analista',
+  responsavel INT,
+  data_criacao datetime default current_timestamp,
+  data_atualizacao datetime default current_timestamp on update current_timestamp,
+  FOREIGN KEY (empresaId) REFERENCES empresa(idEmpresa),
+  FOREIGN KEY (responsavel) REFERENCES usuario(idUsuario),
+  CONSTRAINT fk_check_papel CHECK (cargo IN ('Administrador', 'Analista'))
+);
+
+CREATE TABLE sistema_operacional (
+  idSistemaOperacional INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(45) NOT NULL
+);
+
 CREATE TABLE servidor (
   idServidor INT PRIMARY KEY AUTO_INCREMENT,
   sistemaOperacionalId INT NOT NULL,
@@ -72,6 +73,14 @@ CREATE TABLE servidor (
   FOREIGN KEY (empresaId) REFERENCES empresa(idEmpresa)
 );
  
+CREATE TABLE tipo_medicao (
+  idTipoMedicao INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(45) NOT NULL,
+  unidade_medida VARCHAR(45),
+  apelido VARCHAR(45) NOT NULL,
+  descricao TEXT
+);
+
 CREATE TABLE servidor_medicao (
   servidorId INT,
   tipoMedicaoId INT,
@@ -80,20 +89,5 @@ CREATE TABLE servidor_medicao (
   PRIMARY KEY (servidorId, tipoMedicaoId),
   FOREIGN KEY (servidorId) REFERENCES servidor(idServidor),
   FOREIGN KEY (tipoMedicaoId) REFERENCES tipo_medicao(idTipoMedicao)
-);
- 
-CREATE TABLE usuario (
-  idUsuario INT PRIMARY KEY AUTO_INCREMENT,
-  nome VARCHAR(255),
-  email VARCHAR(255),
-  senha VARCHAR(255),
-  empresaId INT NOT NULL,
-  cargo VARCHAR(30) DEFAULT 'Analista',
-  responsavel INT,
-  data_criacao datetime default current_timestamp,
-  data_atualizacao datetime default current_timestamp on update current_timestamp,
-  FOREIGN KEY (empresaId) REFERENCES empresa(idEmpresa),
-  FOREIGN KEY (responsavel) REFERENCES usuario(idUsuario),
-  CONSTRAINT fk_check_papel CHECK (cargo IN ('Administrador', 'Analista'))
 );
  
