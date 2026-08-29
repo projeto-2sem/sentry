@@ -1,7 +1,6 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,193 +11,411 @@
 
     <!-- <link rel="icon" href="./assets/icon/favicon2.ico" /> -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/cadastro-empresa.css">
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/cadastro-empresa.css" />
+  </head>
 
-<body onload="listar()">
-
+  <body>
     <main>
-        <div class="container-form">
-            <header class="header-form">
-                <div class="content-return">
-                    <i class="bi bi-arrow-left-circle"></i>
-                </div>
-                <div class="content-create">
-                    <div class="title-create">
-                        <h1>Crie sua conta</h1>
-                        <p>Preencha os dados abaixo para se cadastrar</p>
-                    </div>
-                    <div class="stepper">
-                        <div class="step active" id="step_personal">
-                            <div class="circle activated" id="circle1">1</div>
-                            <div class="label">Empresa</div>
-                        </div>
-
-                        <div class="step active" id="step_acess">
-                            <div class="circle" id="circle2">2</div>
-                            <div class="label">Dados pessoais</div>
-                        </div>
-
-                        <div class="step active" id="step_confirmation">
-                            <div class="circle" id="circle3">3</div>
-                            <div class="label">Confirmação</div>
-                        </div>
-                    </div>
-                </div>
-
-            </header>
-
-            <section class="card-form">
-                <div class="container-inputs">
-                    <div class="wrapper-input">
-                        <div class="title-input">
-                            Nome fantasia
-                        </div>
-                        <div class="content-input">
-                            <input type="text" placeholder="Digite seu nome completo">
-                        </div>
-                    </div>
-                    <div class="wrapper-input">
-                        <div class="title-input">
-                            Razão social
-                        </div>
-                        <div class="content-input">
-                            <input type="text" placeholder="Digite seu nome completo">
-                        </div>
-                    </div>
-                    <div class="wrapper-input">
-                        <div class="title-input">
-                            Cnpj
-                        </div>
-                        <div class="content-input">
-                            <input type="text" placeholder="Digite seu nome completo">
-                        </div>
-                </div>
-            </section>
-            <div class="content-footer">
-                <div class="content-button">
-                    <button class="btn-cadastrar">Continuar</button>
-                </div>
+      <div class="container-form">
+        <header class="header-form">
+          <div class="content-return">
+            <i class="bi bi-arrow-left-circle"></i>
+          </div>
+          <div class="content-create" id ="cabecalho">
+            <div class="title-create">
+              <h1>Crie sua conta</h1>
+              <p>Preencha os dados abaixo para se cadastrar</p>
             </div>
+            <div class="stepper">
+              <div class="step active" id="step_personal">
+                <div class="circle activated" id="circle1">1</div>
+                <div class="label">Empresa</div>
+              </div>
+
+              <div class="step active" id="step_acess">
+                <div class="circle" id="circle2">2</div>
+                <div class="label">Endereço</div>
+              </div>
+
+              <div class="step active" id="step_acess">
+                <div class="circle" id="circle3">3</div>
+                <div class="label">Dados Pessoais</div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="card-form">
+          <div class="container-inputs" id="inputs1">
+            <div class="wrapper-input">
+              <div class="title-input">Nome fantasia</div>
+              <div class="content-input">
+                <input
+                  type="text"
+                  placeholder="Digite o nome da empresa"
+                  id="iptnome_fantasia"
+                />
+              </div>
+            </div>
+            <div class="wrapper-input">
+              <div class="title-input">Razão social</div>
+              <div class="content-input">
+                <input
+                  type="text"
+                  placeholder="Digite o nome da empresa"
+                  id="iptrazao_social"
+                />
+              </div>
+            </div>
+            <div class="wrapper-input">
+              <div class="title-input">Cnpj</div>
+              <div class="content-input">
+                <input
+                  type="text"
+                  placeholder="00000000000"
+                  id="iptcnpj"
+                  maxlength="11"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="container-inputs" id="inputs2">
+            <div class="wrapper-input">
+              <div class="title-input">CEP</div>
+              <div class="content-input">
+                <input type="text" placeholder="00000-000" id="ipt_cep" oninput="pegarEndereco(this.value)"/>
+              </div>
+            </div>
+            <div class="wrapper-input">
+              <div class="title-input">Estado</div>
+              <div class="content-input">
+                <input
+                  type="text"
+                  placeholder="ex: São Paulo"
+                  id="ipt_estado"
+                />
+              </div>
+            </div>
+            <div class="wrapper-input">
+              <div class="title-input">Cidade</div>
+              <div class="content-input">
+                <input
+                  type="text"
+                  placeholder="ex: São Paulo"
+                  id="ipt_cidade"
+                />
+              </div>
+            </div>
+            <div class="wrapper-input">
+              <div class="title-input">Bairro</div>
+              <div class="content-input">
+                <input
+                  type="text"
+                  placeholder="ex: Jardim Brasil"
+                  id="ipt_bairro"
+                />
+              </div>
+            </div>
+            <div class="wrapper-input">
+              <div class="title-input">Rua</div>
+              <div class="content-input">
+                <input
+                  type="text"
+                  placeholder="ex: Rua das Flores"
+                  id="ipt_rua"
+                />
+              </div>
+            </div>
+            <div class="wrapper-input">
+              <div class="title-input">Número</div>
+              <div class="content-input">
+                <input
+                  type="text"
+                  placeholder="ex: 202"
+                  id="ipt_numero"
+                  maxlength="5"
+                />
+              </div>
+            </div>
+            <div class="wrapper-input">
+              <div class="title-input">Complemento</div>
+              <div class="content-input">
+                <input
+                  type="text"
+                  placeholder="ex: andar, bloco"
+                  id="ipt_complemento"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="container-inputs" id="inputs3">
+            <div class="wrapper-input">
+              <div class="title-input">Nome</div>
+              <div class="content-input">
+                <input
+                  type="text"
+                  placeholder="Digite seu nome completo"
+                  id="ipt_nome"
+                />
+              </div>
+            </div>
+            <div class="wrapper-input">
+              <div class="title-input">Email</div>
+              <div class="content-input">
+                <input
+                  type="text"
+                  placeholder="seuemail@exemplo.com"
+                  id="ipt_email"
+                />
+              </div>
+            </div>
+            <div class="wrapper-input">
+              <div class="title-input">Senha</div>
+              <div class="content-input">
+                <input type="text" placeholder="************" id="ipt_senha" />
+              </div>
+            </div>
+            <div class="wrapper-input">
+              <div class="title-input">Confirmar senha</div>
+              <div class="content-input">
+                <input
+                  type="text"
+                  placeholder="************"
+                  id="ipt_confirmar"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="content-footer">
+          <div class="content-button" id="button1">
+            <button class="btn-cadastrar" onclick="continuar1()">
+              Continuar
+            </button>
+          </div>
+          <div class="content-button" id="button2">
+            <button class="btn-cadastrar" onclick="continuar2()">
+              Continuar
+            </button>
+          </div>
+          <div class="content-button" id="button3">
+            <button class="btn-cadastrar" onclick="cadastrar()">
+              Confirmar Dados
+            </button>
+          </div>
         </div>
+      </div>
     </main>
-
-</body>
-
+  </body>
 </html>
 
 <script>
+  var nome_fantasia = null;
+  var razao_social = null;
+  var cnpj = null;
 
-    // Array para armazenar empresas cadastradas para validação de código de ativação 
-    let listaEmpresasCadastradas = [];
+  var cep = null;
+  var estado = null;
+  var cidade = null;
+  var bairro = null;
+  var rua = null;
+  var numero = null;
+  var complemento = null;
 
-    function cadastrar() {
-        // aguardar();
+  var nome = null;
+  var email = null;
+  var senha = null;
+  var confirmar = null;
 
-        //Recupere o valor da nova input pelo nome do id
-        // Agora vá para o método fetch logo abaixo
-        var nomeVar = nome_input.value;
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
-        var confirmacaoSenhaVar = confirmacao_senha_input.value;
-        var codigoVar = codigo_input.value;
-        var idEmpresaVincular
+  inputs2.style.display = "none";
+  inputs3.style.display = "none";
 
-        // Verificando se há algum campo em branco
-        if (
-            nomeVar == "" ||
-            emailVar == "" ||
-            senhaVar == "" ||
-            confirmacaoSenhaVar == "" ||
-            codigoVar == ""
-        ) {
-            cardErro.style.display = "block";
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para todos os campos em branco)";
+  button2.style.display = "none";
+  button3.style.display = "none";
 
-            finalizarAguardar();
-            return false;
+  function continuar1() {
+    nome_fantasia = iptnome_fantasia.value;
+    razao_social = iptrazao_social.value;
+    cnpj = iptcnpj.value;
+
+    if (nome_fantasia == "" || razao_social == "" || cnpj == "") {
+      alert("Preencha todos os campos");
+      return
+    }
+    else if (nome_fantasia.length < 3) {
+      alert("Digite um nome válido");
+      return
+    }
+    else if (razao_social.length < 10) {
+      alert("Digite uma razão válida");
+      return
+    }
+
+    inputs1.style.display = "none";
+    inputs2.style.display = "grid";
+    inputs3.style.display = "none";
+
+    button1.style.display = "none";
+    button2.style.display = "block";
+    button3.style.display = "none";
+
+  }
+
+  async function pegarEndereco(cep) {
+    try {
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        const data = await response.json();
+        ipt_estado.value = data.uf;
+        ipt_cidade.value = data.localidade;
+        ipt_bairro.value = data.bairro;
+        ipt_rua.value = data.logradouro;
+        
+        if (data.erro) {
+            console.log("cep nao encontrado");
+            return;
+        }
+        
+        console.log("Endereço encontrado:", data);
+        return data
+    } catch (error) {
+        console.error("erro ao pegar endereço", error);
+    }
+}
+
+  function continuar2() {
+    cep = ipt_cep.value;
+    console.log(cep)
+    estado = ipt_estado.value;
+    console.log(estado)
+    cidade = ipt_cidade.value;
+    bairro = ipt_bairro.value;
+    rua = ipt_rua.value;
+    numero = Number(ipt_numero.value);
+    complemento = ipt_complemento.value;
+
+    if (
+      cep == "" ||
+      estado == "" ||
+      cidade == "" ||
+      bairro == "" ||
+      rua == "" ||
+      numero == ""
+    ) {
+      alert("Preencha todos os campos");
+      return
+    }
+
+    inputs1.style.display = "none";
+    inputs2.style.display = "none";
+    inputs3.style.display = "grid";
+
+    button1.style.display = "none";
+    button2.style.display = "none";
+    button3.style.display = "block";
+  }
+
+  function cadastrar() {
+    var nome = ipt_nome.value;
+    var email = ipt_email.value;
+    var senha = ipt_senha.value;
+    var confirmar = ipt_confirmar.value;
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (nome == "" || email == "" || senha == "" || confirmar == "") {
+      alert("Preencha todos os campos");
+      return
+    }
+
+    else if (!re.test(email)) {
+      alert("Informe um email válido");
+      return
+    }
+
+    else if (nome.length < 3) {
+      alert("Digite um nome válido");
+      return
+    }
+
+    if (senha.length < 4) {
+      alert("Senha muito curta")
+      return
+
+    } else if (
+      !senha.includes("!") &&
+      !senha.includes("@") &&
+      !senha.includes("#") &&
+      !senha.includes("$")
+    ) {
+      alert("Use um caractere especial (! @ # $)")
+      return
+
+    } else if (senha != confirmar) {
+      alert("Senhas não coincidem")
+      return
+    }
+
+    inputs1.style.display = "none";
+    inputs2.style.display = "none";
+    inputs3.style.display = "none";
+
+    button1.style.display = "none";
+    button2.style.display = "none";
+    button3.style.display = "none";
+
+    cabecalho.style.display = "none";
+
+
+    fetch("/empresa/cadastrarEmpresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+    
+        nomeFantasiaServer: nome_fantasia,
+        razaoSocialServer: razao_social,
+        cnpjServer: cnpj,
+        cepServer: cep,
+        estadoServer: estado,
+        cidadeServer: cidade,
+        bairroServer: bairro,
+        logradouroServer: rua,
+        numeroServer: numero,
+        complementoServer: complemento,
+        nomeServer: nome,
+        emailServer: email,
+        senhaServer: senha
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+
+          mensagem_erro.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+        
         } else {
-            setInterval(sumirMensagem, 5000);
+          throw "Houve um erro ao tentar realizar o cadastro!";
         }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
 
-        // Verificando se o código de ativação é de alguma empresa cadastrada
-        for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-            if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-                idEmpresaVincular = listaEmpresasCadastradas[i].id
-                console.log("Código de ativação válido.");
-                break;
-            } else {
-                cardErro.style.display = "block";
-                mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-                finalizarAguardar();
-            }
-        }
-
-        // Enviando o valor da nova input
-        fetch("/usuarios/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar,
-                idEmpresaVincularServer: idEmpresaVincular
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok) {
-                    cardErro.style.display = "block";
-
-                    mensagem_erro.innerHTML =
-                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-                    setTimeout(() => {
-                        window.location = "login.html";
-                    }, "2000");
-
-                    limparFormulario();
-                    finalizarAguardar();
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                finalizarAguardar();
-            });
-
-        return false;
-    }
-
-    // Listando empresas cadastradas 
-    function listar() {
-        fetch("/empresas/listar", {
-            method: "GET",
-        })
-            .then(function (resposta) {
-                resposta.json().then((empresas) => {
-                    empresas.forEach((empresa) => {
-                        listaEmpresasCadastradas.push(empresa);
-
-                        console.log("listaEmpresasCadastradas")
-                        console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-                    });
-                });
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-    }
-
-    function sumirMensagem() {
-        cardErro.style.display = "none";
-    }
+    return false;
+  }
 </script>
