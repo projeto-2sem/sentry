@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="h-11/12 w-full flex flex-col items-center justify-center md:flex-row md:items-end md:gap-6 md:justify-around">
-            <div class="m-2 invisible md:visible">
+            <div class="m-2 hidden md:block">
                 <h2 class="text-lg font-light text-(--azul-medio)">MONITORAMENTO INTELIGENTE</h2>
                 <p class="text-white font-light">Mais performance. Mais segurança. Operações contínuas.</p>
             </div>
@@ -54,11 +54,11 @@
                     </div>
                     <button class="botao" onclick="entrar()">ENTRAR</button>
                     <!-- <a>Esqueceu sua senha?</a> -->
-                    <!-- <div id="div_aguardar" class="loading-div">
-                         <img src="./assets/circle-loading.gif" id="loading-gif"> -->
-                    <!-- </div> --> 
+                    <div id="div_aguardar" class="loading-div hidden">
+                        <!-- <img class="hidden" src="./assets/circle-loading.gif" id="loading-gif"> -->
+                    </div>
 
-                    <!-- <div id="div_erros_login"></div> -->
+                    <div class="hidden" id="div_erros_login"></div>
                 </div>
                 <div class="footer m-1">
                     <p>© 2026 SENTRY</p>
