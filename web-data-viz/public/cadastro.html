@@ -89,19 +89,23 @@
 <script>
 
   // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
+  // let listaEmpresasCadastradas = [];
 
   function cadastrar() {
     // aguardar();
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
+
+
     var nomeVar = nome_input.value;
     var cargoVar = cargo_input.value;
     var emailVar = email_input.value;
     var codigoVar = codigo_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
+
+    cargoVar = cargoVar.toLowerCase();
 
     // Verificando se há algum campo em branco
     if (
@@ -122,11 +126,35 @@
       setInterval(sumirMensagem, 5000);
     }
 
+    if (senhaVar > 8) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+      "A senha devem ter pelo menos 8 caracteres";
+      return false;
+    }
+
+    if (cargoVar != 'analista' && cargoVar != 'administrador') {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = "Insira um cargo valido";
+      return false;
+    }
+
     if (senhaVar != confirmacaoSenhaVar) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
-      "(Mensagem de erro para todos os campos em branco)";
+      "Senha e confirmação de senha devem ser iguais";
+      return false;
     }
+
+    let com = emailVar.indexOf(".com");
+    let arroba = emailVar.indexOf("@");
+
+     if (com < arroba || com < 7 || arroba < 2) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = "Insira um email valido";
+      return false;
+    }
+    
 
     // Verificando se o código de ativação é de alguma empresa cadastrada
     // for (let i = 0; i < listaEmpresasCadastradas.length; i++) {

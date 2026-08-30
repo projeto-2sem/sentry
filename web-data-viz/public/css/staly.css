@@ -20,6 +20,24 @@ body {
     justify-content: center;
 }
 
+
+.card_erro {
+  display: none;
+  background-color: #fff;
+  color: black;
+  width: 230px;
+  position: fixed;
+  border-radius: 4px;
+  border: var(--azul-medio) 3px solid;
+  padding: 10px;
+  margin-right: 10%;
+}
+
+.card_erro #mensagem_erro{
+  font-weight: 500;
+  font-size: 20px;
+}
+
 .card {
     background-color: var(--azul-escuro);
     border-radius: 10px;
