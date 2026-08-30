@@ -16,11 +16,16 @@ function cadastrar(nome, cargo, email, codigo_ativacao, senha) {
     
     //      O insert não da certo por conta da subquery
     var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, empresaId, cargo, responsavel) VALUES
-        ('${nome}', '${email}', "${senha}", 
-        (SELECT idEmpresa FROM empresa emp JOIN codigo_ativacao cod 
-        ON emp.idEmpresa = cod.empresaId AND codigo_ativacao = ${codigo_ativacao}), 
-        "${cargo}", (SELECT idUsuario FROM usuario WHERE responsavel IS NULL));
+        INSERT INTO usuario (nome, email, senha, empresaId, cargo, responsavel)
+        SELECT
+            '${nome}', '${email}', "${senha}", emp.idEmpresa, '${cargo}', resp.idUsuario
+            FROM empresa emp
+            JOIN codigo_ativacao cod
+            ON emp.idEmpresa = cod.empresaId
+            JOIN usuario resp
+            ON resp.empresaId = emp.idEmpresa
+            AND resp.responsavel IS NULL
+            WHERE cod.codigo_ativacao = '${codigo_ativacao}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
