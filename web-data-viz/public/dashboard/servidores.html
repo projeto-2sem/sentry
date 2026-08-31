@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 
-<body>
+<body onload="listar()">
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar_top_wrapper">
@@ -68,59 +68,16 @@
                 </div>
             </header>
             <section class="new-server">
-                <button class="btn-add-server">
+                <button class="btn-add-server" onclick="abrirCardCreate()">
                     Adicionar servidor
                 </button>
             </section>
             <section class="server-content">
                 <header class="server-content-header">
-                    <h2>Total de servidores: 2</h1>
+                    <h1 id="totalServidores">Total de servidores: 0</h1>
                 </header>
-                <div class="server-list">
-                    <article class="server-card">
-                        <header class="server-card-header">
-                            <div class="server-card-details">
-                                <div class="server-card-details-status">
-                                    <p>Ativo</p>
-                                </div>
-                                <div class="server-card-info">
-                                    <p>Data de instalação: 15/02/2008</p>
-                                    <p>|</p>
-                                    <p>Dell PowerEdge R750</p>
-                                </div>
-                            </div>
-                            <div class="server-card-actions">
-                                <button class="btn-action"><i class="bi bi-trash-fill"></i></button>
-                                <button class="btn-action"><i class="bi bi-pencil-square"></i></button>
-                                <button class="btn-action"><i class="bi bi-chevron-down"></i></button>
-                            </div>
-                        </header>
-                        <div class="server-card-body">
-                            <p>Servidor paranaicaba</p>
-                        </div>
-                    </article>
-                    <article class="server-card">
-                        <header class="server-card-header">
-                            <div class="server-card-details">
-                                <div class="server-card-details-status">
-                                    <p>Ativo</p>
-                                </div>
-                                <div class="server-card-info">
-                                    <p>Data de instalação: 15/02/2008</p>
-                                    <p>|</p>
-                                    <p>Dell PowerEdge R750</p>
-                                </div>
-                            </div>
-                            <div class="server-card-actions">
-                                <button class="btn-action"><i class="bi bi-trash-fill"></i></button>
-                                <button class="btn-action"><i class="bi bi-pencil-square"></i></button>
-                                <button class="btn-action"><i class="bi bi-chevron-down"></i></button>
-                            </div>
-                        </header>
-                        <div class="server-card-body">
-                            <p>Servidor paranaicaba</p>
-                        </div>
-                    </article>
+                <div class="server-list" id="serverList">
+
                 </div>
             </section>
         </main>
@@ -151,6 +108,136 @@
             </ul>
         </nav>
     </div>
+
+
+    <div class="cardEditSection" id="cardDeleteSection">
+        <div id="cardExclusao" class="card card-delete">
+
+            <div class="headCard">
+                <span>Excluir servidor</span>
+                <span id="sairCard" onclick="fecharCard('cardDeleteSection')">x</span>
+            </div>
+
+            <div class="bodyCard body-delete">
+                <i class="bi bi-exclamation-triangle-fill delete-icon"></i>
+
+                <p>
+                    Tem certeza que deseja excluir este servidor?
+                </p>
+
+                <span class="delete-warning">
+                    Essa ação não poderá ser desfeita.
+                </span>
+            </div>
+
+            <div class="card-footer">
+                <button type="button" class="btn-cancelar" onclick="fecharCard('cardDeleteSection')">
+                    Cancelar
+                </button>
+
+                <button type="button" class="btn-excluir" id="btnConfirmarExclusao">
+                    Excluir
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="cardEditSection" id="cardEditSection">
+        <div id="cardEdicao" class="card">
+            <div class="headCard">
+                <span>Editar Servidor</span>
+                <span id="sairCard" onclick="fecharCard('cardEditSection')">x</span>
+            </div>
+            <div class="bodyCard">
+
+                <div class="inputComTxt">
+                    <span class="txtInput">HostName <span class="txtDestaque">*</span></span>
+                    <input type="text" id="ipt_hostName">
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Apelido <span class="txtDestaque">*</span></span>
+                    <input type="text" id="ipt_apelido">
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Modelo <span class="txtDestaque">*</span></span>
+                    <select id="ipt_modelo">
+
+                    </select>
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
+                    <select id="ipt_situacao">
+                        <option value="ativo">Ativo</option>
+                        <option value="inativo">Inativo</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                <button type="button" class="btn-cancelar" onclick="fecharCard('cardEditSection')">
+                    Cancelar
+                </button>
+
+                <button type="button" class="btn-editar" onclick="editarServidor()">
+                    Editar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cardCreateSection" id="cardCreateSection">
+        <div id="cardCreate" class="card">
+            <div class="headCard">
+                <span>Adicionar Servidor</span>
+                <span id="sairCard" onclick="fecharCard('cardCreateSection')">x</span>
+            </div>
+            <div class="bodyCard">
+
+                <div class="inputComTxt">
+                    <span class="txtInput">HostName <span class="txtDestaque">*</span></span>
+                    <input type="text" id="ipt_hostName_create">
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Apelido <span class="txtDestaque">*</span></span>
+                    <input type="text" id="ipt_apelido_create">
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Modelo <span class="txtDestaque">*</span></span>
+                    <select id="ipt_modelo_create">
+
+                    </select>
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
+                    <select id="ipt_situacao_create">
+                        <option value="ativo">Ativo</option>
+                        <option value="inativo">Inativo</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                <button type="button" class="btn-cancelar" onclick="fecharCard('cardCreateSection')">
+                    Cancelar
+                </button>
+
+                <button type="button" class="btn-editar" onclick="adicionarServidor()">
+                    Adicionar
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
@@ -175,4 +262,215 @@
             i_move_side.classList.replace("bi-chevron-right", "bi-chevron-left");
         }
     }
+
+
+    //Precisamos remover essa linha quando o login estiver funcionando e o id esteja vindo do banco
+    sessionStorage.ID_EMPRESA = 1;
+
+    function listar() {
+        listarModelos();
+
+        fetch(`/servidores/listar/${sessionStorage.ID_EMPRESA}`, {
+            method: "GET",
+        }).then(function (resposta) {
+            return resposta.json();
+        }).then(function (servidores) {
+            listarServidores(servidores)
+        })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+    }
+
+    function listarModelos() {
+        fetch(`/servidores/modelos`, {
+            method: "GET",
+        }).then(function (resposta) {
+            return resposta.json();
+        }).then(function (modelos) {
+            console.log(modelos);
+            for (let i = 0; i < modelos.length; i++) {
+                ipt_modelo.innerHTML += `
+                    <option value=${modelos[i].idModelo}>${modelos[i].nome}</option>
+                `
+
+                ipt_modelo_create.innerHTML += `
+                    <option value=${modelos[i].idModelo}>${modelos[i].nome}</option>
+                `
+            }
+        })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function listarServidores(servidores) {
+        console.log(servidores);
+
+        //Precisa ter na tabela a situação (ativo, inativo, etc)
+        for (let i = 0; i < servidores.length; i++) {
+            const totalServidores = document.getElementById("totalServidores");
+            totalServidores.innerText = `Total de servidores: ${servidores.length}`
+
+            const serverList = document.getElementById("serverList");
+            serverList.innerHTML += `
+            <article class="server-card">
+                        <header class="server-card-header">
+                            <div class="server-card-details">
+                                <div class="server-card-details-status">
+                                    <p>Ativo</p>
+                                </div>
+                                <div class="server-card-info">
+                                    <p>Data de instalação: ${servidores[i].data_criacao}</p>
+                                    <p>|</p>
+                                    <p>${servidores[i].nome_modelo}</p>
+                                </div>
+                            </div>
+                            <div class="server-card-actions">
+                                <button class="btn-action" onclick="abrirCardDelete(${servidores[i].idServidor})">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                                <button class="btn-action"  onclick="abrirCardEdit(${servidores[i].idServidor}, '${servidores[i].hostName}', '${servidores[i].nome_modelo}', '${servidores[i].modeloId}')"><i class="bi bi-pencil-square"></i></button>
+                                <button class="btn-action"><i class="bi bi-chevron-down"></i></button>
+                            </div>
+                        </header>
+                        <div class="server-card-body">
+                            <p>${servidores[i].hostName}</p>
+                        </div>
+                    </article>
+            `;
+        }
+    }
+
+    function deletarCard(idServer) {
+        console.log(`Servidor: ${idServer}`)
+        alert("Server Deletado")
+        fetch(`/servidores/deletar/${idServer}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                location.reload()
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+
+    function editarServidor() {
+        let hostName = ipt_hostName.value;
+        let modelo = ipt_modelo.value;
+        let situacao = ipt_situacao.value;
+        let apelido = ipt_apelido.value;
+
+        console.log(hostName);
+        console.log(modelo);
+        console.log(situacao);
+
+        fetch(`/servidores/editar/${idEditar}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                hostName: ipt_hostName.value,
+                modeloId: ipt_modelo.value,
+                situacao: ipt_situacao.value,
+                apelido: ipt_apelido.value
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                location.reload();
+                window.alert("Servidor atualizado com sucesso");
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a edição! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+
+    let idEditar = 0;
+    function abrirCardEdit(idServer, hostName, modelo, modeloId) {
+        document.getElementById("cardEditSection").style.display = "flex";
+
+        document.getElementById("ipt_hostName").value = hostName;
+        // document.getElementById("ipt_apelido");
+        document.getElementById("ipt_modelo").value = modeloId;
+        document.getElementById("ipt_apelido").value = hostName;
+
+        idEditar = idServer;
+    }
+
+    function fecharCard(card) {
+        document.getElementById(card).style.display = "none";
+    }
+
+
+    let idServerExc = null;
+    function abrirCardDelete(idServer) {
+        idServerExc = idServer;
+
+        document.getElementById("cardDeleteSection").style.display = "flex";
+    }
+
+    document.getElementById("btnConfirmarExclusao").onclick = function () {
+
+        if (idServerExc != null) {
+            deletarCard(idServerExc);
+        }
+
+    };
+
+    function abrirCardCreate() {
+        document.getElementById("cardCreateSection").style.display = "flex";
+    }
+
+    function adicionarServidor() {
+        let hostName = ipt_hostName_create.value;
+        let modelo = ipt_modelo_create.value;
+        let situacao = ipt_situacao_create.value;
+        let apelido = ipt_apelido_create.value;
+
+        fetch(`/servidores/adicionar/${sessionStorage.ID_EMPRESA}`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                hostName: ipt_hostName_create.value,
+                modeloId: ipt_modelo_create.value,
+                situacao: ipt_situacao_create.value,
+                apelido: ipt_apelido_create.value
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                location.reload();
+                window.alert("Servidor adicionado com sucesso!");
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a criação! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
 </script>
