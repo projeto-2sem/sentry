@@ -1,25 +1,8 @@
 @import "tailwindcss";
 
 :root {
-    --azul-escuro: #2218A7;
-    --azul-medio: #4235F2;
-    --gradiente-fundo: linear-gradient(to bottom right,#4235F2, #2218A7, #1A1190);
-}
-
-.card {
-    background-color: #00000081;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* justify-content: space-between; */
-    color: #fafafa;
-    min-width: fit-content;
-    min-height: fit-content;
-    width: 70%;
-    padding: 20px 10px;
-    gap: 10px;
-    box-shadow: 9px 8px 2px #14141479;
+    --azul-escuro: #071224;
+    --azul-medio: #0D56DF;
 }
 
 body {
@@ -32,38 +15,132 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: var(--gradiente-fundo); 
-}   
+}
 
-.formulario{
+
+.card_erro {
+  display: none;
+  background-color: #fff;
+  color: black;
+  width: 230px;
+  position: fixed;
+  border-radius: 4px;
+  border: var(--azul-medio) 3px solid;
+  padding: 10px;
+  margin-right: 10%;
+}
+
+.card_erro #mensagem_erro{
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.card {
+    background-color: var(--azul-escuro);
+    border-radius: 10px;
+    border-color: var(--azul-medio);
+    border-style: solid;
+    border-width: 1px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    color: #fafafa;
+    min-width: 310px;
+    min-height: fit-content;
+    padding: 20px 6px;
     gap: 10px;
+}
+
+.card-top {
+    display: flex;
+    width: 95%;
+    gap: 5px;
+}
+
+.text-conta {
+    text-align: center;
+    margin: 0px;
+    padding: auto;
+    width: 90%;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
     padding: 0 20px;
     margin: 10px 0;
 }
 
-.card h2 {
-    margin: 0;
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    position: relative;
+    font-weight: 600;
 }
 
-.card input {
-    border-radius: 3px;
-    border: var(--azul-escuro);
-    height: 20px;
+.campo img {
+    width: 20px;
+    position: absolute;
+    bottom: 5px;
+    left: 7px;
+}
+
+.campo input {
+    border-radius: 4px;
+    background: var(--azul-escuro);
+    border-color: var(--azul-medio);
+    border-style: solid;
+    border-width: 1px;
+    width: 250px;
+    height: 30px;
+    padding-left: 35px;
 }
 
 .card button {
     width: fit-content;
-    padding: 5px 30px ;
-    background: var(--azul-escuro);
+    padding: 5px 40px;
+    background: var(--azul-medio);
     color: #fafafa;
-    border: var(--azul-escuro);
-    border-radius: 3px;
-    box-shadow: 3px 2px 2px #110C5F;
+    border-color: var(--azul-medio);
+    border-radius: 5px;
+    border-style: solid;
+    font-weight: 600;
 }
-.card-login a {
-    color: rgba(250, 250, 250, 0.750);
+
+.botao:hover {
+    background-color: #346dc9;
+    cursor: pointer;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: x-small;
+    font-weight: 100;
+    color: #dddbdb;
+    padding: 10px;
+}
+
+  @media (width >= 48rem) {
+    .md\:grid {
+      display: grid;
+    }
+    .md\:w-auto {
+      width: auto;
+    }
+    .md\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .md\:gap-x-5 {
+      column-gap: calc(var(--spacing) * 5);
+    }
+    .md\:gap-y-7 {
+      row-gap: calc(var(--spacing) * 7);
+    }
 }

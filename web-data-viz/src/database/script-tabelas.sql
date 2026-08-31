@@ -48,7 +48,7 @@ CREATE TABLE usuario (
     email VARCHAR(255),
     senha VARCHAR(255),
     empresaId INT,
-    papel_usuario VARCHAR(30) NOT NULL DEFAULT 'Analista',
+    papel_usuario VARCHAR(30) NOT NULL DEFAULT 'analista',
     
 	data_criacao datetime default current_timestamp,
 	data_atualizacao datetime default current_timestamp on update current_timestamp,
