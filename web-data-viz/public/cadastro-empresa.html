@@ -22,7 +22,7 @@
     <main>
       <div class="container-form">
         <header class="header-form">
-          <div class="content-return">
+          <div class="content-return" onclick="voltar()">
             <i class="bi bi-arrow-left-circle"></i>
           </div>
           <div class="content-create" id ="cabecalho">
@@ -217,6 +217,8 @@
 </html>
 
 <script>
+  var passoAtual = 1; 
+
   var nome_fantasia = null;
   var razao_social = null;
   var cnpj = null;
@@ -268,6 +270,8 @@
 
     circle1.classList.add("activated");
     step_personal.classList.add("activated");
+
+    passoAtual = 2;
 
   }
 
@@ -322,9 +326,11 @@
     button1.style.display = "none";
     button2.style.display = "none";
     button3.style.display = "block";
-    
+
     circle2.classList.add("activated");
     step_endereco.classList.add("activated");
+
+    passoAtual = 3;
   }
 
   function cadastrar() {
@@ -425,5 +431,46 @@
       });
 
     return false;
+  }
+
+  function voltar(){
+    if (passoAtual == 1) {
+        
+        history.back();
+        return;
+    }
+
+    if (passoAtual == 2) {
+    
+        inputs1.style.display = "grid";
+        inputs2.style.display = "none";
+        inputs3.style.display = "none";
+
+        button1.style.display = "block";
+        button2.style.display = "none";
+        button3.style.display = "none";
+
+        circle2.classList.remove("activated");
+        step_personal.classList.remove("activated");
+
+        passoAtual = 1;
+    }
+
+    else if (passoAtual == 3) {
+        
+        inputs1.style.display = "none";
+        inputs2.style.display = "grid";
+        inputs3.style.display = "none";
+
+        button1.style.display = "none";
+        button2.style.display = "block";
+        button3.style.display = "none";
+
+        circle3.classList.remove("activated");
+        circle2.classList.add("activated");
+        step_endereco.classList.remove("activated");
+
+        passoAtual = 2;
+    }
   }
 </script>
