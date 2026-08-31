@@ -1,81 +1,360 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/home.css" />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="escudo">
+          <img src="assets/imgs/escudo_sentry.png" alt="Escudo" />
+        </div>
 
-    <title>AquaTech | Página Inicial</title>
+        <div class="logo">
+          <img src="assets/imgs/logo.png" alt="SENTRY" />
+        </div>
 
-    <script src="./js/sessao.js"></script>
+        <button
+          class="menu-btn"
+          id="menu-btn"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
-    <link rel="stylesheet" href="./css/estilo.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-</head>
-
-<body>
-    <div class="header">
-      <div class="container">
-        <h1 class="titulo">AquaTech</h1>
-        <ul class="navbar">
-          <li class="agora">
-            <a href="#">Inicial</a>
-          </li>
-          <li>
-            <a href="simulador.html">Simulador</a>
-          </li>
-          <li>|</li>
-          <li>
-            <a href="login.html">Login</a>
-          </li>
-          <li>
-            <a href="cadastro.html">Cadastro</a>
-          </li>
-        </ul>
+        <nav id="nav">
+          <ul class="navbar">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Solução</a></li>
+            <li><a href="#">Benefícios</a></li>
+            <li><a href="#">Entrar</a></li>
+            <li><a href="#" class="cadastro">Cadastre-se</a></li>
+          </ul>
+        </nav>
       </div>
-    </div>
-  
+    </header>
+
     <div class="banner">
       <div class="container">
-        <p>Preservando <span>hoje</span> para existirem <span>amanhã</span>.</p>
+        <div class="conteudo-banner">
+          <p>
+            PROTEGENDO A <br />
+            <span class="destaque">INFRAESTRUTURA QUE</span> <br />
+            MANTÉM SUA OPERAÇÃO <span class="destaque"> EM MOVIMENTO</span>.
+          </p>
+          <button>CONHEÇA A SOLUÇÃO →</button>
+        </div>
       </div>
     </div>
-  
-    <div class="social">
+
+    <section>
+      <div class="section2">
+        <div class="container-sct2">
+          <div class="content">
+            <div class="escudo-section2">
+              <img src="assets/imgs/escudopng.png" />
+            </div>
+            <div class="mensagem">
+              <p class="texto-principal">
+                Uma camada extra de
+                <span class="destaque">confiabilidade</span> para o
+                <span class="destaque">sistema SCADA</span>
+              </p>
+
+              <p class="texto">
+                O SCADA (Supervisory Control and Data Acquisition) centraliza as
+                informações de milhares de sensores espalhados por toda a
+                plataforma offshore, permitindo que operadores supervisionem
+                processos industriais críticos em tempo real.
+              </p>
+            </div>
+          </div>
+          <div class="img-sct2">
+            <img src="assets/imgs/operador.png" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section3">
+        <div class="titulo">
+          <h2>
+            COMO <span class="destaque">FUNCIONA</span> NOSSA
+            <span class="destaque">SOLUÇÃO</span>?
+          </h2>
+        </div>
+
+        <div class="carrossel">
+          <input
+            type="radio"
+            name="carrossel"
+            id="c1"
+            class="carrossel-radio"
+            checked
+          />
+          <input
+            type="radio"
+            name="carrossel"
+            id="c2"
+            class="carrossel-radio"
+          />
+          <input
+            type="radio"
+            name="carrossel"
+            id="c3"
+            class="carrossel-radio"
+          />
+          <input
+            type="radio"
+            name="carrossel"
+            id="c4"
+            class="carrossel-radio"
+          />
+
+          <div class="carrossel-borda">
+            <div class="card" id="card1">
+              <div class="card-img">
+                <img src="assets/imgs/cpu.png" alt="Monitoramento de CPU" />
+              </div>
+              <div class="card-texto">
+                <div class="card-icon">
+                  <img src="assets/icon/cpu.png" alt="" />
+                </div>
+                <h3>Monitoramento de CPU</h3>
+                <p>
+                  Acompanhe o uso do processador em tempo real e identifique
+                  possíveis situações de sobrecarga antes que afetem o
+                  desempenho do servidor.
+                </p>
+              </div>
+            </div>
+
+            <div class="card" id="card2">
+              <div class="card-img">
+                <img src="assets/imgs/rede.png" alt="Monitoramento de Rede" />
+              </div>
+              <div class="card-texto">
+                <div class="card-icon">
+                  <img src="assets/icon/rede.png" alt="" />
+                </div>
+                <h3>Monitoramento de Rede</h3>
+                <p>
+                  Monitore a latência e o tráfego de rede para garantir a
+                  comunicação contínua entre os sensores e o sistema SCADA.
+                </p>
+              </div>
+            </div>
+
+            <div class="card" id="card3">
+              <div class="card-img">
+                <img src="assets/imgs/disco.png" alt="Monitoramento de Disco" />
+              </div>
+              <div class="card-texto">
+                <div class="card-icon">
+                  <img src="assets/icon/disco.png" alt="" />
+                </div>
+                <h3>Monitoramento de Disco</h3>
+                <p>
+                  Acompanhe o espaço em disco utilizado e receba alertas antes
+                  que a capacidade se esgote.
+                </p>
+              </div>
+            </div>
+
+            <div class="card" id="card4">
+              <div class="card-img">
+                <img src="assets/imgs/ram.png" alt="Monitoramento de RAM" />
+              </div>
+              <div class="card-texto">
+                <div class="card-icon">
+                  <img src="assets/icon/ram.png" alt="" />
+                </div>
+                <h3>Monitoramento de RAM</h3>
+                <p>
+                  Visualize o consumo de memória RAM e antecipe gargalos que
+                  podem comprometer a estabilidade do sistema.
+                </p>
+              </div>
+            </div>
+
+            <div class="card-nav">
+              <label for="c4" class="nav-btn prev" data-active="c1">←</label>
+              <label for="c1" class="nav-btn prev" data-active="c2">←</label>
+              <label for="c2" class="nav-btn prev" data-active="c3">←</label>
+              <label for="c3" class="nav-btn prev" data-active="c4">←</label>
+
+              <span class="contador"></span>
+
+              <label for="c2" class="nav-btn next" data-active="c1">→</label>
+              <label for="c3" class="nav-btn next" data-active="c2">→</label>
+              <label for="c4" class="nav-btn next" data-active="c3">→</label>
+              <label for="c1" class="nav-btn next" data-active="c4">→</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section4">
+        <div class="titulo">
+          <h2>BENEFÍCIOS</h2>
+        </div>
+
+        <div class="cards-sct4">
+          <div class="card4">
+            <div class="card4-content">
+              <img src="assets/icon/logo-card-1.png" alt="" />
+              <h5>Disponibilidade</h5>
+              <p>
+                Servidores SCADA monitorados sem interrupção, garantindo que a
+                supervisão da plataforma nunca fique no escuro.
+              </p>
+            </div>
+          </div>
+
+          <div class="card4">
+            <div class="card4-content">
+              <img src="assets/icon/logo-card3.png" alt="" />
+              <h5>Monitoramento 24/7</h5>
+              <p>
+                Acompanhamento contínuo de CPU, memória, disco e rede, todos os
+                dias, a qualquer hora.
+              </p>
+            </div>
+          </div>
+
+          <div class="card4">
+            <div class="card4-content">
+              <img src="assets/icon/logo-card2.png" alt="" />
+              <h5>Insights</h5>
+              <p>
+                Dados de desempenho transformados em alertas e indicadores
+                claros para decisões rápidas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section5">
+        <div class="titulo-sct5">
+          <h2>NOSSOS DIFERENCIAIS</h2>
+        </div>
+        <div class="grid-sct5">
+          <div
+            class="card-diferencial card-grande"
+            style="background-image: url(&quot;./assets/imgs/sct5-2.jpg&quot;)"
+          >
+            <div class="texto-card5">
+              <h3>Monitoramento focado no SCADA</h3>
+              <p>Monitoramento com total foco na infraestrutura do SCADA</p>
+            </div>
+          </div>
+
+          <div
+            class="card-diferencial"
+            style="background-image: url(./assets/imgs/sct5-1.jpg)"
+          >
+            <div class="texto-card5">
+              <h3>Segurança</h3>
+              <p>Prezamos pela privacidade e segurança de sua aplicação</p>
+            </div>
+          </div>
+
+          <div
+            class="card-diferencial"
+            style="background-image: url(./assets/imgs/sct5-3.jpg)"
+          >
+            <div class="texto-card5">
+              <h3>Visão holística</h3>
+              <p>Buscando o melhor para o seu sistema SCADA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section6"
+      style="background-image: url(./assets/imgs/institucional2.png)"
+    >
+      <div class="sct6-container">
+        <div class="sct6-content">
+          <h2>
+            Transforme dados em
+            <span class="destaque"> ações inteligentes.</span>
+          </h2>
+          <p>Veja a falha antes que ela aconteça</p>
+        </div>
+        <button>COMECE AGORA →</button>
+      </div>
+    </section>
+
+    <div class="footer">
       <div class="container">
-        <div class="boxes">
-          <div class="box">
-            <img src="assets/imgs/planet-earth_color.png">
-            <h4>Missão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
+        <div class="cima">
+          <div class="footer-brand">
+            <div class="logo">
+              <img src="assets/imgs/logo-footer.png" alt="Logo Sentry" />
+            </div>
+            <div class="footer-social">
+              <a href="https://br.linkedin.com/"
+                ><img src="assets/icon/linkedin.png" alt="LinkedIn"
+              /></a>
+              <a href="https://github.com/orgs/projeto-2sem/repositories"
+                ><img src="assets/icon/github.png" alt="Facebook"
+              /></a>
+              <a href="https://www.youtube.com/watch?v=X79tPT3qQic"
+                ><img src="assets/icon/youtube.png" alt="Youtube"
+              /></a>
+            </div>
           </div>
-          <div class="box">
-            <img src="assets/imgs/lightbulb_color.png">
-            <h4>Visão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
+
+          <div class="footer-col">
+            <h4>Produtos</h4>
+            <a href="#">Plataforma Web</a>
+            <a href="#">Monitoramento</a>
+            <a href="#">Suporte Técnico</a>
           </div>
-          <div class="box">
-            <img src="assets/imgs/growth_color.png">
-            <h4>Valores</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
+
+          <div class="footer-col">
+            <h4>Empresa</h4>
+            <a href="#">Sobre Nós</a>
+            <a href="#">Contato</a>
+          </div>
+
+          <div class="footer-col">
+            <h4>Recursos</h4>
+            <a href="#">Documentação</a>
+            <a href="#">FAQ</a>
+            <a href="#">Suporte</a>
+          </div>
+        </div>
+
+        <div class="baixo">
+          <p>© 2026 SENTRY <br />Todos os direitos reservados.</p>
+          <div class="baixo-links">
+            <a href="#">Política de Privacidade</a>
+            <a href="#">Termos de Uso</a>
+            <a href="#">Cookies</a>
           </div>
         </div>
       </div>
     </div>
-  
-    <div class="footer">
-      <div class="container">
-        <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023-2026</h4>
-      </div>
-    </div>
-  </body>
 
+    <script src="./js/sessao.js"></script>
+    <script src="./js/navbar.js"></script>
+  </body>
 </html>
+<script></script>
