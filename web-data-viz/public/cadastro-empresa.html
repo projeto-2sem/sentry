@@ -32,16 +32,16 @@
             </div>
             <div class="stepper">
               <div class="step active" id="step_personal">
-                <div class="circle activated" id="circle1">1</div>
+                <div class="circle" id="circle1">1</div>
                 <div class="label">Empresa</div>
               </div>
 
-              <div class="step active" id="step_acess">
+              <div class="step active" id="step_endereco">
                 <div class="circle" id="circle2">2</div>
                 <div class="label">Endereço</div>
               </div>
 
-              <div class="step active" id="step_acess">
+              <div class="step active" id="step_dados">
                 <div class="circle" id="circle3">3</div>
                 <div class="label">Dados Pessoais</div>
               </div>
@@ -209,6 +209,7 @@
               Confirmar Dados
             </button>
           </div>
+          <p class="footer-desc">Ainda não possui conta? <span class="destaque">Faça login</span></p>
         </div>
       </div>
     </main>
@@ -265,6 +266,9 @@
     button2.style.display = "block";
     button3.style.display = "none";
 
+    circle1.classList.add("activated");
+    step_personal.classList.add("activated");
+
   }
 
   async function pegarEndereco(cep) {
@@ -318,6 +322,9 @@
     button1.style.display = "none";
     button2.style.display = "none";
     button3.style.display = "block";
+    
+    circle2.classList.add("activated");
+    step_endereco.classList.add("activated");
   }
 
   function cadastrar() {
@@ -369,6 +376,7 @@
     button3.style.display = "none";
 
     cabecalho.style.display = "none";
+    circle3.classList.add("activated");
 
 
     fetch("/empresa/cadastrarEmpresa", {
