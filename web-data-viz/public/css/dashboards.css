@@ -223,6 +223,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  max-height: 30rem;
 }
 
 .server-content-header h2 {
@@ -234,6 +235,17 @@ main {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
+  overflow-y: auto;
+  border-radius: 20px;
+  height: 100%;
+}
+
+.server-list::-webkit-scrollbar {
+
+  /* color: aquamarine; */
+  height: 20px;
+  width: 2px;
 }
 
 .server-card {
@@ -384,4 +396,305 @@ main {
     background-color: transparent;
     color: var(--third-color);
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Cards */
+.cardEditSection {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  padding: 20px;
+  z-index: 9999;
+}
+
+.cardCreateSection {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  padding: 20px;
+  z-index: 9999;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+
+  width: 700px;
+  max-width: 100%;
+  min-height: 350px;
+
+  background-color: #101D2D;
+  border-radius: 20px;
+  color: white;
+  overflow: hidden;
+}
+
+.headCard {
+  display: flex;
+  width: 100%;
+  min-height: 50px;
+
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 25px;
+  font-weight: bold;
+
+  padding: 4% 5% 0;
+}
+
+.bodyCard {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+
+  gap: 20px;
+
+  padding: 40px 20px 20px;
+  margin: 20px 5px 20px 0;
+
+  justify-content: space-around;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+input {
+  height: 35px;
+  width: 250px;
+  max-width: 100%;
+
+  border: 3px solid rgb(186, 0, 0);
+  border-radius: 10px;
+}
+
+select{
+  height: 35px;
+  width: 250px;
+  max-width: 100%;
+
+  border: 3px solid rgb(186, 0, 0);
+  border-radius: 10px;
+}
+
+#sairCard {
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.inputComTxt {
+  display: flex;
+  flex-direction: column;
+
+  font-weight: bold;
+
+  width: 250px;
+  max-width: 100%;
+}
+
+.txtDestaque {
+  color: rgb(185, 0, 0);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 15px;
+
+  width: 100%;
+  padding: 0 5% 5%;
+}
+
+.card-footer button {
+  height: 42px;
+  padding: 0 25px;
+
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-cancelar {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgb(185, 0, 0);
+}
+
+.btn-cancelar:hover {
+  background-color: rgb(185, 0, 0);
+  color: white;
+}
+
+.btn-editar {
+  background-color: var(--hover);
+  color: white;
+  border: 3px solid var(--second-color);
+}
+
+.btn-editar:hover {
+  background-color: var(--second-color);
+}
+
+
+/* Responsividade */
+@media (max-width: 600px) {
+
+  .cardEdit_section {
+    padding: 15px;
+  }
+
+  .card {
+    width: 100%;
+    max-height: 90vh;
+    min-height: auto;
+    border-radius: 15px;
+
+    overflow-y: auto;
+  }
+
+  .headCard {
+    font-size: 20px;
+    padding: 20px 20px 0;
+  }
+
+  #sairCard {
+    font-size: 25px;
+  }
+
+  .bodyCard {
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 15px;
+
+    margin: 15px;
+    padding: 25px 15px 15px;
+  }
+
+  .inputComTxt {
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .card-footer {
+    flex-direction: column-reverse;
+
+    gap: 10px;
+
+    padding: 10px 20px 20px;
+  }
+
+  .card-footer button {
+    width: 100%;
+  }
+}
+
+
+/* Celulares muito pequenos */
+@media (max-width: 350px) {
+
+  .cardEdit_section {
+    padding: 8px;
+  }
+
+  .card {
+    border-radius: 12px;
+  }
+
+  .headCard {
+    font-size: 18px;
+    padding: 15px 15px 0;
+  }
+
+  .bodyCard {
+    margin: 10px;
+    padding: 20px 10px 10px;
+  }
+
+  .card-footer {
+    padding: 10px 15px 15px;
+  }
+}
+
+
+
+.body-delete {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  gap: 15px;
+  padding: 40px 20px;
+}
+
+.body-delete p {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.delete-warning {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+}
+
+.delete-icon {
+  font-size: 45px;
+  color: rgb(185, 0, 0);
+}
+
+.btn-excluir {
+  height: 42px;
+  padding: 0 25px;
+
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  background-color: rgb(185, 0, 0);
+  color: white;
+  border: 2px solid rgb(185, 0, 0);
+}
+
+.btn-excluir:hover {
+  background-color: rgb(150, 0, 0);
 }
