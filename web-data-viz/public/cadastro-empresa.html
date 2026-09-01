@@ -22,7 +22,7 @@
     <main>
       <div class="container-form">
         <header class="header-form">
-          <div class="content-return" onclick="voltar()">
+          <div class="content-return" onclick="voltar()" id="botao_voltar">
             <i class="bi bi-arrow-left-circle"></i>
           </div>
           <div class="content-create" id ="cabecalho">
@@ -178,14 +178,14 @@
             <div class="wrapper-input">
               <div class="title-input">Senha</div>
               <div class="content-input">
-                <input type="text" placeholder="************" id="ipt_senha" />
+                <input type="password" placeholder="************" id="ipt_senha" />
               </div>
             </div>
             <div class="wrapper-input">
               <div class="title-input">Confirmar senha</div>
               <div class="content-input">
                 <input
-                  type="text"
+                  type="password"
                   placeholder="************"
                   id="ipt_confirmar"
                 />
@@ -209,7 +209,7 @@
               Confirmar Dados
             </button>
           </div>
-          <p class="footer-desc">Ainda não possui conta? <span class="destaque">Faça login</span></p>
+          <p id="rodape" class="footer-desc">Ainda não possui conta? <span class="destaque">Faça login</span></p>
         </div>
       </div>
     </main>
@@ -383,6 +383,8 @@
 
     cabecalho.style.display = "none";
     circle3.classList.add("activated");
+    botao_voltar.style.display = "none";
+    rodape.style.display = "none";
 
 
     fetch("/empresa/cadastrarEmpresa", {
