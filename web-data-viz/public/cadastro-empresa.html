@@ -48,7 +48,7 @@
           </div>
         </header>
 
-        <section class="card-form">
+        <section class="card-form" id="card_form">
           <div class="container-inputs" id="inputs1">
             <div class="wrapper-input">
               <div class="title-input">Nome fantasia</div>
@@ -191,6 +191,14 @@
               </div>
             </div>
           </div>
+
+
+          <div class="container-confirmacao" id="inputs4">
+            <img src="assets/icon/confirmacao.png" alt="Confirmação">
+            <p class="desc-cadastro">Seu cadastro foi confirmado!</p>
+            <p class="desc-cadastro2"><a href="login.html" class="destaque">Ir para o login</a></p>
+          </div>
+
         </section>
         <div class="content-footer">
           <div class="content-button" id="button1">
@@ -237,9 +245,11 @@
 
   inputs2.style.display = "none";
   inputs3.style.display = "none";
+  inputs4.style.display = "none";
 
   button2.style.display = "none";
   button3.style.display = "none";
+
 
   function continuar1() {
     nome_fantasia = iptnome_fantasia.value;
@@ -262,6 +272,7 @@
     inputs1.style.display = "none";
     inputs2.style.display = "grid";
     inputs3.style.display = "none";
+    inputs4.style.display = "none";
 
     button1.style.display = "none";
     button2.style.display = "block";
@@ -371,10 +382,12 @@
       alert("Senhas não coincidem")
       return
     }
-
+    let card_form = document.getElementById("card_form")
     inputs1.style.display = "none";
     inputs2.style.display = "none";
     inputs3.style.display = "none";
+    inputs4.style.display = "flex";
+    card_form.style.margin = "auto 0"
 
     button1.style.display = "none";
     button2.style.display = "none";
@@ -382,6 +395,7 @@
 
     cabecalho.style.display = "none";
     circle3.classList.add("activated");
+
     botao_voltar.style.display = "none";
     rodape.style.display = "none";
 
