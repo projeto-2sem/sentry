@@ -147,6 +147,40 @@ main {
     width: 100%;
 }
 
+
+.container-confirmacao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.container-confirmacao img{
+    width: 40%;
+}
+
+.desc-cadastro{
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.desc-cadastro2{
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+.desc-cadastro2 a{
+    text-decoration: none;
+    
+}
+
+
+.confirmacao-content{
+    display: flex;
+}
+
 .wrapper-input {
     display: flex;
     flex-wrap: wrap;
@@ -196,6 +230,7 @@ main {
     font-family: "Geist", sans-serif;
     cursor: pointer;
 }
+
 
 
 @media (max-width: 1200px) {
