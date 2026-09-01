@@ -7,8 +7,8 @@ router.get("/listar/:idEmpresa", function (req, res) {
     servidorController.listar(req, res);
 });
 
-router.get("/modelos", function (req, res) {
-    servidorController.modelos(req, res);
+router.get("/listarSO", function (req, res) {
+    servidorController.listarSO(req, res);
 });
 
 router.delete("/deletar/:idServer", function (req, res) {

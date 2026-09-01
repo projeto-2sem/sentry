@@ -10,8 +10,8 @@ function listar(req, res) {
     })
 }
 
-function modelos(req, res) {
-    servidorModel.modelos().then(function (resultado) {
+function listarSO(req, res) {
+    servidorModel.listarSO().then(function (resultado) {
         res.status(200).json(resultado);
     }).catch(function (erro) {
         res.status(500).json(erro.sqlMessage);
@@ -53,11 +53,12 @@ function editar(req, res) {
 function adicionar(req, res) {
     var idEmpresa = req.params.idEmpresa;
     var hostName = req.body.hostName;
-    var modeloId = req.body.modeloId;
+    var modelo = req.body.modelo;
     var situacao = req.body.situacao;
     var apelido = req.body.apelido;
+    var so = req.body.so;
 
-    servidorModel.adicionar(idEmpresa, hostName, modeloId, situacao, apelido)
+    servidorModel.adicionar(idEmpresa, hostName, modelo, situacao, apelido, so)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -76,6 +77,6 @@ module.exports = {
     listar,
     deletar,
     editar,
-    modelos,
+    listarSO,
     adicionar
 }

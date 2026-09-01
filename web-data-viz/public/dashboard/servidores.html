@@ -165,16 +165,14 @@
 
                 <div class="inputComTxt">
                     <span class="txtInput">Modelo <span class="txtDestaque">*</span></span>
-                    <select id="ipt_modelo">
-
-                    </select>
+                    <input id="ipt_modelo">
                 </div>
 
                 <div class="inputComTxt">
                     <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
                     <select id="ipt_situacao">
-                        <option value="ativo">Ativo</option>
-                        <option value="inativo">Inativo</option>
+                        <option value="Ativo">Ativo</option>
+                        <option value="Inativo">Inativo</option>
                     </select>
                 </div>
 
@@ -212,16 +210,26 @@
 
                 <div class="inputComTxt">
                     <span class="txtInput">Modelo <span class="txtDestaque">*</span></span>
-                    <select id="ipt_modelo_create">
-
-                    </select>
+                    <input id="ipt_modelo_create">
                 </div>
+
+                <!-- <div class="inputComTxt">
+                    <span class="txtInput">MAC <span class="txtDestaque">*</span></span>
+                    <input id="ipt_mac">
+                </div> -->
 
                 <div class="inputComTxt">
                     <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
                     <select id="ipt_situacao_create">
                         <option value="ativo">Ativo</option>
                         <option value="inativo">Inativo</option>
+                    </select>
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Sistema Operacional <span class="txtDestaque">*</span></span>
+                    <select id="ipt_SO_create">
+
                     </select>
                 </div>
 
@@ -268,7 +276,7 @@
     sessionStorage.ID_EMPRESA = 1;
 
     function listar() {
-        listarModelos();
+        listarSO();
 
         fetch(`/servidores/listar/${sessionStorage.ID_EMPRESA}`, {
             method: "GET",
@@ -283,20 +291,17 @@
 
     }
 
-    function listarModelos() {
-        fetch(`/servidores/modelos`, {
+    function listarSO() {
+        fetch(`/servidores/listarSO`, {
             method: "GET",
         }).then(function (resposta) {
             return resposta.json();
-        }).then(function (modelos) {
-            console.log(modelos);
-            for (let i = 0; i < modelos.length; i++) {
-                ipt_modelo.innerHTML += `
-                    <option value=${modelos[i].idModelo}>${modelos[i].nome}</option>
-                `
+        }).then(function (SO) {
+            console.log(SO);
+            for (let i = 0; i < SO.length; i++) {
 
-                ipt_modelo_create.innerHTML += `
-                    <option value=${modelos[i].idModelo}>${modelos[i].nome}</option>
+                ipt_SO_create.innerHTML += `
+                    <option value=${SO[i].idSistemaOperacional}>${SO[i].nome}</option>
                 `
             }
         })
@@ -308,7 +313,6 @@
     function listarServidores(servidores) {
         console.log(servidores);
 
-        //Precisa ter na tabela a situação (ativo, inativo, etc)
         for (let i = 0; i < servidores.length; i++) {
             const totalServidores = document.getElementById("totalServidores");
             totalServidores.innerText = `Total de servidores: ${servidores.length}`
@@ -324,19 +328,19 @@
                                 <div class="server-card-info">
                                     <p>Data de instalação: ${servidores[i].data_criacao}</p>
                                     <p>|</p>
-                                    <p>${servidores[i].nome_modelo}</p>
+                                    <p>${servidores[i].modelo}</p>
                                 </div>
                             </div>
                             <div class="server-card-actions">
                                 <button class="btn-action" onclick="abrirCardDelete(${servidores[i].idServidor})">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
-                                <button class="btn-action"  onclick="abrirCardEdit(${servidores[i].idServidor}, '${servidores[i].hostName}', '${servidores[i].nome_modelo}', '${servidores[i].modeloId}')"><i class="bi bi-pencil-square"></i></button>
+                                <button class="btn-action"  onclick="abrirCardEdit(${servidores[i].idServidor}, '${servidores[i].hostname}', '${servidores[i].modelo}', '${servidores[i].apelido}')"><i class="bi bi-pencil-square"></i></button>
                                 <button class="btn-action"><i class="bi bi-chevron-down"></i></button>
                             </div>
                         </header>
                         <div class="server-card-body">
-                            <p>${servidores[i].hostName}</p>
+                            <p>${servidores[i].apelido}</p>
                         </div>
                     </article>
             `;
@@ -404,13 +408,14 @@
 
 
     let idEditar = 0;
-    function abrirCardEdit(idServer, hostName, modelo, modeloId) {
+    function abrirCardEdit(idServer, hostName, modelo, apelido) {
+        console.log(idServer);
         document.getElementById("cardEditSection").style.display = "flex";
 
         document.getElementById("ipt_hostName").value = hostName;
         // document.getElementById("ipt_apelido");
-        document.getElementById("ipt_modelo").value = modeloId;
-        document.getElementById("ipt_apelido").value = hostName;
+        document.getElementById("ipt_modelo").value = modelo;
+        document.getElementById("ipt_apelido").value = apelido;
 
         idEditar = idServer;
     }
@@ -422,6 +427,7 @@
 
     let idServerExc = null;
     function abrirCardDelete(idServer) {
+        console.log(idServer);
         idServerExc = idServer;
 
         document.getElementById("cardDeleteSection").style.display = "flex";
@@ -442,8 +448,11 @@
     function adicionarServidor() {
         let hostName = ipt_hostName_create.value;
         let modelo = ipt_modelo_create.value;
+        // let mac = ipt_mac.value;
+        let so = ipt_SO_create.value;
         let situacao = ipt_situacao_create.value;
         let apelido = ipt_apelido_create.value;
+
 
         fetch(`/servidores/adicionar/${sessionStorage.ID_EMPRESA}`, {
             method: "post",
@@ -452,9 +461,10 @@
             },
             body: JSON.stringify({
                 hostName: ipt_hostName_create.value,
-                modeloId: ipt_modelo_create.value,
+                modelo: ipt_modelo_create.value,
                 situacao: ipt_situacao_create.value,
-                apelido: ipt_apelido_create.value
+                apelido: ipt_apelido_create.value,
+                so: ipt_SO_create.value
             })
         }).then(function (resposta) {
 
