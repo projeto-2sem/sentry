@@ -11,14 +11,14 @@ function autenticar(email, senha) {
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(nome, cargo, email, codigo_ativacao, senha) {
+function cadastrar(nome, email, codigo_ativacao, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome,cargo, email, codigo_ativacao, senha);
     
     //      O insert não da certo por conta da subquery
     var instrucaoSql = `
         INSERT INTO usuario (nome, email, senha, empresaId, cargo, responsavel)
         SELECT
-            '${nome}', '${email}', "${senha}", emp.idEmpresa, '${cargo}', resp.idUsuario
+            '${nome}', '${email}', "${senha}", emp.idEmpresa, resp.idUsuario
             FROM empresa emp
             JOIN codigo_ativacao cod
             ON emp.idEmpresa = cod.empresaId
