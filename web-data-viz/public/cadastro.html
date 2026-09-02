@@ -94,18 +94,15 @@
 
 
     var nomeVar = nome_input.value;
-    var cargoVar = cargo_input.value;
     var emailVar = email_input.value;
     var codigoVar = codigo_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
-    cargoVar = cargoVar.toLowerCase();
 
     // Verificando se há algum campo em branco
     if (
       nomeVar == "" ||
-      cargoVar == "" ||
       emailVar == "" ||
       codigoVar == "" ||
       senhaVar == "" ||
@@ -125,12 +122,6 @@
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
       "A senha devem ter pelo menos 8 caracteres";
-      return false;
-    }
-
-    if (cargoVar != 'analista' && cargoVar != 'administrador') {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML = "Insira um cargo valido";
       return false;
     }
 
@@ -174,7 +165,6 @@
         // crie um atributo que recebe o valor recuperado aqui
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
-        cargoServer: cargoVar,
         emailServer: emailVar,
         codigoServer: codigoVar,
         senhaServer: senhaVar
