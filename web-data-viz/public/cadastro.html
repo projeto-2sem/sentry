@@ -87,7 +87,6 @@
   // let listaEmpresasCadastradas = [];
 
   function cadastrar() {
-    // aguardar();
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
@@ -98,6 +97,7 @@
     var codigoVar = codigo_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 
     // Verificando se há algum campo em branco
@@ -108,52 +108,41 @@
       senhaVar == "" ||
       confirmacaoSenhaVar == "" 
     ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
-
-      finalizarAguardar();
-      return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
+      alert("Mensagem de erro para todos os campos em branco");
+      return;
     }
 
-    if (senhaVar > 8) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-      "A senha devem ter pelo menos 8 caracteres";
-      return false;
+    else if (senha.length < 4) {
+      alert("A senha devem conter pelo menos 8 caracteres")
+      return
+    } else if (
+      !senha.includes("!") &&
+      !senha.includes("@") &&
+      !senha.includes("#") &&
+      !senha.includes("$")
+    ) {
+      alert("Use um caractere especial (! @ # $)")
+      return;
     }
 
-    if (senhaVar != confirmacaoSenhaVar) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-      "Senha e confirmação de senha devem ser iguais";
-      return false;
-    }
-
-    let com = emailVar.indexOf(".com");
-    let arroba = emailVar.indexOf("@");
-
-     if (com < arroba || com < 7 || arroba < 2) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML = "Insira um email valido";
-      return false;
+    else if (senhaVar != confirmacaoSenhaVar) {
+      alert( "Senha e confirmação de senha devem ser iguais");
+      return;
     }
     
+    else if (!re.test(email)) {
+      alert("Informe um email válido");
+      return
+    }
 
-    // Verificando se o código de ativação é de alguma empresa cadastrada
-    // for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-    //   if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-    //     idEmpresaVincular = listaEmpresasCadastradas[i].id
-    //     console.log("Código de ativação válido.");
-    //     break;
-    //   } else {
-    //     cardErro.style.display = "block";
-    //     mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-    //     finalizarAguardar();
-    //   }
+    // let com = emailVar.indexOf(".com");
+    // let arroba = emailVar.indexOf("@");
+
+    //  if (com < arroba || com < 7 || arroba < 2) {
+    //   alert("Insira um email valido");
+    //   return;
     // }
+    
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
