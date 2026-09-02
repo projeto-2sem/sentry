@@ -11,9 +11,7 @@
     --color-blue-700: oklch(48.8% 0.243 264.376);
     --color-white: #fff;
     --spacing: 0.25rem;
-    --container-md: 28rem;
     --container-xl: 36rem;
-    --container-2xl: 42rem;
     --text-xs: 0.75rem;
     --text-xs--line-height: calc(1 / 0.75);
     --text-base: 1rem;
@@ -279,6 +277,9 @@
   }
   .bg-\[\#071224\] {
     background-color: #071224;
+  }
+  .bg-\[url\(\'\.\.\/assets\/bgd_imgs\/fundo-cadastro\.png\'\)\] {
+    background-image: url('../assets/bgd_imgs/fundo-cadastro.png');
   }
   .bg-cover {
     background-size: cover;
