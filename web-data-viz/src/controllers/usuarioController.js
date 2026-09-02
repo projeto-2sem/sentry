@@ -53,7 +53,6 @@ function autenticar(req, res) {
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
-    var cargo = req.body.cargoServer;
     var email = req.body.emailServer;
     var codigo = req.body.codigoServer;
     var senha = req.body.senhaServer;
