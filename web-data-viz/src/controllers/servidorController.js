@@ -34,8 +34,9 @@ function editar(req, res) {
     var modeloId = req.body.modeloId;
     var situacao = req.body.situacao;
     var apelido = req.body.apelido;
+    var situacao = req.body.situacao;
 
-    servidorModel.editar(idServer, hostName, modeloId, situacao, apelido)
+    servidorModel.editar(idServer, hostName, modeloId, situacao, apelido, situacao)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -57,8 +58,9 @@ function adicionar(req, res) {
     var situacao = req.body.situacao;
     var apelido = req.body.apelido;
     var so = req.body.so;
+    var situacao = req.body.situacao
 
-    servidorModel.adicionar(idEmpresa, hostName, modelo, situacao, apelido, so)
+    servidorModel.adicionar(idEmpresa, hostName, modelo, situacao, apelido, so, situacao)
         .then(
             function (resultado) {
                 res.json(resultado);

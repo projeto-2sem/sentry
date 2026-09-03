@@ -49,7 +49,7 @@
                 <div class="sidebar_account_wrapper">
                     <img class="sidebar_account_photo" src="../assets/imgs/pessoa1.png" alt="">
                     <div class="sidebar_account_infos">
-                        <p class="text-sidebar">Gerson Silva</p>
+                        <p class="text-sidebar" id="nome_usuario">Usuario</p>
                         <p class="text-sidebar">Administrador</p>
                     </div>
                 </div>
@@ -171,8 +171,8 @@
                 <div class="inputComTxt">
                     <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
                     <select id="ipt_situacao">
-                        <option value="Ativo">Ativo</option>
-                        <option value="Inativo">Inativo</option>
+                        <option value= 1>Ativo</option>
+                        <option value= 0>Inativo</option>
                     </select>
                 </div>
 
@@ -221,8 +221,8 @@
                 <div class="inputComTxt">
                     <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
                     <select id="ipt_situacao_create">
-                        <option value="ativo">Ativo</option>
-                        <option value="inativo">Inativo</option>
+                        <option value= 1>Ativo</option>
+                        <option value= 0>Inativo</option>
                     </select>
                 </div>
 
@@ -251,6 +251,7 @@
 </html>
 
 <script>
+    document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO;
     const today = new Date().toLocaleDateString("pt-BR");
     date_now.innerHTML = today
 
@@ -272,7 +273,7 @@
     }
 
 
-    console.log("id da empresa: "+sessionStorage.ID_EMPRESA)
+    console.log("id da empresa: " + sessionStorage.ID_EMPRESA)
 
     function listar() {
         listarSO();
@@ -321,8 +322,8 @@
             <article class="server-card">
                         <header class="server-card-header">
                             <div class="server-card-details">
-                                <div class="server-card-details-status">
-                                    <p>Ativo</p>
+                                <div class="server-card-details-status" ${servidores[i].status == 1 ? '' : 'style="background-color: rgb(144, 25, 25);"'}>
+                                    <p>${servidores[i].status != 1 ? "Inativo" : "Ativo"}</p>
                                 </div>
                                 <div class="server-card-info">
                                     <p>Data de instalação: ${servidores[i].data_criacao}</p>
@@ -463,7 +464,8 @@
                 modelo: ipt_modelo_create.value,
                 situacao: ipt_situacao_create.value,
                 apelido: ipt_apelido_create.value,
-                so: ipt_SO_create.value
+                so: ipt_SO_create.value,
+                sitiacao: ipt_situacao_create.value
             })
         }).then(function (resposta) {
 
