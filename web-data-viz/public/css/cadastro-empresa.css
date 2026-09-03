@@ -231,6 +231,12 @@ main {
     cursor: pointer;
 }
 
+.footer-desc a{
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
 
 
 @media (max-width: 1200px) {
