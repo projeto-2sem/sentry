@@ -41,22 +41,22 @@ function deletar(idServer) {
         });
 }
 
-function editar(idServer, hostName, modeloId, situacao, apelido) {
+function editar(idServer, hostName, modeloId, situacao, apelido, situacao) {
     console.log("ACESSEI O servidor MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", idServer, hostName, modeloId, situacao, apelido);
     var instrucaoSql = `
         UPDATE servidor
-        SET hostname = '${hostName}', modelo = '${modeloId}', apelido = '${apelido}'
+        SET hostname = '${hostName}', modelo = '${modeloId}', apelido = '${apelido}', status = ${situacao}
         WHERE idServidor = ${idServer};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function adicionar(idEmpresa,hostName, modelo, situacao, apelido, so) {
+function adicionar(idEmpresa,hostName, modelo, situacao, apelido, so, situacao) {
     console.log("ACESSEI O servidor MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ",idEmpresa, hostName, modelo, situacao, apelido);
     var instrucaoSql = `
-        INSERT INTO servidor (hostName, mac, empresaId, modelo, sistemaOperacionalId, apelido) 
-        VALUES ("${hostName}", "A1:B2:C3:D4:E5:F6", ${idEmpresa}, '${modelo}', '${so}', '${apelido}');
+        INSERT INTO servidor (hostName, mac, empresaId, modelo, sistemaOperacionalId, apelido, status) 
+        VALUES ("${hostName}", "A1:B2:C3:D4:E5:F6", ${idEmpresa}, '${modelo}', '${so}', '${apelido}', ${situacao});
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
