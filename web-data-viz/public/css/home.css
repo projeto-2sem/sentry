@@ -684,6 +684,12 @@ section{
     color: #60a5fa;
 }
 
+.btn-start a {
+  text-decoration: none;
+  color: #FFF;
+  outline: none;
+}
+
 
 /* ADAPTAÇÃO A OUTRAS TELAS */
 
