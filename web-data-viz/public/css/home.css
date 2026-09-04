@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100..900;1,100..900&family=Geist:ital,wght@0,600;1,600&display=swap');
 
+html{
+  scroll-behavior: smooth;
+}
 
 *{
     margin: 0;
@@ -162,10 +165,15 @@ nav#nav{
     border: #0d56df 1px solid;
     border-radius: 6px;
     background-color: #071224;
-    color: #e5e7eb;
     padding: 10px 14px;
     font-family: "Geist", sans-serif;
     font-weight: 500;
+}
+
+.conteudo-banner button a{
+  text-decoration: none;
+  color: #e5e7eb;
+
 }
 
 .conteudo-banner button:hover {
@@ -184,6 +192,8 @@ section{
     padding: 100px clamp(24px, 5vw, 100px);
     width: 100%;
 }
+
+
 
 .container-sct2{
     display: flex;
@@ -257,7 +267,7 @@ section{
 .titulo h2{
     color: #e5e7eb;
     font-family: "Geist", sans-serif;
-    font-size: clamp(28px, 4vw, 32px);
+    font-size: clamp(28px, 5vw, 38px);
 }
 
 .carrossel{
@@ -277,7 +287,8 @@ section{
     position: relative;
     border: 1px solid #0d56df;
     border-radius: 20px;
-    padding: 40px;
+    padding: 80px;
+    margin: 0 auto;
     min-height: 420px;
 }
 
@@ -286,34 +297,35 @@ section{
     grid-template-columns: 1fr 1fr;
     gap: 40px;
     align-items: center;
+  
 }
 
 .card-img img{
     width: 100%;
-    height: 320px;
+    height: 350px;
     object-fit: cover;
     border-radius: 12px;
     display: block;
 }
 
 .card-icon img {
-  width: 36px;
-  height: 36px;
-  margin-bottom: 16px;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 20px;
 }
 
 .card-texto h3 {
   font-family: "Geist Mono", monospace;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 32px;
   margin-bottom: 16px;
 }
 
 .card-texto p {
   font-family: "Geist Mono", monospace;
   color: #cbd5e1;
-  font-size: 14px;
-  line-height: 1.7;
+  font-size: 18px;
+  line-height: 1.6;
 }
 
 .card-nav {
@@ -406,6 +418,12 @@ section{
     min-height: 280px;
     padding: 50px 34px;
     flex: 1;
+    transition: 0.3s;
+}
+
+.card4:hover {
+    transform: translateY(-6px);
+    box-shadow: 5px 0 15px -5px rgb(38, 94, 199);
 }
 
 .card4-content{
@@ -472,6 +490,22 @@ section{
   cursor: pointer;
 }
 
+.card-diferencial::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+  transition: filter 0.4s ease;
+  z-index: 0;
+}
+
+.card-diferencial:hover::after{
+  filter: blur(6px);
+  transform: scale(1.05);
+}
+
 .card-grande{
   grid-row: span 2;
 }
@@ -503,14 +537,14 @@ section{
   color: #ffff;
   font-family: "Geist", sans-serif;
   font-weight: 600;
-  font-size: 22px;
+  font-size: 28px;
   margin-bottom: 8px;
 }
 
 .texto-card5 p{
   color: #cbd5e1;
   font-family: "Geist Mono", monospace;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.5;
 }
 
@@ -781,7 +815,7 @@ section{
   }
 
   .carrossel-borda {
-    padding: 24px;
+    padding: 30px;
   }
 
   .card {
