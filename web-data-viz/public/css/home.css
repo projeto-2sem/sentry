@@ -416,6 +416,12 @@ section{
     min-height: 280px;
     padding: 50px 34px;
     flex: 1;
+    transition: 0.3s;
+}
+
+.card4:hover {
+    transform: translateY(-6px);
+    box-shadow: 5px 0 15px -5px rgb(38, 94, 199);
 }
 
 .card4-content{
