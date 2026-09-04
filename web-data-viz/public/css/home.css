@@ -490,6 +490,22 @@ section{
   cursor: pointer;
 }
 
+.card-diferencial::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+  transition: filter 0.4s ease;
+  z-index: 0;
+}
+
+.card-diferencial:hover::after{
+  filter: blur(6px);
+  transform: scale(1.05);
+}
+
 .card-grande{
   grid-row: span 2;
 }
@@ -521,14 +537,14 @@ section{
   color: #ffff;
   font-family: "Geist", sans-serif;
   font-weight: 600;
-  font-size: 22px;
+  font-size: 28px;
   margin-bottom: 8px;
 }
 
 .texto-card5 p{
   color: #cbd5e1;
   font-family: "Geist Mono", monospace;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.5;
 }
 
