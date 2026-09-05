@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <button class="botao" onclick="entrar()">ENTRAR</button>
-                    <!-- <a>Esqueceu sua senha?</a> -->
+                    <a href="./esqueceu-senha.html">Esqueceu sua senha?</a>
                     <div id="div_aguardar" class="loading-div hidden">
                         <!-- <img class="hidden" src="./assets/circle-loading.gif" id="loading-gif"> -->
                     </div>
@@ -87,9 +87,6 @@
         if (emailVar == "" || senhaVar == "") {
             alert("E-mail ou senha invalidos");
             return;
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
         }
 
         // console.log("FORM LOGIN: ", emailVar);
