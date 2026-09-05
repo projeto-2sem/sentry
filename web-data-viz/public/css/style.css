@@ -12,16 +12,16 @@ body {
 }
 
 .background {
-  background-size: cover;
+  /* background-size: cover; */
   background-repeat: no-repeat;
   height: 100vh;
 }
 
-.background .cadastro {
+.background.bk-cadastro {
   background-image: url('../assets/bgd_imgs/fundo-cadastro.png');
 }
 
-.background .login {
+.background.bk-login {
   background-image: url('../assets/bgd_imgs/fundo-login.png');
 }
 

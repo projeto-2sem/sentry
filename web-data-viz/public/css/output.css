@@ -196,6 +196,9 @@
       max-width: 96rem;
     }
   }
+  .m-auto {
+    margin: auto;
+  }
   .m-1 {
     margin: var(--spacing);
   }
@@ -342,8 +345,8 @@
     .md\:m-auto {
       margin: auto;
     }
-    .md\:mx-1\.5 {
-      margin-inline: calc(var(--spacing) * 1.5);
+    .md\:mx-5 {
+      margin-inline: calc(var(--spacing) * 5);
     }
     .md\:mr-4 {
       margin-right: calc(var(--spacing) * 4);
@@ -393,6 +396,9 @@
     .md\:justify-center {
       justify-content: center;
     }
+    .md\:bg-cover {
+      background-size: cover;
+    } 
     .md\:gap-1 {
       gap: var(--spacing);
     }
@@ -432,14 +438,14 @@ body {
   height: 100vh;
 }
 .background {
-  background-size: cover;
+  /* background-size: cover; */
   background-repeat: no-repeat;
   height: 100vh;
 }
-.background.cadastro {
+.background.bk-cadastro {
   background-image: url('../assets/bgd_imgs/fundo-cadastro.png');
 }
-.background.login {
+.background.bk-login {
   background-image: url('../assets/bgd_imgs/fundo-login.png');
 }
 .login {
