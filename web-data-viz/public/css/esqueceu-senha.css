@@ -1,0 +1,163 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+:root {
+    --first-color: #030A14;
+    --second-color: #0B1624;
+    --third-color: #2F81F7;
+    --text-color: #FFF;
+    --hover: #101D2D;
+    --contrast: rgba(0, 0, 0, 0.5);
+    --white-contrast: rgba(255, 255, 255, 0.5);
+}
+
+body {
+    height: 100vh;
+    background-color: var(--first-color);
+}
+
+p,
+h1,
+button,
+span,
+i {
+    font-family: "Geist", sans-serif;
+    color: var(--text-color);
+}
+
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+}
+
+
+
+.header-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header-container span {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.header-container img {
+    width: 2rem;
+    background-color: var(--third-color);
+    border-radius: 0.5rem;
+}
+
+main {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.container-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+.lock {
+    padding: 0.9rem 1rem;
+    border-radius: 0.7rem;
+    font-size: 1.3rem;
+    border: 1px solid var(--white-contrast);
+    transition: 1s ease-in;
+}
+
+.lock:hover {
+    border: 1px solid var(--third-color);
+    transition: 1s ease-in-out;
+}
+
+.title-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-input {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.container-send {
+    align-self: center;
+}
+
+.content-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-weight: bold;
+}
+
+.wrapper-input input{
+    padding: 0.8rem 2rem; 
+    width: 30rem;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.wrapper-input i {
+    position: absolute;
+    color: #030A14;
+    padding: 10px 6px;
+    font-size: 1.2rem;
+}
+
+.content-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-btn button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--second-color);
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: 1s ease-in;
+}
+
+.content-btn button:hover {
+    background-color: var(--hover);
+    transform: translateY(-3px);
+    transition: 1s ease-in-out;
+}
+
+.content-back {
+    margin: 0 auto;
+}
+
+.error_message {
+    text-align: center;
+    display: none;
+}
+
+.paragrafo_error{
+    color: #DC2626;
+    opacity: 0;
+    transition: 0.5s ease;
+}
