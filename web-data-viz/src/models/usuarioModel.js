@@ -31,7 +31,19 @@ function cadastrar(nome, cargo, email, codigo_ativacao, senha) {
     return database.executar(instrucaoSql);
 }
 
+function verificarEmail(email) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", email);
+    
+    //      O insert não da certo por conta da subquery
+    var instrucaoSql = `
+        SELECT email FROM usuario WHERE email = '${email}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    verificarEmail
 };

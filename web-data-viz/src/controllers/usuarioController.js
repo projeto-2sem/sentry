@@ -22,18 +22,18 @@ function autenticar(req, res) {
                         // aquarioModel.buscarAquariosPorEmpresa(resultadoAutenticar[0].empresaId)
                         //     .then((resultadoAquarios) => {
                         //         if (resultadoAquarios.length > 0) {
-                                    res.json({
-                                        id: resultadoAutenticar[0].id,
-                                        email: resultadoAutenticar[0].email,
-                                        nome: resultadoAutenticar[0].nome,
-                                        senha: resultadoAutenticar[0].senha,
-                                        empresaId: resultadoAutenticar[0].empresaId,
-                                        // aquarios: resultadoAquarios
-                                    });
-                            //     } else {
-                            //         res.status(204).json({ aquarios: [] });
-                            //     }
-                            // })
+                        res.json({
+                            id: resultadoAutenticar[0].id,
+                            email: resultadoAutenticar[0].email,
+                            nome: resultadoAutenticar[0].nome,
+                            senha: resultadoAutenticar[0].senha,
+                            empresaId: resultadoAutenticar[0].empresaId,
+                            // aquarios: resultadoAquarios
+                        });
+                        //     } else {
+                        //         res.status(204).json({ aquarios: [] });
+                        //     }
+                        // })
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
@@ -91,7 +91,39 @@ function cadastrar(req, res) {
     }
 }
 
+function verificarEmail(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var email = req.params.emailServer;
+
+    // Faça as validações dos valores
+    if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+
+    } else {
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        
+        usuarioModel.verificarEmail(email)
+            .then(
+                function (resultado) {
+                    
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    verificarEmail
 }
