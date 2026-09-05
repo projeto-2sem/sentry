@@ -84,31 +84,38 @@ body {
 }
 
 .content-return i {
-    font-size: 1.5rem;
-    color: var(--secondary-color);
-    cursor: pointer;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+hover:content-return i {
+  cursor: pointer;
 }
 
 .formulario {
-    display: flex;
-    flex-direction: column;
-    padding: 0 20px;
-    margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  /* height: 250px; */
+  padding: 0 20px;
+  margin: 10px 0;
 }
 
 .campo {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    position: relative;
-    font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  position: relative;
+  font-size: medium;
 }
 
-.campo img {
-    width: 20px;
-    position: absolute;
-    bottom: 5px;
-    left: 7px;
+.campo i {
+  width: 20px;
+  position: absolute;
+  top: 28px;
+  left: 7px;
+  font-size: large;
 }
 
 .campo input {
@@ -149,14 +156,8 @@ body {
 }
 
   @media (width >= 48rem) {
-    .md\:grid {
-      display: grid;
-    }
     .md\:w-auto {
       width: auto;
-    }
-    .md\:grid-cols-2 {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .md\:gap-x-5 {
       column-gap: calc(var(--spacing) * 5);

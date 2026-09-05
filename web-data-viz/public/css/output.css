@@ -360,6 +360,9 @@
     .md\:h-150 {
       height: calc(var(--spacing) * 150);
     }
+    .md\:h-15 {
+      height: calc(var(--spacing) * 15);
+    }
     .md\:w-97 {
       width: calc(var(--spacing) * 97);
     }
@@ -401,6 +404,9 @@
     }
     .md\:gap-4 {
       gap: calc(var(--spacing) * 4);
+    }
+    .md\:gap-5 {
+      gap: calc(var(--spacing) * 5);
     }
     .md\:gap-6 {
       gap: calc(var(--spacing) * 6);
@@ -495,7 +501,6 @@ body {
 }
 .content-return i {
     font-size: 1.5rem;
-    color: var(--secondary-color);
     cursor: pointer;
 }
 hover:content-return i {
@@ -503,7 +508,10 @@ hover:content-return i {
 }
 .formulario {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  /* height: 250px; */
   padding: 0 20px;
   margin: 10px 0;
 }
@@ -512,13 +520,14 @@ hover:content-return i {
   flex-direction: column;
   gap: 3px;
   position: relative;
-  font-weight: 600;
+  font-size: medium;
 }
-.campo img {
+.campo i {
   width: 20px;
   position: absolute;
-  bottom: 5px;
+  top: 28px;
   left: 7px;
+  font-size: large;
 }
 .campo input {
   border-radius: 4px;
@@ -554,14 +563,8 @@ hover:content-return i {
   padding: 10px;
 }
 @media (width >= 48rem) {
-  .md\:grid {
-    display: grid;
-  }
   .md\:w-auto {
     width: auto;
-  }
-  .md\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .md\:gap-x-5 {
     column-gap: calc(var(--spacing) * 5);
