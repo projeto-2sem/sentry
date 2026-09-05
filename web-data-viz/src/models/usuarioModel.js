@@ -36,7 +36,23 @@ function verificarEmail(email) {
     
     //      O insert não da certo por conta da subquery
     var instrucaoSql = `
-        SELECT email FROM usuario WHERE email = '${email}';
+        SELECT email, idUsuario FROM usuario WHERE email = '${email}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function trocarSenha(id, senha) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", id);
+    
+    //      O insert não da certo por conta da subquery
+    var instrucaoSql = `
+        UPDATE
+            usuario
+        SET senha = '${senha}'
+        WHERE
+            idUsuario = '${id}';
+
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -45,5 +61,6 @@ function verificarEmail(email) {
 module.exports = {
     autenticar,
     cadastrar,
-    verificarEmail
+    verificarEmail,
+    trocarSenha
 };

@@ -38,7 +38,9 @@ async function verificarEmail() {
         paragrafo_error.innerHTML = "Email encontrado"
     }, 100)
 
-    sessionStorage.setItem("email", email)
+    console.log(json)
+    sessionStorage.setItem("email", json[0].email)
+    sessionStorage.setItem("idUsuario", json[0].idUsuario)
     let container_input = document.getElementById("container_input")
     setTimeout(() => {
         container_input.innerHTML = `
@@ -148,6 +150,9 @@ function verificarCodigo() {
             </div>
         </div>
     </div>
+    <div class="error_message" id="error_message">
+        <p class="paragrafo_error" id="paragrafo_error">Senha inválida</p>
+    </div>
     <div class="content-btn">
         <button onclick="redefinirSenha()">Redefinir senha</button>
     </div>
@@ -157,7 +162,79 @@ function verificarCodigo() {
         </a>
     </div>
     `
+
+        error.style.display = "none"
+        paragrafo_error.style.opacity = 0
+        paragrafo_error.style.color = "#DC2626"
     }, 3000)
 }
 
+async function validarSenha(senha, senha_confirmar) {
+    if (senha == "" || senha_confirmar == "") {
+        paragrafo_error.innerHTML = "Preencha todos os campos"
+        return false
+    }
+    if (senha.length < 8) {
+        paragrafo_error.innerHTML =
+            "A senha devem ter pelo menos 8 caracteres"
+        return false
+    }
 
+    if (senha != senha_confirmar) {
+        paragrafo_error.innerHTML =
+            "Senha e confirmação de senha devem ser iguais";
+        return false;
+    }
+    return true
+}
+
+async function redefinirSenha() {
+    let senha = ipt_senha.value
+    let senha_confirmar = ipt_confirmar.value
+    let validar = await validarSenha(senha, senha_confirmar)
+    let paragrafo_error = document.getElementById("paragrafo_error")
+    let error = document.getElementById("error_message")
+
+    if (!validar) {
+        error.style.display = "block"
+        setTimeout(() => {
+            paragrafo_error.style.opacity = 1
+        }, 400)
+        return
+    }
+
+    let id = sessionStorage.getItem("idUsuario")
+    console.log(id)
+
+    let response = await fetch("http://localhost:3333/usuarios/trocar-senha", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "idServer": id,
+            "senhaServer": senha
+        })
+    })
+
+    let json = await response.json()
+
+    if (json.length <= 0) {
+        error.style.display = "block"
+        setTimeout(() => {
+            paragrafo_error.style.opacity = 1
+        }, 400)
+        return
+    }
+
+    error.style.display = "block"
+    setTimeout(() => {
+        paragrafo_error.style.opacity = "1"
+        paragrafo_error.style.color = "#16A34A"
+        paragrafo_error.innerHTML = "Senha cadastrada com sucesso, redirecionando para login"
+    }, 10)
+
+    setTimeout(() => {
+        window.location = "./login.html";
+    }, 3000)
+}

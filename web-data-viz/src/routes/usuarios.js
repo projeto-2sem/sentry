@@ -16,4 +16,8 @@ router.get("/verificar-email/:emailServer", function (req, res) {
     usuarioController.verificarEmail(req, res);
 });
 
+router.put("/trocar-senha", function (req, res) {
+    usuarioController.trocarSenha(req, res);
+})
+
 module.exports = router;
