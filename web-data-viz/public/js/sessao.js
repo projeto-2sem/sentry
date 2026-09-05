@@ -34,3 +34,36 @@ function finalizarAguardar(texto) {
     }
 }
 
+function validarToken() {
+
+    const token = sessionStorage.TOKEN;
+
+    if (!token) {
+
+        window.location = "../index.html";
+
+        return;
+    }
+
+    try {
+        const descompactado = JSON.parse(atob(token.split(".")[1]));
+        const expiracao = descompactado.exp * 1000;
+        if (Date.now() >= expiracao) {
+            sessionStorage.clear();
+            window.location = "../index.html";
+            return;
+        }
+        if (
+            Number(sessionStorage.ID_USUARIO) !== descompactado.id ||
+            sessionStorage.NOME_USUARIO !== descompactado.username ||
+            sessionStorage.EMAIL_USUARIO !== descompactado.email
+        ) {
+            sessionStorage.clear();
+            window.location = "../index.html";
+            return;
+        }
+    } catch (erro) {
+        sessionStorage.clear();
+        window.location = "../index.html";
+    }
+}

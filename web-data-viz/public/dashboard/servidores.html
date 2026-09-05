@@ -249,7 +249,7 @@
 </body>
 
 </html>
-
+ <script src="../js/sessao.js"></script>
 <script>
     document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO;
     const today = new Date().toLocaleDateString("pt-BR");
@@ -353,7 +353,8 @@
         fetch(`/servidores/deletar/${idServer}`, {
             method: "DELETE",
             headers: {
-                "Content-Type": "application/json"
+                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionStorage.TOKEN}`
             }
         }).then(function (resposta) {
 
@@ -383,7 +384,8 @@
         fetch(`/servidores/editar/${idEditar}`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionStorage.TOKEN}`
             },
             body: JSON.stringify({
                 hostName: ipt_hostName.value,
@@ -457,7 +459,8 @@
         fetch(`/servidores/adicionar/${sessionStorage.ID_EMPRESA}`, {
             method: "post",
             headers: {
-                "Content-Type": "application/json"
+                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionStorage.TOKEN}`
             },
             body: JSON.stringify({
                 hostName: ipt_hostName_create.value,
@@ -483,5 +486,5 @@
             console.log(`#ERRO: ${resposta}`);
         });
     }
-
+    validarToken();
 </script>
