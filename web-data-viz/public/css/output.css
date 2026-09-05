@@ -417,12 +417,6 @@
     .md\:gap-y-7 {
       row-gap: calc(var(--spacing) * 7);
     }
-    .md\:bg-\[url\(\'\.\.\/assets\/bgd_imgs\/fundo-cadastro\.png\'\)\] {
-      background-image: url('../assets/bgd_imgs/fundo-cadastro.png');
-    }
-    .md\:bg-\[url\(\'\.\.\/assets\/bgd_imgs\/fundo-login\.png\'\)\] {
-      background-image: url('../assets/bgd_imgs/fundo-login.png');
-    }
     .md\:p-2 {
       padding: calc(var(--spacing) * 2);
     }
@@ -438,9 +432,8 @@ body {
   height: 100vh;
 }
 .background {
-  display: flex;
-  flex-direction: column;
-  background: cover no-repeat;
+  background-size: cover;
+  background-repeat: no-repeat;
   height: 100vh;
 }
 .background.cadastro {
@@ -451,7 +444,7 @@ body {
 }
 .login {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -486,6 +479,7 @@ body {
   min-width: 310px;
   min-height: fit-content;
   padding: 20px 6px;
+  margin: 16px;
   gap: 10px;
 }
 .card-top {
@@ -510,7 +504,7 @@ hover:content-return i {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px;
+  gap: 21px;
   /* height: 250px; */
   padding: 0 20px;
   margin: 10px 0;
