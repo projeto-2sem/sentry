@@ -196,6 +196,9 @@
       max-width: 96rem;
     }
   }
+  .m-auto {
+    margin: auto;
+  }
   .m-1 {
     margin: var(--spacing);
   }
@@ -265,6 +268,9 @@
   .bg-\[\#071224\] {
     background-color: #071224;
   }
+  .bg-\[url\(\'\/assets\/bgd_imgs\/fundo-cadastro\.png\'\)\] {
+    background-image: url('assets/bgd_imgs/fundo-cadastro.png');
+  }
   .bg-cover {
     background-size: cover;
   }
@@ -322,8 +328,8 @@
     .md\:m-auto {
       margin: auto;
     }
-    .md\:mx-1\.5 {
-      margin-inline: calc(var(--spacing) * 1.5);
+    .md\:mx-5 {
+      margin-inline: calc(var(--spacing) * 5);
     }
     .md\:mr-4 {
       margin-right: calc(var(--spacing) * 4);
@@ -339,6 +345,9 @@
     }
     .md\:h-150 {
       height: calc(var(--spacing) * 150);
+    }
+    .md\:h-15 {
+      height: calc(var(--spacing) * 15);
     }
     .md\:w-97 {
       width: calc(var(--spacing) * 97);
@@ -370,6 +379,9 @@
     .md\:justify-center {
       justify-content: center;
     }
+    .md\:bg-cover {
+      background-size: cover;
+    } 
     .md\:gap-1 {
       gap: var(--spacing);
     }
@@ -382,6 +394,9 @@
     .md\:gap-4 {
       gap: calc(var(--spacing) * 4);
     }
+    .md\:gap-5 {
+      gap: calc(var(--spacing) * 5);
+    }
     .md\:gap-6 {
       gap: calc(var(--spacing) * 6);
     }
@@ -390,12 +405,6 @@
     }
     .md\:gap-y-7 {
       row-gap: calc(var(--spacing) * 7);
-    }
-    .md\:bg-\[url\(\'\.\.\/assets\/bgd_imgs\/fundo-cadastro\.png\'\)\] {
-      background-image: url('../assets/bgd_imgs/fundo-cadastro.png');
-    }
-    .md\:bg-\[url\(\'\.\.\/assets\/bgd_imgs\/fundo-login\.png\'\)\] {
-      background-image: url('../assets/bgd_imgs/fundo-login.png');
     }
     .md\:p-2 {
       padding: calc(var(--spacing) * 2);
@@ -411,9 +420,20 @@ body {
   padding: 0;
   height: 100vh;
 }
+.background {
+  /* background-size: cover; */
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+.background.bk-cadastro {
+  background-image: url('../assets/bgd_imgs/fundo-cadastro.png');
+}
+.background.bk-login {
+  background-image: url('../assets/bgd_imgs/fundo-login.png');
+}
 .login {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -448,6 +468,7 @@ body {
   min-width: 310px;
   min-height: fit-content;
   padding: 20px 6px;
+  margin: 16px;
   gap: 10px;
 }
 .card-top {
@@ -461,9 +482,19 @@ body {
   padding: auto;
   width: 90%;
 }
+.content-return i {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+hover:content-return i {
+  cursor: pointer;
+}
 .formulario {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 21px;
+  /* height: 250px; */
   padding: 0 20px;
   margin: 10px 0;
 }
@@ -472,13 +503,14 @@ body {
   flex-direction: column;
   gap: 3px;
   position: relative;
-  font-weight: 600;
+  font-size: medium;
 }
-.campo img {
+.campo i {
   width: 20px;
   position: absolute;
-  bottom: 5px;
+  top: 28px;
   left: 7px;
+  font-size: large;
 }
 .campo input {
   border-radius: 4px;
@@ -514,14 +546,8 @@ body {
   padding: 10px;
 }
 @media (width >= 48rem) {
-  .md\:grid {
-    display: grid;
-  }
   .md\:w-auto {
     width: auto;
-  }
-  .md\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .md\:gap-x-5 {
     column-gap: calc(var(--spacing) * 5);
