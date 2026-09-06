@@ -44,7 +44,7 @@ main {
 }
 
 .container-form {
-    min-height: 80vh;
+    height: 80vh;
     min-width: 40vw;
     max-width: 50vw;
     padding: 3rem 5rem 1rem 5rem;
@@ -54,6 +54,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 5rem;
+    overflow-y: auto;
 }
 
 .header-form {
@@ -243,7 +244,7 @@ main {
 
     .container-form {
         max-width: 90vw;
-        min-height: 90vh;
+        height: 90vh;
         padding: 2rem;
         border-radius: 1.5rem;
     }
