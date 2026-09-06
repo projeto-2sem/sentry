@@ -55,6 +55,7 @@
                   placeholder="Digite o nome da empresa"
                   id="iptnome_fantasia"
                 />
+                <div class="erro" id="erroNomeFantasia"></div>
               </div>
             </div>
             <div class="wrapper-input">
@@ -65,17 +66,19 @@
                   placeholder="Digite o nome da empresa"
                   id="iptrazao_social"
                 />
+                <div class="erro" id="erroRazao"></div>
               </div>
             </div>
             <div class="wrapper-input">
               <div class="title-input">Cnpj</div>
               <div class="content-input">
                 <input
-                  type="text"
+                  type="number"
                   placeholder="00000000000"
                   id="iptcnpj"
                   maxlength="11"
                 />
+                <div class="erro" id="erroCNPJ"></div>
               </div>
             </div>
           </div>
@@ -84,7 +87,8 @@
             <div class="wrapper-input">
               <div class="title-input">CEP</div>
               <div class="content-input">
-                <input type="text" placeholder="00000-000" id="ipt_cep" oninput="pegarEndereco(this.value)"/>
+                <input type="text" placeholder="00000-000" id="ipt_cep" oninput="pegarEndereco(this.value)" maxlength="8"/>
+                <div class="erro" id="erroCEP"></div>
               </div>
             </div>
             <div class="wrapper-input">
@@ -131,11 +135,12 @@
               <div class="title-input">Número</div>
               <div class="content-input">
                 <input
-                  type="text"
+                  type="number"
                   placeholder="ex: 202"
                   id="ipt_numero"
                   maxlength="5"
                 />
+                <div class="erro" id="erroNumero"></div>
               </div>
             </div>
             <div class="wrapper-input">
@@ -146,6 +151,7 @@
                   placeholder="ex: andar, bloco"
                   id="ipt_complemento"
                 />
+                <div class="erro" id="erroComplemento"></div>
               </div>
             </div>
           </div>
@@ -159,6 +165,7 @@
                   placeholder="Digite seu nome completo"
                   id="ipt_nome"
                 />
+                <div class="erro" id="erroNome"></div>
               </div>
             </div>
             <div class="wrapper-input">
@@ -169,12 +176,14 @@
                   placeholder="seuemail@exemplo.com"
                   id="ipt_email"
                 />
+                <div class="erro" id="erroEmail"></div>
               </div>
             </div>
             <div class="wrapper-input">
               <div class="title-input">Senha</div>
               <div class="content-input">
                 <input type="password" placeholder="************" id="ipt_senha" />
+                <div class="erro" id="erroSenha"></div>
               </div>
             </div>
             <div class="wrapper-input">
@@ -185,6 +194,7 @@
                   placeholder="************"
                   id="ipt_confirmar"
                 />
+                <div class="erro" id="erroConfirmar"></div>
               </div>
             </div>
           </div>
@@ -212,6 +222,7 @@
             <button class="btn-cadastrar" onclick="cadastrar()">
               Confirmar Dados
             </button>
+            <div class="erro" id="erroCadastro"></div>
           </div>
           <p id="rodape" class="footer-desc"> Já possui conta? <a href="./login.html"><span class="destaque">Faça login</span></a></p>
         </div>
@@ -254,15 +265,15 @@
     cnpj = iptcnpj.value;
 
     if (nome_fantasia == "" || razao_social == "" || cnpj == "") {
-      alert("Preencha todos os campos");
+      erroCNPJ.innerText = "Preencha todos os campos";
       return
     }
-    else if (nome_fantasia.length < 3) {
-      alert("Digite um nome válido");
+    if (nome_fantasia.length < 3) {
+      erroNomeFantasia.innerText = "Digite um nome válido";
       return
     }
-    else if (razao_social.length < 10) {
-      alert("Digite uma razão válida");
+    if (razao_social.length < 5) {
+      erroRazao.innerText = "Digite uma razão válida";
       return
     }
 
@@ -293,6 +304,7 @@
         
         if (data.erro) {
             console.log("cep nao encontrado");
+            erroCEP.innerText = "Cep não encontrado";
             return;
         }
         
@@ -322,8 +334,12 @@
       rua == "" ||
       numero == ""
     ) {
-      alert("Preencha todos os campos");
+      erroComplemento.innerText = "Preencha todos os campos";
       return
+    }
+
+    if(numero.length > 5){
+      erroNumero.innerText = "Número inválido";
     }
 
     inputs1.style.display = "none";
@@ -348,22 +364,22 @@
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (nome == "" || email == "" || senha == "" || confirmar == "") {
-      alert("Preencha todos os campos");
+      erroCadastro.innerText = "Preencha todos os campos";
       return
     }
 
     else if (!re.test(email)) {
-      alert("Informe um email válido");
+      erroEmail.innerText = "Informe um email válido";
       return
     }
 
     else if (nome.length < 3) {
-      alert("Digite um nome válido");
+      erroNome.innerText = "Digite um nome válido";
       return
     }
 
     if (senha.length < 4) {
-      alert("Senha muito curta")
+      erroSenha.innerText = "Senha muito curta";
       return
 
     } else if (
@@ -372,11 +388,11 @@
       !senha.includes("#") &&
       !senha.includes("$")
     ) {
-      alert("Use um caractere especial (! @ # $)")
+      erroSenha.innerText = "Use um caractere especial (! @ # $)";
       return
 
     } else if (senha != confirmar) {
-      alert("Senhas não coincidem")
+      erroConfirmar.innerText = "Senhas não coincidem";
       return
     }
     let card_form = document.getElementById("card_form")
