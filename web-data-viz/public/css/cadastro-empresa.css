@@ -148,6 +148,12 @@ main {
     width: 100%;
 }
 
+.erro{
+    margin-top: 8px;
+    font-size: 14px;
+    color: red;
+}
+
 
 .container-confirmacao{
     display: flex;
