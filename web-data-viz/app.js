@@ -21,6 +21,7 @@ var empresasRouter = require("./src/routes/empresas");
 var servidoresRouter = require("./src/routes/servidores");
 var empresaRouter = require("./src/routes/empresa");
 var emailRouter = require("./src/routes/email");
+var contatoRoutes = require("./src/routes/contato");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,7 +34,8 @@ app.use("/usuarios", usuarioRouter);
 app.use("/empresas", empresasRouter);
 app.use("/servidores", servidoresRouter);
 app.use("/empresa", empresaRouter);
-app.use("/email", emailRouter)
+app.use("/email", emailRouter);
+app.use("/contato", contatoRoutes);
 
 app.listen(PORTA_APP, function () {
     console.log(`
