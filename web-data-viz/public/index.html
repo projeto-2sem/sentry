@@ -1,11 +1,10 @@
 <!doctype html>
 <html lang="en">
-  
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="assets/imgs/logo_oficial.png">
+    <link rel="icon" href="assets/imgs/logo_oficial.png" />
     <link rel="stylesheet" href="./css/home.css" />
     <title>SENTRY | Home</title>
   </head>
@@ -36,7 +35,7 @@
           <ul class="navbar">
             <li><a href="#section2">Home</a></li>
             <li><a href="#section3">Solução</a></li>
-            <li><a href="#section4">Benefícios</a></li>
+            <li><a href="#" id="abrir-modal-contato">Contato</a></li>
             <li><a href="./login.html">Entrar</a></li>
             <li><a href="./cadastro.html" class="cadastro">Cadastre-se</a></li>
           </ul>
@@ -52,7 +51,9 @@
             <span class="destaque">INFRAESTRUTURA QUE</span> <br />
             MANTÉM SUA OPERAÇÃO <span class="destaque"> EM MOVIMENTO</span>.
           </p>
-          <button><a href="#section2" id="call-section2">CONHEÇA A SOLUÇÃO →</a></button>
+          <button>
+            <a href="#section2" id="call-section2">CONHEÇA A SOLUÇÃO →</a>
+          </button>
         </div>
       </div>
     </div>
@@ -300,7 +301,9 @@
           </h2>
           <p>Veja a falha antes que ela aconteça</p>
         </div>
-        <button class="btn-start"> <a href="mailto:monitoringsentry@gmail.com">COMECE AGORA → </a></button>
+        <button class="btn-start">
+          <a href="mailto:monitoringsentry@gmail.com">COMECE AGORA → </a>
+        </button>
       </div>
     </section>
 
@@ -356,10 +359,105 @@
       </div>
     </div>
 
+    <div class="card-contato" id="card-contato">
+      <div class="contato-content">
+        <span class="fechar-card" id="fechar-card">&times;</span>
+        <h2>Fale conosco</h2>
+        <p class="card-subtitulo">
+          Preencha os dados abaixo e entraremos em contato em breve.
+        </p>
+
+        <div class="contato-input">
+          <label for="contato_nome">Nome do Administrador</label>
+          <input type="text" id="contato_nome" placeholder="Digite seu nome" />
+        </div>
+
+        <div class="contato-input">
+          <label for="contato_nome">Email do Administrador</label>
+          <input
+            type="text"
+            id="contato_email"
+            placeholder="seuemail@exemplo.com"
+          />
+        </div>
+
+        <div class="contato-input">
+          <label for="contato_nome">Email do Administrador</label>
+          <textarea
+            id="contato_mensagem"
+            placeholder="Digite sua mensagem"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <button class="btn-enviar-contato" id="btn-enviar-contato">
+          Enviar mensagem
+        </button>
+      </div>
+    </div>
+
     <script src="./js/sessao.js"></script>
     <script src="./js/navbar.js"></script>
   </body>
 </html>
 <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("card-contato");
+    const abrirBtn = document.getElementById("abrir-modal-contato");
+    const fecharBtn = document.getElementById("fechar-card");
+    const enviarBtn = document.getElementById("btn-enviar-contato");
 
+    function abrirModal(e) {
+      if (e) e.preventDefault();
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function fecharModal() {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    abrirBtn.addEventListener("click", abrirModal);
+    fecharBtn.addEventListener("click", fecharModal);
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) fecharModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("active")) {
+        fecharModal();
+      }
+    });
+
+    enviarBtn.addEventListener("click", async () => {
+      const nomeServer = document.getElementById("contato_nome").value;
+      const emailServer = document.getElementById("contato_email").value;
+      const mensagemServer = document.getElementById("contato_mensagem").value;
+
+      if (!nomeServer || !emailServer || !mensagemServer) {
+        alert("Preencha todos os campos");
+        return;
+      }
+
+      try {
+        const resposta = await fetch("/contato/enviarContato", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nomeServer, emailServer, mensagemServer }),
+        });
+
+        if (resposta.ok) {
+          alert("Mensagem enviada com sucesso! Verifique seu email.");
+          fecharModal();
+        } else {
+          alert("Erro ao enviar. Tente novamente.");
+        }
+      } catch (erro) {
+        console.error(erro);
+        alert("Erro ao enviar. Tente novamente.");
+      }
+    });
+  });
 </script>
