@@ -1,5 +1,4 @@
-const transporter = require("../routes/mailer");
-const baseUrl = `http://${process.env.APP_HOST}:${process.env.APP_PORT}`;
+const emailModel = require("../models/emailModel");
 
 async function enviarContato(req, res) {
     const {
@@ -13,10 +12,10 @@ async function enviarContato(req, res) {
     }
 
     try{
-        const linkCadastro = `${process.env.baseUrl}/cadastro-empresa.html`;
+        const linkCadastro = `${process.env.BASE_URL}/cadastro-empresa.html`;
 
         //Esse email avisa que chegou um novo contato de cliente
-        await transporter.sendMail({
+        (await emailModel.transport_gmail()).sendMail({
             from: `"Site - Contato" <${process.env.EMAIL_USER}>`,
             to: process.env.EMAIL_USER,
             subject: `Novo contato de ${nomeServer}`,
@@ -29,7 +28,7 @@ async function enviarContato(req, res) {
         });
 
         //Email que irá responder o cliente com o link de cadastro
-        await transporter.sendMail({
+       (await emailModel.transport_gmail()).sendMail({
             from: `"SENTRY" <${process.env.EMAIL_USER}>`,
             to: emailServer,
             subject: "Agradecemos seu contato!",

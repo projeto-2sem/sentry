@@ -13,5 +13,6 @@ APP_HOST=localhost
 
 JWT_SECRET=chaveSecretaaaSentry
 
-SENHA_GMAIL=senhaTeste
-EMAIL=emailTeste
+EMAIL_USER='teste'
+EMAIL_PASS='teste'
+BASE_URL=http://localhost:3333
