@@ -20,15 +20,15 @@ async function enviarEmail(email) {
     port: 465,
     secure: true,
     auth: {
-      user: process.env.EMAIL,
-      pass: process.env.SENHA_GMAIL,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
   const numero_aleatorio = Math.floor(
     Math.random() * (999999 - 100000) + 100000,
   );
   transport.sendMail({
-    from: `Sentry <${process.env.EMAIL}>`,
+    from: `Sentry <${process.env.EMAIL_USER}>`,
     to: email,
     subject: "Mudança de senha no site da Sentry",
     html: `<h1>Você está requisitando uma nova senha</h1> <p>Seu código para usar no site é: <strong>${numero_aleatorio}</strong></p>`,
