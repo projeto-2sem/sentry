@@ -13,8 +13,9 @@ async function transport_gmail() {
 }
 
 async function enviarEmail(email) {
+  // Função de enviar email
   console.log("Entrando para enviar email");
-
+  // Cria o transport com os dados do seu email, verificar doc do nodemailer
   const transport = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -24,9 +25,13 @@ async function enviarEmail(email) {
       pass: process.env.EMAIL_PASS,
     },
   });
+
+  // Gera numero aleatorio de 8 digitos
   const numero_aleatorio = Math.floor(
     Math.random() * (999999 - 100000) + 100000,
   );
+
+  // Envia email para o usuario com a nova senha
   transport.sendMail({
     from: `Sentry <${process.env.EMAIL_USER}>`,
     to: email,
