@@ -1,5 +1,9 @@
 const jwt = require("jsonwebtoken");
 
+// aqui é aonde o codigo checa se o token que foi enviado pelo frontend é valido, se for valido
+// ele continua indo para os controllers, se nao, a requisição nao continua
+
+
 function autenticarToken(req, res, next) {
 
     const authHeader = req.headers.authorization;

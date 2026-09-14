@@ -107,7 +107,7 @@
 
             if (resposta.ok) {
                 console.log(resposta);
-
+                    // aqui guarda o jwt token no session storage
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));

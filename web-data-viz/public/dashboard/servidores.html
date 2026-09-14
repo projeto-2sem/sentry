@@ -382,7 +382,10 @@
         console.log(hostName);
         console.log(modelo);
         console.log(situacao);
-
+        // aqui é um dos exemplos aonde o token jwt pode ser usado, caso o usuario nao possua o token valido, o teste das routes
+        // que chama o auth nao vai conseguir prosseguir, ou seja, o usuario tentou acessar a conta de outra pessoa pelo session storage?
+        // o jwt barra por nao ter feito o login com as informações certas, para isso funcionar..
+        // voce deve mandar o token aqui no header da requisição com essa sintaxe, que o backend ja valida tudo certinho
         fetch(`/servidores/editar/${idEditar}`, {
             method: "PUT",
             headers: {
