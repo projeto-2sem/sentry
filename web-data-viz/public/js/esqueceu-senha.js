@@ -1,3 +1,4 @@
+// Função verifica se o email existe, antes de enviar mensagem
 async function verificarEmail() {
     let email = ipt_email.value
     let paragrafo_error = document.getElementById("paragrafo_error")
@@ -13,6 +14,8 @@ async function verificarEmail() {
         return
     }
 
+    // Requisição na api
+
     let response = await fetch(`http://localhost:3333/usuarios/verificar-email/${email}`, {
         method: "GET",
         headers: {
@@ -22,6 +25,8 @@ async function verificarEmail() {
 
     let json = await response.json()
 
+    // Requisição em branco opacity 1, o uso do setTimeout é para dar um efeito de 
+    // aparecer e sumir
 
     if (json.length <= 0) {
         error.style.display = "block"
@@ -39,9 +44,13 @@ async function verificarEmail() {
     }, 100)
 
     console.log(json)
+    // Armazenando email e id do usuario no session storage
     sessionStorage.setItem("email", json[0].email)
     sessionStorage.setItem("idUsuario", json[0].idUsuario)
     let container_input = document.getElementById("container_input")
+
+    // Dando um daily para verificar fazer a inserção da próxima parte
+    // O this retorna o input atual quando está no oninput
     setTimeout(() => {
         container_input.innerHTML = `
         <div class="content-code">
@@ -77,11 +86,13 @@ async function verificarEmail() {
     await gerarCodigo()
 }
 
+// Como o input está como text para colocar o max-length, faço a validação de so poder números nessa função
 function verificarNumero(elemento) {
     // Removendo qualquer coisa que não seja um numero, to verificar todos os caracteres e se não for numero troco por nada
     elemento.value = elemento.value.replace(/\D/g, "");
 }
 
+// Chamada da api para gerar código
 async function gerarCodigo() {
     let response = await fetch(`http://localhost:3333/email/enviar-email/${sessionStorage.getItem("email")}`, {
         method: "GET",
@@ -96,13 +107,16 @@ async function gerarCodigo() {
         return
     }
 
+    // TODO: COLOCAR ESSE CÓDIGO DENTRO DO BANCO DE DADOS PARA MAIOR SEGURANÇA.
     sessionStorage.setItem("codigo", json)
 }
 
+// Verifica se o código está correto
 function verificarCodigo() {
     let inputs = document.querySelectorAll(".content-code input")
     let codigo_digitado = ""
 
+    // For para colocar todos os valores dos inputs, dado que a função executa sempre que é colocado um valor no input, por conta do on input
     inputs.forEach(input => {
         codigo_digitado += input.value
     })
@@ -169,6 +183,8 @@ function verificarCodigo() {
     }, 3000)
 }
 
+
+// Mesmas validações de senha do cadastro
 async function validarSenha(senha, senha_confirmar) {
     if (senha == "" || senha_confirmar == "") {
         paragrafo_error.innerHTML = "Preencha todos os campos"
@@ -188,6 +204,7 @@ async function validarSenha(senha, senha_confirmar) {
     return true
 }
 
+// Redefine senha
 async function redefinirSenha() {
     let senha = ipt_senha.value
     let senha_confirmar = ipt_confirmar.value
