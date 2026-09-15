@@ -1,5 +1,6 @@
 const emailModel = require("../models/emailModel");
 
+// Retorna o nome, email e mensagem que o cliente enviou no html
 async function enviarContato(req, res) {
     const {
         nomeServer,
@@ -11,10 +12,11 @@ async function enviarContato(req, res) {
         return res.status(400).json({erro: "Preencha todos os campos."})
     }
 
+    // Envia o link do cadastro de empresa
     try{
         const linkCadastro = `${process.env.BASE_URL}/cadastro-empresa.html`;
 
-        //Esse email avisa que chegou um novo contato de cliente
+        //Esse email avisa que chegou um novo contato de cliente na conta da empresa
         (await emailModel.transport_gmail()).sendMail({
             from: `"Site - Contato" <${process.env.EMAIL_USER}>`,
             to: process.env.EMAIL_USER,
@@ -42,6 +44,8 @@ async function enviarContato(req, res) {
 
         return res.status(200).json({sucesso: true});
     }
+
+    // Erro ao enviar 
     catch(erro){
         console.error("Erro ao enviar email: ", erro);
         return res.status(500).json({erro: "Erro ao enviar email."})
