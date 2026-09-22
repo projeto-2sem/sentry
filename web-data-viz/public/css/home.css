@@ -230,7 +230,7 @@ section{
 
 .mensagem .texto{
     font-family: "Geist Mono", monospace;
-    font-size: 16px;
+    font-size: 19px;
     color: #cbd5e1;
     line-height: 1.7;
     margin-bottom: 20px;
@@ -324,7 +324,7 @@ section{
 .card-texto p {
   font-family: "Geist Mono", monospace;
   color: #cbd5e1;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.6;
 }
 
@@ -442,13 +442,13 @@ section{
 .card4-content h5{
     color: #e5e7eb;
     font-family: "Geist", sans-serif;
-    font-size: 20px;
+    font-size: 22px;
 }
 
 .card4-content p{
     color: #e5e7eb;
     font-family: "Geist Mono", sans-serif;
-    font-size: 14px;
+    font-size: 17px;
 }
 
 /* Quinta Section */
@@ -581,7 +581,7 @@ section{
 
 .sct6-content p{
   font-family: "Geist Mono", monospace;
-  font-size: 16px;
+  font-size: 19px;
   color: #cbd5e1;
   margin-top: 8px;
 }
