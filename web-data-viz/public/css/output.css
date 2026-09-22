@@ -27,6 +27,8 @@
     --font-weight-medium: 500;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
+    --primary-color: #071224;
+    --secondary-color: #0D56DF;
   }
 }
 
@@ -631,7 +633,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-around;
   color: #fafafa;
   min-width: 310px;
   min-height: fit-content;
@@ -640,6 +642,7 @@ body {
   gap: 10px;
   overflow-y: auto;
   overflow-x: hidden;
+  width: 700px;
 }
 
 .card-top {
@@ -809,19 +812,20 @@ hover:content-return i {
   }
 }
 
-/* .content-create {
+.content-create {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     gap: 2rem;
+    width: 100%;
 }
 
 .stepper {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width:100%;
     align-items: center;
 }
 
@@ -869,4 +873,9 @@ hover:content-return i {
 
 .label {
     font-size: 1rem;
-} */
+}
+
+.w-metade {
+  display: flex;
+  justify-content: center;
+}
