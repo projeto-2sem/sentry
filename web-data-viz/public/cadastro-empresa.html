@@ -10,143 +10,157 @@
 
   <script src="./js/sessao.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/cadastro-empresa.css">
+  <link rel="stylesheet" href="css/output.css">
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 
-<body>
-
-  <body>
-    <main>
-      <div class="container-form">
-        <header class="header-form">
+<body class="background bk-cadastro md:bg-cover">
+  <main>
+    <div class="login w-full justify-center p-2">
+      <div class="card relative !min-w-0 w-full max-w-full">
+        <div class="card-top">
           <div class="content-return" onclick="voltar()" id="botao_voltar">
             <i class="bi bi-arrow-left-circle"></i>
           </div>
-          <div class="content-create" id="cabecalho">
-            <div class="title-create">
-              <h2 class="text-2xl font-medium">Crie sua conta</h2>
-              <p class="m-1 text-base">Preencha os dados abaixo para se cadastrar</p>
+          <!-- <img class="w-6 h-6 hover:cursor-pointer" src="./assets/icon/voltar.png" alt="Voltar"> -->
+          <div class="text-conta">
+            <h2 class="text-2xl font-medium">Crie sua conta</h2>
+            <p class="m-1 text-base">Preencha os dados abaixo para se cadastrar</p>
+          </div>
+        </div>
+        <div class="content-create" id="cabecalho">
+          <div class="stepper">
+            <div class="step activated" id="step_personal">
+              <div class="circle" id="circle1">1</div>
+              <div class="label">Empresa</div>
             </div>
-            <div class="stepper">
-              <div class="step active" id="step_personal">
-                <div class="circle" id="circle1">1</div>
-                <div class="label">Empresa</div>
-              </div>
 
-              <div class="step active" id="step_endereco">
-                <div class="circle" id="circle2">2</div>
-                <div class="label">Endereço</div>
-              </div>
+            <div class="step activated" id="step_endereco">
+              <div class="circle" id="circle2">2</div>
+              <div class="label">Endereço</div>
+            </div>
 
-              <div class="step active" id="step_dados">
-                <div class="circle" id="circle3">3</div>
-                <div class="label">Dados Pessoais</div>
-              </div>
+            <div class="step activated" id="step_dados">
+              <div class="circle" id="circle3">3</div>
+              <div class="label">Dados Pessoais</div>
             </div>
           </div>
-        </header>
+        </div>
 
-        <section class="card-form" id="card_form">
-          <div class="container-inputs" id="inputs1">
-            <div class="wrapper-input">
-              <div class="title-input">Nome fantasia</div>
-              <div class="content-input">
+        <section class="formulario h-15 md:gap-5" id="card_form">
+          <div class="formulario grid w-full min-w-0 grid-cols-1 gap-5 md:grid-cols-2" id="inputs1">
+            <div class="campo w-full min-w-0">
+              <span>Nome fantasia</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="text" placeholder="Digite o nome da empresa" id="iptnome_fantasia" />
                 <div class="erro" id="erroNomeFantasia"></div>
               </div>
             </div>
-            <div class="wrapper-input">
-              <div class="title-input">Razão social</div>
-              <div class="content-input">
+            <div class="campo w-full min-w-0">
+              <span>Razão social</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="text" placeholder="Digite o nome da empresa" id="iptrazao_social" />
                 <div class="erro" id="erroRazao"></div>
               </div>
             </div>
-            <div class="wrapper-input">
-              <div class="title-input">Cnpj</div>
-              <div class="content-input">
+            <div class="campo w-full min-w-0">
+              <span>Cnpj</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="number" placeholder="00000000000" id="iptcnpj" maxlength="11" />
                 <div class="erro" id="erroCNPJ"></div>
               </div>
             </div>
           </div>
 
-          <div class="container-inputs" id="inputs2">
-            <div class="wrapper-input">
-              <div class="title-input">CEP</div>
-              <div class="content-input">
+          <div class="formulario grid w-full min-w-0 grid-cols-1 gap-5 md:grid-cols-2" id="inputs2">
+            <div class="campo w-full min-w-0">
+              <span>CEP</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="text" placeholder="00000-000" id="ipt_cep" oninput="pegarEndereco(this.value)"
                   maxlength="8" />
                 <div class="erro" id="erroCEP"></div>
               </div>
             </div>
-            <div class="wrapper-input">
-              <div class="title-input">Estado</div>
-              <div class="content-input">
+            <div class="campo w-full min-w-0">
+              <span>Estado</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="text" placeholder="ex: São Paulo" id="ipt_estado" />
               </div>
             </div>
-            <div class="wrapper-input">
-              <div class="title-input">Cidade</div>
-              <div class="content-input">
+            <div class="campo w-full min-w-0">
+              <span>Cidade</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="text" placeholder="ex: São Paulo" id="ipt_cidade" />
               </div>
             </div>
-            <div class="wrapper-input">
-              <div class="title-input">Bairro</div>
-              <div class="content-input">
+            <div class="campo w-full min-w-0">
+              <span>Bairro</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="text" placeholder="ex: Jardim Brasil" id="ipt_bairro" />
               </div>
             </div>
-            <div class="wrapper-input">
-              <div class="title-input">Rua</div>
-              <div class="content-input">
+            <div class="campo w-full min-w-0">
+              <span>Rua</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="text" placeholder="ex: Rua das Flores" id="ipt_rua" />
               </div>
             </div>
-            <div class="wrapper-input">
-              <div class="title-input">Número</div>
-              <div class="content-input">
+            <div class="campo w-full min-w-0">
+              <span>Número</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="number" placeholder="ex: 202" id="ipt_numero" maxlength="5" />
                 <div class="erro" id="erroNumero"></div>
               </div>
             </div>
-            <div class="wrapper-input">
-              <div class="title-input">Complemento</div>
-              <div class="content-input">
+            <div class="campo w-full min-w-0">
+              <span>Complemento</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="text" placeholder="ex: andar, bloco" id="ipt_complemento" />
                 <div class="erro" id="erroComplemento"></div>
               </div>
             </div>
           </div>
 
-          <div class="container-inputs" id="inputs3">
-            <div class="wrapper-input">
-              <div class="title-input">Nome</div>
-              <div class="content-input">
+          <div class="formulario grid w-full min-w-0 grid-cols-1 gap-5 md:grid-cols-2" id="inputs3">
+            <div class="campo w-full min-w-0">
+              <span>Nome</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="text" placeholder="Digite seu nome completo" id="ipt_nome" />
                 <div class="erro" id="erroNome"></div>
               </div>
             </div>
-            <div class="wrapper-input">
-              <div class="title-input">Email</div>
-              <div class="content-input">
+            <div class="campo w-full min-w-0">
+              <span>Email</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="text" placeholder="seuemail@exemplo.com" id="ipt_email" />
                 <div class="erro" id="erroEmail"></div>
               </div>
             </div>
-            <div class="wrapper-input">
-              <div class="title-input">Senha</div>
-              <div class="content-input">
+            <div class="campo w-full min-w-0">
+              <span>Senha</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="password" placeholder="************" id="ipt_senha" />
                 <div class="erro" id="erroSenha"></div>
               </div>
             </div>
-            <div class="wrapper-input">
-              <div class="title-input">Confirmar senha</div>
-              <div class="content-input">
+            <div class="campo w-full min-w-0">
+              <span>Confirmar senha</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-person-fill"></i>
                 <input type="password" placeholder="************" id="ipt_confirmar" />
                 <div class="erro" id="erroConfirmar"></div>
               </div>
@@ -161,29 +175,35 @@
           </div>
 
         </section>
-        <div class="content-footer">
+        <div class="content-footer flex items-center flex-col p-1">
           <div class="content-button" id="button1">
-            <button class="btn-cadastrar" onclick="continuar1()">
-              Continuar
+            <button class="botao w-8" onclick="continuar1()">
+              Continuar →
             </button>
           </div>
           <div class="content-button" id="button2">
-            <button class="btn-cadastrar" onclick="continuar2()">
-              Continuar
+            <button class="botao w-8" onclick="continuar2()">
+              Continuar →
             </button>
           </div>
           <div class="content-button" id="button3">
-            <button class="btn-cadastrar" onclick="cadastrar()">
-              Confirmar Dados
+            <button class="botao w-8" onclick="cadastrar()">
+              Confirmar Dados →
             </button>
             <div class="erro" id="erroCadastro"></div>
           </div>
-          <p id="rodape" class="footer-desc"> Já possui conta? <a href="./login.html"><span class="destaque">Faça
-                login</span></a></p>
+          <p id="rodape" class="footer-desc">Já possui conta? <a class="text-blue-700" href="./login.html">Faça login</a></p>
         </div>
       </div>
-    </main>
-  </body>
+    </div>
+  </main>
+
+  <div class="footer">
+    <p>© 2026 SENTRY</p>
+    <p>Todos os direitos reservados.</p>
+  </div>
+
+</body>
 
 </html>
 
