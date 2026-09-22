@@ -20,7 +20,8 @@ function autenticar(req, res) {
 
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
-
+                        // aqui é aonde o token do jwt é criado, usando a fução sign e os parametros do usuario
+                        // ele tambem coloca um limite de tempo para o token, e utiliza a chave secreta do .env para criar o token
                          const tokenServer = jwt.sign(
                             {
                                 id: resultadoAutenticar[0].idUsuario,

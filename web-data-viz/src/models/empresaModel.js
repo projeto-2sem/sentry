@@ -1,26 +1,55 @@
 var database = require("../database/config")
 
-function autenticar(email, senha) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
+// Procura o endereço cadastrado
+function buscarEndereco(cep, numero) {
     var instrucaoSql = `
-        SELECT id, nome, email, fk_empresa as empresaId FROM usuario WHERE email = '${email}' AND senha = '${senha}';
+        SELECT idEndereco FROM endereco WHERE cep = '${cep}' AND numero = '${numero}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-
-function cadastrar(nome, email, senha, fkEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, fkEmpresa);
-    
+// Buscar empresa pelo endereço
+function buscarEmpresa(idEndereco) {
     var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, fk_empresa) VALUES ('${nome}', '${email}', '${senha}', '${fkEmpresa}');
+        SELECT idEmpresa FROM empresa WHERE enderecoId = '${idEndereco}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+// Cadastra a empresa
+function cadastrarEmpresa(nome_fantasia, razao_social, cnpj, idEndereco) {
+    var instrucaoSql = `
+        INSERT INTO empresa (nome_fantasia, razao_social, cnpj, enderecoId) VALUES ('${nome_fantasia}', '${razao_social}', '${cnpj}', '${idEndereco}');
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+// Cadastra o endereço
+function cadastrarEndereco(cep, estado, cidade, bairro, logradouro, numero, complemento) {
+    var instrucaoSql = `
+        INSERT INTO endereco (cep, estado, cidade, bairro, logradouro, numero, complemento) VALUES ('${cep}', '${estado}', '${cidade}', '${bairro}', '${logradouro}', '${numero}', '${complemento}');
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+// Cadastra o administrador 
+function cadastrarAdm(nome, email, senha, idEmpresa) {
+
+    var instrucaoSql = `
+        INSERT INTO usuario (nome, email, senha, cargo, responsavel, empresaId) VALUES ('${nome}', '${email}', '${senha}', 'Administrador', null, ${idEmpresa});
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 module.exports = {
-    autenticar,
-    cadastrar
+    cadastrarEmpresa,
+    cadastrarEndereco,
+    cadastrarAdm,
+    buscarEndereco,
+    buscarEmpresa
 };
