@@ -58,11 +58,11 @@ async function cadastrar(req, res) {
     } 
     else {
         await empresaModel.cadastrarEndereco(cep, estado, cidade, bairro, logradouro, numero, complemento)
-        const resultado = await empresa2Model.buscarEndereco(cep, numero);
+        const resultado = await empresaModel.buscarEndereco(cep, numero);
         const idEndereco = resultado[0].idEndereco;
         
         await empresaModel.cadastrarEmpresa(nome_fantasia, razao_social, cnpj, idEndereco)
-        const resultado2 = await empresa2Model.buscarEmpresa(idEndereco)
+        const resultado2 = await empresaModel.buscarEmpresa(idEndereco)
         const idEmpresa = resultado2[0].idEmpresa
         await empresaModel.cadastrarAdm(nome, email, senha, idEmpresa)
     }
