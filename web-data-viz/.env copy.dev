@@ -12,3 +12,7 @@ APP_PORT=3333
 APP_HOST=localhost
 
 JWT_SECRET=chaveSecretaaaSentry
+
+EMAIL_USER='teste'
+EMAIL_PASS='teste'
+BASE_URL=http://localhost:3333

@@ -1,27 +1,55 @@
-var database = require("../database/config");
+var database = require("../database/config")
 
-function buscarPorId(id) {
-  var instrucaoSql = `SELECT * FROM empresa WHERE id = '${id}'`;
-
-  return database.executar(instrucaoSql);
+// Procura o endereço cadastrado
+function buscarEndereco(cep, numero) {
+    var instrucaoSql = `
+        SELECT idEndereco FROM endereco WHERE cep = '${cep}' AND numero = '${numero}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
-function listar() {
-  var instrucaoSql = `SELECT id, razao_social, cnpj, codigo_ativacao FROM empresa`;
-
-  return database.executar(instrucaoSql);
+// Buscar empresa pelo endereço
+function buscarEmpresa(idEndereco) {
+    var instrucaoSql = `
+        SELECT idEmpresa FROM empresa WHERE enderecoId = '${idEndereco}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
-function buscarPorCnpj(cnpj) {
-  var instrucaoSql = `SELECT * FROM empresa WHERE cnpj = '${cnpj}'`;
-
-  return database.executar(instrucaoSql);
+// Cadastra a empresa
+function cadastrarEmpresa(nome_fantasia, razao_social, cnpj, idEndereco) {
+    var instrucaoSql = `
+        INSERT INTO empresa (nome_fantasia, razao_social, cnpj, enderecoId) VALUES ('${nome_fantasia}', '${razao_social}', '${cnpj}', '${idEndereco}');
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
-function cadastrar(razaoSocial, cnpj) {
-  var instrucaoSql = `INSERT INTO empresa (razao_social, cnpj) VALUES ('${razaoSocial}', '${cnpj}')`;
-
-  return database.executar(instrucaoSql);
+// Cadastra o endereço
+function cadastrarEndereco(cep, estado, cidade, bairro, logradouro, numero, complemento) {
+    var instrucaoSql = `
+        INSERT INTO endereco (cep, estado, cidade, bairro, logradouro, numero, complemento) VALUES ('${cep}', '${estado}', '${cidade}', '${bairro}', '${logradouro}', '${numero}', '${complemento}');
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar };
+// Cadastra o administrador 
+function cadastrarAdm(nome, email, senha, idEmpresa) {
+
+    var instrucaoSql = `
+        INSERT INTO usuario (nome, email, senha, cargo, responsavel, empresaId) VALUES ('${nome}', '${email}', '${senha}', 'Administrador', null, ${idEmpresa});
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+module.exports = {
+    cadastrarEmpresa,
+    cadastrarEndereco,
+    cadastrarAdm,
+    buscarEndereco,
+    buscarEmpresa
+};

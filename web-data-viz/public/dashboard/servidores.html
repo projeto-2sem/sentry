@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servidores</title>
+
+    <link rel="icon" href="assets/imgs/logo_oficial.png">
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
@@ -49,7 +51,7 @@
                 <div class="sidebar_account_wrapper">
                     <img class="sidebar_account_photo" src="../assets/imgs/pessoa1.png" alt="">
                     <div class="sidebar_account_infos">
-                        <p class="text-sidebar">Gerson Silva</p>
+                        <p class="text-sidebar" id="nome_usuario">Usuario</p>
                         <p class="text-sidebar">Administrador</p>
                     </div>
                 </div>
@@ -165,11 +167,149 @@
         </nav>
     </div>
 
+
+    <div class="cardEditSection" id="cardDeleteSection">
+        <div id="cardExclusao" class="card card-delete">
+
+            <div class="headCard">
+                <span>Excluir servidor</span>
+                <span id="sairCard" onclick="fecharCard('cardDeleteSection')">x</span>
+            </div>
+
+            <div class="bodyCard body-delete">
+                <i class="bi bi-exclamation-triangle-fill delete-icon"></i>
+
+                <p>
+                    Tem certeza que deseja excluir este servidor?
+                </p>
+
+                <span class="delete-warning">
+                    Essa ação não poderá ser desfeita.
+                </span>
+            </div>
+
+            <div class="card-footer">
+                <button type="button" class="btn-cancelar" onclick="fecharCard('cardDeleteSection')">
+                    Cancelar
+                </button>
+
+                <button type="button" class="btn-excluir" id="btnConfirmarExclusao">
+                    Excluir
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="cardEditSection" id="cardEditSection">
+        <div id="cardEdicao" class="card">
+            <div class="headCard">
+                <span>Editar Servidor</span>
+                <span id="sairCard" onclick="fecharCard('cardEditSection')">x</span>
+            </div>
+            <div class="bodyCard">
+
+                <div class="inputComTxt">
+                    <span class="txtInput">HostName <span class="txtDestaque">*</span></span>
+                    <input type="text" id="ipt_hostName">
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Apelido <span class="txtDestaque">*</span></span>
+                    <input type="text" id="ipt_apelido">
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Modelo <span class="txtDestaque">*</span></span>
+                    <input id="ipt_modelo">
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
+                    <select id="ipt_situacao">
+                        <option value= 1>Ativo</option>
+                        <option value= 0>Inativo</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                <button type="button" class="btn-cancelar" onclick="fecharCard('cardEditSection')">
+                    Cancelar
+                </button>
+
+                <button type="button" class="btn-editar" onclick="editarServidor()">
+                    Editar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cardCreateSection" id="cardCreateSection">
+        <div id="cardCreate" class="card">
+            <div class="headCard">
+                <span>Adicionar Servidor</span>
+                <span id="sairCard" onclick="fecharCard('cardCreateSection')">x</span>
+            </div>
+            <div class="bodyCard">
+
+                <div class="inputComTxt">
+                    <span class="txtInput">HostName <span class="txtDestaque">*</span></span>
+                    <input type="text" id="ipt_hostName_create">
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Apelido <span class="txtDestaque">*</span></span>
+                    <input type="text" id="ipt_apelido_create">
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Modelo <span class="txtDestaque">*</span></span>
+                    <input id="ipt_modelo_create">
+                </div>
+
+                <!-- <div class="inputComTxt">
+                    <span class="txtInput">MAC <span class="txtDestaque">*</span></span>
+                    <input id="ipt_mac">
+                </div> -->
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
+                    <select id="ipt_situacao_create">
+                        <option value= 1>Ativo</option>
+                        <option value= 0>Inativo</option>
+                    </select>
+                </div>
+
+                <div class="inputComTxt">
+                    <span class="txtInput">Sistema Operacional <span class="txtDestaque">*</span></span>
+                    <select id="ipt_SO_create">
+
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                <button type="button" class="btn-cancelar" onclick="fecharCard('cardCreateSection')">
+                    Cancelar
+                </button>
+
+                <button type="button" class="btn-editar" onclick="adicionarServidor()">
+                    Adicionar
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
-
+ <script src="../js/sessao.js"></script>
 <script>
+    document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO;
     const today = new Date().toLocaleDateString("pt-BR");
     date_now.innerHTML = today
 
@@ -191,11 +331,10 @@
     }
 
 
-    //Precisamos remover essa linha quando o login estiver funcionando e o id esteja vindo do banco
-    sessionStorage.ID_EMPRESA = 1;
+    console.log("id da empresa: " + sessionStorage.ID_EMPRESA)
 
     function listar() {
-        listarModelos();
+        listarSO();
 
         fetch(`/servidores/listar/${sessionStorage.ID_EMPRESA}`, {
             method: "GET",
@@ -210,20 +349,17 @@
 
     }
 
-    function listarModelos() {
-        fetch(`/servidores/modelos`, {
+    function listarSO() {
+        fetch(`/servidores/listarSO`, {
             method: "GET",
         }).then(function (resposta) {
             return resposta.json();
-        }).then(function (modelos) {
-            console.log(modelos);
-            for (let i = 0; i < modelos.length; i++) {
-                ipt_modelo.innerHTML += `
-                    <option value=${modelos[i].idModelo}>${modelos[i].nome}</option>
-                `
+        }).then(function (SO) {
+            console.log(SO);
+            for (let i = 0; i < SO.length; i++) {
 
-                ipt_modelo_create.innerHTML += `
-                    <option value=${modelos[i].idModelo}>${modelos[i].nome}</option>
+                ipt_SO_create.innerHTML += `
+                    <option value=${SO[i].idSistemaOperacional}>${SO[i].nome}</option>
                 `
             }
         })
@@ -235,7 +371,6 @@
     function listarServidores(servidores) {
         console.log(servidores);
 
-        //Precisa ter na tabela a situação (ativo, inativo, etc)
         for (let i = 0; i < servidores.length; i++) {
             const totalServidores = document.getElementById("totalServidores");
             totalServidores.innerText = `Total de servidores: ${servidores.length}`
@@ -245,25 +380,25 @@
             <article class="server-card">
                         <header class="server-card-header">
                             <div class="server-card-details">
-                                <div class="server-card-details-status">
-                                    <p>Ativo</p>
+                                <div class="server-card-details-status" ${servidores[i].status == 1 ? '' : 'style="background-color: rgb(144, 25, 25);"'}>
+                                    <p>${servidores[i].status != 1 ? "Inativo" : "Ativo"}</p>
                                 </div>
                                 <div class="server-card-info">
                                     <p>Data de instalação: ${servidores[i].data_criacao}</p>
                                     <p>|</p>
-                                    <p>${servidores[i].nome_modelo}</p>
+                                    <p>${servidores[i].modelo}</p>
                                 </div>
                             </div>
                             <div class="server-card-actions">
                                 <button class="btn-action" onclick="abrirCardDelete(${servidores[i].idServidor})">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
-                                <button class="btn-action"  onclick="abrirCardEdit(${servidores[i].idServidor}, '${servidores[i].hostName}', '${servidores[i].nome_modelo}', '${servidores[i].modeloId}')"><i class="bi bi-pencil-square"></i></button>
+                                <button class="btn-action"  onclick="abrirCardEdit(${servidores[i].idServidor}, '${servidores[i].hostname}', '${servidores[i].modelo}', '${servidores[i].apelido}')"><i class="bi bi-pencil-square"></i></button>
                                 <button class="btn-action"><i class="bi bi-chevron-down"></i></button>
                             </div>
                         </header>
                         <div class="server-card-body">
-                            <p>${servidores[i].hostName}</p>
+                            <p>${servidores[i].apelido}</p>
                         </div>
                     </article>
             `;
@@ -276,7 +411,8 @@
         fetch(`/servidores/deletar/${idServer}`, {
             method: "DELETE",
             headers: {
-                "Content-Type": "application/json"
+                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionStorage.TOKEN}`
             }
         }).then(function (resposta) {
 
@@ -302,11 +438,15 @@
         console.log(hostName);
         console.log(modelo);
         console.log(situacao);
-
+        // aqui é um dos exemplos aonde o token jwt pode ser usado, caso o usuario nao possua o token valido, o teste das routes
+        // que chama o auth nao vai conseguir prosseguir, ou seja, o usuario tentou acessar a conta de outra pessoa pelo session storage?
+        // o jwt barra por nao ter feito o login com as informações certas, para isso funcionar..
+        // voce deve mandar o token aqui no header da requisição com essa sintaxe, que o backend ja valida tudo certinho
         fetch(`/servidores/editar/${idEditar}`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionStorage.TOKEN}`
             },
             body: JSON.stringify({
                 hostName: ipt_hostName.value,
@@ -331,13 +471,14 @@
 
 
     let idEditar = 0;
-    function abrirCardEdit(idServer, hostName, modelo, modeloId) {
+    function abrirCardEdit(idServer, hostName, modelo, apelido) {
+        console.log(idServer);
         document.getElementById("cardEditSection").style.display = "flex";
 
         document.getElementById("ipt_hostName").value = hostName;
         // document.getElementById("ipt_apelido");
-        document.getElementById("ipt_modelo").value = modeloId;
-        document.getElementById("ipt_apelido").value = hostName;
+        document.getElementById("ipt_modelo").value = modelo;
+        document.getElementById("ipt_apelido").value = apelido;
 
         idEditar = idServer;
     }
@@ -349,6 +490,7 @@
 
     let idServerExc = null;
     function abrirCardDelete(idServer) {
+        console.log(idServer);
         idServerExc = idServer;
 
         document.getElementById("cardDeleteSection").style.display = "flex";
@@ -369,19 +511,25 @@
     function adicionarServidor() {
         let hostName = ipt_hostName_create.value;
         let modelo = ipt_modelo_create.value;
+        // let mac = ipt_mac.value;
+        let so = ipt_SO_create.value;
         let situacao = ipt_situacao_create.value;
         let apelido = ipt_apelido_create.value;
+
 
         fetch(`/servidores/adicionar/${sessionStorage.ID_EMPRESA}`, {
             method: "post",
             headers: {
-                "Content-Type": "application/json"
+                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionStorage.TOKEN}`
             },
             body: JSON.stringify({
                 hostName: ipt_hostName_create.value,
-                modeloId: ipt_modelo_create.value,
+                modelo: ipt_modelo_create.value,
                 situacao: ipt_situacao_create.value,
-                apelido: ipt_apelido_create.value
+                apelido: ipt_apelido_create.value,
+                so: ipt_SO_create.value,
+                sitiacao: ipt_situacao_create.value
             })
         }).then(function (resposta) {
 
@@ -399,5 +547,5 @@
             console.log(`#ERRO: ${resposta}`);
         });
     }
-
+    validarToken();
 </script>
