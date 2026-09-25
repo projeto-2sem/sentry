@@ -20,9 +20,11 @@
   list-style-type: none;
 }
 
-body {
+body, html {
   background-color: var(--first-color);
   color: var(--text-color);
+  width: 100%;
+  min-height: 100%;
 }
 
 h1,
@@ -52,10 +54,12 @@ a {
   flex-direction: column;
   width: 17.5rem;
   background-color: var(--second-color);
+  height: 100vh;
   min-height: 100vh;
   padding: 1rem 2rem;
   justify-content: space-between;
   transition: 0.5s ease;
+  position: fixed;
 }
 
 .sidebar_logo img {
@@ -180,9 +184,10 @@ a {
 main {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 86%;
   padding: 3rem;
   gap: 2rem;
+  margin-left: 17.5rem;
 }
 
 .server-header {
@@ -223,7 +228,8 @@ main {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-height: 30rem;
+  width: 100%;
+  height: 100%;
 }
 
 .server-content-header h2 {
@@ -238,7 +244,7 @@ main {
 
   overflow-y: auto;
   border-radius: 20px;
-  height: 100%;
+  height: auto;
 }
 
 .server-list::-webkit-scrollbar {
@@ -493,7 +499,7 @@ input {
   border-radius: 10px;
 }
 
-select{
+select {
   height: 35px;
   width: 250px;
   max-width: 100%;
@@ -697,4 +703,190 @@ select{
 
 .btn-excluir:hover {
   background-color: rgb(150, 0, 0);
+}
+
+.container-pessoa {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.pessoa_div {
+  background-color: #101d2d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 319px;
+  height: 300px;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 15px;
+  font-family: "Geist", sans-serif;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.editar_pencil {
+  width: 290px;
+  display: flex;
+  justify-content: end;
+  padding-right: 20px;
+  margin-top: -20px;
+
+  button {
+    background-color: transparent;
+    border: none;
+  }
+
+  .bi-pencil-fill {
+    font-size: 30px;
+    color: var(--first-color);
+  }
+}
+
+#foto {
+  border-radius: 90px;
+  display: flex;
+  justify-content: center;
+  margin-top: -20px;
+  padding-bottom: 10px;
+}
+
+#foto img {
+  width: 180px;
+}
+
+#nome {
+  font-size: 23px;
+}
+
+#email {
+  color: rgb(116, 116, 116);
+  font-size: 17px;
+}
+
+.status-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-end; 
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.server-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 40px;
+  width: 600px;
+  height: 80px;
+  border-radius: 8px;
+  gap: 20px;
+  background-color: var(--second-color);
+}
+.status-left h1 {
+    font-size: 32px;
+    color: #FFFFFF;
+    margin-bottom: 1px;
+}
+.dot-status{
+  display: flex;
+  align-items: center; 
+  gap: 8px; 
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 30px;
+  color: var(--text-color);
+  font-family: "Geist", sans-serif;
+}
+.img-circulo {
+    width: 30px; 
+    height: 30px;
+    object-fit: contain; 
+}
+
+.btn-adicionar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  padding: 40px;
+  border-radius: 12px;
+  border: none;
+  color: white;
+  font-size: 50px;
+  background-color: var(--third-color);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.btn-adicionar:hover {
+    background-color: #2563EB; 
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 15px 20px;
+}
+
+#input_busca {
+  border: none;
+  height: 60px;
+  width: 1500px;
+  font-size: 32px;
+}
+
+.btn-filtro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  padding: 40px;
+  border-radius: 12px;
+  border: none;
+  color: black;
+  font-size: 50px;
+  background-color: var(--third-color);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.btn-filtro:hover {
+    background-color: #2563EB; 
+}
+.btn-buscar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 50px;
+  padding: 40px;
+  border-radius: 12px;
+  border: none;
+  color: white;
+  font-size: 25px;
+  background-color: var(--third-color);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.btn-buscar:hover {
+    background-color: #2563EB; 
+}
+
+@media (max-width: 800px) {
+  .container-pessoa {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  main {
+    margin-left: 0;
+  }
 }

@@ -37,7 +37,7 @@
                                 class="text-sidebar">Alertas</span>
                         </li>
                     </a>
-                    <a href="">
+                    <a href="equipe.html">
                         <li class="sidebar_items"><i class="bi bi-people-fill"></i><span
                                 class="text-sidebar">Equipe</span></li>
                     </a>
@@ -69,20 +69,76 @@
                     <time id="date_now">19/04/2026</time>
                 </div>
             </header>
-            <section class="new-server">
-                <button class="btn-add-server" onclick="abrirCardCreate()">
-                    Adicionar servidor
-                </button>
-            </section>
             <section class="server-content">
                 <header class="server-content-header">
-                    <h1 id="totalServidores">Total de servidores: 0</h1>
+                    <h1 id="totalServidores">Total de servidores: 2</h1>
                 </header>
+                
+                <div class="status-container">
+                    
+                    <div class="status-left">
+                          <h1> STATUS </h1>
+                        <div class="server-status">
+                            <a href="" class="dot-status">
+                                <img src="../assets/imgs/circulo-verde.png" alt="Status Verde" class="img-circulo"> 10
+                            </a>
+                            <a href="" class="dot-status">
+                                <img src="../assets/imgs/circulo-amarelo.png" alt="Status Amarelo" class="img-circulo">
+                                1
+                            </a>
+                            <a href="" class="dot-status">
+                                <img src="../assets/imgs/circulo-vermelho.png" alt="Status Vermelho"
+                                    class="img-circulo"> 1
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <button class = "btn-adicionar" onclick="abrirCardCreate()"> 
+                            <i class="bi bi-plus-lg"> </i>
+                    </button>
+
+                </div>
+
+                <div class="search-bar">
+                    <input id="input_busca" type="text"> 
+                    <button class="btn-filtro">
+                        <i class="bi bi-funnel-fill"></i>
+                    </button>
+                    <button class="btn-buscar">
+                        <span> Buscar </span>
+                    </button>
+                </div>
+                <div class="server-list" id="serverList">
+    <article class="server-card dark-card">
+        <header class="server-card-header">
+            <div class="server-card-details">
+                <span class="badge-status badge-ativo">Ativo</span>
+                <p class="server-info-text">Data de instalação: 15/02/2026 <span class="separator">|</span> Dell PowerEdge R750</p>
+            </div>
+            <div class="server-card-actions">
+                <div class="status-dots">
+                    <span class="dot dot-green"></span>
+                    <span class="dot dot-green"></span>
+                    <span class="dot dot-green"></span>
+                </div>
+                <button class="btn-action" title="Excluir"><i class="bi bi-trash"></i></button>
+                <button class="btn-action" title="Editar"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn-action" title="Expandir Métricas"><i class="bi bi-chevron-down"></i></button>
+            </div>
+        </header>
+        <p class="server-name">Servidor Paranapiacaba</p>
+    </article>
+
+</div>
                 <div class="server-list" id="serverList">
 
                 </div>
+
             </section>
         </main>
+
+
         <nav class="mobile-navbar">
             <ul class="sidebar_list_mobile">
                 <a href="">
