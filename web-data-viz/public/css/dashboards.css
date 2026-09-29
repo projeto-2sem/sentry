@@ -82,8 +82,17 @@ a {
 }
 
 .sidebar_account_photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 4rem;
+  height: 4rem;
   transition: 0.5 ease-in-out;
+  background-color: #FFF;
+  border-radius: 50px;
+  color: var(--second-color);
+  font-size: 25px;
+  font-family: "Geist", sans-serif;
 }
 
 .sidebar_top_wrapper {
@@ -717,7 +726,7 @@ select {
   justify-content: center;
   align-items: center;
   width: 319px;
-  height: 300px;
+  height: 330px;
   flex-direction: column;
   padding: 10px;
   border-radius: 15px;
@@ -749,11 +758,17 @@ select {
   display: flex;
   justify-content: center;
   margin-top: -20px;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
+  background-color: #FFF;
+  width: 180px;
+  height: 180px;
+  align-items: center;
 }
 
-#foto img {
-  width: 180px;
+#siglas {
+  font-size: 50px;
+  color: #101D2D;
+  
 }
 
 #nome {
@@ -763,6 +778,11 @@ select {
 #email {
   color: rgb(116, 116, 116);
   font-size: 17px;
+}
+
+#data {
+  font-size: 19px;
+  padding-top: 10px;
 }
 
 .status-container {
@@ -876,6 +896,21 @@ select {
 }
 .btn-buscar:hover {
     background-color: #2563EB; 
+}
+
+.alerta_div {
+  background-color: #101d2d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 319px;
+  height: 330px;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 15px;
+  font-family: "Geist", sans-serif;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 @media (max-width: 800px) {
