@@ -29,12 +29,10 @@ CREATE TABLE empresa (
 
 CREATE TABLE codigo_ativacao (
   idCodigo INT PRIMARY KEY AUTO_INCREMENT,
-  codigo_ativacao VARCHAR(10) NOT NULL UNIQUE,
+  codigo_ativacao VARCHAR(10) NOT NULL,
   usado TINYINT NOT NULL,
-  empresaId INT NOT NULL,
   data_criacao datetime default current_timestamp,
-  data_atualizacao datetime default current_timestamp on update current_timestamp,
-  FOREIGN KEY (empresaId) REFERENCES empresa(idEmpresa)
+  data_atualizacao datetime default current_timestamp on update current_timestamp
 );
 
 
@@ -45,12 +43,10 @@ CREATE TABLE usuario (
   senha VARCHAR(255),
   empresaId INT NOT NULL,
   cargo VARCHAR(30) DEFAULT 'Analista',
-  responsavel INT,
   data_criacao datetime default current_timestamp,
   data_atualizacao datetime default current_timestamp on update current_timestamp,
   FOREIGN KEY (empresaId) REFERENCES empresa(idEmpresa),
-  FOREIGN KEY (responsavel) REFERENCES usuario(idUsuario),
-  CONSTRAINT fk_check_papel CHECK (cargo IN ('Administrador', 'Analista'))
+  CONSTRAINT fk_check_papel CHECK (cargo IN ('Administrador', 'Analista', 'Gestor'))
 );
 
 CREATE TABLE sistema_operacional (
@@ -85,7 +81,7 @@ CREATE TABLE servidor_medicao (
   servidorId INT,
   tipoMedicaoId INT,
   ativo TINYINT,
-  parametro INT,
+  limite INT,
   PRIMARY KEY (servidorId, tipoMedicaoId),
   FOREIGN KEY (servidorId) REFERENCES servidor(idServidor),
   FOREIGN KEY (tipoMedicaoId) REFERENCES tipo_medicao(idTipoMedicao)
