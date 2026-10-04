@@ -58,9 +58,19 @@ function trocarSenha(id, senha) {
     return database.executar(instrucaoSql);
 }
 
+function listarFuncionarios(empresaId) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarFuncionarios():", empresaId);
+    
+    var instrucaoSql = `select *, date_format(data_criacao, '%d/%m/%Y') AS data_criacao from usuario where empresaId = ${empresaId}`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     verificarEmail,
-    trocarSenha
+    trocarSenha,
+    listarFuncionarios
 };

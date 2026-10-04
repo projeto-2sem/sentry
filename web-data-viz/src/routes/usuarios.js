@@ -20,4 +20,8 @@ router.put("/trocar-senha", function (req, res) {
     usuarioController.trocarSenha(req, res);
 })
 
+router.get("/listarFuncionarios/:empresaId", function (req, res) {
+    usuarioController.listarFuncionarios(req, res);
+});
+
 module.exports = router;

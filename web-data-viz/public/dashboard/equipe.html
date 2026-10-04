@@ -10,7 +10,36 @@
     <link rel="icon" href="../assets/imgs/logo_oficial.png" />
 </head>
 
-<body onload="listar()">
+<body onload="listarFuncionarios()">
+    <div class="card-contato" id="card-contato">
+        <div class="contato-content">
+            <span class="fechar-card" id="fechar-card" onclick="fecharCard('card-contato')">&times;</span>
+            <h2>Mande email para outro funcionário</h2>
+            <p class="card-subtitulo">
+                Preencha os dados abaixo.
+            </p>
+
+            <div class="contato-input">
+                <label for="contato_nome">Nome do Administrador</label>
+                <input type="text" id="contato_nome" placeholder="Digite seu nome" />
+            </div>
+
+            <div class="contato-input">
+                <label for="contato_nome">Email do Destinatário</label>
+                <input type="text" id="contato_email" placeholder="email@exemplo.com" />
+            </div>
+
+            <div class="contato-input">
+                <label for="contato_nome">Mensagem</label>
+                <textarea id="contato_mensagem" placeholder="Digite sua mensagem" rows="4"></textarea>
+            </div>
+
+            <button class="btn-enviar-contato" id="btn-enviar-contato" onclick="email()">
+                Enviar mensagem
+            </button>
+        </div>
+    </div>
+
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar_top_wrapper">
@@ -48,7 +77,9 @@
             </div>
             <div class="sidebar_bot_wrapper">
                 <div class="sidebar_account_wrapper">
-                    <div class="sidebar_account_photo"><h3>GS</h3></div>
+                    <div class="sidebar_account_photo">
+                        <h3>GS</h3>
+                    </div>
                     <div class="sidebar_account_infos">
                         <p class="text-sidebar">Gerson Silva</p>
                         <p class="text-sidebar">Administrador</p>
@@ -73,20 +104,7 @@
                     <h1 id="totalServidores">Administradores:</h1>
                 </header>
                 <div class="container-pessoa" id="container-pessoa-adm">
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button onclick="abrirCardCreate()"><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><h3 id="siglas">GS</h3></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                        <p id="data">Desde 12/12/2012</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><h3 id="siglas">GS</h3></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                        <p id="data">Desde 12/12/2012</p>
-                    </div>
+
                 </div>
             </section>
             <section class="server-content">
@@ -94,55 +112,7 @@
                     <h1 id="totalServidores">Analistas:</h1>
                 </header>
                 <div class="container-pessoa" id="container-pessoa-analista">
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><h3 id="siglas">GS</h3></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                        <p id="data">Desde 12/12/2012</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><h3 id="siglas">GS</h3></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                        <p id="data">Desde 12/12/2012</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><h3 id="siglas">GS</h3></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                        <p id="data">Desde 12/12/2012</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><h3 id="siglas">GS</h3></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                        <p id="data">Desde 12/12/2012</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><h3 id="siglas">GS</h3></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                        <p id="data">Desde 12/12/2012</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><h3 id="siglas">GS</h3></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                        <p id="data">Desde 12/12/2012</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><h3 id="siglas">GS</h3></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                        <p id="data">Desde 12/12/2012</p>
-                    </div>
+
                 </div>
             </section>
         </main>
@@ -174,11 +144,146 @@
         </nav>
     </div>
 
+    <div class="card-editar-func" id="card-editar-func">
+        <div id="cardCreate" class="card">
+            <div class="headCard">
+                <h2>Editar informações</h2>
+                <span class="fechar-card" id="fechar-card" onclick="fecharCard('card-editar-func')">&times;</span>
+            </div>
+            <div class="bodyCard">
+
+                <div class="contato-input">
+                    <label>Nome</label>
+                    <input type="text" id="ipt_hostName_create">
+                </div>
+
+                <div class="contato-input">
+                    <label class="txtInput">Cargo</label>
+                    <input type="text" id="ipt_apelido_create">
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                <button type="button" class="btn-enviar-contato" onclick="fecharCard('card-editar-func')">
+                    Cancelar
+                </button>
+
+                <button type="button" class="btn-enviar-contato" onclick="adicionarServidor()">
+                    Adicionar
+                </button>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
 
 <script>
+    empresaId = sessionStorage.ID_EMPRESA;
+    numero_modals_contato = 0;
+
+    function listarFuncionarios() {
+        document.getElementById("container-pessoa-adm").innerHTML = "";
+        document.getElementById("container-pessoa-analista").innerHTML = "";
+
+        fetch(`/usuarios/listarFuncionarios/${empresaId}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    numero_modals_contato = resposta.length;
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        if (resposta[i].cargo == "Analista") {
+                            let sigla = resposta[i].nome.split(" ");
+                            sigla = sigla[0][0];
+
+                            document.getElementById("container-pessoa-analista").innerHTML +=
+                                `<div class="pessoa_div" id="pessoa_div">
+                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', null)"><i
+                                    class="bi bi-pencil-fill"></i></button></div>
+                                <div id="foto">
+                                    <h3 id="siglas">${sigla}</h3>
+                                </div>
+                                <p id="nome">${resposta[i].nome}</p>
+                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}')">${resposta[i].email}</span></p>
+                                <p id="data">${resposta[i].data_criacao}</p>
+                            </div>`;
+
+                        } else {
+                            let sigla = resposta[i].nome.split(" ");
+                            sigla = sigla[0][0];
+
+                            document.getElementById("container-pessoa-adm").innerHTML +=
+                                `<div class="pessoa_div" id="pessoa_div">
+                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', null)"><i
+                                    class="bi bi-pencil-fill"></i></button></div>
+                                <div id="foto">
+                                    <h3 id="siglas">${sigla}</h3>
+                                </div>
+                                <p id="nome">${resposta[i].nome}</p>
+                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}')">${resposta[i].email}</span></p>
+                                <p id="data">${resposta[i].data_criacao}</p>
+                            </div>`;
+                        }
+                    }
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+
+    //abrir e fechar card
     const today = new Date().toLocaleDateString("pt-BR");
     date_now.innerHTML = today
+
+    function abrirCardCreate(card, email_atual) {
+        document.getElementById(card).style.display = "flex";
+
+        if(card == "card-contato") {
+             document.getElementById("contato_email").value = email_atual;
+        }
+    }
+
+    function fecharCard(card) {
+        document.getElementById(card).style.display = "none";
+    }
+
+    function email() {
+        //enviar email
+        const nomeServer = document.getElementById("contato_nome").value;
+        const emailServer = document.getElementById("contato_email").value;
+        const mensagemServer = document.getElementById("contato_mensagem").value;
+
+        if (!nomeServer || !emailServer || !mensagemServer) {
+            alert("Preencha todos os campos");
+            return;
+        }
+
+        try {
+            const resposta = fetch("/contato/enviarContato", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nomeServer, emailServer, mensagemServer }),
+            });
+
+            if (resposta.ok) {
+                alert("Mensagem enviada com sucesso! Verifique seu email.");
+            } else {
+                alert("Erro ao enviar. Tente novamente.");
+            }
+        } catch (erro) {
+            console.error(erro);
+            alert("Erro ao enviar. Tente novamente.");
+        }
+    }
+
 </script>

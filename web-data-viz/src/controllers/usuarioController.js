@@ -22,18 +22,18 @@ function autenticar(req, res) {
                         console.log(resultadoAutenticar);
                         // aqui é aonde o token do jwt é criado, usando a fução sign e os parametros do usuario
                         // ele tambem coloca um limite de tempo para o token, e utiliza a chave secreta do .env para criar o token
-                         const tokenServer = jwt.sign(
-                            {
-                                id: resultadoAutenticar[0].idUsuario,
-                                username: resultadoAutenticar[0].nome,
-                                email: resultadoAutenticar[0].email
-                            },
-                            process.env.JWT_SECRET,
-                            { expiresIn: "2h" }
-                        );
+                        //  const tokenServer = jwt.sign(
+                        //     {
+                        //         id: resultadoAutenticar[0].idUsuario,
+                        //         username: resultadoAutenticar[0].nome,
+                        //         email: resultadoAutenticar[0].email
+                        //     },
+                        //     process.env.JWT_SECRET,
+                        //     { expiresIn: "2h" }
+                        // );
 
                         res.json({
-                            token: tokenServer,
+                            // token: tokenServer,
                             id: resultadoAutenticar[0].idUsuario,
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome,
@@ -161,9 +161,38 @@ function trocarSenha(req, res) {
     }
 }
 
+function listarFuncionarios(req, res) {
+    var empresaId = req.params.empresaId;
+
+    if (empresaId == undefined) {
+        res.status(400).send("Sua empresaId está undefined!");
+
+    } else {
+        
+        usuarioModel.listarFuncionarios(empresaId)
+            .then(
+                function (resultado) {
+                    
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar listarFuncionarios",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     verificarEmail,
-    trocarSenha
+    trocarSenha,
+    listarFuncionarios
 }

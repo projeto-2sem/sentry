@@ -20,7 +20,8 @@
   list-style-type: none;
 }
 
-body, html {
+body,
+html {
   background-color: var(--first-color);
   color: var(--text-color);
   width: 100%;
@@ -444,30 +445,40 @@ main {
   z-index: 9999;
 }
 
-.cardCreateSection {
+.card-editar-func {
+  display: none;
   position: fixed;
   inset: 0;
-  display: none;
+  background: rgba(7, 18, 36, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  padding: 20px;
+  padding: 24px;
   z-index: 9999;
+
+  h2 {
+    font-family: "Geist", sans-serif;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-
-  width: 700px;
-  max-width: 100%;
-  min-height: 350px;
-
-  background-color: #101D2D;
-  border-radius: 20px;
-  color: white;
   overflow: hidden;
+  position: relative;
+  background-color: #071224;
+  border: 1px solid #0d56df;
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modal-in 0.25s ease;
 }
 
 .headCard {
@@ -490,13 +501,6 @@ main {
   flex-wrap: wrap;
 
   gap: 20px;
-
-  padding: 40px 20px 20px;
-  margin: 20px 5px 20px 0;
-
-  justify-content: space-around;
-  align-items: flex-start;
-  align-self: stretch;
 }
 
 input {
@@ -745,6 +749,7 @@ select {
   button {
     background-color: transparent;
     border: none;
+    cursor: pointer;
   }
 
   .bi-pencil-fill {
@@ -768,16 +773,17 @@ select {
 #siglas {
   font-size: 50px;
   color: #101D2D;
-  
+
 }
 
 #nome {
   font-size: 23px;
 }
 
-#email {
+#email span {
   color: rgb(116, 116, 116);
   font-size: 17px;
+  cursor: pointer;
 }
 
 #data {
@@ -786,12 +792,12 @@ select {
 }
 
 .status-container {
-    display: flex;
-    justify-content: space-between; 
-    align-items: flex-end; 
-    padding: 15px 20px;
-    border-radius: 8px;
-    margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 5px;
 }
 
 .server-status {
@@ -806,25 +812,28 @@ select {
   gap: 20px;
   background-color: var(--second-color);
 }
+
 .status-left h1 {
-    font-size: 32px;
-    color: #FFFFFF;
-    margin-bottom: 1px;
+  font-size: 32px;
+  color: #FFFFFF;
+  margin-bottom: 1px;
 }
-.dot-status{
+
+.dot-status {
   display: flex;
-  align-items: center; 
-  gap: 8px; 
+  align-items: center;
+  gap: 8px;
   text-decoration: none;
   font-weight: bold;
   font-size: 30px;
   color: var(--text-color);
   font-family: "Geist", sans-serif;
 }
+
 .img-circulo {
-    width: 30px; 
-    height: 30px;
-    object-fit: contain; 
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
 }
 
 .btn-adicionar {
@@ -842,8 +851,9 @@ select {
   cursor: pointer;
   transition: background-color 0.2s;
 }
+
 .btn-adicionar:hover {
-    background-color: #2563EB; 
+  background-color: #2563EB;
 }
 
 .search-bar {
@@ -876,9 +886,11 @@ select {
   cursor: pointer;
   transition: background-color 0.2s;
 }
+
 .btn-filtro:hover {
-    background-color: #2563EB; 
+  background-color: #2563EB;
 }
+
 .btn-buscar {
   display: flex;
   justify-content: center;
@@ -894,8 +906,9 @@ select {
   cursor: pointer;
   transition: background-color 0.2s;
 }
+
 .btn-buscar:hover {
-    background-color: #2563EB; 
+  background-color: #2563EB;
 }
 
 .alerta_div {
@@ -911,6 +924,123 @@ select {
   font-family: "Geist", sans-serif;
   margin-right: 10px;
   margin-bottom: 10px;
+}
+
+.card-contato {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 18, 36, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card-contato.active {
+  display: flex;
+}
+
+.contato-content {
+  position: relative;
+  background-color: #071224;
+  border: 1px solid #0d56df;
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modal-in 0.25s ease;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fechar-card {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  color: #94a3b8;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.fechar-card:hover {
+  color: #60a5fa;
+}
+
+.contato-content h2 {
+  font-family: "Geist", sans-serif;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-subtitulo {
+  font-family: "Geist Mono", monospace;
+  color: #cbd5e1;
+  font-size: 20px;
+  margin-bottom: 28px;
+}
+
+.contato-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.contato-input label {
+  font-family: "Geist", sans-serif;
+  color: #e5e7eb;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.contato-input input,
+.contato-input textarea {
+  background: none;
+  border: 1px solid #0d56df;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #ffffff;
+  font-family: "Geist", sans-serif;
+  font-size: 16px;
+  resize: none;
+}
+
+.btn-enviar-contato {
+  width: 100%;
+  background-color: #0d56df;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 14px 28px;
+  font-family: "Geist", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 8px;
+}
+
+.btn-enviar-contato:hover {
+  background-color: #073384;
 }
 
 @media (max-width: 800px) {
