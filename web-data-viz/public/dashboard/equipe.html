@@ -199,7 +199,7 @@
                     for (let i = 0; i < resposta.length; i++) {
                         if (resposta[i].cargo == "Analista") {
                             let sigla = resposta[i].nome.split(" ");
-                            sigla = sigla[0][0];
+                            sigla = sigla[0][0]+sigla[1][0];
 
                             document.getElementById("container-pessoa-analista").innerHTML +=
                                 `<div class="pessoa_div" id="pessoa_div">
@@ -215,7 +215,7 @@
 
                         } else {
                             let sigla = resposta[i].nome.split(" ");
-                            sigla = sigla[0][0];
+                            sigla = sigla[0][0]+sigla[1][0];
 
                             document.getElementById("container-pessoa-adm").innerHTML +=
                                 `<div class="pessoa_div" id="pessoa_div">
