@@ -25,6 +25,11 @@
             </div>
 
             <div class="contato-input">
+                <label for="contato_senha">Senha do seu email</label>
+                <input type="text" id="contato_senha" placeholder="Digite sua senha" />
+            </div>
+
+            <div class="contato-input">
                 <label for="contato_nome">Email do Destinatário</label>
                 <input type="text" id="contato_email" placeholder="email@exemplo.com" />
             </div>
@@ -199,7 +204,7 @@
                     for (let i = 0; i < resposta.length; i++) {
                         if (resposta[i].cargo == "Analista") {
                             let sigla = resposta[i].nome.split(" ");
-                            sigla = sigla[0][0]+sigla[1][0];
+                            sigla = sigla[0][0] + sigla[1][0];
 
                             document.getElementById("container-pessoa-analista").innerHTML +=
                                 `<div class="pessoa_div" id="pessoa_div">
@@ -215,7 +220,7 @@
 
                         } else {
                             let sigla = resposta[i].nome.split(" ");
-                            sigla = sigla[0][0]+sigla[1][0];
+                            sigla = sigla[0][0] + sigla[1][0];
 
                             document.getElementById("container-pessoa-adm").innerHTML +=
                                 `<div class="pessoa_div" id="pessoa_div">
@@ -248,8 +253,8 @@
     function abrirCardCreate(card, email_atual) {
         document.getElementById(card).style.display = "flex";
 
-        if(card == "card-contato") {
-             document.getElementById("contato_email").value = email_atual;
+        if (card == "card-contato") {
+            document.getElementById("contato_email").value = email_atual;
         }
     }
 
@@ -262,28 +267,27 @@
         const nomeServer = document.getElementById("contato_nome").value;
         const emailServer = document.getElementById("contato_email").value;
         const mensagemServer = document.getElementById("contato_mensagem").value;
+        const senhaUsuario = document.getElementById("contato_senha").value;
+        const emailUsuario = sessionStorage.EMAIL_USUARIO;
 
-        if (!nomeServer || !emailServer || !mensagemServer) {
+        if (!nomeServer || !emailServer || !mensagemServer || !emailUsuario || !senhaUsuario) {
             alert("Preencha todos os campos");
             return;
         }
 
-        try {
-            const resposta = fetch("/contato/enviarContato", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ nomeServer, emailServer, mensagemServer }),
-            });
-
+        fetch("/email/emailFuncionario", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ emailUsuario, emailServer, nomeServer, mensagemServer, senhaUsuario }),
+        }).then(function (resposta) {
             if (resposta.ok) {
                 alert("Mensagem enviada com sucesso! Verifique seu email.");
             } else {
                 alert("Erro ao enviar. Tente novamente.");
             }
-        } catch (erro) {
-            console.error(erro);
-            alert("Erro ao enviar. Tente novamente.");
-        }
-    }
 
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
 </script>
