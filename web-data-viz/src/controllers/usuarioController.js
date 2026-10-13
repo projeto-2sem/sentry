@@ -189,10 +189,44 @@ function listarFuncionarios(req, res) {
     }
 }
 
+function editarFuncionarios(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var id = req.params.id;
+    var nome = req.params.nome;
+    var cargo = req.params.cargo;
+console.log("aq")
+    // Faça as validações dos valores
+    if (id == undefined || nome == undefined || cargo == undefined) {
+        res.status(400).send("Suas informações estão undefined!");
+
+    } else {
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        
+        usuarioModel.editarFuncionarios(id, nome, cargo)
+            .then(
+                function (resultado) {
+                    
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     verificarEmail,
     trocarSenha,
-    listarFuncionarios
+    listarFuncionarios,
+    editarFuncionarios
 }

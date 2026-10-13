@@ -24,4 +24,8 @@ router.get("/listarFuncionarios/:empresaId", function (req, res) {
     usuarioController.listarFuncionarios(req, res);
 });
 
+router.get("/editarFuncionarios/:id/:nome/:cargo", function (req, res) {
+    usuarioController.editarFuncionarios(req, res);
+});
+
 module.exports = router;
