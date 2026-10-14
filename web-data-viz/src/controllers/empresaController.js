@@ -1,4 +1,5 @@
 var empresaModel = require("../models/empresaModel");
+const bcrypt = require("bcrypt")
 
 async function cadastrar(req, res) {
     try{
@@ -64,7 +65,10 @@ async function cadastrar(req, res) {
         await empresaModel.cadastrarEmpresa(nome_fantasia, razao_social, cnpj, idEndereco)
         const resultado2 = await empresaModel.buscarEmpresa(idEndereco)
         const idEmpresa = resultado2[0].idEmpresa
-        await empresaModel.cadastrarAdm(nome, email, senha, idEmpresa)
+
+        const hash = await bcrypt.hash(senha,10)
+
+        await empresaModel.cadastrarAdm(nome, email, hash, idEmpresa)
     }
 
     }
