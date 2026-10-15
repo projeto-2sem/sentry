@@ -1432,6 +1432,169 @@ select {
   background: white;
 }
 
+
+
+.alertas-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: calc(100% - 17.5rem);
+    min-height: 100vh;
+    margin-left: 17.5rem;
+    padding: 0 3.5rem;
+    background-color: #030A14;
+}
+
+.alertas-header {
+    width: 100%;
+    padding: 16px 0 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.alertas-header h1 {
+    font-family: "Geist Mono", monospace;
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.alertas-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+    padding-top: 60px;
+    padding-bottom: 30px;
+}
+
+.alerta-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    min-width: 0;
+    min-height: 85px;
+    padding: 14px 16px;
+    background-color: #0B1624;
+    border-radius: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.alerta-card:hover {
+    background-color: #101D2D;
+}
+
+.alerta-informacoes {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    min-width: 0;
+}
+
+.alerta-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 7px;
+    background-color: #E50914;
+    color: #fff;
+    border-radius: 7px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.alerta-data,
+.alerta-horario {
+    color: #737D8C;
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.alerta-separador {
+    color: #515B69;
+    font-size: 10px;
+    margin: 0 5px;
+}
+
+.alerta-card p {
+    color: #E2E6ED;
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+
+
+.sidebar .sidebar_items {
+    border-radius: 6px;
+}
+
+.sidebar .selected_items {
+    background-color: #081321;
+    color: #C7CDD6;
+}
+
+
+
+.sidebar.closed ~ .alertas-main {
+    width: calc(100% - 7rem);
+    margin-left: 7rem;
+}
+
+
+@media (max-width: 900px) {
+    .alertas-main {
+        padding: 0 2rem;
+    }
+
+    .alertas-container {
+        gap: 15px;
+        padding-top: 35px;
+    }
+
+    .alerta-card {
+        padding: 12px;
+        min-height: 30px;
+    }
+
+    .alerta-informacoes {
+        gap: 6px;
+    }
+}
+
+@media (max-width: 768px) {
+    .alertas-main {
+        width: 100%;
+        margin-left: 0;
+        padding: 0 20px 60px;
+    }
+
+    .alertas-container {
+        grid-template-columns: 1fr;
+        padding-top: 30px;
+        gap: 15px;
+    }
+
+    .alerta-card {
+        min-height: 75px;
+    }
+
+    .alerta-card p {
+        font-size: 11px;
+    }
+
+    .alerta-data,
+    .alerta-horario {
+        font-size: 9px;
+    }
+}
+
+
 @media (max-width: 800px) {
   .container-pessoa {
     display: flex;
