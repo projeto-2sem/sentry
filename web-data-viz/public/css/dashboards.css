@@ -544,28 +544,17 @@ select {
 }
 
 .card-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  gap: 15px;
-
-  width: 100%;
-  padding: 0 5% 5%;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 12px; 
+    margin-top: 20px;
 }
 
 .card-footer button {
-  height: 42px;
-  padding: 0 25px;
-
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-
-  cursor: pointer;
-  transition: 0.3s ease;
+    width: 120px; 
+    padding: 10px;
 }
-
 .btn-cancelar {
   background-color: transparent;
   color: rgba(255, 255, 255, 0.7);
@@ -944,6 +933,18 @@ select {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+.cardCreateSection, .cardEditSection, cardDeleteSection {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); 
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .gauge-wrapper {
