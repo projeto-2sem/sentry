@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENTRY | Equipe</title>
+    <title>SENTRY | Analytics</title>
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="icon" href="../assets/imgs/logo_oficial.png" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="listarFuncionarios()">
+<body>
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar_top_wrapper">
@@ -71,21 +73,25 @@
                 </div>
             </header>
             <section class="server-content">
-                <header class="server-content-header">
-                </header>
                 <div class="container-macro" id="container-macro">
                     <div class="lado-esquerdo">
                         <div class="linha-tempo">
-                            <button>Dia</button>
-                            <button>Quinzena</button>
-                            <button>Mês</button>
-                            <button>Bimestre</button>
-                            <button>Trimestre</button>
-                            <button>Semestre</button>
-                            <button>Ano</button>
+                            <button id="momento-dia" onclick="escolher_momento('momento-dia')">Dia</button>
+                            <button id="momento-quinzena"
+                                onclick="escolher_momento('momento-quinzena')">Quinzena</button>
+                            <button id="momento-mes" onclick="escolher_momento('momento-mes')">Mês</button>
+                            <button id="momento-bimestre"
+                                onclick="escolher_momento('momento-bimestre')">Bimestre</button>
+                            <button id="momento-trimestre"
+                                onclick="escolher_momento('momento-trimestre')">Trimestre</button>
+                            <button id="momento-semestre"
+                                onclick="escolher_momento('momento-semestre')">Semestre</button>
+                            <button id="momento-ano" onclick="escolher_momento('momento-ano')">Ano</button>
                         </div>
                         <div class="div-alertas">
-                            <h2>Alertas</h2>
+                            <div class="texto-h2">
+                                <h2>Alertas</h2>
+                            </div>
 
                             <div class="container-tipo">
                                 <div class="caixa-tipo">
@@ -101,10 +107,144 @@
                                     <p>Mudança</p>
                                 </div>
                             </div>
+
+                            <div class="container-grafico" id="container-grafico">
+                                <canvas id="grafico-alertas"></canvas>
+                            </div>
+                        </div>
+                        <div class="container-disponibilidade">
+                            <div class="texto-h2">
+                                <h2>Disponibilidade dos servidores</h2>
+                            </div>
+
+                            <div class="div-disponibilidade">
+                                <div class="caixa-disponibilidade">
+                                    <p>Servidor Paranapiacaba</p>
+                                </div>
+                                <div class="caixa-disponibilidade">
+                                    <p>Crítico</p>
+                                </div>
+                                <div class="caixa-disponibilidade">
+                                    <p>Total</p>
+                                </div>
+                                <div class="caixa-disponibilidade">
+                                    <p>Mudança</p>
+                                </div>
+                                <div class="caixa-disponibilidade">
+                                    <p>Servidor Paranapiacaba</p>
+                                </div>
+                                <div class="caixa-disponibilidade">
+                                    <p>Crítico</p>
+                                </div>
+                                <div class="caixa-disponibilidade">
+                                    <p>Total</p>
+                                </div>
+                                <div class="caixa-disponibilidade">
+                                    <p>Mudança</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="lado-direito">
-                        <div>aaaaaaaaa</div>
+                        <div class="texto-h2">
+                            <h2>Ranking</h2>
+                        </div>
+                        <div class="ranking-servidor" id="ranking-servidor">
+                            <div class="titulo" id="titulo">
+                                <p>Alertas Por Servidor</p>
+                                <button
+                                    onclick="abrir_div_ranking('ranking-servidor', 'div-servidor', 'div_servidor_aberto')">+</button>
+                            </div>
+                            <div class="div-servidor" id="div-servidor">
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                            </div>
+                        </div>
+                        <div class="ranking-componentes" id="ranking-componentes">
+                            <div class="titulo" id="titulo">
+                                <p>Componentes</p>
+                                <button
+                                    onclick="abrir_div_ranking('ranking-componentes', 'div-componentes', 'div_componentes_aberto')">+</button>
+                            </div>
+                            <div class="div-componentes" id="div-componentes">
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                            </div>
+                        </div>
+                        <div class="ranking-processos" id="ranking-processos">
+                            <div class="titulo" id="titulo">
+                                <p>Processos</p>
+                                <button
+                                    onclick="abrir_div_ranking('ranking-processos', 'div-processos', 'div_processos_aberto')">+</button>
+                            </div>
+                            <div class="div-processos" id="div-processos">
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                                <p>1- Servidor Paranapiacaba</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -113,16 +253,16 @@
         <nav class="mobile-navbar">
             <ul class="sidebar_list_mobile">
                 <a href="">
-                    <li class="sidebar_items_mobile"><i class="bi bi-columns-gap"></i></li>
+                    <li class="sidebar_items_mobile selected_items"><i class="bi bi-columns-gap"></i></li>
                 </a>
-                <a href="">
-                    <li class="sidebar_items_mobile selected_items"><i class="bi bi-database"></i></li>
+                <a href="servidores.html">
+                    <li class="sidebar_items_mobile"><i class="bi bi-database"></i></li>
                 </a>
                 <a href="">
                     <li class="sidebar_items_mobile"><i class="bi bi-exclamation-triangle-fill"></i>
                     </li>
                 </a>
-                <a href="">
+                <a href="equipe.html">
                     <li class="sidebar_items_mobile"><i class="bi bi-people-fill"></i>
                     </li>
                 </a>
@@ -145,4 +285,384 @@
 <script>
     empresaId = sessionStorage.ID_EMPRESA;
     idUsuarioEditar = null;
+    const today = new Date().toLocaleDateString("pt-BR");
+    date_now.innerHTML = today
+
+    let abertas = {
+        "div_servidor_aberto": 0,
+        "div_componentes_aberto": 0,
+        "div_processos_aberto": 0
+    }
+    let momentos = {
+        "momento-dia": 0,
+        "momento-quinzena": 0,
+        "momento-mes": 0,
+        "momento-bimestre": 0,
+        "momento-trimestre": 0,
+        "momento-semestre": 0,
+        "momento-ano": 0
+    }
+
+    function abrir_div_ranking(id_abrir, id_esconder, variavel) {
+        let div_abrir = document.getElementById(id_abrir);
+        let div_esconder = document.getElementById(id_esconder)
+
+        if (abertas[variavel] == 0) {
+            abertas[variavel] = 1;
+            div_abrir.style.height = "400px";
+            div_esconder.style.display = "flex";
+
+        } else {
+            abertas[variavel] = 0;
+            div_abrir.style.height = "80px";
+            div_esconder.style.display = "none";
+        }
+    }
+
+    function escolher_momento(id) {
+        let momento = document.getElementById(id);
+
+        if (momentos[id] == 0) {
+            for (let [nome, valor] of Object.entries(momentos)) {
+                if (valor == 1) {
+                    momentos[nome] = 0;
+                    document.getElementById(nome).classList.remove("momento-escolhido");
+                }
+            }
+
+            momentos[id] = 1;
+            momento.classList.add("momento-escolhido");
+            trocar_grafico();
+
+        } else {
+            momentos[id] = 0;
+            momento.classList.remove("momento-escolhido");
+        }
+    }
+
+    function trocar_grafico() {
+        grafico_atual = document.getElementById('grafico-alertas');
+
+        if(Chart.getChart(grafico_atual)) {
+            Chart.getChart(grafico_atual).destroy();
+        }
+        
+        if (momentos["momento-dia"] == 1) {
+            const data = {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [1, 2, 3, 4, 5, 6, 7],
+                    fill: false,
+                    borderColor: 'red',
+                    tension: 0.1
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            };
+
+            const ctx = document.getElementById('grafico-alertas').getContext('2d');
+            const meuGrafico = new Chart(ctx, config);
+
+        } else if (momentos["momento-quinzena"] == 1) {
+            const data = {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [2, 1, 3, 4, 5, 6, 7],
+                    fill: false,
+                    borderColor: 'red',
+                    tension: 0.1
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            };
+
+            const ctx = document.getElementById('grafico-alertas').getContext('2d');
+            const meuGrafico = new Chart(ctx, config);
+
+        } else if (momentos["momento-mes"] == 1) {
+            const data = {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [3, 2, 1, 4, 5, 6, 7],
+                    fill: false,
+                    borderColor: 'red',
+                    tension: 0.1
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            };
+
+            const ctx = document.getElementById('grafico-alertas').getContext('2d');
+            const meuGrafico = new Chart(ctx, config);
+
+        } else if (momentos["momento-bimestre"] == 1) {
+            const data = {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [4, 2, 3, 1, 5, 6, 7],
+                    fill: false,
+                    borderColor: 'red',
+                    tension: 0.1
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            };
+
+            const ctx = document.getElementById('grafico-alertas').getContext('2d');
+            const meuGrafico = new Chart(ctx, config);
+
+        } else if (momentos["momento-trimestre"] == 1) {
+            const data = {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [5, 2, 3, 4, 1, 6, 7],
+                    fill: false,
+                    borderColor: 'red',
+                    tension: 0.1
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            };
+
+            const ctx = document.getElementById('grafico-alertas').getContext('2d');
+            const meuGrafico = new Chart(ctx, config);
+
+        } else if (momentos["momento-semestre"] == 1) {
+            const data = {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [6, 2, 3, 4, 5, 1, 7],
+                    fill: false,
+                    borderColor: 'red',
+                    tension: 0.1
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            };
+
+            const ctx = document.getElementById('grafico-alertas').getContext('2d');
+            const meuGrafico = new Chart(ctx, config);
+
+        } else if (momentos["momento-ano"] == 1) {
+            const data = {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [7, 2, 3, 4, 5, 6, 1],
+                    fill: false,
+                    borderColor: 'red',
+                    tension: 0.1
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                display: false
+                            },
+                            border: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            };
+
+            const ctx = document.getElementById('grafico-alertas').getContext('2d');
+            const meuGrafico = new Chart(ctx, config);
+
+        }
+    }
+
 </script>

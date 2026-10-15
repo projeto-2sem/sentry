@@ -123,18 +123,18 @@
         </main>
         <nav class="mobile-navbar">
             <ul class="sidebar_list_mobile">
-                <a href="">
+                <a href="analytics.html">
                     <li class="sidebar_items_mobile"><i class="bi bi-columns-gap"></i></li>
                 </a>
-                <a href="">
-                    <li class="sidebar_items_mobile selected_items"><i class="bi bi-database"></i></li>
+                <a href="servidores.html">
+                    <li class="sidebar_items_mobile"><i class="bi bi-database"></i></li>
                 </a>
                 <a href="">
                     <li class="sidebar_items_mobile"><i class="bi bi-exclamation-triangle-fill"></i>
                     </li>
                 </a>
                 <a href="">
-                    <li class="sidebar_items_mobile"><i class="bi bi-people-fill"></i>
+                    <li class="sidebar_items_mobile selected_items"><i class="bi bi-people-fill"></i>
                     </li>
                 </a>
                 <a href="">
@@ -184,6 +184,8 @@
 <script>
     empresaId = sessionStorage.ID_EMPRESA;
     idUsuarioEditar = null;
+    const today = new Date().toLocaleDateString("pt-BR");
+    date_now.innerHTML = today
 
     function listarFuncionarios() {
         document.getElementById("container-pessoa-adm").innerHTML = "";
@@ -303,9 +305,6 @@
     }
 
     //abrir e fechar card
-    const today = new Date().toLocaleDateString("pt-BR");
-    date_now.innerHTML = today
-
     function abrirCardCreate(card, email_atual, idUsuario, nome_atual, cargo_atual) {
         document.getElementById(card).style.display = "flex";
         idUsuarioEditar = idUsuario;
