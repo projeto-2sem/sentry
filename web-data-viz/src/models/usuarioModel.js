@@ -13,7 +13,7 @@ function autenticar(email, senha) {
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
 function cadastrar(nome, email, codigo_ativacao, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, codigo_ativacao, senha);
-    
+
     //      O insert não da certo por conta da subquery
     var instrucaoSql = `
         INSERT INTO usuario (nome, email, senha, empresaId, responsavel)
@@ -33,7 +33,7 @@ function cadastrar(nome, email, codigo_ativacao, senha) {
 
 function verificarEmail(email) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", email);
-    
+
     //      O insert não da certo por conta da subquery
     var instrucaoSql = `
         SELECT email, idUsuario FROM usuario WHERE email = '${email}';
@@ -44,7 +44,7 @@ function verificarEmail(email) {
 
 function trocarSenha(id, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", id);
-    
+
     //      O insert não da certo por conta da subquery
     var instrucaoSql = `
         UPDATE
@@ -60,8 +60,29 @@ function trocarSenha(id, senha) {
 
 function listarFuncionarios(empresaId) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarFuncionarios():", empresaId);
-    
+
     var instrucaoSql = `select *, date_format(data_criacao, '%d/%m/%Y') AS data_criacao from usuario where empresaId = ${empresaId}`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function editarFuncionarios(id, nome, cargo) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarFuncionarios():", id, nome, cargo);
+
+    if (cargo == "") {
+        var instrucaoSql = `update usuario
+                            set nome = "${nome}"
+                            where idUsuario = ${id};`;
+    } else if(nome == "") {
+        var instrucaoSql = `update usuario
+                            set cargo = "${cargo}"
+                            where idUsuario = ${id};`;
+    } else {
+        var instrucaoSql = `update usuario
+                            set nome = "${nome}", cargo = "${cargo}"
+                            where idUsuario = ${id};`;
+    }
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -72,5 +93,6 @@ module.exports = {
     cadastrar,
     verificarEmail,
     trocarSenha,
-    listarFuncionarios
+    listarFuncionarios,
+    editarFuncionarios
 };

@@ -57,9 +57,9 @@
             </div>
             <div class="sidebar_mid_wrapper">
                 <ul class="sidebar_list">
-                    <a href="">
+                    <a href="analytics.html">
                         <li class="sidebar_items"><i class="bi bi-columns-gap"></i><span
-                                class="text-sidebar">Dashboard</span></li>
+                                class="text-sidebar">Analytics</span></li>
                     </a>
                     <a href="servidores.html">
                         <li class="sidebar_items"><i class="bi bi-database"></i><span class="text-sidebar">Server</span>
@@ -123,18 +123,18 @@
         </main>
         <nav class="mobile-navbar">
             <ul class="sidebar_list_mobile">
-                <a href="">
+                <a href="analytics.html">
                     <li class="sidebar_items_mobile"><i class="bi bi-columns-gap"></i></li>
                 </a>
-                <a href="">
-                    <li class="sidebar_items_mobile selected_items"><i class="bi bi-database"></i></li>
+                <a href="servidores.html">
+                    <li class="sidebar_items_mobile"><i class="bi bi-database"></i></li>
                 </a>
                 <a href="">
                     <li class="sidebar_items_mobile"><i class="bi bi-exclamation-triangle-fill"></i>
                     </li>
                 </a>
                 <a href="">
-                    <li class="sidebar_items_mobile"><i class="bi bi-people-fill"></i>
+                    <li class="sidebar_items_mobile selected_items"><i class="bi bi-people-fill"></i>
                     </li>
                 </a>
                 <a href="">
@@ -159,23 +159,19 @@
 
                 <div class="contato-input">
                     <label>Nome</label>
-                    <input type="text" id="ipt_hostName_create">
+                    <input type="text" id="ipt_nome">
                 </div>
 
                 <div class="contato-input">
                     <label class="txtInput">Cargo</label>
-                    <input type="text" id="ipt_apelido_create">
+                    <input type="text" id="ipt_cargo">
                 </div>
 
             </div>
 
             <div class="card-footer">
-                <button type="button" class="btn-enviar-contato" onclick="fecharCard('card-editar-func')">
-                    Cancelar
-                </button>
-
-                <button type="button" class="btn-enviar-contato" onclick="adicionarServidor()">
-                    Adicionar
+                <button type="button" class="btn-enviar-contato" onclick="editarFuncionarios()">
+                    Editar
                 </button>
             </div>
         </div>
@@ -187,7 +183,9 @@
 
 <script>
     empresaId = sessionStorage.ID_EMPRESA;
-    numero_modals_contato = 0;
+    idUsuarioEditar = null;
+    const today = new Date().toLocaleDateString("pt-BR");
+    date_now.innerHTML = today
 
     function listarFuncionarios() {
         document.getElementById("container-pessoa-adm").innerHTML = "";
@@ -199,8 +197,6 @@
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    numero_modals_contato = resposta.length;
-
                     for (let i = 0; i < resposta.length; i++) {
                         if (resposta[i].cargo == "Analista") {
                             let sigla = resposta[i].nome.split(" ");
@@ -208,13 +204,13 @@
 
                             document.getElementById("container-pessoa-analista").innerHTML +=
                                 `<div class="pessoa_div" id="pessoa_div">
-                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', null)"><i
+                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')"><i
                                     class="bi bi-pencil-fill"></i></button></div>
                                 <div id="foto">
                                     <h3 id="siglas">${sigla}</h3>
                                 </div>
                                 <p id="nome">${resposta[i].nome}</p>
-                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}')">${resposta[i].email}</span></p>
+                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
                                 <p id="data">${resposta[i].data_criacao}</p>
                             </div>`;
 
@@ -224,13 +220,13 @@
 
                             document.getElementById("container-pessoa-adm").innerHTML +=
                                 `<div class="pessoa_div" id="pessoa_div">
-                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', null)"><i
+                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')"><i
                                     class="bi bi-pencil-fill"></i></button></div>
                                 <div id="foto">
                                     <h3 id="siglas">${sigla}</h3>
                                 </div>
                                 <p id="nome">${resposta[i].nome}</p>
-                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}')">${resposta[i].email}</span></p>
+                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
                                 <p id="data">${resposta[i].data_criacao}</p>
                             </div>`;
                         }
@@ -246,12 +242,74 @@
             });
     }
 
-    //abrir e fechar card
-    const today = new Date().toLocaleDateString("pt-BR");
-    date_now.innerHTML = today
+    function editarFuncionarios() {
+        let nome = ipt_nome.value;
+        let cargo = ipt_cargo.value;
+        let nome_enviado = "";
+        let cargo_enviado = "";
 
-    function abrirCardCreate(card, email_atual) {
+        nome = nome.trim();
+        cargo = cargo.trim();
+
+        if (!nome || !cargo) {
+            alert("Preencha todos os campos!");
+            return;
+        }
+        if (!(nome.includes(" "))) {
+            alert("Escreva o nome inteiro");
+            return;
+        }
+
+        for (let i = 0; i < nome.length; i++) {
+            if (i == 0) {
+                nome_enviado += nome[i].toUpperCase();
+                continue;
+            }
+
+            if (nome[i] == " ") {
+                nome_enviado += " "
+                nome_enviado += nome[i + 1].toUpperCase();
+                i++;
+
+            } else {
+                nome_enviado += nome[i].toLowerCase();
+            }
+        }
+
+        for (let i = 0; i < cargo.length; i++) {
+            if (i == 0) {
+                cargo_enviado += cargo[i].toUpperCase();
+
+            } else {
+                cargo_enviado += cargo[i].toLowerCase();
+            }
+        }
+
+        nome_enviado = nome_enviado.trim();
+
+        fetch(`/usuarios/editarFuncionarios/${idUsuarioEditar}/${nome_enviado}/${cargo_enviado}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    listarFuncionarios();
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+
+    //abrir e fechar card
+    function abrirCardCreate(card, email_atual, idUsuario, nome_atual, cargo_atual) {
         document.getElementById(card).style.display = "flex";
+        idUsuarioEditar = idUsuario;
+        ipt_nome.value = nome_atual;
+        ipt_cargo.value = cargo_atual;
 
         if (card == "card-contato") {
             document.getElementById("contato_email").value = email_atual;
