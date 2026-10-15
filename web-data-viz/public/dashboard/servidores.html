@@ -74,11 +74,11 @@
                 <header class="server-content-header">
                     <h1 id="totalServidores">Total de servidores: 2</h1>
                 </header>
-                
+
                 <div class="status-container">
-                    
+
                     <div class="status-left">
-                          <h1> STATUS </h1>
+                        <h1> STATUS </h1>
                         <div class="server-status">
                             <a href="" class="dot-status">
                                 <img src="../assets/imgs/circulo-verde.png" alt="Status Verde" class="img-circulo"> 10
@@ -95,14 +95,32 @@
 
                     </div>
 
-                    <button class = "btn-adicionar" onclick="abrirCardCreate()"> 
-                            <i class="bi bi-plus-lg"> </i>
+                    <div class="status-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot status-critical"></span>
+                            <span>Crítico</span>
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-dot status-attention"></span>
+                            <span>Atenção</span>
+                        </div>
+
+                        <div class="legend-item">
+                            <span class="legend-dot status-stable"></span>
+                            <span>Estável</span>
+                        </div>
+                    </div>
+
+
+                    <button class="btn-adicionar" onclick="abrirCardCreate()">
+                        <i class="bi bi-plus-lg"> </i>
                     </button>
 
                 </div>
 
                 <div class="search-bar">
-                    <input id="input_busca" type="text"> 
+                    <input id="input_busca" type="text">
                     <button class="btn-filtro">
                         <i class="bi bi-funnel-fill"></i>
                     </button>
@@ -111,27 +129,29 @@
                     </button>
                 </div>
                 <div class="server-list" id="serverList">
-    <article class="server-card dark-card">
-        <header class="server-card-header">
-            <div class="server-card-details">
-                <span class="badge-status badge-ativo">Ativo</span>
-                <p class="server-info-text">Data de instalação: 15/02/2026 <span class="separator">|</span> Dell PowerEdge R750</p>
-            </div>
-            <div class="server-card-actions">
-                <div class="status-dots">
-                    <span class="dot dot-green"></span>
-                    <span class="dot dot-green"></span>
-                    <span class="dot dot-green"></span>
-                </div>
-                <button class="btn-action" title="Excluir"><i class="bi bi-trash"></i></button>
-                <button class="btn-action" title="Editar"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn-action" title="Expandir Métricas"><i class="bi bi-chevron-down"></i></button>
-            </div>
-        </header>
-        <p class="server-name">Servidor Paranapiacaba</p>
-    </article>
+                    <article class="server-card dark-card">
+                        <header class="server-card-header">
+                            <div class="server-card-details">
+                                <span class="badge-status badge-ativo">Ativo</span>
+                                <p class="server-info-text">Data de instalação: 15/02/2026 <span
+                                        class="separator">|</span> Dell PowerEdge R750</p>
+                            </div>
+                            <div class="server-card-actions">
+                                <div class="status-dots">
+                                    <span class="dot dot-green"></span>
+                                    <span class="dot dot-green"></span>
+                                    <span class="dot dot-green"></span>
+                                </div>
+                                <button class="btn-action" title="Excluir"><i class="bi bi-trash"></i></button>
+                                <button class="btn-action" title="Editar"><i class="bi bi-pencil-square"></i></button>
+                                <button class="btn-action" title="Expandir Métricas"><i
+                                        class="bi bi-chevron-down"></i></button>
+                            </div>
+                        </header>
+                        <p class="server-name">Servidor Paranapiacaba</p>
+                    </article>
 
-</div>
+                </div>
                 <div class="server-list" id="serverList">
 
                 </div>
@@ -230,8 +250,8 @@
                 <div class="inputComTxt">
                     <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
                     <select id="ipt_situacao">
-                        <option value= 1>Ativo</option>
-                        <option value= 0>Inativo</option>
+                        <option value=1>Ativo</option>
+                        <option value=0>Inativo</option>
                     </select>
                 </div>
 
@@ -280,8 +300,8 @@
                 <div class="inputComTxt">
                     <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
                     <select id="ipt_situacao_create">
-                        <option value= 1>Ativo</option>
-                        <option value= 0>Inativo</option>
+                        <option value=1>Ativo</option>
+                        <option value=0>Inativo</option>
                     </select>
                 </div>
 
@@ -344,7 +364,7 @@
         },
         {
             idServidor: 2,
-            status: 1, 
+            status: 1,
             data_criacao: "15/02/2026",
             modelo: "Dell PowerEdge R750",
             apelido: "Servidor Paranapiacaba 02",
@@ -352,7 +372,7 @@
         },
         {
             idServidor: 3,
-            status: 0, 
+            status: 0,
             data_criacao: "15/02/2026",
             modelo: "Dell PowerEdge R750",
             apelido: "Servidor Paranapiacaba 03",
@@ -382,13 +402,13 @@
     ];
 
     // Executa a listagem ao carregar a página
-    window.onload = function() {
+    window.onload = function () {
         listar();
     };
 
     function listar() {
-        listarSO(); 
-        listarServidores(mockServidores); 
+        listarSO();
+        listarServidores(mockServidores);
     }
 
     function listarSO() {
@@ -410,79 +430,153 @@
 
         const serverList = document.getElementById("serverList");
         if (!serverList) return;
-        serverList.innerHTML = ""; 
+        serverList.innerHTML = "";
 
         for (let i = 0; i < servidores.length; i++) {
             const server = servidores[i];
-            
-            let statusBolinhas = server.status == 1 
+
+            let statusBolinhas = server.status == 1
                 ? `<span class="dot dot-green"></span><span class="dot dot-yellow"></span><span class="dot dot-red"></span>`
                 : `<span class="dot dot-gray" style="background:gray;"></span><span class="dot dot-gray" style="background:gray;"></span><span class="dot dot-gray" style="background:gray;"></span>`;
 
             serverList.innerHTML += `
-            <article class="server-card dark-card">
-                <header class="server-card-header">
-                    <div class="server-card-details">
-                        <span class="badge-status ${server.status == 1 ? 'badge-ativo' : 'badge-inativo'}">
-                            ${server.status == 1 ? "Ativo" : "Inativo"}
-                        </span>
-                        <p class="server-info-text">
-                            Data de instalação: ${server.data_criacao} <span class="separator">|</span> ${server.modelo}
-                        </p>
-                    </div>
-                    <div class="server-card-actions">
-                        <div class="status-dots">
-                            ${statusBolinhas}
-                        </div>
-                        <button class="btn-action" title="Excluir" onclick="abrirCardDelete(${server.idServidor})"><i class="bi bi-trash"></i></button>
-                        <button class="btn-action" title="Editar" onclick="abrirCardEdit(${server.idServidor}, '${server.hostname}', '${server.modelo}', '${server.apelido}')"><i class="bi bi-pencil-square"></i></button>
-                        <button class="btn-action btn-expand" title="Expandir Métricas" onclick="toggleMetrics(${server.idServidor}, this)">
-                            <i class="bi bi-chevron-down"></i>
-                        </button>
-                    </div>
-                </header>
-                <p class="server-name">${server.apelido}</p>
+<article class="server-card dark-card">
+    <header class="server-card-header">
+        <div class="server-card-details">
+            <span class="badge-status ${server.status == 1 ? 'badge-ativo' : 'badge-inativo'}">
+                ${server.status == 1 ? "Ativo" : "Inativo"}
+            </span>
 
-                <!-- Painel Expansível -->
-                <div class="server-metrics-container" id="metrics-${server.idServidor}" style="display: none;">
-                    <div class="metrics-content">
-                        <div class="metrics-left-panel">
-                            <div class="kpi-cards-grid">
-                                <div class="kpi-card"><span>CPU</span><h2>+13%</h2></div>
-                                <div class="kpi-card"><span>RAM</span><h2>-11%</h2></div>
-                                <div class="kpi-card"><span>DISCO</span><h2>+20%</h2></div>
-                            </div>
-                            <div class="chart-container" style="position: relative; height:200px; width:100%">
-                                <canvas id="line-chart-${server.idServidor}"></canvas>
-                            </div>
-                        </div>
+            <p class="server-info-text">
+                Data de instalação: ${server.data_criacao}
+                <span class="separator">|</span>
+                ${server.modelo}
+            </p>
+        </div>
 
-                        <div class="metrics-right-panel">
-                            <div class="gauge-wrapper">
-                                <span>CPU</span>
-                                <div class="gauge-canvas-container">
-                                    <canvas id="gauge-cpu-${server.idServidor}"></canvas>
-                                    <div class="gauge-text">20%</div>
-                                </div>
-                            </div>
-                            <div class="gauge-wrapper">
-                                <span>RAM</span>
-                                <div class="gauge-canvas-container">
-                                    <canvas id="gauge-ram-${server.idServidor}"></canvas>
-                                    <div class="gauge-text">57%</div>
-                                </div>
-                            </div>
-                            <div class="gauge-wrapper">
-                                <span>DISCO</span>
-                                <div class="gauge-canvas-container">
-                                    <canvas id="gauge-disco-${server.idServidor}"></canvas>
-                                    <div class="gauge-text">97%</div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="server-card-actions">
+            <div class="status-dots">
+                ${statusBolinhas}
+            </div>
+
+            <button
+                class="btn-action"
+                title="Excluir"
+                onclick="abrirCardDelete(${server.idServidor})">
+                <i class="bi bi-trash"></i>
+            </button>
+
+            <button
+                class="btn-action"
+                title="Editar"
+                onclick="abrirCardEdit(${server.idServidor}, '${server.hostname}', '${server.modelo}', '${server.apelido}')">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+
+            <button
+                class="btn-action btn-expand"
+                title="Expandir Métricas"
+                onclick="toggleMetrics(${server.idServidor}, this)">
+                <i class="bi bi-chevron-down"></i>
+            </button>
+        </div>
+    </header>
+
+    <p class="server-name">${server.apelido}</p>
+
+    <div
+        class="server-metrics-container"
+        id="metrics-${server.idServidor}"
+        style="display: none;">
+        <div class="metrics-content">
+
+            <div class="metrics-left-panel">
+                <div class="kpi-cards-grid">
+                    <div class="kpi-card">
+                        <span>CPU</span>
+                        <h2>20%</h2>
+                    </div>
+                    <div class="kpi-card">
+                        <span>RAM</span>
+                        <h2>57%</h2>
+                    </div>
+                    <div class="kpi-card">
+                        <span>Disco</span>
+                        <h2>97%</h2>
+                    </div>
+                    <div class="kpi-card packet-loss-card">
+                        <span>Perda de pacotes</span>
+                        <h2>0,8%</h2>
                     </div>
                 </div>
-            </article>`;
+                <div class = "chart-container">
+                    <canvas id="line-chart-${server.idServidor}"></canvas>
+                </div>
+            </div>
+            <div class="metrics-right-panel">
+                <div class="gauge-wrapper">
+                    <span>CPU</span>
+                    <div class="gauge-canvas-container">
+                        <canvas id="gauge-cpu-${server.idServidor}"></canvas>
+                        <div class="gauge-text">20%</div>
+                    </div>
+                </div>
+                <div class="gauge-wrapper">
+                    <span>RAM</span>
+                    <div class="gauge-canvas-container">
+                        <canvas id="gauge-ram-${server.idServidor}"></canvas>
+                        <div class="gauge-text">57%</div>
+                    </div>
+                </div>
+                <div class="gauge-wrapper">
+                    <span>DISCO</span>
+                    <div class="gauge-canvas-container">
+                        <canvas id="gauge-disco-${server.idServidor}"></canvas>
+                        <div class="gauge-text">97%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="processes-panel">
+                <h3>
+                    <i class="bi bi-cpu"></i>
+                    Processos ativos
+                </h3>
+                <div class="process-item">
+                    <div class="process-info">
+                        <span class="process-name">Node.js</span>
+                        <span class="process-status">Em execução</span>
+                    </div>
+                    <div class="process-bar">
+                        <span style="width: 35%"></span>
+                    </div>
+                    <small>CPU: 35%</small>
+                </div>
+                <div class="process-item">
+                    <div class="process-info">
+                        <span class="process-name">MySQL</span>
+                        <span class="process-status">Em execução</span>
+                    </div>
+                    <div class="process-bar">
+                        <span style="width: 22%"></span>
+                    </div>
+                    <small>CPU: 22%</small>
+                </div>
+                <div class="process-item">
+                    <div class="process-info">
+                        <span class="process-name">Nginx</span>
+                        <span class="process-status">Em execução</span>
+                    </div>
+                    <div class="process-bar">
+                        <span style="width: 12%"></span>
+                    </div>
+                    <small>CPU: 12%</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>`
+
         }
     }
 
@@ -493,7 +587,7 @@
         if (metricsPanel.style.display === "none" || metricsPanel.style.display === "") {
             metricsPanel.style.display = "block";
             icon.classList.replace("bi-chevron-down", "bi-chevron-up");
-            
+
             if (!metricsPanel.dataset.chartsLoaded) {
                 renderCharts(idServidor);
                 metricsPanel.dataset.chartsLoaded = "true";
@@ -514,18 +608,18 @@
             data: {
                 labels: ['P1', 'P2', 'P3', 'P4', 'P5'],
                 datasets: [
-                    { data: [0, 50, 70, 70, 100], borderColor: '#e63946', borderWidth: 2, fill: false, tension: 0 }, 
-                    { data: [0, 20, 50, 70, 100], borderColor: '#ffd166', borderWidth: 2, fill: false, tension: 0 }, 
-                    { data: [0, 20, 30, 60, 90], borderColor: '#9d4edd', borderWidth: 2, fill: false, tension: 0 }  
+                    { data: [0, 50, 70, 70, 100], borderColor: '#e63946', borderWidth: 2, fill: false, tension: 0 },
+                    { data: [0, 20, 50, 70, 100], borderColor: '#ffd166', borderWidth: 2, fill: false, tension: 0 },
+                    { data: [0, 20, 30, 60, 90], borderColor: '#9d4edd', borderWidth: 2, fill: false, tension: 0 }
                 ]
             },
             options: {
-                responsive: true, 
+                responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { display: false } }, 
+                plugins: { legend: { display: false } },
                 scales: {
-                    x: { display: false }, 
-                    y: { display: false, min: 0, max: 100 } 
+                    x: { display: false },
+                    y: { display: false, min: 0, max: 100 }
                 }
             }
         });
@@ -539,23 +633,23 @@
                 data: {
                     datasets: [{
                         data: [value, 100 - value],
-                        backgroundColor: [colorCode, '#1e293b'], 
+                        backgroundColor: [colorCode, '#1e293b'],
                         borderWidth: 0
                     }]
                 },
                 options: {
-                    rotation: -90, 
+                    rotation: -90,
                     circumference: 180,
-                    cutout: '75%', 
-                    responsive: true, 
+                    cutout: '75%',
+                    responsive: true,
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false }, tooltip: { enabled: false } }
                 }
             });
         }
 
-        createGauge(`gauge-cpu-${id}`, 20, '#28a745');  
-        createGauge(`gauge-ram-${id}`, 57, '#ffc107');  
+        createGauge(`gauge-cpu-${id}`, 20, '#28a745');
+        createGauge(`gauge-ram-${id}`, 57, '#ffc107');
         createGauge(`gauge-disco-${id}`, 97, '#dc3545');
     }
 
@@ -667,11 +761,11 @@
             console.log(`#ERRO: ${resposta}`);
         });
     }
-    window.onload = function() {
-    fecharCard('cardCreateSection');
-    fecharCard('cardEditSection');
-    fecharCard('cardDeleteSection');
-    listar();
-};
+    window.onload = function () {
+        fecharCard('cardCreateSection');
+        fecharCard('cardEditSection');
+        fecharCard('cardDeleteSection');
+        listar();
+    };
     // validarToken();
 </script>
