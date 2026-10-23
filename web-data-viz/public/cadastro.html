@@ -55,7 +55,7 @@
           <i class="bi bi-shield-lock-fill"></i>
           <!-- <img src="./assets/icon/usuario-com-monitor-de-computador-e-graficos-de-barras.png" alt=""> -->
           <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
-            <i class="bi bi-info-circle inform-codigo"></i>
+          <i class="bi bi-info-circle inform-codigo"></i>
           <div class="inform">
             <p>Esse é o codigo fornecido pela sua empresa.</p>
             <p>Caso ainda não tenha nos contratado entre em contato por e-mail</p>
@@ -126,14 +126,14 @@
       return;
     }
 
-    else if (senha.length < 4) {
+    else if (senhaVar.length < 4) {
       alert("A senha devem conter pelo menos 8 caracteres")
       return
     } else if (
-      !senha.includes("!") &&
-      !senha.includes("@") &&
-      !senha.includes("#") &&
-      !senha.includes("$")
+      !senhaVar.includes("!") &&
+      !senhaVar.includes("@") &&
+      !senhaVar.includes("#") &&
+      !senhaVar.includes("$")
     ) {
       alert("Use um caractere especial (! @ # $)")
       return;
@@ -144,7 +144,7 @@
       return;
     }
 
-    else if (!re.test(email)) {
+    else if (!re.test(emailVar)) {
       alert("Informe um email válido");
       return
     }
@@ -158,6 +158,44 @@
     // }
 
 
+    fkCargo = null;
+    fkEmpresa = null;
+
+    fetch("/usuarios/verificarCodigo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        codigoServer: codigoVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          resposta.json().then(function (response) {
+            console.log(`Dados recebidos: ${JSON.stringify(response)}`);
+            response.reverse();
+            console.log("aqqq" + JSON.stringify(response));
+            cardErro.style.display = "block";
+
+            mensagem_erro.innerHTML =
+              "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          });
+          
+        } else {
+          throw "Erro no código!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+
+
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
@@ -169,7 +207,6 @@
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         emailServer: emailVar,
-        codigoServer: codigoVar,
         senhaServer: senhaVar
       }),
     })

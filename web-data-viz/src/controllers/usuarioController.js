@@ -100,6 +100,37 @@ function cadastrar(req, res) {
     }
 }
 
+function verificarCodigo(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var codigo = req.body.codigoServer;
+
+    // Faça as validações dos valores
+    if (codigo == undefined) {
+        res.status(400).send("Seu código está undefined!");
+
+    } else {
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        
+        usuarioModel.verificarCodigo(codigo)
+            .then(
+                function (resultado) {
+                    
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 function verificarEmail(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var email = req.params.emailServer;
@@ -229,5 +260,6 @@ module.exports = {
     verificarEmail,
     trocarSenha,
     listarFuncionarios,
-    editarFuncionarios
+    editarFuncionarios,
+    verificarCodigo
 }

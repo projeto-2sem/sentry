@@ -8,6 +8,10 @@ router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
 
+router.post("/verificarCodigo", function (req, res) {
+    usuarioController.verificarCodigo(req, res);
+})
+
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });

@@ -12,18 +12,18 @@ CREATE TABLE endereco (
   bairro VARCHAR(150) NOT NULL,
   cidade VARCHAR(150) NOT NULL,
   estado CHAR(2) NOT NULL,
-  data_criacao datetime default current_timestamp,
-  data_atualizacao datetime default current_timestamp on update current_timestamp
+  dataCriacao datetime default current_timestamp,
+  dataAtualizacao datetime default current_timestamp on update current_timestamp
 );
  
 CREATE TABLE empresa (
   idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-  nome_fantasia VARCHAR(255),
-  razao_social VARCHAR(255),
+  nomeFantasia VARCHAR(255),
+  razaoSocial VARCHAR(255),
   cnpj VARCHAR(18) NOT NULL UNIQUE,
   enderecoId INT NOT NULL,
-  data_criacao datetime default current_timestamp,
-  data_atualizacao datetime default current_timestamp on update current_timestamp,
+  dataCriacao datetime default current_timestamp,
+  dataAtualizacao datetime default current_timestamp on update current_timestamp,
   FOREIGN KEY (enderecoId) REFERENCES endereco(idEndereco)
 );
 
@@ -34,12 +34,12 @@ CREATE TABLE cargo(
 
 CREATE TABLE codigo_ativacao (
   idCodigo INT PRIMARY KEY AUTO_INCREMENT,
-  codigo_ativacao VARCHAR(10) NOT NULL,
+  codigoAtivacao VARCHAR(10) NOT NULL,
   usado TINYINT NOT NULL,
-  data_criacao datetime default current_timestamp,
-  data_atualizacao datetime default current_timestamp on update current_timestamp,
-  fk_cargo INT,
-  FOREIGN KEY (fk_cargo) REFERENCES cargo(idCargo)
+  dataCriacao datetime default current_timestamp,
+  dataAtualizacao datetime default current_timestamp on update current_timestamp,
+  fkCargo INT,
+  FOREIGN KEY (fkCargo) REFERENCES cargo(idCargo)
 );
 
 CREATE TABLE usuario (
@@ -48,11 +48,11 @@ CREATE TABLE usuario (
   email VARCHAR(255),
   senha VARCHAR(255),
   empresaId INT NOT NULL,
-  fk_cargo INT DEFAULT 1,
-  data_criacao datetime default current_timestamp,
-  data_atualizacao datetime default current_timestamp on update current_timestamp,
+  fkCargo INT DEFAULT 1,
+  dataCriacao datetime default current_timestamp,
+  dataAtualizacao datetime default current_timestamp on update current_timestamp,
   FOREIGN KEY (empresaId) REFERENCES empresa(idEmpresa),
-  FOREIGN KEY (fk_cargo) REFERENCES cargo(idCargo)
+  FOREIGN KEY (fkCargo) REFERENCES cargo(idCargo)
 );
 
 CREATE TABLE sistema_operacional (
@@ -68,8 +68,8 @@ CREATE TABLE servidor (
   hostname VARCHAR(255),
   mac VARCHAR(17),
   modelo VARCHAR(45),
-  data_criacao datetime default current_timestamp,
-  data_atualizacao datetime default current_timestamp on update current_timestamp,
+  dataCriacao datetime default current_timestamp,
+  dataAtualizacao datetime default current_timestamp on update current_timestamp,
   status TINYINT,
   FOREIGN KEY (sistemaOperacionalId) REFERENCES sistema_operacional(idSistemaOperacional),
   FOREIGN KEY (empresaId) REFERENCES empresa(idEmpresa)
@@ -78,7 +78,7 @@ CREATE TABLE servidor (
 CREATE TABLE tipo_medicao (
   idTipoMedicao INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(45) NOT NULL,
-  unidade_medida VARCHAR(45),
+  unidadeMedida VARCHAR(45),
   apelido VARCHAR(45) NOT NULL,
   descricao TEXT
 );
@@ -87,11 +87,17 @@ CREATE TABLE servidor_medicao (
   servidorId INT,
   tipoMedicaoId INT,
   ativo TINYINT,
-  limite INT,
+  limiteCritico DECIMAL(10,2),
+  limiteAtencao DECIMAL(10,2),
   PRIMARY KEY (servidorId, tipoMedicaoId),
   FOREIGN KEY (servidorId) REFERENCES servidor(idServidor),
   FOREIGN KEY (tipoMedicaoId) REFERENCES tipo_medicao(idTipoMedicao)
 );
  
  INSERT INTO cargo (nomeCargo) VALUE ("analista");
- INSERT INTO cargo (nomeCargo)VALUES ("gestor");
+ INSERT INTO cargo (nomeCargo) VALUES ("gestor");
+ 
+-- CARGOS
+INSERT INTO cargo (nomeCargo) VALUES
+("analista"),
+("gestor");

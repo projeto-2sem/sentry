@@ -3,7 +3,7 @@ var database = require("../database/config")
 function autenticar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucaoSql = `
-        select *, c.* from usuario join cargo c on idCargo = fk_cargo where email = "${email}" and senha = "${senha}";
+        select *, c.* from usuario join cargo c on idCargo = fkCargo where email = "${email}" and senha = "${senha}";
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -25,6 +25,17 @@ function cadastrar(nome, email, codigo_ativacao, senha) {
             ON resp.empresaId = emp.idEmpresa
             AND resp.responsavel IS NULL
             WHERE cod.codigo_ativacao = '${codigo_ativacao}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function verificarCodigo(cargo) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", cargo)
+    var instrucaoSql = `
+        select fkCargo, fkEmpresa from codigo_ativacao
+        join cargo c on idCargo = fkCargo
+        where codigoAtivacao like "${cargo}" and usado = 0;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -61,8 +72,8 @@ function listarFuncionarios(empresaId) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarFuncionarios():", empresaId);
 
     var instrucaoSql = `
-    select *, date_format(data_criacao, '%d/%m/%Y') AS data_criacao, c.* from usuario 
-    join cargo c on idCargo = fk_cargo
+    select *, date_format(dataCriacao, '%d/%m/%Y') AS dataCriacao, c.* from usuario 
+    join cargo c on idCargo = fkCargo
     where empresaId = ${empresaId}`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -96,5 +107,6 @@ module.exports = {
     verificarEmail,
     trocarSenha,
     listarFuncionarios,
-    editarFuncionarios
+    editarFuncionarios,
+    verificarCodigo
 };
