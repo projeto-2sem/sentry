@@ -106,6 +106,9 @@
                     <time id="date_now">19/04/2026</time>
                 </div>
             </header>
+            <section id="add-user" onclick=" abrirAddFunc()">
+                <p>+</p>
+            </section>
             <section class="server-content">
                 <header class="server-content-header">
                     <h1 id="totalServidores">Gestores:</h1>
@@ -175,6 +178,29 @@
                 <button type="button" class="btn-enviar-contato" onclick="editarFuncionarios()">
                     Editar
                 </button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="add_user_card">
+        <div class="content_add_user">
+            <div class="exit">
+                <p id="exit_add_func" onclick="fecharAddFunc()">X</p>
+            </div>
+            <p>Envie um Código para um novo usuário!</p>
+            <div class="inputs">
+                <div class="input">
+                    <label for="userEmail">E-mail</label>
+                    <input type="text" id="userEmail">
+                </div>
+                <div class="input">
+                    <label for="userArea">Cargo</label>
+                    <select name="" id="userArea">
+                        <option value="analista">Analista</option>
+                        <option value="gestor">Gestor</option>
+                    </select>
+                </div>
+                <button>Enviar</button>
             </div>
         </div>
     </div>
@@ -492,6 +518,14 @@
         let sigla = sessionStorage.NOME_USUARIO.split(" ");
         sigla = sigla[0][0] + sigla[1][0];
         document.getElementById("siglas_usuario").innerText = sigla || "";
+    }
+
+    function abrirAddFunc() {
+        document.getElementById("add_user_card").style.display = "flex";
+    }
+
+    function fecharAddFunc() {
+        document.getElementById("add_user_card").style.display = "none";
     }
 
 
