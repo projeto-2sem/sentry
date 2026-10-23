@@ -76,12 +76,7 @@
                 <div class="container-macro" id="container-macro">
                     <div class="lado-esquerdo">
                         <div class="linha-tempo">
-                            <button id="momento-dia" onclick="escolher_momento('momento-dia')">Dia</button>
-                            <button id="momento-quinzena"
-                                onclick="escolher_momento('momento-quinzena')">Quinzena</button>
                             <button id="momento-mes" onclick="escolher_momento('momento-mes')">Mês</button>
-                            <button id="momento-bimestre"
-                                onclick="escolher_momento('momento-bimestre')">Bimestre</button>
                             <button id="momento-trimestre"
                                 onclick="escolher_momento('momento-trimestre')">Trimestre</button>
                             <button id="momento-semestre"
@@ -349,10 +344,10 @@
     function trocar_grafico() {
         grafico_atual = document.getElementById('grafico-alertas');
 
-        if(Chart.getChart(grafico_atual)) {
+        if (Chart.getChart(grafico_atual)) {
             Chart.getChart(grafico_atual).destroy();
         }
-        
+
         if (momentos["momento-dia"] == 1) {
             const data = {
                 labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
@@ -762,6 +757,11 @@
             </div>
         `
         }
+        document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
+        document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";
+        let sigla = sessionStorage.NOME_USUARIO.split(" ");
+        sigla = sigla[0][0] + sigla[1][0];
+        document.getElementById("siglas_usuario").innerText = sigla || "";
     }
 
 </script>

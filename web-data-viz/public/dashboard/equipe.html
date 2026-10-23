@@ -27,7 +27,7 @@
             </div>
 
             <div class="contato-input">
-                <label for="contato_senha">Senha do seu email</label>
+                <label for="contato_senha">Chave de segurança do seu email</label>
                 <input type="text" id="contato_senha" placeholder="Digite sua senha" />
             </div>
 
@@ -207,7 +207,7 @@
 
                     for (let i = 0; i < resposta.length; i++) {
                         if (resposta[i].idUsuario == sessionStorage.ID_USUARIO) {
-                            if (resposta[i].cargo == "Analista") {
+                            if (resposta[i].nomeCargo.toLowerCase() == "analista") {
                                 let sigla = resposta[i].nome.split(" ");
                                 sigla = sigla[0][0] + sigla[1][0];
 
@@ -245,7 +245,7 @@
 
                     for (let i = 0; i < resposta.length; i++) {
                         if (resposta[i].idUsuario != sessionStorage.ID_USUARIO) {
-                            if (resposta[i].cargo == "Analista") {
+                            if (resposta[i].nomeCargo.toLowerCase() == "analista") {
                                 let sigla = resposta[i].nome.split(" ");
                                 sigla = sigla[0][0] + sigla[1][0];
 
@@ -487,6 +487,11 @@
             </div>
         `
         }
+        document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
+        document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";
+        let sigla = sessionStorage.NOME_USUARIO.split(" ");
+        sigla = sigla[0][0] + sigla[1][0];
+        document.getElementById("siglas_usuario").innerText = sigla || "";
     }
 
 

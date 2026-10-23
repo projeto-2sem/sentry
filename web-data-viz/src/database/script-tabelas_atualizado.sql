@@ -27,14 +27,20 @@ CREATE TABLE empresa (
   FOREIGN KEY (enderecoId) REFERENCES endereco(idEndereco)
 );
 
+CREATE TABLE cargo(
+	idCargo INT PRIMARY KEY AUTO_INCREMENT,
+    nomeCargo VARCHAR(30)
+);
+
 CREATE TABLE codigo_ativacao (
   idCodigo INT PRIMARY KEY AUTO_INCREMENT,
   codigo_ativacao VARCHAR(10) NOT NULL,
   usado TINYINT NOT NULL,
   data_criacao datetime default current_timestamp,
-  data_atualizacao datetime default current_timestamp on update current_timestamp
+  data_atualizacao datetime default current_timestamp on update current_timestamp,
+  fk_cargo INT,
+  FOREIGN KEY (fk_cargo) REFERENCES cargo(idCargo)
 );
-
 
 CREATE TABLE usuario (
   idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -42,11 +48,11 @@ CREATE TABLE usuario (
   email VARCHAR(255),
   senha VARCHAR(255),
   empresaId INT NOT NULL,
-  cargo VARCHAR(30) DEFAULT 'Analista',
+  fk_cargo INT DEFAULT 1,
   data_criacao datetime default current_timestamp,
   data_atualizacao datetime default current_timestamp on update current_timestamp,
   FOREIGN KEY (empresaId) REFERENCES empresa(idEmpresa),
-  CONSTRAINT fk_check_papel CHECK (cargo IN ('Administrador', 'Analista', 'Gestor'))
+  FOREIGN KEY (fk_cargo) REFERENCES cargo(idCargo)
 );
 
 CREATE TABLE sistema_operacional (
@@ -87,3 +93,5 @@ CREATE TABLE servidor_medicao (
   FOREIGN KEY (tipoMedicaoId) REFERENCES tipo_medicao(idTipoMedicao)
 );
  
+ INSERT INTO cargo (nomeCargo) VALUE ("analista");
+ INSERT INTO cargo (nomeCargo)VALUES ("gestor");
