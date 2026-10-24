@@ -118,9 +118,16 @@
                     sessionStorage.ID_EMPRESA = json.empresaId;
                     sessionStorage.CARGO = json.cargo;
 
-                    setTimeout(function () {
+                    if (sessionStorage.CARGO == "analista") {
+                        setTimeout(function () {
                         window.location = "./dashboard/servidores.html";
                     }, 1000); // apenas para exibir o loading
+
+                    } else {
+                        setTimeout(function () {
+                        window.location = "./dashboard/analytics.html";
+                    }, 1000); // apenas para exibir o loading
+                    }
 
                 });
 

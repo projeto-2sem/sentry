@@ -25,22 +25,15 @@
             </div>
             <div class="sidebar_mid_wrapper">
                 <ul class="sidebar_list">
-                    <a href="analytics.html">
-                        <li class="sidebar_items"><i class="bi bi-columns-gap"></i><span
-                                class="text-sidebar">Analytics</span></li>
-                    </a>
                     <a href="">
-                        <li class="sidebar_items selected_items"><i class="bi bi-database"></i><span class="text-sidebar">Server</span>
+                        <li class="sidebar_items selected_items"><i class="bi bi-database"></i><span
+                                class="text-sidebar">Server</span>
                         </li>
                     </a>
                     <a href="alertas.html">
                         <li class="sidebar_items"><i class="bi bi-exclamation-triangle-fill"></i><span
                                 class="text-sidebar">Alertas</span>
                         </li>
-                    </a>
-                    <a href="equipe.html">
-                        <li class="sidebar_items"><i class="bi bi-people-fill"></i><span
-                                class="text-sidebar">Equipe</span></li>
                     </a>
                     <a href="ajuda.html">
                         <li class="sidebar_items"><i class="bi bi-headset"></i><span class="text-sidebar">Ajuda</span>
@@ -333,7 +326,7 @@
 <script src="../js/sessao.js"></script>
 <script>
     document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
-    document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO || "Analista";
+    document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";
     let sigla = sessionStorage.NOME_USUARIO.split(" ");
     sigla = sigla[0][0] + sigla[1][0];
     document.getElementById("siglas_usuario").innerText = sigla || "";
@@ -823,5 +816,10 @@
             </div>
         `
         }
+        document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
+        document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";
+        let sigla = sessionStorage.NOME_USUARIO.split(" ");
+        sigla = sigla[0][0] + sigla[1][0];
+        document.getElementById("siglas_usuario").innerText = sigla || "";
     }
 </script>

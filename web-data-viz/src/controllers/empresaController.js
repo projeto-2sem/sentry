@@ -1,4 +1,5 @@
 var empresaModel = require("../models/empresaModel");
+const bcrypt = require("bcrypt")
 
 async function cadastrar(req, res) {
 
@@ -25,21 +26,23 @@ async function cadastrar(req, res) {
         const resultado = await empresaModel.buscarEndereco(cep, numero);
         const idEndereco = resultado[0].idEndereco;
         
-        await empresaModel.cadastrarEmpresa(nome_fantasia, razao_social, cnpj, idEndereco);
-        const resultado2 = await empresaModel.buscarEmpresa(idEndereco);
-        const idEmpresa = resultado2[0].idEmpresa;
-        
-        await empresaModel.cadastrarAdm(nome, email, senha, idEmpresa);
+        await empresaModel.cadastrarEmpresa(nome_fantasia, razao_social, cnpj, idEndereco)
+        const resultado2 = await empresaModel.buscarEmpresa(idEndereco)
+        const idEmpresa = resultado2[0].idEmpresa
 
-        return res.status(201).json({ mensagem: "Cadastro realizado com sucesso!" });
+        const hash = await bcrypt.hash(senha,10)
 
-    } catch (erro) {
+        await empresaModel.cadastrarAdm(nome, email, hash, idEmpresa)
+    }catch (erro) {
         console.error("Erro no controller:", erro);
         return res.status(500).json({
             mensagem: "Erro ao cadastrar empresa.",
             erro: erro.message
         });
     }
+
+        return res.status(201).json({ mensagem: "Cadastro realizado com sucesso!" });
+
 }
 
 module.exports = {

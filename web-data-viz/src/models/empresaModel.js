@@ -33,6 +33,7 @@ function cadastrarEndereco(cep, estado, cidade, bairro, logradouro, numero, comp
 }
 
 function cadastrarAdm(nome, email, senha, idEmpresa) {
+    
     var instrucaoSql = `
         INSERT INTO usuario (nome, email, senha, cargo, empresaId) VALUES ('${nome}', '${email}', '${senha}', 'Administrador', ${idEmpresa});
     `;

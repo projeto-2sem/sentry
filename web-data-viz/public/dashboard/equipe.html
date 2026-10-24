@@ -27,7 +27,7 @@
             </div>
 
             <div class="contato-input">
-                <label for="contato_senha">Senha do seu email</label>
+                <label for="contato_senha">Chave de segurança do seu email</label>
                 <input type="text" id="contato_senha" placeholder="Digite sua senha" />
             </div>
 
@@ -106,6 +106,9 @@
                     <time id="date_now">19/04/2026</time>
                 </div>
             </header>
+            <section id="add-user" onclick=" abrirAddFunc()">
+                <p>+</p>
+            </section>
             <section class="server-content">
                 <header class="server-content-header">
                     <h1 id="totalServidores">Gestores:</h1>
@@ -178,6 +181,29 @@
             </div>
         </div>
     </div>
+    
+    <div id="add_user_card">
+        <div class="content_add_user">
+            <div class="exit">
+                <p id="exit_add_func" onclick="fecharAddFunc()">X</p>
+            </div>
+            <p>Envie um Código para um novo usuário!</p>
+            <div class="inputs">
+                <div class="input">
+                    <label for="userEmail">E-mail</label>
+                    <input type="text" id="userEmail">
+                </div>
+                <div class="input">
+                    <label for="userArea">Cargo</label>
+                    <select name="" id="userArea">
+                        <option value="analista">Analista</option>
+                        <option value="gestor">Gestor</option>
+                    </select>
+                </div>
+                <button>Enviar</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 
@@ -207,7 +233,7 @@
 
                     for (let i = 0; i < resposta.length; i++) {
                         if (resposta[i].idUsuario == sessionStorage.ID_USUARIO) {
-                            if (resposta[i].cargo == "Analista") {
+                            if (resposta[i].nomeCargo.toLowerCase() == "analista") {
                                 let sigla = resposta[i].nome.split(" ");
                                 sigla = sigla[0][0] + sigla[1][0];
 
@@ -220,7 +246,7 @@
                                 </div>
                                 <p id="nome">Você</p>
                                 <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
-                                <p id="data">${resposta[i].data_criacao}</p>
+                                <p id="data">${resposta[i].dataCriacao}</p>
                             </div>`;
 
                             } else {
@@ -236,7 +262,7 @@
                                 </div>
                                 <p id="nome">Você</p>
                                 <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
-                                <p id="data">${resposta[i].data_criacao}</p>
+                                <p id="data">${resposta[i].dataCriacao}</p>
                             </div>`;
                             }
                         }
@@ -245,7 +271,7 @@
 
                     for (let i = 0; i < resposta.length; i++) {
                         if (resposta[i].idUsuario != sessionStorage.ID_USUARIO) {
-                            if (resposta[i].cargo == "Analista") {
+                            if (resposta[i].nomeCargo.toLowerCase() == "analista") {
                                 let sigla = resposta[i].nome.split(" ");
                                 sigla = sigla[0][0] + sigla[1][0];
 
@@ -258,7 +284,7 @@
                                 </div>
                                 <p id="nome">${resposta[i].nome}</p>
                                 <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
-                                <p id="data">${resposta[i].data_criacao}</p>
+                                <p id="data">${resposta[i].dataCriacao}</p>
                             </div>`;
 
                             } else {
@@ -274,7 +300,7 @@
                                 </div>
                                 <p id="nome">${resposta[i].nome}</p>
                                 <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
-                                <p id="data">${resposta[i].data_criacao}</p>
+                                <p id="data">${resposta[i].dataCriacao}</p>
                             </div>`;
                             }
                         }
@@ -487,6 +513,19 @@
             </div>
         `
         }
+        document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
+        document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";
+        let sigla = sessionStorage.NOME_USUARIO.split(" ");
+        sigla = sigla[0][0] + sigla[1][0];
+        document.getElementById("siglas_usuario").innerText = sigla || "";
+    }
+
+    function abrirAddFunc() {
+        document.getElementById("add_user_card").style.display = "flex";
+    }
+
+    function fecharAddFunc() {
+        document.getElementById("add_user_card").style.display = "none";
     }
 
 

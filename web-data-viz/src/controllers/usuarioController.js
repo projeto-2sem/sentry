@@ -1,8 +1,8 @@
 var usuarioModel = require("../models/usuarioModel");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt")
 
-
-function autenticar(req, res) {
+async function autenticar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
 
@@ -12,34 +12,40 @@ function autenticar(req, res) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        usuarioModel.autenticar(email, senha)
+        usuarioModel.autenticar(email)
             .then(
-                function (resultadoAutenticar) {
+                async function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
+
+                        const verificar = await bcrypt.compare(senha, String(resultadoAutenticar[0].senha))
+
                         // aqui é aonde o token do jwt é criado, usando a fução sign e os parametros do usuario
                         // ele tambem coloca um limite de tempo para o token, e utiliza a chave secreta do .env para criar o token
-                        //  const tokenServer = jwt.sign(
-                        //     {
-                        //         id: resultadoAutenticar[0].idUsuario,
-                        //         username: resultadoAutenticar[0].nome,
-                        //         email: resultadoAutenticar[0].email
-                        //     },
-                        //     process.env.JWT_SECRET,
-                        //     { expiresIn: "2h" }
-                        // );
+                        if(verificar){
+                            var tokenServer = jwt.sign(
+                            {
+                                id: resultadoAutenticar[0].idUsuario,
+                                username: resultadoAutenticar[0].nome,
+                                email: resultadoAutenticar[0].email
+                            },
+                            process.env.JWT_SECRET,
+                            { expiresIn: "2h" }
+                        );
+                        }else{
+                            return res.status(403).send("Email e/ou senha inválido(s)");
+                        }
 
                         res.json({
                             // token: tokenServer,
                             id: resultadoAutenticar[0].idUsuario,
                             email: resultadoAutenticar[0].email,
-                            nome: resultadoAutenticar[0].nome,
-                            senha: resultadoAutenticar[0].senha,
+                            nome: resultadoAutenticar[0].nome,  
                             empresaId: resultadoAutenticar[0].empresaId,
-                            cargo: resultadoAutenticar[0].cargo,
+                            cargo: resultadoAutenticar[0].nomeCargo,
                             // aquarios: resultadoAquarios
                         });
                         //     } else {
@@ -63,32 +69,70 @@ function autenticar(req, res) {
 
 }
 
-function cadastrar(req, res) {
+async function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
-    var codigo = req.body.codigoServer;
     var senha = req.body.senhaServer;
+    var empresa = req.body.empresaServer;
+    var cargo = req.body.cargoServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (codigo == undefined) {
-        res.status(400).send("Seu codigo está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
+    } else if (empresa == undefined) {
+        res.status(400).send("Sua empresa está undefined!");
+    } else if (cargo == undefined) {
+        res.status(400).send("Seu cargo está undefined!");
     } else {
 
+        const hash = await bcrypt.hash(senha,10)
+
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, codigo, senha)
+        console.log("Senha original:", senha);
+        console.log("Senha com hash:", hash);
+        usuarioModel.cadastrar(nome, email, hash, empresa, cargo)
             .then(
                 function (resultado) {
                     res.json(resultado);
                 }
             ).catch(
                 function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function verificarCodigo(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var codigo = req.body.codigoServer;
+
+    // Faça as validações dos valores
+    if (codigo == undefined) {
+        res.status(400).send("Seu código está undefined!");
+
+    } else {
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        
+        usuarioModel.verificarCodigo(codigo)
+            .then(
+                function (resultado) {
+                    
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    
                     console.log(erro);
                     console.log(
                         "\nHouve um erro ao realizar o cadastro! Erro: ",
@@ -131,7 +175,7 @@ function verificarEmail(req, res) {
     }
 }
 
-function trocarSenha(req, res) {
+async function trocarSenha(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var id = req.body.idServer;
     var senha = req.body.senhaServer;
@@ -142,9 +186,9 @@ function trocarSenha(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else {
-
+        const hash = await bcrypt.hash(senha,10)
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.trocarSenha(id, senha)
+        usuarioModel.trocarSenha(id, hash)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -229,5 +273,6 @@ module.exports = {
     verificarEmail,
     trocarSenha,
     listarFuncionarios,
-    editarFuncionarios
+    editarFuncionarios,
+    verificarCodigo
 }
