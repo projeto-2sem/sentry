@@ -8,6 +8,10 @@ router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
 
+router.post("/verificarCodigo", function (req, res) {
+    usuarioController.verificarCodigo(req, res);
+})
+
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
@@ -19,5 +23,13 @@ router.get("/verificar-email/:emailServer", function (req, res) {
 router.put("/trocar-senha", function (req, res) {
     usuarioController.trocarSenha(req, res);
 })
+
+router.get("/listarFuncionarios/:empresaId", function (req, res) {
+    usuarioController.listarFuncionarios(req, res);
+});
+
+router.get("/editarFuncionarios/:id/:nome/:cargo", function (req, res) {
+    usuarioController.editarFuncionarios(req, res);
+});
 
 module.exports = router;

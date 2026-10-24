@@ -111,15 +111,23 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-                    sessionStorage.TOKEN = json.token;
+                    // sessionStorage.TOKEN = json.token;
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.ID_EMPRESA = json.empresaId;
+                    sessionStorage.CARGO = json.cargo;
 
-                    setTimeout(function () {
+                    if (sessionStorage.CARGO == "analista") {
+                        setTimeout(function () {
                         window.location = "./dashboard/servidores.html";
                     }, 1000); // apenas para exibir o loading
+
+                    } else {
+                        setTimeout(function () {
+                        window.location = "./dashboard/analytics.html";
+                    }, 1000); // apenas para exibir o loading
+                    }
 
                 });
 

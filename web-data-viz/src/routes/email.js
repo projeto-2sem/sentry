@@ -8,4 +8,9 @@ router.get("/enviar-email/:emailServer", function (req, res) {
     emailController.enviarEmail(req, res);
 });
 
+router.post("/emailFuncionario", function (req, res) {
+    console.log("aq")
+    emailController.emailFuncionario(req, res);
+});
+
 module.exports = router;

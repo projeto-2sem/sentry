@@ -4,12 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servidores</title>
+    <title>SENTRY | Equipe</title>
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="icon" href="../assets/imgs/logo_oficial.png" />
+
+    <script src="../codigo_verificacao.js"></script>
 </head>
 
-<body onload="listar()">
+<body onload="listarFuncionarios(), escreverNavbar()">
+    <div class="card-contato" id="card-contato">
+        <div class="contato-content">
+            <span class="fechar-card" id="fechar-card" onclick="fecharCard('card-contato')">&times;</span>
+            <h2>Mande email para outro funcionário</h2>
+            <p class="card-subtitulo">
+                Preencha os dados abaixo.
+            </p>
+
+            <div class="contato-input">
+                <label for="contato_nome">Nome do Administrador</label>
+                <input type="text" id="contato_nome" placeholder="Digite seu nome" />
+            </div>
+
+            <div class="contato-input">
+                <label for="contato_senha">Chave de segurança do seu email</label>
+                <input type="text" id="contato_senha" placeholder="Digite sua senha" />
+            </div>
+
+            <div class="contato-input">
+                <label for="contato_nome">Email do Destinatário</label>
+                <input type="text" id="contato_email" placeholder="email@exemplo.com" />
+            </div>
+
+            <div class="contato-input">
+                <label for="contato_nome">Mensagem</label>
+                <textarea id="contato_mensagem" placeholder="Digite sua mensagem" rows="4"></textarea>
+            </div>
+
+            <button class="btn-enviar-contato" id="btn-enviar-contato" onclick="email()">
+                Enviar mensagem
+            </button>
+        </div>
+    </div>
+
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar_top_wrapper">
@@ -22,15 +59,15 @@
             </div>
             <div class="sidebar_mid_wrapper">
                 <ul class="sidebar_list">
-                    <a href="">
+                    <a href="analytics.html">
                         <li class="sidebar_items"><i class="bi bi-columns-gap"></i><span
-                                class="text-sidebar">Dashboard</span></li>
+                                class="text-sidebar">Analytics</span></li>
                     </a>
                     <a href="servidores.html">
                         <li class="sidebar_items"><i class="bi bi-database"></i><span class="text-sidebar">Server</span>
                         </li>
                     </a>
-                    <a href="">
+                    <a href="alertas.html">
                         <li class="sidebar_items"><i class="bi bi-exclamation-triangle-fill"></i><span
                                 class="text-sidebar">Alertas</span>
                         </li>
@@ -39,7 +76,7 @@
                         <li class="sidebar_items selected_items"><i class="bi bi-people-fill"></i><span
                                 class="text-sidebar">Equipe</span></li>
                     </a>
-                    <a href="">
+                    <a href="ajuda.html">
                         <li class="sidebar_items"><i class="bi bi-headset"></i><span class="text-sidebar">Ajuda</span>
                         </li>
                     </a>
@@ -47,10 +84,12 @@
             </div>
             <div class="sidebar_bot_wrapper">
                 <div class="sidebar_account_wrapper">
-                    <img class="sidebar_account_photo" src="../assets/imgs/pessoa1.png" alt="">
+                    <div class="sidebar_account_photo">
+                        <h3 id="siglas_usuario">GS</h3>
+                    </div>
                     <div class="sidebar_account_infos">
-                        <p class="text-sidebar">Gerson Silva</p>
-                        <p class="text-sidebar">Administrador</p>
+                        <p class="text-sidebar" id="nome_usuario">Usuário</p>
+                        <p class="text-sidebar" id="cargo_usuario">Analista</p>
                     </div>
                 </div>
                 <a class="sidebar_bot_leave" href="../index.html">
@@ -67,23 +106,15 @@
                     <time id="date_now">19/04/2026</time>
                 </div>
             </header>
+            <section id="add-user" onclick=" abrirAddFunc()">
+                <p>+</p>
+            </section>
             <section class="server-content">
                 <header class="server-content-header">
-                    <h1 id="totalServidores">Administradores:</h1>
+                    <h1 id="totalServidores">Gestores:</h1>
                 </header>
                 <div class="container-pessoa" id="container-pessoa-adm">
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><img src="../assets/imgs/pessoa1.png" alt=""></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><img src="../assets/imgs/pessoa1.png" alt=""></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                    </div>
+
                 </div>
             </section>
             <section class="server-content">
@@ -91,65 +122,24 @@
                     <h1 id="totalServidores">Analistas:</h1>
                 </header>
                 <div class="container-pessoa" id="container-pessoa-analista">
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><img src="../assets/imgs/pessoa1.png" alt=""></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><img src="../assets/imgs/pessoa1.png" alt=""></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><img src="../assets/imgs/pessoa1.png" alt=""></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><img src="../assets/imgs/pessoa1.png" alt=""></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><img src="../assets/imgs/pessoa1.png" alt=""></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><img src="../assets/imgs/pessoa1.png" alt=""></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                    </div>
-                    <div class="pessoa_div" id="pessoa_div">
-                        <div class="editar_pencil"><button><a href=""><i class="bi bi-pencil-fill"></i></a></button></div>
-                        <div id="foto"><img src="../assets/imgs/pessoa1.png" alt=""></div>
-                        <p id="nome">Gerson Silva</p>
-                        <p id="email">gerson@gmail.com</p>
-                    </div>
+
                 </div>
             </section>
         </main>
         <nav class="mobile-navbar">
             <ul class="sidebar_list_mobile">
-                <a href="">
+                <a href="analytics.html">
                     <li class="sidebar_items_mobile"><i class="bi bi-columns-gap"></i></li>
                 </a>
-                <a href="">
-                    <li class="sidebar_items_mobile selected_items"><i class="bi bi-database"></i></li>
+                <a href="servidores.html">
+                    <li class="sidebar_items_mobile"><i class="bi bi-database"></i></li>
                 </a>
                 <a href="">
                     <li class="sidebar_items_mobile"><i class="bi bi-exclamation-triangle-fill"></i>
                     </li>
                 </a>
                 <a href="">
-                    <li class="sidebar_items_mobile"><i class="bi bi-people-fill"></i>
+                    <li class="sidebar_items_mobile selected_items"><i class="bi bi-people-fill"></i>
                     </li>
                 </a>
                 <a href="">
@@ -164,140 +154,382 @@
         </nav>
     </div>
 
-
-    <div class="cardEditSection" id="cardDeleteSection">
-        <div id="cardExclusao" class="card card-delete">
-
+    <div class="card-editar-func" id="card-editar-func">
+        <div id="cardCreate" class="card">
             <div class="headCard">
-                <span>Excluir servidor</span>
-                <span id="sairCard" onclick="fecharCard('cardDeleteSection')">x</span>
-            </div>
-
-            <div class="bodyCard body-delete">
-                <i class="bi bi-exclamation-triangle-fill delete-icon"></i>
-
-                <p>
-                    Tem certeza que deseja excluir este servidor?
-                </p>
-
-                <span class="delete-warning">
-                    Essa ação não poderá ser desfeita.
-                </span>
-            </div>
-
-            <div class="card-footer">
-                <button type="button" class="btn-cancelar" onclick="fecharCard('cardDeleteSection')">
-                    Cancelar
-                </button>
-
-                <button type="button" class="btn-excluir" id="btnConfirmarExclusao">
-                    Excluir
-                </button>
-            </div>
-
-        </div>
-    </div>
-
-
-
-    <div class="cardEditSection" id="cardEditSection">
-        <div id="cardEdicao" class="card">
-            <div class="headCard">
-                <span>Editar Servidor</span>
-                <span id="sairCard" onclick="fecharCard('cardEditSection')">x</span>
+                <h2>Editar informações</h2>
+                <span class="fechar-card" id="fechar-card" onclick="fecharCard('card-editar-func')">&times;</span>
             </div>
             <div class="bodyCard">
 
-                <div class="inputComTxt">
-                    <span class="txtInput">HostName <span class="txtDestaque">*</span></span>
-                    <input type="text" id="ipt_hostName">
+                <div class="contato-input">
+                    <label>Nome</label>
+                    <input type="text" id="ipt_nome">
                 </div>
 
-                <div class="inputComTxt">
-                    <span class="txtInput">Apelido <span class="txtDestaque">*</span></span>
-                    <input type="text" id="ipt_apelido">
-                </div>
-
-                <div class="inputComTxt">
-                    <span class="txtInput">Modelo <span class="txtDestaque">*</span></span>
-                    <select id="ipt_modelo">
-
-                    </select>
-                </div>
-
-                <div class="inputComTxt">
-                    <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
-                    <select id="ipt_situacao">
-                        <option value="ativo">Ativo</option>
-                        <option value="inativo">Inativo</option>
-                    </select>
+                <div class="contato-input">
+                    <label class="txtInput">Cargo</label>
+                    <input type="text" id="ipt_cargo">
                 </div>
 
             </div>
 
             <div class="card-footer">
-                <button type="button" class="btn-cancelar" onclick="fecharCard('cardEditSection')">
-                    Cancelar
-                </button>
-
-                <button type="button" class="btn-editar" onclick="editarServidor()">
+                <button type="button" class="btn-enviar-contato" onclick="editarFuncionarios()">
                     Editar
                 </button>
             </div>
         </div>
     </div>
-
-    <div class="cardCreateSection" id="cardCreateSection">
-        <div id="cardCreate" class="card">
-            <div class="headCard">
-                <span>Adicionar Servidor</span>
-                <span id="sairCard" onclick="fecharCard('cardCreateSection')">x</span>
+    
+    <div id="add_user_card">
+        <div class="content_add_user">
+            <div class="exit">
+                <p id="exit_add_func" onclick="fecharAddFunc()">X</p>
             </div>
-            <div class="bodyCard">
-
-                <div class="inputComTxt">
-                    <span class="txtInput">HostName <span class="txtDestaque">*</span></span>
-                    <input type="text" id="ipt_hostName_create">
+            <p>Envie um Código para um novo usuário!</p>
+            <div class="inputs">
+                <div class="input">
+                    <label for="userEmail">E-mail</label>
+                    <input type="text" id="userEmail">
                 </div>
-
-                <div class="inputComTxt">
-                    <span class="txtInput">Apelido <span class="txtDestaque">*</span></span>
-                    <input type="text" id="ipt_apelido_create">
-                </div>
-
-                <div class="inputComTxt">
-                    <span class="txtInput">Modelo <span class="txtDestaque">*</span></span>
-                    <select id="ipt_modelo_create">
-
+                <div class="input">
+                    <label for="userArea">Cargo</label>
+                    <select name="" id="userArea">
+                        <option value="analista">Analista</option>
+                        <option value="gestor">Gestor</option>
                     </select>
                 </div>
-
-                <div class="inputComTxt">
-                    <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
-                    <select id="ipt_situacao_create">
-                        <option value="ativo">Ativo</option>
-                        <option value="inativo">Inativo</option>
-                    </select>
-                </div>
-
-            </div>
-
-            <div class="card-footer">
-                <button type="button" class="btn-cancelar" onclick="fecharCard('cardCreateSection')">
-                    Cancelar
-                </button>
-
-                <button type="button" class="btn-editar" onclick="adicionarServidor()">
-                    Adicionar
-                </button>
+                <button>Enviar</button>
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
 
 <script>
+    empresaId = sessionStorage.ID_EMPRESA;
+    idUsuarioEditar = null;
     const today = new Date().toLocaleDateString("pt-BR");
     date_now.innerHTML = today
+
+    document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
+    document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO || "Analista";
+    let sigla = sessionStorage.NOME_USUARIO.split(" ");
+    sigla = sigla[0][0] + sigla[1][0];
+    document.getElementById("siglas_usuario").innerText = sigla || "";
+
+    function listarFuncionarios() {
+        document.getElementById("container-pessoa-adm").innerHTML = "";
+        document.getElementById("container-pessoa-analista").innerHTML = "";
+
+        fetch(`/usuarios/listarFuncionarios/${empresaId}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        if (resposta[i].idUsuario == sessionStorage.ID_USUARIO) {
+                            if (resposta[i].nomeCargo.toLowerCase() == "analista") {
+                                let sigla = resposta[i].nome.split(" ");
+                                sigla = sigla[0][0] + sigla[1][0];
+
+                                document.getElementById("container-pessoa-analista").innerHTML +=
+                                    `<div class="pessoa_div" id="pessoa_div">
+                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')"><i
+                                    class="bi bi-pencil-fill"></i></button></div>
+                                <div id="foto">
+                                    <h3 id="siglas">${sigla}</h3>
+                                </div>
+                                <p id="nome">Você</p>
+                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
+                                <p id="data">${resposta[i].dataCriacao}</p>
+                            </div>`;
+
+                            } else {
+                                let sigla = resposta[i].nome.split(" ");
+                                sigla = sigla[0][0] + sigla[1][0];
+
+                                document.getElementById("container-pessoa-adm").innerHTML +=
+                                    `<div class="pessoa_div" id="pessoa_div">
+                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')"><i
+                                    class="bi bi-pencil-fill"></i></button></div>
+                                <div id="foto">
+                                    <h3 id="siglas">${sigla}</h3>
+                                </div>
+                                <p id="nome">Você</p>
+                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
+                                <p id="data">${resposta[i].dataCriacao}</p>
+                            </div>`;
+                            }
+                        }
+                        continue;
+                    }
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        if (resposta[i].idUsuario != sessionStorage.ID_USUARIO) {
+                            if (resposta[i].nomeCargo.toLowerCase() == "analista") {
+                                let sigla = resposta[i].nome.split(" ");
+                                sigla = sigla[0][0] + sigla[1][0];
+
+                                document.getElementById("container-pessoa-analista").innerHTML +=
+                                    `<div class="pessoa_div" id="pessoa_div">
+                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')"><i
+                                    class="bi bi-pencil-fill"></i></button></div>
+                                <div id="foto">
+                                    <h3 id="siglas">${sigla}</h3>
+                                </div>
+                                <p id="nome">${resposta[i].nome}</p>
+                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
+                                <p id="data">${resposta[i].dataCriacao}</p>
+                            </div>`;
+
+                            } else {
+                                let sigla = resposta[i].nome.split(" ");
+                                sigla = sigla[0][0] + sigla[1][0];
+
+                                document.getElementById("container-pessoa-adm").innerHTML +=
+                                    `<div class="pessoa_div" id="pessoa_div">
+                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')"><i
+                                    class="bi bi-pencil-fill"></i></button></div>
+                                <div id="foto">
+                                    <h3 id="siglas">${sigla}</h3>
+                                </div>
+                                <p id="nome">${resposta[i].nome}</p>
+                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
+                                <p id="data">${resposta[i].dataCriacao}</p>
+                            </div>`;
+                            }
+                        }
+                    }
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+
+    function editarFuncionarios() {
+        let nome = ipt_nome.value;
+        let cargo = ipt_cargo.value;
+        let nome_enviado = "";
+        let cargo_enviado = "";
+
+        nome = nome.trim();
+        cargo = cargo.trim();
+
+        if (!nome || !cargo) {
+            alert("Preencha todos os campos!");
+            return;
+        }
+        if (!(nome.includes(" "))) {
+            alert("Escreva o nome inteiro");
+            return;
+        }
+
+        for (let i = 0; i < nome.length; i++) {
+            if (i == 0) {
+                nome_enviado += nome[i].toUpperCase();
+                continue;
+            }
+
+            if (nome[i] == " ") {
+                nome_enviado += " "
+                nome_enviado += nome[i + 1].toUpperCase();
+                i++;
+
+            } else {
+                nome_enviado += nome[i].toLowerCase();
+            }
+        }
+
+        for (let i = 0; i < cargo.length; i++) {
+            if (i == 0) {
+                cargo_enviado += cargo[i].toUpperCase();
+
+            } else {
+                cargo_enviado += cargo[i].toLowerCase();
+            }
+        }
+
+        nome_enviado = nome_enviado.trim();
+
+        fetch(`/usuarios/editarFuncionarios/${idUsuarioEditar}/${nome_enviado}/${cargo_enviado}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    listarFuncionarios();
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+
+    //abrir e fechar card
+    function abrirCardCreate(card, email_atual, idUsuario, nome_atual, cargo_atual) {
+        document.getElementById(card).style.display = "flex";
+        idUsuarioEditar = idUsuario;
+        ipt_nome.value = nome_atual;
+        ipt_cargo.value = cargo_atual;
+
+        if (card == "card-contato") {
+            document.getElementById("contato_email").value = email_atual;
+        }
+    }
+
+    function fecharCard(card) {
+        document.getElementById(card).style.display = "none";
+    }
+
+    function email() {
+        //enviar email
+        const nomeServer = document.getElementById("contato_nome").value;
+        const emailServer = document.getElementById("contato_email").value;
+        const mensagemServer = document.getElementById("contato_mensagem").value;
+        const senhaUsuario = document.getElementById("contato_senha").value;
+        const emailUsuario = sessionStorage.EMAIL_USUARIO;
+
+        if (!nomeServer || !emailServer || !mensagemServer || !emailUsuario || !senhaUsuario) {
+            alert("Preencha todos os campos");
+            return;
+        }
+
+        fetch("/email/emailFuncionario", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ emailUsuario, emailServer, nomeServer, mensagemServer, senhaUsuario }),
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                alert("Mensagem enviada com sucesso! Verifique seu email.");
+            } else {
+                alert("Erro ao enviar. Tente novamente.");
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
+
+
+    function escreverNavbar() {
+        if (sessionStorage.CARGO.toLowerCase() == "analista") {
+            document.getElementById("sidebar").innerHTML = `
+        <div class="sidebar_top_wrapper">
+                <div class="sidebar_logo">
+                    <img src="../assets/imgs/sentry_logo_grid-removebg-preview.png" alt="">
+                    <span class="text-sidebar">SENTRY</span>
+                </div>
+                <button class="sidebar_close" type="button" onclick="move_aside()" data-hidden="0"
+                    id="btn_move_aside"><i class="bi bi-chevron-left" id="move_aside"></i></button>
+            </div>
+            <div class="sidebar_mid_wrapper">
+                <ul class="sidebar_list">
+                    <a href="servidores.html">
+                        <li class="sidebar_items"><i class="bi bi-database"></i><span class="text-sidebar">Server</span>
+                        </li>
+                    </a>
+                    <a href="alertas.html">
+                        <li class="sidebar_items"><i class="bi bi-exclamation-triangle-fill"></i><span
+                                class="text-sidebar">Alertas</span>
+                        </li>
+                    </a>
+                    <a href="ajuda.html">
+                        <li class="sidebar_items"><i class="bi bi-headset"></i><span class="text-sidebar">Ajuda</span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+            <div class="sidebar_bot_wrapper">
+                <div class="sidebar_account_wrapper">
+                    <div class="sidebar_account_photo">
+                        <h3 id="siglas_usuario">GS</h3>
+                    </div>
+                    <div class="sidebar_account_infos">
+                        <p class="text-sidebar" id="nome_usuario">Usuário</p>
+                        <p class="text-sidebar" id="cargo_usuario">Analista</p>
+                    </div>
+                </div>
+                <a class="sidebar_bot_leave" href="../index.html">
+                    <div class="card_logout">
+                        <i class="bi bi-box-arrow-in-right"></i><span class="text-sidebar">Sair</span>
+                    </div>
+                </a>
+            </div>
+        `
+        } else {
+            document.getElementById("sidebar").innerHTML = `
+        <div class="sidebar_top_wrapper">
+                <div class="sidebar_logo">
+                    <img src="../assets/imgs/sentry_logo_grid-removebg-preview.png" alt="">
+                    <span class="text-sidebar">SENTRY</span>
+                </div>
+                <button class="sidebar_close" type="button" onclick="move_aside()" data-hidden="0"
+                    id="btn_move_aside"><i class="bi bi-chevron-left" id="move_aside"></i></button>
+            </div>
+            <div class="sidebar_mid_wrapper">
+                <ul class="sidebar_list">
+                    <a href="analytics.html">
+                        <li class="sidebar_items"><i class="bi bi-columns-gap"></i><span
+                                class="text-sidebar">Analytics</span></li>
+                    </a>
+                    <a href="">
+                        <li class="sidebar_items selected_items"><i class="bi bi-people-fill"></i><span
+                                class="text-sidebar">Equipe</span></li>
+                    </a>
+                    <a href="ajuda.html">
+                        <li class="sidebar_items"><i class="bi bi-headset"></i><span class="text-sidebar">Ajuda</span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+            <div class="sidebar_bot_wrapper">
+                <div class="sidebar_account_wrapper">
+                    <div class="sidebar_account_photo">
+                        <h3 id="siglas_usuario">GS</h3>
+                    </div>
+                    <div class="sidebar_account_infos">
+                        <p class="text-sidebar" id="nome_usuario">Usuário</p>
+                        <p class="text-sidebar" id="cargo_usuario">Analista</p>
+                    </div>
+                </div>
+                <a class="sidebar_bot_leave" href="../index.html">
+                    <div class="card_logout">
+                        <i class="bi bi-box-arrow-in-right"></i><span class="text-sidebar">Sair</span>
+                    </div>
+                </a>
+            </div>
+        `
+        }
+        document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
+        document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";
+        let sigla = sessionStorage.NOME_USUARIO.split(" ");
+        sigla = sigla[0][0] + sigla[1][0];
+        document.getElementById("siglas_usuario").innerText = sigla || "";
+    }
+
+    function abrirAddFunc() {
+        document.getElementById("add_user_card").style.display = "flex";
+    }
+
+    function fecharAddFunc() {
+        document.getElementById("add_user_card").style.display = "none";
+    }
+
+
+
+    codigo = gerarCodigo();
+    console.log(codigo)
 </script>

@@ -42,7 +42,33 @@ async function enviarEmail(email) {
   return numero_aleatorio;
 }
 
+async function emailFuncionario(emailDestinatario, emailRemetente, nome, mensagem, senha) {
+  // Função de enviar email
+  console.log("Entrando para enviar email");
+  // Cria o transport com os dados do seu email, verificar doc do nodemailer
+  const transport = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: emailRemetente,
+      pass: senha,
+    },
+  });
+
+  console.log("aq")
+
+  // Envia email para o usuario com a nova senha
+  transport.sendMail({
+    from: `Sentry <${emailRemetente}>`,
+    to: `${emailDestinatario}`,
+    subject: "Mudança de senha no site da Sentry",
+    html: `<h1>${nome}<h1><p>${mensagem}</p>`,
+  });
+}
+
 module.exports = {
   enviarEmail,
-  transport_gmail
+  transport_gmail,
+  emailFuncionario
 };

@@ -46,13 +46,13 @@ function validarToken() {
     }
 
     try {
-        // o token é compactado em 3 partes, aqui ele separa elas, verica se o token ja expirou por tempo, 
+        // o token é compactado em 3 partes, aqui ele separa elas, verifica se o token ja expirou por tempo, 
         // e valida com as informações do resto do session storage
         const descompactado = JSON.parse(atob(token.split(".")[1]));
         const expiracao = descompactado.exp * 1000;
         if (Date.now() >= expiracao) {
             sessionStorage.clear();
-            window.location = "../index.html";
+          window.location = "../index.html";
             return;
         }
         if (
@@ -61,7 +61,7 @@ function validarToken() {
             sessionStorage.EMAIL_USUARIO !== descompactado.email
         ) {
             sessionStorage.clear();
-            window.location = "../index.html";
+        window.location = "../index.html";
             return;
         }
     } catch (erro) {

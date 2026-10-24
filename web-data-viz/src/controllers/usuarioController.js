@@ -40,11 +40,12 @@ async function autenticar(req, res) {
                         }
 
                         res.json({
-                            token: tokenServer,
+                            // token: tokenServer,
                             id: resultadoAutenticar[0].idUsuario,
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome,  
                             empresaId: resultadoAutenticar[0].empresaId,
+                            cargo: resultadoAutenticar[0].nomeCargo,
                             // aquarios: resultadoAquarios
                         });
                         //     } else {
@@ -72,18 +73,21 @@ async function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
-    var codigo = req.body.codigoServer;
     var senha = req.body.senhaServer;
+    var empresa = req.body.empresaServer;
+    var cargo = req.body.cargoServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (codigo == undefined) {
-        res.status(400).send("Seu codigo está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
+    } else if (empresa == undefined) {
+        res.status(400).send("Sua empresa está undefined!");
+    } else if (cargo == undefined) {
+        res.status(400).send("Seu cargo está undefined!");
     } else {
 
         const hash = await bcrypt.hash(senha,10)
@@ -91,13 +95,44 @@ async function cadastrar(req, res) {
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         console.log("Senha original:", senha);
         console.log("Senha com hash:", hash);
-        usuarioModel.cadastrar(nome, email, codigo, hash)
+        usuarioModel.cadastrar(nome, email, hash, empresa, cargo)
             .then(
                 function (resultado) {
                     res.json(resultado);
                 }
             ).catch(
                 function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function verificarCodigo(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var codigo = req.body.codigoServer;
+
+    // Faça as validações dos valores
+    if (codigo == undefined) {
+        res.status(400).send("Seu código está undefined!");
+
+    } else {
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        
+        usuarioModel.verificarCodigo(codigo)
+            .then(
+                function (resultado) {
+                    
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    
                     console.log(erro);
                     console.log(
                         "\nHouve um erro ao realizar o cadastro! Erro: ",
@@ -171,9 +206,73 @@ async function trocarSenha(req, res) {
     }
 }
 
+function listarFuncionarios(req, res) {
+    var empresaId = req.params.empresaId;
+
+    if (empresaId == undefined) {
+        res.status(400).send("Sua empresaId está undefined!");
+
+    } else {
+        
+        usuarioModel.listarFuncionarios(empresaId)
+            .then(
+                function (resultado) {
+                    
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar listarFuncionarios",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function editarFuncionarios(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var id = req.params.id;
+    var nome = req.params.nome;
+    var cargo = req.params.cargo;
+console.log("aq")
+    // Faça as validações dos valores
+    if (id == undefined || nome == undefined || cargo == undefined) {
+        res.status(400).send("Suas informações estão undefined!");
+
+    } else {
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        
+        usuarioModel.editarFuncionarios(id, nome, cargo)
+            .then(
+                function (resultado) {
+                    
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     verificarEmail,
-    trocarSenha
+    trocarSenha,
+    listarFuncionarios,
+    editarFuncionarios,
+    verificarCodigo
 }
