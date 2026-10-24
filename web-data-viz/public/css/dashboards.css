@@ -1063,6 +1063,19 @@ select {
   animation: modal-in 0.25s ease;
 }
 
+.codigo-content {
+  position: relative;
+  background-color: #071224;
+  border: 1px solid #0d56df;
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modal-in 0.25s ease;
+}
+
 @keyframes modal-in {
   from {
     opacity: 0;
@@ -1098,6 +1111,14 @@ select {
   margin-bottom: 8px;
 }
 
+.codigo-content h2 {
+  font-family: "Geist", sans-serif;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
 .card-subtitulo {
   font-family: "Geist Mono", monospace;
   color: #cbd5e1;
@@ -1110,6 +1131,17 @@ select {
   flex-direction: column;
   gap: 8px;
   margin-bottom: 18px;
+}
+
+.contato-input select {
+  background: none;
+  border: 1px solid #0d56df;
+  border-radius: 8px;
+  padding: 0px 16px;
+  color: #ffffff;
+  font-family: "Geist", sans-serif;
+  font-size: 16px;
+  resize: none;
 }
 
 .contato-input label {
@@ -1147,6 +1179,25 @@ select {
 }
 
 .btn-enviar-contato:hover {
+  background-color: #073384;
+}
+
+.btn-enviar-codigo {
+  width: 100%;
+  background-color: #0d56df;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 14px 28px;
+  font-family: "Geist", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 8px;
+}
+
+.btn-enviar-codigo:hover {
   background-color: #073384;
 }
 
@@ -2021,14 +2072,14 @@ select {
 
 /* ADICIONAR FUNCIONARIO */
 
-#add-user{
+.add-user{
   width: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
 }
 
-#add-user p{
+.add-user p{
   padding: 0rem 1.3rem;
   background-color: var(--third-color);
   border-radius: 1rem;
@@ -2036,7 +2087,7 @@ select {
   font-size: 3rem;
 }
 
-#add-user p:hover{
+.add-user p:hover{
   background-color: var(--hover);
   transition: 0.3s;
 }

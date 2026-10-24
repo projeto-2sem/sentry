@@ -24,6 +24,19 @@ function cadastrar(nome, email, senha, empresa, cargo) {
     return database.executar(instrucaoSql);
 }
 
+function codigoUsado(codigo) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", codigo);
+
+    //      O insert não da certo por conta da subquery
+    var instrucaoSql = `
+        update codigo_ativacao
+        set usado = 1
+        where codigoAtivacao = "${codigo}";
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function verificarCodigo(cargo) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", cargo)
     var instrucaoSql = `
@@ -68,7 +81,7 @@ function listarFuncionarios(empresaId) {
     var instrucaoSql = `
     select *, date_format(dataCriacao, '%d/%m/%Y') AS dataCriacao, c.* from usuario 
     join cargo c on idCargo = fkCargo
-    where empresaId = ${empresaId}`;
+    where fkEmpresa = ${empresaId}`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -102,5 +115,6 @@ module.exports = {
     trocarSenha,
     listarFuncionarios,
     editarFuncionarios,
-    verificarCodigo
+    verificarCodigo,
+    codigoUsado
 };

@@ -12,6 +12,10 @@ router.post("/verificarCodigo", function (req, res) {
     usuarioController.verificarCodigo(req, res);
 })
 
+router.post("/codigoUsado", function (req, res) {
+    usuarioController.codigoUsado(req, res);
+});
+
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
