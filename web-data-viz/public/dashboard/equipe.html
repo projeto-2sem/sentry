@@ -47,6 +47,33 @@
         </div>
     </div>
 
+    <div class="card-codigo" id="card-codigo">
+        <div class="codigo-content">
+            <span class="fechar-card-codigo" id="fechar-card-codigo">&times;</span>
+            <h2>Chame outro funcionário!</h2>
+            <p class="card-subtitulo">
+                Preencha os dados abaixo para convidar outro funcionário a se cadastrar.
+            </p>
+
+            <div class="contato-input">
+                <label for="contato_nome">E-mail</label>
+                <input type="text" id="userEmail" placeholder="Digite o e-mail">
+            </div>
+
+            <div class="contato-input">
+                <label for="contato_nome">Cargo</label>
+                <select name="" id="userArea">
+                    <option value="analista">Analista</option>
+                    <option value="gestor">Gestor</option>
+                </select>
+            </div>
+
+            <button class="btn-enviar-codigo" id="btn-enviar-codigo">
+                Enviar código
+            </button>
+        </div>
+    </div>
+
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar_top_wrapper">
@@ -106,7 +133,7 @@
                     <time id="date_now">19/04/2026</time>
                 </div>
             </header>
-            <section id="add-user" onclick=" abrirAddFunc()">
+            <section id="abrir-modal-codigo" class="add-user">
                 <p>+</p>
             </section>
             <section class="server-content">
@@ -175,32 +202,9 @@
             </div>
 
             <div class="card-footer">
-                <button type="button" class="btn-enviar-contato" onclick="editarFuncionarios()">
+                <button type="button" class="btn-enviar-contato">
                     Editar
                 </button>
-            </div>
-        </div>
-    </div>
-    
-    <div id="add_user_card">
-        <div class="content_add_user">
-            <div class="exit">
-                <p id="exit_add_func" onclick="fecharAddFunc()">X</p>
-            </div>
-            <p>Envie um Código para um novo usuário!</p>
-            <div class="inputs">
-                <div class="input">
-                    <label for="userEmail">E-mail</label>
-                    <input type="text" id="userEmail">
-                </div>
-                <div class="input">
-                    <label for="userArea">Cargo</label>
-                    <select name="" id="userArea">
-                        <option value="analista">Analista</option>
-                        <option value="gestor">Gestor</option>
-                    </select>
-                </div>
-                <button>Enviar</button>
             </div>
         </div>
     </div>
@@ -527,6 +531,66 @@
     function fecharAddFunc() {
         document.getElementById("add_user_card").style.display = "none";
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const modal = document.getElementById("card-codigo");
+        const abrirBtn = document.getElementById("abrir-modal-codigo");
+        const fecharBtn = document.getElementById("fechar-card-codigo");
+        const enviarBtn = document.getElementById("btn-enviar-contato");
+
+        function abrirModal(e) {
+            if (e) e.preventDefault();
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+        function fecharModal() {
+            modal.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+
+        abrirBtn.addEventListener("click", abrirModal);
+        fecharBtn.addEventListener("click", fecharModal);
+
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) fecharModal();
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && modal.classList.contains("active")) {
+                fecharModal();
+            }
+        });
+
+        enviarBtn.addEventListener("click", async () => {
+            const nomeServer = document.getElementById("contato_nome").value;
+            const emailServer = document.getElementById("contato_email").value;
+            const mensagemServer = document.getElementById("contato_mensagem").value;
+
+            if (!nomeServer || !emailServer || !mensagemServer) {
+                alert("Preencha todos os campos");
+                return;
+            }
+
+            try {
+                const resposta = await fetch("/contato/enviarContato", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ nomeServer, emailServer, mensagemServer }),
+                });
+
+                if (resposta.ok) {
+                    alert("Mensagem enviada com sucesso! Verifique seu email.");
+                    fecharModal();
+                } else {
+                    alert("Erro ao enviar. Tente novamente.");
+                }
+            } catch (erro) {
+                console.error(erro);
+                alert("Erro ao enviar. Tente novamente.");
+            }
+        });
+    });
 
 
 

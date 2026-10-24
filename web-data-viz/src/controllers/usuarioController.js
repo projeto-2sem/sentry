@@ -44,7 +44,7 @@ async function autenticar(req, res) {
                             id: resultadoAutenticar[0].idUsuario,
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome,  
-                            empresaId: resultadoAutenticar[0].empresaId,
+                            empresaId: resultadoAutenticar[0].fkEmpresa,
                             cargo: resultadoAutenticar[0].nomeCargo,
                             // aquarios: resultadoAquarios
                         });
@@ -102,6 +102,37 @@ async function cadastrar(req, res) {
                 }
             ).catch(
                 function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function codigoUsado(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var codigo = req.body.codigoServer;
+
+    // Faça as validações dos valores
+    if (codigo == undefined) {
+        res.status(400).send("Seu código está undefined!");
+
+    } else {
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        
+        usuarioModel.codigoUsado(codigo)
+            .then(
+                function (resultado) {
+                    
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    
                     console.log(erro);
                     console.log(
                         "\nHouve um erro ao realizar o cadastro! Erro: ",
@@ -274,5 +305,6 @@ module.exports = {
     trocarSenha,
     listarFuncionarios,
     editarFuncionarios,
-    verificarCodigo
+    verificarCodigo,
+    codigoUsado
 }

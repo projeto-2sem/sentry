@@ -186,7 +186,7 @@
 
             console.log(fkCargo + fkEmpresa)
 
-            cadastrar_funcionario(nomeVar, emailVar, senhaVar)
+            cadastrar_funcionario(nomeVar, emailVar, senhaVar, codigoVar)
 
             // mensagem_erro.innerHTML =
             //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
@@ -202,7 +202,42 @@
       });
   }
 
-  function cadastrar_funcionario(nome, email, senha) {
+  function cadastrar_funcionario(nome, email, senha, codigo) {
+    fetch("/usuarios/codigoUsado", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        codigoServer: codigo
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          // cardErro.style.display = "block";
+
+          div_erros_login.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+          limparFormulario();
+          finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
@@ -223,9 +258,9 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          cardErro.style.display = "block";
+          // cardErro.style.display = "block";
 
-          mensagem_erro.innerHTML =
+          div_erros_login.innerHTML =
             "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
           setTimeout(() => {
