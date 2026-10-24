@@ -38,8 +38,10 @@ CREATE TABLE codigo_ativacao (
   usado TINYINT NOT NULL,
   dataCriacao datetime default current_timestamp,
   dataAtualizacao datetime default current_timestamp on update current_timestamp,
+  fkEmpresa INT,
   fkCargo INT,
-  FOREIGN KEY (fkCargo) REFERENCES cargo(idCargo)
+  FOREIGN KEY (fkCargo) REFERENCES cargo(idCargo),
+  FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
 CREATE TABLE usuario (
@@ -47,11 +49,11 @@ CREATE TABLE usuario (
   nome VARCHAR(255),
   email VARCHAR(255),
   senha VARCHAR(255),
-  empresaId INT NOT NULL,
+  fkEmpresa INT NOT NULL,
   fkCargo INT DEFAULT 1,
   dataCriacao datetime default current_timestamp,
   dataAtualizacao datetime default current_timestamp on update current_timestamp,
-  FOREIGN KEY (empresaId) REFERENCES empresa(idEmpresa),
+  FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
   FOREIGN KEY (fkCargo) REFERENCES cargo(idCargo)
 );
 
@@ -96,8 +98,3 @@ CREATE TABLE servidor_medicao (
  
  INSERT INTO cargo (nomeCargo) VALUE ("analista");
  INSERT INTO cargo (nomeCargo) VALUES ("gestor");
- 
--- CARGOS
-INSERT INTO cargo (nomeCargo) VALUES
-("analista"),
-("gestor");
