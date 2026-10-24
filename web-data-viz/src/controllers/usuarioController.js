@@ -73,18 +73,21 @@ async function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
-    var codigo = req.body.codigoServer;
     var senha = req.body.senhaServer;
+    var empresa = req.body.empresaServer;
+    var cargo = req.body.cargoServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (codigo == undefined) {
-        res.status(400).send("Seu codigo está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
+    } else if (empresa == undefined) {
+        res.status(400).send("Sua empresa está undefined!");
+    } else if (cargo == undefined) {
+        res.status(400).send("Seu cargo está undefined!");
     } else {
 
         const hash = await bcrypt.hash(senha,10)
@@ -92,7 +95,7 @@ async function cadastrar(req, res) {
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         console.log("Senha original:", senha);
         console.log("Senha com hash:", hash);
-        usuarioModel.cadastrar(nome, email, codigo, hash)
+        usuarioModel.cadastrar(nome, email, hash, empresa, cargo)
             .then(
                 function (resultado) {
                     res.json(resultado);

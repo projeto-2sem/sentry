@@ -180,12 +180,18 @@
             console.log(`Dados recebidos: ${JSON.stringify(response)}`);
             response.reverse();
             console.log("aqqq" + JSON.stringify(response));
-            cardErro.style.display = "block";
 
-            mensagem_erro.innerHTML =
-              "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+            fkCargo = response[0]["fkCargo"]
+            fkEmpresa = response[0]["fkEmpresa"]
+
+            console.log(fkCargo + fkEmpresa)
+
+            cadastrar_funcionario(nomeVar, emailVar, senhaVar)
+
+            // mensagem_erro.innerHTML =
+            //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
           });
-          
+
         } else {
           throw "Erro no código!";
         }
@@ -194,8 +200,9 @@
         console.log(`#ERRO: ${resposta}`);
         finalizarAguardar();
       });
+  }
 
-
+  function cadastrar_funcionario(nome, email, senha) {
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
@@ -205,9 +212,11 @@
       body: JSON.stringify({
         // crie um atributo que recebe o valor recuperado aqui
         // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar
+        nomeServer: nome,
+        emailServer: email,
+        senhaServer: senha,
+        empresaServer: fkEmpresa,
+        cargoServer: fkCargo
       }),
     })
       .then(function (resposta) {
@@ -233,8 +242,6 @@
         console.log(`#ERRO: ${resposta}`);
         finalizarAguardar();
       });
-
-    return false;
   }
 
   function voltar() {
