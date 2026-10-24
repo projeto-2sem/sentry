@@ -51,3 +51,4 @@ function cadastrarCodigo() {
 
     return false;
 }
+

@@ -13,4 +13,8 @@ router.post("/emailFuncionario", function (req, res) {
     emailController.emailFuncionario(req, res);
 });
 
+router.post("/enviar-codigo", function (req, res) {
+    emailController.enviarCodigo(req, res);
+});
+
 module.exports = router;

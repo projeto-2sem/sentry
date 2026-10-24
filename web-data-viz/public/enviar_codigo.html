@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Envio de Código</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 30px; background-color: #f4f4f9; }
+        .card { max-width: 400px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        input, button { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; }
+        button { background-color: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #1d4ed8; }
+        .resultado { margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Testar Envio de Código</h2>
+        <label for="ipt_email">E-mail do Destinatário:</label>
+        <input type="email" id="ipt_email" placeholder="digite.seu.email@exemplo.com">
+
+        <button onclick="dispararEmailAtivacao()">Enviar Código de Ativação</button>
+
+        <div id="div_resultado" class="resultado"></div>
+    </div>
+
+    <script>
+        function dispararEmailAtivacao() {
+            const emailDestinatario = document.getElementById("ipt_email").value;
+            const divResultado = document.getElementById("div_resultado");
+
+            if (!emailDestinatario) {
+                divResultado.style.color = "red";
+                divResultado.innerText = "Por favor, digite um e-mail!";
+                return;
+            }
+
+            divResultado.style.color = "gray";
+            divResultado.innerText = "Gerando código e enviando e-mail...";
+
+            fetch("/email/enviar-codigo", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    emailServer: emailDestinatario
+                }),
+            })
+            .then(function (resposta) {
+                return resposta.json().then(data => {
+                    if (resposta.ok) {
+                        divResultado.style.color = "green";
+                        divResultado.innerText = `E-mail enviado com sucesso! Código gerado: ${data.codigo}`;
+                    } else {
+                        divResultado.style.color = "red";
+                        divResultado.innerText = "Houve um erro ao enviar o e-mail.";
+                    }
+                });
+            })
+            .catch(function (erro) {
+                divResultado.style.color = "red";
+                console.log(`#ERRO: ${erro}`);
+                divResultado.innerText = "Erro de conexão com o servidor.";
+            });
+        }
+    </script>
+</body>
+</html>
