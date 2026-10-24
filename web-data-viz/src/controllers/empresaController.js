@@ -1,4 +1,5 @@
 var empresaModel = require("../models/empresaModel");
+const bcrypt = require("bcrypt")
 
 async function cadastrar(req, res) {
 

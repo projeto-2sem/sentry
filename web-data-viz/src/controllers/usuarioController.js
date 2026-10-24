@@ -1,8 +1,8 @@
 var usuarioModel = require("../models/usuarioModel");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt")
 
-
-function autenticar(req, res) {
+async function autenticar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
 
@@ -12,14 +12,17 @@ function autenticar(req, res) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        usuarioModel.autenticar(email, senha)
+        usuarioModel.autenticar(email)
             .then(
-                function (resultadoAutenticar) {
+                async function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
+
+                        const verificar = await bcrypt.compare(senha, String(resultadoAutenticar[0].senha))
+
                         // aqui é aonde o token do jwt é criado, usando a fução sign e os parametros do usuario
                         // ele tambem coloca um limite de tempo para o token, e utiliza a chave secreta do .env para criar o token
                         //  const tokenServer = jwt.sign(
@@ -36,8 +39,7 @@ function autenticar(req, res) {
                             // token: tokenServer,
                             id: resultadoAutenticar[0].idUsuario,
                             email: resultadoAutenticar[0].email,
-                            nome: resultadoAutenticar[0].nome,
-                            senha: resultadoAutenticar[0].senha,
+                            nome: resultadoAutenticar[0].nome,  
                             empresaId: resultadoAutenticar[0].empresaId,
                             cargo: resultadoAutenticar[0].nomeCargo,
                             // aquarios: resultadoAquarios
@@ -63,7 +65,7 @@ function autenticar(req, res) {
 
 }
 
-function cadastrar(req, res) {
+async function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
@@ -81,8 +83,12 @@ function cadastrar(req, res) {
         res.status(400).send("Sua senha está undefined!");
     } else {
 
+        const hash = await bcrypt.hash(senha,10)
+
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, codigo, senha)
+        console.log("Senha original:", senha);
+        console.log("Senha com hash:", hash);
+        usuarioModel.cadastrar(nome, email, codigo, hash)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -162,7 +168,7 @@ function verificarEmail(req, res) {
     }
 }
 
-function trocarSenha(req, res) {
+async function trocarSenha(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var id = req.body.idServer;
     var senha = req.body.senhaServer;
@@ -173,9 +179,9 @@ function trocarSenha(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else {
-
+        const hash = await bcrypt.hash(senha,10)
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.trocarSenha(id, senha)
+        usuarioModel.trocarSenha(id, hash)
             .then(
                 function (resultado) {
                     res.json(resultado);
