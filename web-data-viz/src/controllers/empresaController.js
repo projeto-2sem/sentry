@@ -33,17 +33,16 @@ async function cadastrar(req, res) {
         const hash = await bcrypt.hash(senha,10)
 
         await empresaModel.cadastrarAdm(nome, email, hash, idEmpresa)
-    }
-
-        return res.status(201).json({ mensagem: "Cadastro realizado com sucesso!" });
-
-    } catch (erro) {
+    }catch (erro) {
         console.error("Erro no controller:", erro);
         return res.status(500).json({
             mensagem: "Erro ao cadastrar empresa.",
             erro: erro.message
         });
     }
+
+        return res.status(201).json({ mensagem: "Cadastro realizado com sucesso!" });
+
 }
 
 module.exports = {
