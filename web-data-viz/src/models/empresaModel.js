@@ -16,9 +16,9 @@ function buscarEmpresa(idEndereco) {
     return database.executar(instrucaoSql);
 }
 
-function cadastrarEmpresa(nome_fantasia, razao_social, cnpj, idEndereco) {
+function cadastrarEmpresa(nomeFantasia, razaoSocial, cnpj, idEndereco) {
     var instrucaoSql = `
-        INSERT INTO empresa (nome_fantasia, razao_social, cnpj, enderecoId) VALUES ('${nome_fantasia}', '${razao_social}', '${cnpj}', '${idEndereco}');
+        INSERT INTO empresa (nomeFantasia, razaoSocial, cnpj, enderecoId) VALUES ('${nomeFantasia}', '${razaoSocial}', '${cnpj}', '${idEndereco}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
