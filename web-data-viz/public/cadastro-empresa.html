@@ -49,8 +49,17 @@
         </div>
 
         <section class="formulario h-15 md:gap-5" id="card_form">
-          <div class="formulario grid w-full min-w-0 grid-cols-1 gap-5 md:grid-cols-2" id="inputs1">
-            <div class="campo w-metade min-w-0">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; width: 100%;" id="inputs1">
+            <div class="campo w-full min-w-0">
+              <span>Código de Ativação</span>
+              <div class="content-input flex w-full min-w-0">
+                <i class="bi bi-shield-lock"></i>
+                <input type="text" placeholder="Digite o código do e-mail" id="ipt_codigo_ativacao" />
+                <div class="erro" id="erroCodigo"></div>
+              </div>
+            </div>
+
+            <div class="campo w-full min-w-0">
               <span>Nome fantasia</span>
               <div class="content-input flex w-full min-w-0">
                 <i class="bi bi-person-fill"></i>
@@ -58,24 +67,25 @@
                 <div class="erro" id="erroNomeFantasia"></div>
               </div>
             </div>
-            <div class="campo w-metade min-w-0">
+
+            <div class="campo w-full min-w-0">
               <span>Razão social</span>
               <div class="content-input flex w-full min-w-0">
                 <i class="bi bi-person-fill"></i>
-                <input type="text" placeholder="Digite o nome da empresa" id="iptrazao_social" />
+                <input type="text" placeholder="Digite a razão social" id="iptrazao_social" />
                 <div class="erro" id="erroRazao"></div>
               </div>
             </div>
-            <div class="campo w-metade min-w-0">
+
+            <div class="campo w-full min-w-0">
               <span>CNPJ</span>
               <div class="content-input flex w-full min-w-0">
                 <i class="bi bi-person-vcard"></i>
-                <input type="text" placeholder="00000000000" id="iptcnpj" maxlength="14" />
+                <input type="text" placeholder="00000000000000" id="iptcnpj" maxlength="18" />
                 <div class="erro" id="erroCNPJ"></div>
               </div>
             </div>
           </div>
-
           <div class="formulario grid w-full min-w-0 grid-cols-1 gap-5 md:grid-cols-2" id="inputs2">
             <div class="campo w-full min-w-0">
               <span>CEP</span>
@@ -238,9 +248,21 @@
 
   function continuar1() {
     
+    var codigo_ativacao = ipt_codigo_ativacao.value; 
     nome_fantasia = iptnome_fantasia.value;
     razao_social = iptrazao_social.value;
     cnpj = iptcnpj.value;
+
+
+    
+    nome_fantasia = iptnome_fantasia.value;
+    razao_social = iptrazao_social.value;
+    cnpj = iptcnpj.value;
+
+        if (codigo_ativacao == "" || nome_fantasia == "" || razao_social == "" || cnpj == "") {
+      erroCNPJ.innerText = "Preencha todos os campos"; 
+      return
+    }
 
     if (nome_fantasia == "" || razao_social == "" || cnpj == "") {
       erroCNPJ.innerText = "Preencha todos os campos";
@@ -397,7 +419,7 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-
+        codigoServer: ipt_codigo_ativacao.value,
         nomeFantasiaServer: nome_fantasia,
         razaoSocialServer: razao_social,
         cnpjServer: cnpj,

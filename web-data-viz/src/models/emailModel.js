@@ -1,3 +1,4 @@
+var database = require("../database/config");
 const nodemailer = require("nodemailer");
 
 async function transport_gmail() {
@@ -9,12 +10,20 @@ async function transport_gmail() {
     },
   });
 
-  return transporter
+  return transporter;
 }
 
 async function enviarCodigoAtivacao(email, codigo) {
-  console.log("Enviando código de ativação para a empresa...");
+  console.log("Salvando código no banco de dados e enviando e-mail...");
   
+  var instrucaoSql = `
+    INSERT INTO codigo_ativacao (codigoAtivacao, usado, fkCargo, fkEmpresa) 
+    VALUES ('${codigo}', 0, NULL, NULL);
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  await database.executar(instrucaoSql);
+
+
   const transport = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -46,9 +55,7 @@ async function enviarCodigoAtivacao(email, codigo) {
 }
 
 async function enviarEmail(email) {
-  // Função de enviar email
   console.log("Entrando para enviar email");
-  // Cria o transport com os dados do seu email, verificar doc do nodemailer
   const transport = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -59,12 +66,10 @@ async function enviarEmail(email) {
     },
   });
 
-  // Gera numero aleatorio de 8 digitos
   const numero_aleatorio = Math.floor(
     Math.random() * (999999 - 100000) + 100000,
   );
 
-  // Envia email para o usuario com a nova senha
   transport.sendMail({
     from: `Sentry <${process.env.EMAIL_USER}>`,
     to: email,
@@ -76,9 +81,7 @@ async function enviarEmail(email) {
 }
 
 async function emailFuncionario(emailDestinatario, emailRemetente, nome, mensagem, senha) {
-  // Função de enviar email
   console.log("Entrando para enviar email");
-  // Cria o transport com os dados do seu email, verificar doc do nodemailer
   const transport = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -89,9 +92,6 @@ async function emailFuncionario(emailDestinatario, emailRemetente, nome, mensage
     },
   });
 
-  console.log("aq")
-
-  // Envia email para o usuario com a nova senha
   transport.sendMail({
     from: `Sentry <${emailRemetente}>`,
     to: `${emailDestinatario}`,

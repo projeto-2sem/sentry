@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt")
 async function cadastrar(req, res) {
 
     try {
+
+        var codigo = req.body.codigoServer;
         var nome_fantasia = req.body.nomeFantasiaServer;
         var cnpj = req.body.cnpjServer;
         var razao_social = req.body.razaoSocialServer;
@@ -22,6 +24,12 @@ async function cadastrar(req, res) {
             return res.status(400).send("Preencha todos os campos obrigatórios!");
         }
 
+        const codigoValido = await empresaModel.buscarCodigoAtivacao(codigo);
+        if (codigoValido.length === 0) {
+            return res.status(403).json({ mensagem: "Código de ativação inválido ou já utilizado!" });
+        }
+        const idCodigo = codigoValido[0].idCodigo;
+
         await empresaModel.cadastrarEndereco(cep, estado, cidade, bairro, logradouro, numero, complemento);
         const resultado = await empresaModel.buscarEndereco(cep, numero);
         const idEndereco = resultado[0].idEndereco;
@@ -33,6 +41,9 @@ async function cadastrar(req, res) {
         const hash = await bcrypt.hash(senha,10)
 
         await empresaModel.cadastrarAdm(nome, email, hash, idEmpresa)
+
+        await empresaModel.desativarCodigo(idCodigo, idEmpresa);
+        
     }catch (erro) {
         console.error("Erro no controller:", erro);
         return res.status(500).json({
