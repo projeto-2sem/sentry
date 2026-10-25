@@ -49,7 +49,7 @@
                 </ul>
             </div>
             <div class="sidebar_bot_wrapper">
-                <div class="sidebar_account_wrapper">
+                <div class="sidebar_account_wrapper" id="sidebar_account_wrapper">
                     <div class="sidebar_account_photo">
                         <h3 id="siglas_usuario">GS</h3>
                     </div>
@@ -176,6 +176,23 @@
     sigla = sigla[0][0] + sigla[1][0];
     document.getElementById("siglas_usuario").innerText = sigla || "";
 
+    function move_aside() {
+        let move = document.getElementById("btn_move_aside");
+        let data = move.dataset.hidden;
+        let class_side_bar = document.querySelector(".sidebar");
+        let i_move_side = document.getElementById("move_aside");
+        if (data == 0) {
+            class_side_bar.classList.add("closed");
+            move.dataset.hidden = 1;
+            i_move_side.classList.replace("bi-chevron-left", "bi-chevron-right");
+            document.getElementById("sidebar_account_wrapper").style.display = "none";
+        } else {
+            class_side_bar.classList.remove("closed");
+            move.dataset.hidden = 0;
+            i_move_side.classList.replace("bi-chevron-right", "bi-chevron-left");
+            document.getElementById("sidebar_account_wrapper").style.display = "flex";
+        }
+    }
 
     function escreverNavbar() {
         if (sessionStorage.CARGO.toLowerCase() == "analista") {
