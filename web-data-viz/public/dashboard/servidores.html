@@ -67,7 +67,7 @@
             </header>
             <section class="server-content">
                 <header class="server-content-header">
-                    <h1 id="totalServidores">Total de servidores: 2</h1>
+                    <h1 id="totalServidores">Total de servidores: 3</h1>
                 </header>
 
                 <div class="status-container">
@@ -76,7 +76,7 @@
                         <h1> STATUS </h1>
                         <div class="server-status">
                             <a href="" class="dot-status">
-                                <img src="../assets/imgs/circulo-verde.png" alt="Status Verde" class="img-circulo"> 10
+                                <img src="../assets/imgs/circulo-verde.png" alt="Status Verde" class="img-circulo"> 1
                             </a>
                             <a href="" class="dot-status">
                                 <img src="../assets/imgs/circulo-amarelo.png" alt="Status Amarelo" class="img-circulo">
@@ -124,31 +124,6 @@
                     </button>
                 </div>
                 <div class="server-list" id="serverList">
-                    <article class="server-card dark-card">
-                        <header class="server-card-header">
-                            <div class="server-card-details">
-                                <span class="badge-status badge-ativo">Ativo</span>
-                                <p class="server-info-text">Data de instalação: 15/02/2026 <span
-                                        class="separator">|</span> Dell PowerEdge R750</p>
-                            </div>
-                            <div class="server-card-actions">
-                                <div class="status-dots">
-                                    <span class="dot dot-green"></span>
-                                    <span class="dot dot-green"></span>
-                                    <span class="dot dot-green"></span>
-                                </div>
-                                <button class="btn-action" title="Excluir"><i class="bi bi-trash"></i></button>
-                                <button class="btn-action" title="Editar"><i class="bi bi-pencil-square"></i></button>
-                                <button class="btn-action" title="Expandir Métricas"><i
-                                        class="bi bi-chevron-down"></i></button>
-                            </div>
-                        </header>
-                        <p class="server-name">Servidor Paranapiacaba</p>
-                    </article>
-
-                </div>
-                <div class="server-list" id="serverList">
-
                 </div>
 
             </section>
@@ -238,6 +213,11 @@
                 </div>
 
                 <div class="inputComTxt">
+                    <span class="txtInput">MAC Address <span class="txtDestaque">*</span></span>
+                    <input type="text" id="ipt_mac" placeholder="00:50:56:a3:4c:11">
+                </div>
+
+                <div class="inputComTxt">
                     <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
                     <select id="ipt_situacao">
                         <option value=1>Ativo</option>
@@ -282,10 +262,10 @@
                     <input id="ipt_modelo_create">
                 </div>
 
-                <!-- <div class="inputComTxt">
-                    <span class="txtInput">MAC <span class="txtDestaque">*</span></span>
-                    <input id="ipt_mac">
-                </div> -->
+                <div class="inputComTxt">
+                    <span class="txtInput">MAC Address <span class="txtDestaque">*</span></span>
+                    <input type="text" id="ipt_mac_create" placeholder="00:50:56:a3:4c:11">
+                </div>
 
                 <div class="inputComTxt">
                     <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
@@ -320,14 +300,16 @@
 </html>
 <script src="../js/sessao.js"></script>
 <script>
+
     document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
     document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";
-    let sigla = sessionStorage.NOME_USUARIO.split(" ");
-    sigla = sigla[0][0] + sigla[1][0];
+    let sigla = sessionStorage.NOME_USUARIO ? sessionStorage.NOME_USUARIO.split(" ") : ["G", "S"];
+    sigla = sigla[0][0] + (sigla[1] ? sigla[1][0] : "S");
     document.getElementById("siglas_usuario").innerText = sigla || "";
     const today = new Date().toLocaleDateString("pt-BR");
     document.getElementById("date_now").innerHTML = today;
 
+  
     function move_aside() {
         let move = document.getElementById("btn_move_aside");
         let data = move.dataset.hidden;
@@ -344,49 +326,76 @@
         }
     }
 
-    console.log("id da empresa: " + sessionStorage.ID_EMPRESA);
 
-    // Mock com 5 servidores para testar a listagem completa
     const mockServidores = [
         {
             idServidor: 1,
             status: 1,
-            data_criacao: "15/02/2026",
+            condicao: "critico",
+            data_criacao: "01/10/2025",
             modelo: "Dell PowerEdge R750",
-            apelido: "Servidor Paranapiacaba 01",
-            hostname: "srv-para-01"
+            apelido: "Servidor Aplicação Principal",
+            hostname: "SRV-APP-01",
+            mac: "00:50:56:a3:4c:11",
+            limites: { cpu: 80, ram: 50, disco: 70 }, 
+            historico: {
+                horarios: ['22:15', '22:30', '22:45', '23:00', '23:30'],
+                cpu: [72.4, 78.1, 84.5, 89.6, 90.8],
+                ram: [40.1, 41.0, 41.8, 42.0, 42.7],
+                disco: [57.5, 57.6, 57.7, 57.8, 57.7],
+                perdaPacote: "4.8%",
+                processos: [
+                    { nome: "svchost.exe", cpu: 45.5 },
+                    { nome: "lsass.exe", cpu: 8.7 },
+                    { nome: "System", cpu: 8.4 }
+                ]
+            }
         },
         {
             idServidor: 2,
             status: 1,
-            data_criacao: "15/02/2026",
+            condicao: "atencao",
+            data_criacao: "01/10/2025",
             modelo: "Dell PowerEdge R750",
-            apelido: "Servidor Paranapiacaba 02",
-            hostname: "srv-para-02"
+            apelido: "Servidor Banco de Dados",
+            hostname: "SRV-DB-01",
+            mac: "00:50:56:a3:4c:12",
+            limites: { cpu: 60, ram: 80, disco: 80 },
+            historico: {
+                horarios: ['22:15', '22:30', '22:45', '23:00', '23:30'],
+                cpu: [45.2, 42.8, 39.0, 35.8, 27.1],
+                ram: [91.0, 91.5, 92.4, 93.1, 94.0],
+                disco: [69.2, 69.1, 69.0, 69.0, 68.9],
+                perdaPacote: "1.5%",
+                processos: [
+                    { nome: "svchost.exe", cpu: 14.5 },
+                    { nome: "lsass.exe", cpu: 3.0 },
+                    { nome: "System", cpu: 3.8 }
+                ]
+            }
         },
         {
             idServidor: 3,
-            status: 0,
-            data_criacao: "15/02/2026",
+            status: 1,
+            condicao: "estavel",
+            data_criacao: "01/10/2025",
             modelo: "Dell PowerEdge R750",
-            apelido: "Servidor Paranapiacaba 03",
-            hostname: "srv-para-03"
-        },
-        {
-            idServidor: 4,
-            status: 1,
-            data_criacao: "20/02/2026",
-            modelo: "HP ProLiant DL380",
-            apelido: "Servidor Matriz SP",
-            hostname: "srv-matriz-01"
-        },
-        {
-            idServidor: 5,
-            status: 1,
-            data_criacao: "22/02/2026",
-            modelo: "Lenovo ThinkSystem",
-            apelido: "Servidor Cloud RJ",
-            hostname: "srv-rj-01"
+            apelido: "Servidor Arquivos e Storage",
+            hostname: "SRV-FILE-01",
+            mac: "00:50:56:a3:4c:13",
+            limites: { cpu: 60, ram: 50, disco: 80 },
+            historico: {
+                horarios: ['22:15', '22:30', '22:45', '23:00', '23:30'],
+                cpu: [10.5, 11.2, 12.0, 12.8, 16.7],
+                ram: [41.2, 41.5, 41.9, 42.1, 42.9],
+                disco: [94.8, 94.7, 94.6, 94.6, 94.5],
+                perdaPacote: "0.1%",
+                processos: [
+                    { nome: "svchost.exe", cpu: 28.8 },
+                    { nome: "System", cpu: 6.9 },
+                    { nome: "lsass.exe", cpu: 3.5 }
+                ]
+            }
         }
     ];
 
@@ -395,8 +404,10 @@
         { idSistemaOperacional: 2, nome: "Windows Server 2022" }
     ];
 
-    // Executa a listagem ao carregar a página
     window.onload = function () {
+        fecharCard('cardCreateSection');
+        fecharCard('cardEditSection');
+        fecharCard('cardDeleteSection');
         listar();
     };
 
@@ -416,6 +427,27 @@
         }
     }
 
+
+    function calcularVariacao(arrayMetrica) {
+        if (arrayMetrica.length < 2) return "+0.0%";
+        const atual = arrayMetrica[arrayMetrica.length - 1];
+        const anterior = arrayMetrica[arrayMetrica.length - 2];
+        const diff = Math.round((atual - anterior) * 10) / 10;
+        return (diff >= 0 ? `+${diff.toFixed(1)}%` : `${diff.toFixed(1)}%`);
+    }
+
+
+    function obterCorGauge(valor, limiteCritico) {
+        const limiteAtencao = limiteCritico - 10;
+        if (valor >= limiteCritico) {
+            return '#ef4444';
+        } else if (valor >= limiteAtencao) {
+            return '#facc15';
+        } else {
+            return '#22c55e';
+        }
+    }
+
     function listarServidores(servidores) {
         const totalServidores = document.getElementById("totalServidores");
         if (totalServidores) {
@@ -428,10 +460,34 @@
 
         for (let i = 0; i < servidores.length; i++) {
             const server = servidores[i];
+            const h = server.historico;
+
+            const cpuAtual = h.cpu[h.cpu.length - 1];
+            const ramAtual = h.ram[h.ram.length - 1];
+            const discoAtual = h.disco[h.disco.length - 1];
+
+            const varCpu = calcularVariacao(h.cpu);
+            const varRam = calcularVariacao(h.ram);
+            const varDisco = calcularVariacao(h.disco);
 
             let statusBolinhas = server.status == 1
                 ? `<span class="dot dot-green"></span><span class="dot dot-yellow"></span><span class="dot dot-red"></span>`
                 : `<span class="dot dot-gray" style="background:gray;"></span><span class="dot dot-gray" style="background:gray;"></span><span class="dot dot-gray" style="background:gray;"></span>`;
+
+
+            let htmlProcessos = "";
+            for (let p = 0; p < h.processos.length; p++) {
+                let proc = h.processos[p];
+                htmlProcessos += `
+                <div class="process-item">
+                    <div class="process-info">
+                        <span class="process-name">${proc.nome}</span>
+                        <span class="process-status">Em execução</span>
+                    </div>
+                    <div class="process-bar"><span style="width: ${Math.min(proc.cpu, 100)}%"></span></div>
+                    <small>CPU: ${proc.cpu}%</small>
+                </div>`;
+            }
 
             serverList.innerHTML += `
 <article class="server-card dark-card">
@@ -442,9 +498,11 @@
             </span>
 
             <p class="server-info-text">
-                Data de instalação: ${server.data_criacao}
+                Instalação: ${server.data_criacao}
                 <span class="separator">|</span>
                 ${server.modelo}
+                <span class="separator">|</span>
+                MAC: ${server.mac}
             </p>
         </div>
 
@@ -453,24 +511,15 @@
                 ${statusBolinhas}
             </div>
 
-            <button
-                class="btn-action"
-                title="Excluir"
-                onclick="abrirCardDelete(${server.idServidor})">
+            <button class="btn-action" title="Excluir" onclick="abrirCardDelete(${server.idServidor})">
                 <i class="bi bi-trash"></i>
             </button>
 
-            <button
-                class="btn-action"
-                title="Editar"
-                onclick="abrirCardEdit(${server.idServidor}, '${server.hostname}', '${server.modelo}', '${server.apelido}')">
+            <button class="btn-action" title="Editar" onclick="abrirCardEdit(${server.idServidor}, '${server.hostname}', '${server.modelo}', '${server.apelido}', '${server.mac}')">
                 <i class="bi bi-pencil-square"></i>
             </button>
 
-            <button
-                class="btn-action btn-expand"
-                title="Expandir Métricas"
-                onclick="toggleMetrics(${server.idServidor}, this)">
+            <button class="btn-action btn-expand" title="Expandir Métricas" onclick="toggleMetrics(${server.idServidor}, this)">
                 <i class="bi bi-chevron-down"></i>
             </button>
         </div>
@@ -478,55 +527,53 @@
 
     <p class="server-name">${server.apelido}</p>
 
-    <div
-        class="server-metrics-container"
-        id="metrics-${server.idServidor}"
-        style="display: none;">
+    <div class="server-metrics-container" id="metrics-${server.idServidor}" style="display: none;">
         <div class="metrics-content">
 
             <div class="metrics-left-panel">
                 <div class="kpi-cards-grid">
                     <div class="kpi-card">
-                        <span>CPU</span>
-                        <h2>20%</h2>
+                        <span>CPU (Var: ${varCpu})</span>
+                        <h2>${cpuAtual}%</h2>
                     </div>
                     <div class="kpi-card">
-                        <span>RAM</span>
-                        <h2>57%</h2>
+                        <span>RAM (Var: ${varRam})</span>
+                        <h2>${ramAtual}%</h2>
                     </div>
                     <div class="kpi-card">
-                        <span>Disco</span>
-                        <h2>97%</h2>
+                        <span>Disco (Var: ${varDisco})</span>
+                        <h2>${discoAtual}%</h2>
                     </div>
                     <div class="kpi-card packet-loss-card">
                         <span>Perda de pacotes</span>
-                        <h2>0,8%</h2>
+                        <h2>${h.perdaPacote}</h2>
                     </div>
                 </div>
-                <div class = "chart-container">
+                <div class="chart-container">
                     <canvas id="line-chart-${server.idServidor}"></canvas>
                 </div>
             </div>
+
             <div class="metrics-right-panel">
                 <div class="gauge-wrapper">
                     <span>CPU</span>
                     <div class="gauge-canvas-container">
                         <canvas id="gauge-cpu-${server.idServidor}"></canvas>
-                        <div class="gauge-text">20%</div>
+                        <div class="gauge-text">${cpuAtual}%</div>
                     </div>
                 </div>
                 <div class="gauge-wrapper">
                     <span>RAM</span>
                     <div class="gauge-canvas-container">
                         <canvas id="gauge-ram-${server.idServidor}"></canvas>
-                        <div class="gauge-text">57%</div>
+                        <div class="gauge-text">${ramAtual}%</div>
                     </div>
                 </div>
                 <div class="gauge-wrapper">
                     <span>DISCO</span>
                     <div class="gauge-canvas-container">
                         <canvas id="gauge-disco-${server.idServidor}"></canvas>
-                        <div class="gauge-text">97%</div>
+                        <div class="gauge-text">${discoAtual}%</div>
                     </div>
                 </div>
             </div>
@@ -534,43 +581,14 @@
             <div class="processes-panel">
                 <h3>
                     <i class="bi bi-cpu"></i>
-                    Processos ativos
+                    Processos ativos (Extraídos do CSV)
                 </h3>
-                <div class="process-item">
-                    <div class="process-info">
-                        <span class="process-name">Node.js</span>
-                        <span class="process-status">Em execução</span>
-                    </div>
-                    <div class="process-bar">
-                        <span style="width: 35%"></span>
-                    </div>
-                    <small>CPU: 35%</small>
-                </div>
-                <div class="process-item">
-                    <div class="process-info">
-                        <span class="process-name">MySQL</span>
-                        <span class="process-status">Em execução</span>
-                    </div>
-                    <div class="process-bar">
-                        <span style="width: 22%"></span>
-                    </div>
-                    <small>CPU: 22%</small>
-                </div>
-                <div class="process-item">
-                    <div class="process-info">
-                        <span class="process-name">Nginx</span>
-                        <span class="process-status">Em execução</span>
-                    </div>
-                    <div class="process-bar">
-                        <span style="width: 12%"></span>
-                    </div>
-                    <small>CPU: 12%</small>
-                </div>
+                ${htmlProcessos}
             </div>
+
         </div>
     </div>
-</article>`
-
+</article>`;
         }
     }
 
@@ -593,41 +611,58 @@
     }
 
     function renderCharts(id) {
+        const server = mockServidores.find(s => s.idServidor === id);
+        if (!server) return;
+        const h = server.historico;
+        const limCpu = server.limites.cpu;
+        const limRam = server.limites.ram;
+        const limDisco = server.limites.disco;
+
         const lineCanvas = document.getElementById(`line-chart-${id}`);
         if (!lineCanvas) return;
+
 
         const ctxLine = lineCanvas.getContext('2d');
         new Chart(ctxLine, {
             type: 'line',
             data: {
-                labels: ['P1', 'P2', 'P3', 'P4', 'P5'],
+                labels: h.horarios,
                 datasets: [
-                    { data: [0, 50, 70, 70, 100], borderColor: '#e63946', borderWidth: 2, fill: false, tension: 0 },
-                    { data: [0, 20, 50, 70, 100], borderColor: '#ffd166', borderWidth: 2, fill: false, tension: 0 },
-                    { data: [0, 20, 30, 60, 90], borderColor: '#9d4edd', borderWidth: 2, fill: false, tension: 0 }
+                    { label: 'CPU (%)', data: h.cpu, borderColor: '#ef4444', borderWidth: 2, fill: false, tension: 0.1 },
+                    { label: 'RAM (%)', data: h.ram, borderColor: '#facc15', borderWidth: 2, fill: false, tension: 0.1 },
+                    { label: 'Disco (%)', data: h.disco, borderColor: '#3b82f6', borderWidth: 2, fill: false, tension: 0.1 }
                 ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
+                plugins: {
+                    legend: { display: true, labels: { color: '#fff' } },
+                    title: {
+                        display: true,
+                        text: 'Variação das Métricas',
+                        color: '#fff',
+                        font: { size: 14, family: 'Geist Mono, monospace' }
+                    }
+                },
                 scales: {
-                    x: { display: false },
-                    y: { display: false, min: 0, max: 100 }
+                    x: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
+                    y: { min: 0, max: 100, ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } }
                 }
             }
         });
 
-        function createGauge(canvasId, value, colorCode) {
+        function createGauge(canvasId, value, limitVal) {
             const canvas = document.getElementById(canvasId);
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
+            const cor = obterCorGauge(value, limitVal);
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     datasets: [{
                         data: [value, 100 - value],
-                        backgroundColor: [colorCode, '#1e293b'],
+                        backgroundColor: [cor, '#1e293b'],
                         borderWidth: 0
                     }]
                 },
@@ -642,66 +677,27 @@
             });
         }
 
-        createGauge(`gauge-cpu-${id}`, 20, '#28a745');
-        createGauge(`gauge-ram-${id}`, 57, '#ffc107');
-        createGauge(`gauge-disco-${id}`, 97, '#dc3545');
+        createGauge(`gauge-cpu-${id}`, h.cpu[h.cpu.length - 1], limCpu);
+        createGauge(`gauge-ram-${id}`, h.ram[h.ram.length - 1], limRam);
+        createGauge(`gauge-disco-${id}`, h.disco[h.disco.length - 1], limDisco);
     }
 
     function deletarCard(idServer) {
-        console.log(`Servidor: ${idServer}`);
         alert("Server Deletado");
-        fetch(`/servidores/deletar/${idServer}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${sessionStorage.TOKEN}`
-            }
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                location.reload();
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a exclusão! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
     }
 
     function editarServidor() {
-        fetch(`/servidores/editar/${idEditar}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${sessionStorage.TOKEN}`
-            },
-            body: JSON.stringify({
-                hostName: document.getElementById("ipt_hostName").value,
-                modeloId: document.getElementById("ipt_modelo").value,
-                situacao: document.getElementById("ipt_situacao").value,
-                apelido: document.getElementById("ipt_apelido").value
-            })
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                location.reload();
-                window.alert("Servidor atualizado com sucesso");
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a edição! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
+        alert("Servidor atualizado com sucesso");
+        fecharCard('cardEditSection');
     }
 
     let idEditar = 0;
-    function abrirCardEdit(idServer, hostName, modelo, apelido) {
+    function abrirCardEdit(idServer, hostName, modelo, apelido, mac) {
         document.getElementById("cardEditSection").style.display = "flex";
         document.getElementById("ipt_hostName").value = hostName;
         document.getElementById("ipt_modelo").value = modelo;
         document.getElementById("ipt_apelido").value = apelido;
+        document.getElementById("ipt_mac").value = mac;
         idEditar = idServer;
     }
 
@@ -720,6 +716,7 @@
         btnConfirmar.onclick = function () {
             if (idServerExc != null) {
                 deletarCard(idServerExc);
+                fecharCard('cardDeleteSection');
             }
         };
     }
@@ -729,45 +726,12 @@
     }
 
     function adicionarServidor() {
-        fetch(`/servidores/adicionar/${sessionStorage.ID_EMPRESA}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${sessionStorage.TOKEN}`
-            },
-            body: JSON.stringify({
-                hostName: document.getElementById("ipt_hostName_create").value,
-                modelo: document.getElementById("ipt_modelo_create").value,
-                situacao: document.getElementById("ipt_situacao_create").value,
-                apelido: document.getElementById("ipt_apelido_create").value,
-                so: document.getElementById("ipt_SO_create").value
-            })
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                location.reload();
-                window.alert("Servidor adicionado com sucesso!");
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a criação! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-    }
-    window.onload = function () {
+        alert("Servidor adicionado com sucesso!");
         fecharCard('cardCreateSection');
-        fecharCard('cardEditSection');
-        fecharCard('cardDeleteSection');
-        listar();
-    };
-    // validarToken();
-
-
+    }
 
     function escreverNavbar() {
-        alert("asdfghgfdsa")
-        if (sessionStorage.CARGO.toLowerCase() == "gestor") {
+        if (sessionStorage.CARGO && sessionStorage.CARGO.toLowerCase() == "gestor") {
             document.getElementById("sidebar").innerHTML = `
         <div class="sidebar_top_wrapper">
                 <div class="sidebar_logo">
@@ -809,34 +773,14 @@
                     </div>
                 </a>
             </div>
-        `
-
-        document.getElementById("mobile-navbar").innerHTML = `
-        <nav class="mobile-navbar">
-                <ul class="sidebar_list_mobile">
-                    <a href="analytics.html">
-                        <li class="sidebar_items_mobile"><i class="bi bi-columns-gap"></i></li>
-                    </a>
-                    <a href="equipe.html">
-                        <li class="sidebar_items_mobile"><i class="bi bi-people-fill"></i>
-                        </li>
-                    </a>
-                    <a href="ajuda.html">
-                        <li class="sidebar_items_mobile"><i class="bi bi-headset"></i>
-                        </li>
-                    </a>
-                    <a href="../index.html">
-                        <li class="sidebar_items_mobile"><i class="bi bi-box-arrow-in-right"></i>
-                        </li>
-                    </a>
-                </ul>
-            </nav>
         `;
         }
         document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
         document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";
-        let sigla = sessionStorage.NOME_USUARIO.split(" ");
-        sigla = sigla[0][0] + sigla[1][0];
-        document.getElementById("siglas_usuario").innerText = sigla || "";
+        if (sessionStorage.NOME_USUARIO) {
+            let sigla = sessionStorage.NOME_USUARIO.split(" ");
+            sigla = sigla[0][0] + (sigla[1] ? sigla[1][0] : "S");
+            document.getElementById("siglas_usuario").innerText = sigla || "";
+        }
     }
 </script>
