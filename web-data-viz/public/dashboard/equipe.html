@@ -277,7 +277,11 @@
                         if (resposta[i].idUsuario != sessionStorage.ID_USUARIO) {
                             if (resposta[i].nomeCargo.toLowerCase() == "analista") {
                                 let sigla = resposta[i].nome.split(" ");
-                                sigla = sigla[0][0] + sigla[1][0];
+                                if (sigla[1] != null) {
+                                    sigla = sigla[0][0] + sigla[1][0];
+                                } else {
+                                    sigla = sigla[0][0];
+                                }
 
                                 document.getElementById("container-pessoa-analista").innerHTML +=
                                     `<div class="pessoa_div" id="pessoa_div">
@@ -536,7 +540,7 @@
         const modal = document.getElementById("card-codigo");
         const abrirBtn = document.getElementById("abrir-modal-codigo");
         const fecharBtn = document.getElementById("fechar-card-codigo");
-        const enviarBtn = document.getElementById("btn-enviar-contato");
+        const enviarBtn = document.getElementById("btn-enviar-codigo");
 
         function abrirModal(e) {
             if (e) e.preventDefault();
@@ -563,37 +567,62 @@
         });
 
         enviarBtn.addEventListener("click", async () => {
-            const nomeServer = document.getElementById("contato_nome").value;
-            const emailServer = document.getElementById("contato_email").value;
-            const mensagemServer = document.getElementById("contato_mensagem").value;
+            let emailServer = document.getElementById("userEmail").value;
+            let areaServer = document.getElementById("userArea").value;
+            let codigo = gerarCodigo();
+            let nomeGestor = sessionStorage.NOME_USUARIO;
 
-            if (!nomeServer || !emailServer || !mensagemServer) {
+            if (!emailServer || !areaServer || !nomeGestor) {
                 alert("Preencha todos os campos");
                 return;
             }
 
+            if (!codigo) {
+                alert("Erro ao gerar código");
+                return;
+            }
+
+            if (areaServer.toLowerCase() == "analista") {
+                areaServer = 1;
+            } else if (areaServer.toLowerCase() == "gestor") {
+                areaServer = 2;
+            }
+
             try {
-                const resposta = await fetch("/contato/enviarContato", {
+                const resposta = await fetch("/usuarios/cadastrarCodigoFuncionario", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ nomeServer, emailServer, mensagemServer }),
+                    body: JSON.stringify({ codigo, areaServer, empresaId }),
                 });
 
                 if (resposta.ok) {
-                    alert("Mensagem enviada com sucesso! Verifique seu email.");
-                    fecharModal();
+                    console.log("Código cadastrado com sucesso!");
+
+                    try {
+                        const resposta = await fetch("/email/enviarCodigoAtivacaoFuncionario", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ emailServer, codigo, nomeGestor }),
+                        });
+
+                        if (resposta.ok) {
+                            alert("Código enviado com sucesso! Verifique o email da empresa.");
+                            fecharModal();
+                        } else {
+                            alert("Erro ao enviar email. Tente novamente.");
+                        }
+                    } catch (erro) {
+                        console.error(erro);
+                        alert("Erro ao enviar email. Tente novamente.");
+                    }
+
                 } else {
-                    alert("Erro ao enviar. Tente novamente.");
+                    alert("Erro ao cadastrar código. Tente novamente.");
                 }
             } catch (erro) {
                 console.error(erro);
-                alert("Erro ao enviar. Tente novamente.");
+                alert("Erro ao cadastrar código. Tente novamente.");
             }
         });
     });
-
-
-
-    codigo = gerarCodigo();
-    console.log(codigo)
 </script>

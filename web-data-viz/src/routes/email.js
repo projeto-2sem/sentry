@@ -17,4 +17,8 @@ router.post("/enviar-codigo", function (req, res) {
     emailController.enviarCodigo(req, res);
 });
 
+router.post("/enviarCodigoAtivacaoFuncionario", function (req, res) {
+    emailController.enviarCodigoAtivacaoFuncionario(req, res);
+});
+
 module.exports = router;

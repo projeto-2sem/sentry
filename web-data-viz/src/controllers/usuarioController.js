@@ -298,6 +298,45 @@ console.log("aq")
     }
 }
 
+function cadastrarCodigoFuncionario(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var codigo = req.body.codigo;
+    var empresa = req.body.empresaId;
+    var cargo = req.body.areaServer;
+
+    // Faça as validações dos valores
+    if (codigo == undefined) {
+        res.status(400).send("Seu código está undefined!");
+
+    } else if (empresa == undefined) {
+        res.status(400).send("Sua empresa está undefined!");
+
+    } else if (cargo == undefined) {
+        res.status(400).send("Seu cargo está undefined!");
+
+    } else {
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        
+        usuarioModel.cadastrarCodigoFuncionario(codigo, empresa, cargo)
+            .then(
+                function (resultado) {
+                    
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -306,5 +345,6 @@ module.exports = {
     listarFuncionarios,
     editarFuncionarios,
     verificarCodigo,
-    codigoUsado
+    codigoUsado,
+    cadastrarCodigoFuncionario
 }

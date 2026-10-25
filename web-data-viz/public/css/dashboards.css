@@ -1050,6 +1050,23 @@ select {
   display: flex;
 }
 
+.card-codigo {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 18, 36, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card-codigo.active {
+  display: flex;
+}
+
 .contato-content {
   position: relative;
   background-color: #071224;
@@ -1100,6 +1117,21 @@ select {
 }
 
 .fechar-card:hover {
+  color: #60a5fa;
+}
+
+.fechar-card-codigo {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  color: #94a3b8;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.fechar-card-codigo:hover {
   color: #60a5fa;
 }
 

@@ -36,4 +36,8 @@ router.get("/editarFuncionarios/:id/:nome/:cargo", function (req, res) {
     usuarioController.editarFuncionarios(req, res);
 });
 
+router.post("/cadastrarCodigoFuncionario", function (req, res) {
+    usuarioController.cadastrarCodigoFuncionario(req, res);
+});
+
 module.exports = router;

@@ -80,8 +80,33 @@ function emailFuncionario(req, res) {
     }
 }
 
+function enviarCodigoAtivacaoFuncionario(req, res) {
+    var email = req.body.emailServer;
+    var codigo = req.body.codigo;
+    var nome = req.body.nomeGestor;
+
+    if (!email) {
+        return res.status(400).send("O e-mail está vazio!");
+    } else if (!codigo) {
+        return res.status(400).send("O código está vazio!");
+    } else if (!nome) {
+        return res.status(400).send("Seu nome está vazio!");
+    }
+
+    emailModel.enviarCodigoAtivacaoFuncionario(email, codigo, nome)
+        .then(function (resultado) {
+            console.log("Código gerado e enviado:", codigo);
+            res.json({ mensagem: "Código gerado e enviado com sucesso!", codigo });
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro);
+        });
+}
+
 module.exports = {
     enviarEmail,
     emailFuncionario,
-    enviarCodigo
+    enviarCodigo,
+    enviarCodigoAtivacaoFuncionario
 };
