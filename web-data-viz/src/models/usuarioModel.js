@@ -96,11 +96,11 @@ function editarFuncionarios(id, nome, cargo) {
                             where idUsuario = ${id};`;
     } else if(nome == "") {
         var instrucaoSql = `update usuario
-                            set cargo = "${cargo}"
+                            set fkCargo = ${cargo}
                             where idUsuario = ${id};`;
     } else {
         var instrucaoSql = `update usuario
-                            set nome = "${nome}", cargo = "${cargo}"
+                            set nome = "${nome}", fkCargo = ${cargo}
                             where idUsuario = ${id};`;
     }
 

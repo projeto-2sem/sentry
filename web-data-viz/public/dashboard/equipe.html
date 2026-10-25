@@ -153,32 +153,34 @@
                 </div>
             </section>
         </main>
-        <nav class="mobile-navbar">
-            <ul class="sidebar_list_mobile">
-                <a href="analytics.html">
-                    <li class="sidebar_items_mobile"><i class="bi bi-columns-gap"></i></li>
-                </a>
-                <a href="servidores.html">
-                    <li class="sidebar_items_mobile"><i class="bi bi-database"></i></li>
-                </a>
-                <a href="">
-                    <li class="sidebar_items_mobile"><i class="bi bi-exclamation-triangle-fill"></i>
-                    </li>
-                </a>
-                <a href="">
-                    <li class="sidebar_items_mobile selected_items"><i class="bi bi-people-fill"></i>
-                    </li>
-                </a>
-                <a href="">
-                    <li class="sidebar_items_mobile"><i class="bi bi-headset"></i>
-                    </li>
-                </a>
-                <a href="../index.html">
-                    <li class="sidebar_items_mobile"><i class="bi bi-box-arrow-in-right"></i>
-                    </li>
-                </a>
-            </ul>
-        </nav>
+        <div id="mobile-navbar">
+            <nav class="mobile-navbar">
+                <ul class="sidebar_list_mobile">
+                    <a href="analytics.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-columns-gap"></i></li>
+                    </a>
+                    <a href="servidores.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-database"></i></li>
+                    </a>
+                    <a href="">
+                        <li class="sidebar_items_mobile"><i class="bi bi-exclamation-triangle-fill"></i>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="sidebar_items_mobile selected_items"><i class="bi bi-people-fill"></i>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="sidebar_items_mobile"><i class="bi bi-headset"></i>
+                        </li>
+                    </a>
+                    <a href="../index.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-box-arrow-in-right"></i>
+                        </li>
+                    </a>
+                </ul>
+            </nav>
+        </div>
     </div>
 
     <div class="card-editar-func" id="card-editar-func">
@@ -202,7 +204,7 @@
             </div>
 
             <div class="card-footer">
-                <button type="button" class="btn-enviar-contato">
+                <button type="button" class="btn-enviar-contato" onclick="editarFuncionarios()">
                     Editar
                 </button>
             </div>
@@ -243,13 +245,13 @@
 
                                 document.getElementById("container-pessoa-analista").innerHTML +=
                                     `<div class="pessoa_div" id="pessoa_div">
-                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')"><i
+                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].nomeCargo}')"><i
                                     class="bi bi-pencil-fill"></i></button></div>
                                 <div id="foto">
                                     <h3 id="siglas">${sigla}</h3>
                                 </div>
                                 <p id="nome">Você</p>
-                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
+                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].nomeCargo}')">${resposta[i].email}</span></p>
                                 <p id="data">${resposta[i].dataCriacao}</p>
                             </div>`;
 
@@ -259,13 +261,13 @@
 
                                 document.getElementById("container-pessoa-adm").innerHTML +=
                                     `<div class="pessoa_div" id="pessoa_div">
-                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')"><i
+                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].nomeCargo}')"><i
                                     class="bi bi-pencil-fill"></i></button></div>
                                 <div id="foto">
                                     <h3 id="siglas">${sigla}</h3>
                                 </div>
                                 <p id="nome">Você</p>
-                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
+                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].nomeCargo}')">${resposta[i].email}</span></p>
                                 <p id="data">${resposta[i].dataCriacao}</p>
                             </div>`;
                             }
@@ -285,13 +287,13 @@
 
                                 document.getElementById("container-pessoa-analista").innerHTML +=
                                     `<div class="pessoa_div" id="pessoa_div">
-                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')"><i
+                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].nomeCargo}')"><i
                                     class="bi bi-pencil-fill"></i></button></div>
                                 <div id="foto">
                                     <h3 id="siglas">${sigla}</h3>
                                 </div>
                                 <p id="nome">${resposta[i].nome}</p>
-                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
+                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].nomeCargo}')">${resposta[i].email}</span></p>
                                 <p id="data">${resposta[i].dataCriacao}</p>
                             </div>`;
 
@@ -301,13 +303,13 @@
 
                                 document.getElementById("container-pessoa-adm").innerHTML +=
                                     `<div class="pessoa_div" id="pessoa_div">
-                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')"><i
+                                <div class="editar_pencil"><button onclick="abrirCardCreate('card-editar-func', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].nomeCargo}')"><i
                                     class="bi bi-pencil-fill"></i></button></div>
                                 <div id="foto">
                                     <h3 id="siglas">${sigla}</h3>
                                 </div>
                                 <p id="nome">${resposta[i].nome}</p>
-                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].cargo}')">${resposta[i].email}</span></p>
+                                <p id="email"><span class="abrir-modal-contato" onclick="abrirCardCreate('card-contato', '${resposta[i].email}', ${resposta[i].idUsuario}, '${resposta[i].nome}', '${resposta[i].nomeCargo}')">${resposta[i].email}</span></p>
                                 <p id="data">${resposta[i].dataCriacao}</p>
                             </div>`;
                             }
@@ -331,6 +333,7 @@
         let cargo_enviado = "";
 
         nome = nome.trim();
+        cargo = cargo.toLowerCase();
         cargo = cargo.trim();
 
         if (!nome || !cargo) {
@@ -340,6 +343,13 @@
         if (!(nome.includes(" "))) {
             alert("Escreva o nome inteiro");
             return;
+        }
+
+        if (cargo != "analista") {
+            if (cargo != "gestor") {
+                alert("Escreva um cargo válido!");
+                return;
+            }
         }
 
         for (let i = 0; i < nome.length; i++) {
@@ -358,13 +368,10 @@
             }
         }
 
-        for (let i = 0; i < cargo.length; i++) {
-            if (i == 0) {
-                cargo_enviado += cargo[i].toUpperCase();
-
-            } else {
-                cargo_enviado += cargo[i].toLowerCase();
-            }
+        if (cargo == "analista") {
+            cargo_enviado = 1;
+        } else if (cargo == "gestor") {
+            cargo_enviado = 2;
         }
 
         nome_enviado = nome_enviado.trim();
@@ -375,6 +382,7 @@
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
                     listarFuncionarios();
+                    fecharCard('card-editar-func');
 
                 });
             } else {
@@ -422,6 +430,7 @@
         }).then(function (resposta) {
             if (resposta.ok) {
                 alert("Mensagem enviada com sucesso! Verifique seu email.");
+                fecharCard('card-contato');
             } else {
                 alert("Erro ao enviar. Tente novamente.");
             }
@@ -477,6 +486,29 @@
                 </a>
             </div>
         `
+
+        document.getElementById("mobile-navbar").innerHTML = `
+        <nav class="mobile-navbar">
+                <ul class="sidebar_list_mobile">
+                    <a href="servidores.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-database"></i></li>
+                    </a>
+                    <a href="alertas.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-exclamation-triangle-fill"></i>
+                        </li>
+                    </a>
+                    <a href="ajuda.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-headset"></i>
+                        </li>
+                    </a>
+                    <a href="../index.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-box-arrow-in-right"></i>
+                        </li>
+                    </a>
+                </ul>
+            </nav>
+        `;
+
         } else {
             document.getElementById("sidebar").innerHTML = `
         <div class="sidebar_top_wrapper">
@@ -520,6 +552,28 @@
                 </a>
             </div>
         `
+
+        document.getElementById("mobile-navbar").innerHTML = `
+        <nav class="mobile-navbar">
+                <ul class="sidebar_list_mobile">
+                    <a href="analytics.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-columns-gap"></i></li>
+                    </a>
+                    <a href="">
+                        <li class="sidebar_items_mobile selected_items"><i class="bi bi-people-fill"></i>
+                        </li>
+                    </a>
+                    <a href="ajuda.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-headset"></i>
+                        </li>
+                    </a>
+                    <a href="../index.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-box-arrow-in-right"></i>
+                        </li>
+                    </a>
+                </ul>
+            </nav>
+        `;
         }
         document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
         document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";

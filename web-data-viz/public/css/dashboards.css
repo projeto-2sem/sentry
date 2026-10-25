@@ -740,6 +740,8 @@ select {
     background-color: transparent;
     border: none;
     cursor: pointer;
+    display: flex;
+    justify-content: end;
   }
 
   .bi-pencil-fill {
@@ -1386,6 +1388,9 @@ select {
     border: none;
     color: white;
     font-size: 50px;
+    display: flex;
+    justify-content: end;
+    width: 20%;
   }
 }
 
@@ -1909,7 +1914,7 @@ select {
 
   .linha-tempo {
     flex-wrap: wrap;
-    height: 100px;
+    height: 130px;
     margin-top: 20px;
 
     button {
@@ -1949,6 +1954,10 @@ select {
 
   main {
     margin-left: 0;
+  }
+
+  .add-user p {
+    padding: 0px 100px !important;
   }
 }
 
@@ -2058,6 +2067,11 @@ select {
     margin-top: 8px;
     color: #8a99ad;
     font-size: 11px;
+}
+
+.ajuda-main {
+  background-image: url("../assets/bgd_imgs/Em breve.png");
+  background-size: cover;
 }
 
 @media (max-width: 900px) {

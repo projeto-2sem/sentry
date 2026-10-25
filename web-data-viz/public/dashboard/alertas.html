@@ -138,6 +138,35 @@
 
         </main>
 
+        <div id="mobile-navbar">
+            <nav class="mobile-navbar">
+                <ul class="sidebar_list_mobile">
+                    <a href="">
+                        <li class="sidebar_items_mobile selected_items"><i class="bi bi-columns-gap"></i></li>
+                    </a>
+                    <a href="servidores.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-database"></i></li>
+                    </a>
+                    <a href="">
+                        <li class="sidebar_items_mobile"><i class="bi bi-exclamation-triangle-fill"></i>
+                        </li>
+                    </a>
+                    <a href="equipe.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-people-fill"></i>
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="sidebar_items_mobile"><i class="bi bi-headset"></i>
+                        </li>
+                    </a>
+                    <a href="../index.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-box-arrow-in-right"></i>
+                        </li>
+                    </a>
+                </ul>
+            </nav>
+        </div>
+    </div>
 
 </html>
 <script>
@@ -193,6 +222,29 @@
                 </a>
             </div>
         `
+
+        document.getElementById("mobile-navbar").innerHTML = `
+        <nav class="mobile-navbar">
+                <ul class="sidebar_list_mobile">
+                    <a href="servidores.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-database"></i></li>
+                    </a>
+                    <a href="">
+                        <li class="sidebar_items_mobile selected_items"><i class="bi bi-exclamation-triangle-fill"></i>
+                        </li>
+                    </a>
+                    <a href="ajuda.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-headset"></i>
+                        </li>
+                    </a>
+                    <a href="../index.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-box-arrow-in-right"></i>
+                        </li>
+                    </a>
+                </ul>
+            </nav>
+        `;
+
         } else {
             document.getElementById("sidebar").innerHTML = `
         <div class="sidebar_top_wrapper">
@@ -236,6 +288,28 @@
                 </a>
             </div>
         `
+
+        document.getElementById("mobile-navbar").innerHTML = `
+        <nav class="mobile-navbar">
+                <ul class="sidebar_list_mobile">
+                    <a href="analytics.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-columns-gap"></i></li>
+                    </a>
+                    <a href="equipe.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-people-fill"></i>
+                        </li>
+                    </a>
+                    <a href="ajuda.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-headset"></i>
+                        </li>
+                    </a>
+                    <a href="../index.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-box-arrow-in-right"></i>
+                        </li>
+                    </a>
+                </ul>
+            </nav>
+        `;
         }
         document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
         document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";
