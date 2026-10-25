@@ -54,7 +54,7 @@ function cadastrarEndereco(cep, estado, cidade, bairro, logradouro, numero, comp
 function cadastrarAdm(nome, email, senha, idEmpresa) {
     
     var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, fkcargo, fkempresa) VALUES ('${nome}', '${email}', '${senha}', 1, ${idEmpresa});
+        INSERT INTO usuario (nome, email, senha, fkcargo, fkempresa) VALUES ('${nome}', '${email}', '${senha}', 2, ${idEmpresa});
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
