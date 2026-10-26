@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="escreverNavbar()">
+<body onload="escreverNavbar(), escolher_momento('momento-mes')">
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar_top_wrapper">
@@ -114,28 +114,16 @@
 
                             <div class="div-disponibilidade">
                                 <div class="caixa-disponibilidade">
-                                    <p>Servidor Paranapiacaba</p>
+                                    <p>Servidor Aplicação Principal</p>
+                                    <h4>100%</h4>
                                 </div>
                                 <div class="caixa-disponibilidade">
-                                    <p>Crítico</p>
+                                    <p>Servidor Banco de Dados</p>
+                                    <h4>100%</h4>
                                 </div>
                                 <div class="caixa-disponibilidade">
-                                    <p>Total</p>
-                                </div>
-                                <div class="caixa-disponibilidade">
-                                    <p>Mudança</p>
-                                </div>
-                                <div class="caixa-disponibilidade">
-                                    <p>Servidor Paranapiacaba</p>
-                                </div>
-                                <div class="caixa-disponibilidade">
-                                    <p>Crítico</p>
-                                </div>
-                                <div class="caixa-disponibilidade">
-                                    <p>Total</p>
-                                </div>
-                                <div class="caixa-disponibilidade">
-                                    <p>Mudança</p>
+                                    <p>Servidor Arquivos e Storage</p>
+                                    <h4>100%</h4>
                                 </div>
                             </div>
                         </div>
@@ -265,10 +253,7 @@
         "div_processos_aberto": 0
     }
     let momentos = {
-        "momento-dia": 0,
-        "momento-quinzena": 0,
         "momento-mes": 0,
-        "momento-bimestre": 0,
         "momento-trimestre": 0,
         "momento-semestre": 0,
         "momento-ano": 0
@@ -308,6 +293,7 @@
         } else {
             momentos[id] = 0;
             momento.classList.remove("momento-escolhido");
+            trocar_grafico();
         }
     }
 
@@ -338,9 +324,9 @@
 
         if (momentos["momento-mes"] == 1) {
             const data = {
-                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+                labels: ['07/setembro', '14/setembro', '21/setembro', '28/setembro'],
                 datasets: [{
-                    data: [3, 2, 1, 4, 5, 6, 7],
+                    data: [3, 2, 1, 4],
                     fill: false,
                     borderColor: 'red',
                     backgroundColor: 'red',
@@ -395,7 +381,7 @@
 
         } else if (momentos["momento-trimestre"] == 1) {
             const data = {
-                labels: ['Fevereiro', 'Março', 'Abril', '15/agosto', '31/agosto', '15/setembro'],
+                labels: ['30/junho', '15/julho', '31/julho', '15/agosto', '31/agosto', '15/setembro'],
                 datasets: [{
                     data: [5, 2, 3, 4, 1, 6, 7],
                     fill: false,
