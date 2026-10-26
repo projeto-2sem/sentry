@@ -110,7 +110,7 @@
                 </ul>
             </div>
             <div class="sidebar_bot_wrapper">
-                <div class="sidebar_account_wrapper">
+                <div class="sidebar_account_wrapper" id="sidebar_account_wrapper">
                     <div class="sidebar_account_photo">
                         <h3 id="siglas_usuario">GS</h3>
                     </div>
@@ -588,6 +588,24 @@
 
     function fecharAddFunc() {
         document.getElementById("add_user_card").style.display = "none";
+    }
+
+    function move_aside() {
+        let move = document.getElementById("btn_move_aside");
+        let data = move.dataset.hidden;
+        let class_side_bar = document.querySelector(".sidebar");
+        let i_move_side = document.getElementById("move_aside");
+        if (data == 0) {
+            class_side_bar.classList.add("closed");
+            move.dataset.hidden = 1;
+            i_move_side.classList.replace("bi-chevron-left", "bi-chevron-right");
+            document.getElementById("sidebar_account_wrapper").style.display = "none";
+        } else {
+            class_side_bar.classList.remove("closed");
+            move.dataset.hidden = 0;
+            i_move_side.classList.replace("bi-chevron-right", "bi-chevron-left");
+            document.getElementById("sidebar_account_wrapper").style.display = "flex";
+        }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
