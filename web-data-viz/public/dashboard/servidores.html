@@ -10,10 +10,128 @@
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .card input, .card select {
+            border: 2px solid var(--third-color) !important;
+            background-color: var(--first-color);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .card input:focus, .card select:focus {
+            border-color: #60a5fa !important;
+            outline: none;
+            box-shadow: 0 0 6px rgba(47, 129, 247, 0.4);
+        }
+        .inputComTxt {
+            width: 100% !important;
+            margin-bottom: 12px;
+        }
+        .txtDestaque {
+            color: var(--third-color) !important;
+        }
+        
+        .metrics-checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            background: var(--first-color);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--third-color);
+            margin-top: 6px;
+            text-align: center;
+        }
+        .metric-check-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: #fff;
+            font-size: 13px;
+            font-family: "Montserrat", sans-serif;
+            cursor: pointer;
+        }
+        .metric-check-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--third-color);
+            cursor: pointer;
+        }
+
+        .escalabilidade-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            background: var(--first-color);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--third-color);
+            margin-top: 6px;
+        }
+        .escalabilidade-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .escalabilidade-item label {
+            font-size: 11px;
+            color: #94a3b8;
+            font-family: 'Geist Mono', monospace;
+            font-weight: bold;
+        }
+        .escalabilidade-labels-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-bottom: 2px;
+        }
+        .escalabilidade-labels-top span {
+            font-size: 10px;
+            font-family: 'Geist Mono', monospace;
+            text-align: center;
+            font-weight: 600;
+        }
+        .lbl-atencao { color: #facc15 !important; }
+        .lbl-critico { color: #ef4444 !important; }
+
+        .escalabilidade-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+        .escalabilidade-inputs input {
+            width: 100% !important;
+            height: 42px !important;
+            padding: 6px;
+            background: #0f172a;
+            color: #fff;
+            border: 1px solid var(--third-color) !important;
+            border-radius: 6px;
+            font-size: 14px !important;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .dot-status {
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 4px 8px;
+            transition: all 0.2s ease;
+        }
+        .dot-status.active-filter {
+            border-color: var(--third-color);
+            background-color: var(--hover);
+        }
+    </style>
 </head>
 
 <body onload="escreverNavbar()">
     <div class="container">
+   
         <aside class="sidebar" id="sidebar">
             <div class="sidebar_top_wrapper">
                 <div class="sidebar_logo">
@@ -58,135 +176,82 @@
                 </a>
             </div>
         </aside>
+
+  
         <main>
             <header class="server-header">
                 <div class="title-header">
                     <h1>Server</h1>
-                    <time id="date_now">19/04/2026</time>
+                    <time id="date_now">25/10/2026</time>
                 </div>
             </header>
             <section class="server-content">
                 <header class="server-content-header">
-                    <h1 id="totalServidores">Total de servidores: 3</h1>
+                    <h1 id="totalServidores">Total de servidores: 0</h1>
                 </header>
 
                 <div class="status-container">
-
                     <div class="status-left">
                         <h1> STATUS </h1>
                         <div class="server-status">
-                            <a href="" class="dot-status">
-                                <img src="../assets/imgs/circulo-verde.png" alt="Status Verde" class="img-circulo"> 1
-                            </a>
-                            <a href="" class="dot-status">
+                       
+                            <div onclick="filtrarPorStatus('estavel')" class="dot-status" id="filtro-estavel">
+                                <img src="../assets/imgs/circulo-verde.png" alt="Status Verde" class="img-circulo"> 
+                                <span id="count-estavel">0</span>
+                            </div>
+                           
+                            <div onclick="filtrarPorStatus('atencao')" class="dot-status" id="filtro-atencao">
                                 <img src="../assets/imgs/circulo-amarelo.png" alt="Status Amarelo" class="img-circulo">
-                                1
-                            </a>
-                            <a href="" class="dot-status">
-                                <img src="../assets/imgs/circulo-vermelho.png" alt="Status Vermelho"
-                                    class="img-circulo"> 1
-                            </a>
+                                <span id="count-atencao">0</span>
+                            </div>
+                          
+                            <div onclick="filtrarPorStatus('critico')" class="dot-status active-filter" id="filtro-critico">
+                                <img src="../assets/imgs/circulo-vermelho.png" alt="Status Vermelho" class="img-circulo"> 
+                                <span id="count-critico">0</span>
+                            </div>
                         </div>
-
                     </div>
 
                     <div class="status-legend">
-                        <div class="legend-item">
-                            <span class="legend-dot status-critical"></span>
-                            <span>Crítico</span>
-                        </div>
-
-                        <div class="legend-item">
-                            <span class="legend-dot status-attention"></span>
-                            <span>Atenção</span>
-                        </div>
-
-                        <div class="legend-item">
-                            <span class="legend-dot status-stable"></span>
-                            <span>Estável</span>
-                        </div>
+                        <div class="legend-item"><span class="legend-dot status-critical"></span><span>Crítico</span></div>
+                        <div class="legend-item"><span class="legend-dot status-attention"></span><span>Atenção</span></div>
+                        <div class="legend-item"><span class="legend-dot status-stable"></span><span>Estável</span></div>
                     </div>
 
-
-                    <button class="btn-adicionar" onclick="abrirCardCreate()">
-                        <i class="bi bi-plus-lg"> </i>
+                  
+                    <button class="btn-adicionar" onclick="abrirCardCreate()" title="Adicionar Servidor e Escalabilidade">
+                        <i class="bi bi-plus-lg"></i>
                     </button>
-
                 </div>
 
                 <div class="search-bar">
-                    <input id="input_busca" type="text">
-                    <button class="btn-filtro">
-                        <i class="bi bi-funnel-fill"></i>
-                    </button>
-                    <button class="btn-buscar">
-                        <span> Buscar </span>
-                    </button>
-                </div>
-                <div class="server-list" id="serverList">
+                    <input id="input_busca" type="text" placeholder="Pesquisar servidor (Hostname, Apelido, Modelo)..." onkeyup="pesquisarServidor()">
+                    <button class="btn-buscar" onclick="pesquisarServidor()"><span> Buscar </span></button>
                 </div>
 
+                <div class="server-list" id="serverList"></div>
             </section>
         </main>
-
-
-        <div id="mobile-navbar">
-            <nav class="mobile-navbar">
-                <ul class="sidebar_list_mobile">
-                    <a href="servidores.html">
-                        <li class="sidebar_items_mobile selected_items"><i class="bi bi-database"></i></li>
-                    </a>
-                    <a href="alertas.html">
-                        <li class="sidebar_items_mobile"><i class="bi bi-exclamation-triangle-fill"></i>
-                        </li>
-                    </a>
-                    <a href="ajuda.html">
-                        <li class="sidebar_items_mobile"><i class="bi bi-headset"></i>
-                        </li>
-                    </a>
-                    <a href="../index.html">
-                        <li class="sidebar_items_mobile"><i class="bi bi-box-arrow-in-right"></i>
-                        </li>
-                    </a>
-                </ul>
-            </nav>
-        </div>
     </div>
 
-
+   
     <div class="cardEditSection" id="cardDeleteSection">
         <div id="cardExclusao" class="card card-delete">
-
             <div class="headCard">
                 <span>Excluir servidor</span>
                 <span id="sairCard" onclick="fecharCard('cardDeleteSection')">x</span>
             </div>
-
             <div class="bodyCard body-delete">
                 <i class="bi bi-exclamation-triangle-fill delete-icon"></i>
-
-                <p>
-                    Tem certeza que deseja excluir este servidor?
-                </p>
-
-                <span class="delete-warning">
-                    Essa ação não poderá ser desfeita.
-                </span>
+                <p>Tem certeza que deseja excluir este servidor?</p>
+                <span class="delete-warning">Essa ação não poderá ser desfeita.</span>
             </div>
-
             <div class="card-footer">
-                <button type="button" class="btn-cancelar" onclick="fecharCard('cardDeleteSection')">
-                    Cancelar
-                </button>
-
-                <button type="button" class="btn-excluir" id="btnConfirmarExclusao">
-                    Excluir
-                </button>
+                <button type="button" class="btn-cancelar" onclick="fecharCard('cardDeleteSection')">Cancelar</button>
+                <button type="button" class="btn-excluir" id="btnConfirmarExclusao">Excluir</button>
             </div>
-
         </div>
     </div>
-
 
 
     <div class="cardEditSection" id="cardEditSection">
@@ -196,111 +261,160 @@
                 <span id="sairCard" onclick="fecharCard('cardEditSection')">x</span>
             </div>
             <div class="bodyCard">
-
                 <div class="inputComTxt">
                     <span class="txtInput">HostName <span class="txtDestaque">*</span></span>
                     <input type="text" id="ipt_hostName">
                 </div>
-
                 <div class="inputComTxt">
                     <span class="txtInput">Apelido <span class="txtDestaque">*</span></span>
                     <input type="text" id="ipt_apelido">
                 </div>
-
                 <div class="inputComTxt">
                     <span class="txtInput">Modelo <span class="txtDestaque">*</span></span>
                     <input id="ipt_modelo">
                 </div>
-
-                <div class="inputComTxt">
-                    <span class="txtInput">MAC Address <span class="txtDestaque">*</span></span>
-                    <input type="text" id="ipt_mac" placeholder="00:50:56:a3:4c:11">
-                </div>
-
                 <div class="inputComTxt">
                     <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
                     <select id="ipt_situacao">
-                        <option value=1>Ativo</option>
-                        <option value=0>Inativo</option>
+                        <option value="1">Ativo</option>
+                        <option value="0">Inativo</option>
                     </select>
                 </div>
-
             </div>
-
             <div class="card-footer">
-                <button type="button" class="btn-cancelar" onclick="fecharCard('cardEditSection')">
-                    Cancelar
-                </button>
-
-                <button type="button" class="btn-editar" onclick="editarServidor()">
-                    Editar
-                </button>
+                <button type="button" class="btn-cancelar" onclick="fecharCard('cardEditSection')">Cancelar</button>
+                <button type="button" class="btn-editar" onclick="editarServidor()">Editar</button>
             </div>
         </div>
     </div>
 
+ 
     <div class="cardCreateSection" id="cardCreateSection">
-        <div id="cardCreate" class="card">
+        <div id="cardCreate" class="card" style="width: 580px; max-height: 90vh; overflow-y: auto;">
             <div class="headCard">
-                <span>Adicionar Servidor</span>
+                <span>Adicionar Servidor & Escalabilidade</span>
                 <span id="sairCard" onclick="fecharCard('cardCreateSection')">x</span>
             </div>
             <div class="bodyCard">
-
                 <div class="inputComTxt">
                     <span class="txtInput">HostName <span class="txtDestaque">*</span></span>
-                    <input type="text" id="ipt_hostName_create">
+                    <input type="text" id="ipt_hostName_create" placeholder="Ex: SRV-APP-02">
                 </div>
 
                 <div class="inputComTxt">
                     <span class="txtInput">Apelido <span class="txtDestaque">*</span></span>
-                    <input type="text" id="ipt_apelido_create">
+                    <input type="text" id="ipt_apelido_create" placeholder="Ex: Servidor de Homologação">
                 </div>
 
                 <div class="inputComTxt">
                     <span class="txtInput">Modelo <span class="txtDestaque">*</span></span>
-                    <input id="ipt_modelo_create">
+                    <input id="ipt_modelo_create" placeholder="Ex: Dell PowerEdge R750">
                 </div>
 
                 <div class="inputComTxt">
                     <span class="txtInput">MAC Address <span class="txtDestaque">*</span></span>
-                    <input type="text" id="ipt_mac_create" placeholder="00:50:56:a3:4c:11">
-                </div>
-
-                <div class="inputComTxt">
-                    <span class="txtInput">Situação <span class="txtDestaque">*</span></span>
-                    <select id="ipt_situacao_create">
-                        <option value=1>Ativo</option>
-                        <option value=0>Inativo</option>
-                    </select>
+                    <input type="text" id="ipt_mac_create" placeholder="00:50:56:a3:4c:14">
                 </div>
 
                 <div class="inputComTxt">
                     <span class="txtInput">Sistema Operacional <span class="txtDestaque">*</span></span>
-                    <select id="ipt_SO_create">
-
-                    </select>
+                    <select id="ipt_SO_create"></select>
                 </div>
 
+                
+                <div class="inputComTxt" style="margin-top: 10px;">
+                    <span class="txtInput">Métricas Monitoradas <span class="txtDestaque">*</span></span>
+                    <div class="metrics-checkbox-grid">
+                        <label class="metric-check-item">
+                            <span>CPU</span>
+                            <input type="checkbox" id="chk_cpu" checked>
+                        </label>
+                        <label class="metric-check-item">
+                            <span>RAM</span>
+                            <input type="checkbox" id="chk_ram" checked>
+                        </label>
+                        <label class="metric-check-item">
+                            <span>DISCO</span>
+                            <input type="checkbox" id="chk_disco" checked>
+                        </label>
+                        <label class="metric-check-item">
+                            <span>REDE</span>
+                            <input type="checkbox" id="chk_rede" checked>
+                        </label>
+                    </div>
+                </div>
+
+               
+                <div class="inputComTxt" style="margin-top: 10px;">
+                    <span class="txtInput">Limites dos Componentes (%) <span class="txtDestaque">*</span></span>
+                    
+                    <div class="escalabilidade-grid">
+               
+                        <div class="escalabilidade-item">
+                            <label>CPU (%)</label>
+                            <div class="escalabilidade-labels-top">
+                                <span class="lbl-atencao">Atenção</span>
+                                <span class="lbl-critico">Crítico</span>
+                            </div>
+                            <div class="escalabilidade-inputs">
+                                <input type="number" id="ipt_atencao_cpu" value="70">
+                                <input type="number" id="ipt_critico_cpu" value="80">
+                            </div>
+                        </div>
+
+                       
+                        <div class="escalabilidade-item">
+                            <label>RAM (%)</label>
+                            <div class="escalabilidade-labels-top">
+                                <span class="lbl-atencao">Atenção</span>
+                                <span class="lbl-critico">Crítico</span>
+                            </div>
+                            <div class="escalabilidade-inputs">
+                                <input type="number" id="ipt_atencao_ram" value="40">
+                                <input type="number" id="ipt_critico_ram" value="50">
+                            </div>
+                        </div>
+
+                       
+                        <div class="escalabilidade-item">
+                            <label>Disco (%)</label>
+                            <div class="escalabilidade-labels-top">
+                                <span class="lbl-atencao">Atenção</span>
+                                <span class="lbl-critico">Crítico</span>
+                            </div>
+                            <div class="escalabilidade-inputs">
+                                <input type="number" id="ipt_atencao_disco" value="60">
+                                <input type="number" id="ipt_critico_disco" value="70">
+                            </div>
+                        </div>
+
+                        <div class="escalabilidade-item">
+                            <label>Perda de Pacote (%)</label>
+                            <div class="escalabilidade-labels-top">
+                                <span class="lbl-atencao">Atenção</span>
+                                <span class="lbl-critico">Crítico</span>
+                            </div>
+                            <div class="escalabilidade-inputs">
+                                <input type="number" id="ipt_atencao_pacote" value="2">
+                                <input type="number" id="ipt_critico_pacote" value="5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="card-footer">
-                <button type="button" class="btn-cancelar" onclick="fecharCard('cardCreateSection')">
-                    Cancelar
-                </button>
-
-                <button type="button" class="btn-editar" onclick="adicionarServidor()">
-                    Adicionar
-                </button>
+                <button type="button" class="btn-cancelar" onclick="fecharCard('cardCreateSection')">Cancelar</button>
+                <button type="button" class="btn-editar" onclick="adicionarServidor()">Obter Script</button>
             </div>
         </div>
     </div>
 </body>
 
 </html>
+
 <script src="../js/sessao.js"></script>
 <script>
-
     document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
     document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";
     let sigla = sessionStorage.NOME_USUARIO ? sessionStorage.NOME_USUARIO.split(" ") : ["G", "S"];
@@ -309,7 +423,6 @@
     const today = new Date().toLocaleDateString("pt-BR");
     document.getElementById("date_now").innerHTML = today;
 
-  
     function move_aside() {
         let move = document.getElementById("btn_move_aside");
         let data = move.dataset.hidden;
@@ -328,83 +441,15 @@
         }
     }
 
-
-    const mockServidores = [
-        {
-            idServidor: 1,
-            status: 1,
-            condicao: "critico",
-            data_criacao: "01/10/2025",
-            modelo: "Dell PowerEdge R750",
-            apelido: "Servidor Aplicação Principal",
-            hostname: "SRV-APP-01",
-            mac: "00:50:56:a3:4c:11",
-            limites: { cpu: 80, ram: 50, disco: 70 }, 
-            historico: {
-                horarios: ['22:15', '22:30', '22:45', '23:00', '23:30'],
-                cpu: [72.4, 78.1, 84.5, 89.6, 90.8],
-                ram: [40.1, 41.0, 41.8, 42.0, 42.7],
-                disco: [57.5, 57.6, 57.7, 57.8, 57.7],
-                perdaPacote: "4.8%",
-                processos: [
-                    { nome: "svchost.exe", cpu: 45.5 },
-                    { nome: "lsass.exe", cpu: 8.7 },
-                    { nome: "System", cpu: 8.4 }
-                ]
-            }
-        },
-        {
-            idServidor: 2,
-            status: 1,
-            condicao: "atencao",
-            data_criacao: "01/10/2025",
-            modelo: "Dell PowerEdge R750",
-            apelido: "Servidor Banco de Dados",
-            hostname: "SRV-DB-01",
-            mac: "00:50:56:a3:4c:12",
-            limites: { cpu: 60, ram: 80, disco: 80 },
-            historico: {
-                horarios: ['22:15', '22:30', '22:45', '23:00', '23:30'],
-                cpu: [45.2, 42.8, 39.0, 35.8, 27.1],
-                ram: [91.0, 91.5, 92.4, 93.1, 94.0],
-                disco: [69.2, 69.1, 69.0, 69.0, 68.9],
-                perdaPacote: "1.5%",
-                processos: [
-                    { nome: "svchost.exe", cpu: 14.5 },
-                    { nome: "lsass.exe", cpu: 3.0 },
-                    { nome: "System", cpu: 3.8 }
-                ]
-            }
-        },
-        {
-            idServidor: 3,
-            status: 1,
-            condicao: "estavel",
-            data_criacao: "01/10/2025",
-            modelo: "Dell PowerEdge R750",
-            apelido: "Servidor Arquivos e Storage",
-            hostname: "SRV-FILE-01",
-            mac: "00:50:56:a3:4c:13",
-            limites: { cpu: 60, ram: 50, disco: 80 },
-            historico: {
-                horarios: ['22:15', '22:30', '22:45', '23:00', '23:30'],
-                cpu: [10.5, 11.2, 12.0, 12.8, 16.7],
-                ram: [41.2, 41.5, 41.9, 42.1, 42.9],
-                disco: [94.8, 94.7, 94.6, 94.6, 94.5],
-                perdaPacote: "0.1%",
-                processos: [
-                    { nome: "svchost.exe", cpu: 28.8 },
-                    { nome: "System", cpu: 6.9 },
-                    { nome: "lsass.exe", cpu: 3.5 }
-                ]
-            }
-        }
-    ];
+    let servidoresData = [];
+    let idServidorEditando = null; 
 
     const mockSO = [
         { idSistemaOperacional: 1, nome: "Ubuntu Server 22.04" },
         { idSistemaOperacional: 2, nome: "Windows Server 2022" }
     ];
+
+    let filtroStatusAtual = 'critico';
 
     window.onload = function () {
         fecharCard('cardCreateSection');
@@ -415,7 +460,96 @@
 
     function listar() {
         listarSO();
-        listarServidores(mockServidores);
+        
+        fetch(`/servidores/listar/${sessionStorage.ID_EMPRESA || 1}`)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (respostaJson) {
+                        servidoresData = respostaJson;
+                        atualizarContadoresEExibir();
+                    });
+                } else {
+                    console.error("Nenhum servidor encontrado ou erro na API.");
+                }
+            })
+            .catch(function (erro) {
+                console.error(`Erro na requisição: ${erro}`);
+            });
+    }
+
+    function calcularCondicaoServidor(server) {
+        const h = server.historico;
+        const lim = server.limites;
+        const cpuAtual = h.cpu[h.cpu.length - 1];
+        const ramAtual = h.ram[h.ram.length - 1];
+        const discoAtual = h.disco[h.disco.length - 1];
+
+        if (cpuAtual >= lim.critico.cpu || ramAtual >= lim.critico.ram || discoAtual >= lim.critico.disco) {
+            return 'critico';
+        }
+        if (cpuAtual >= lim.atencao.cpu || ramAtual >= lim.atencao.ram || discoAtual >= lim.atencao.disco) {
+            return 'atencao';
+        }
+        return 'estavel';
+    }
+
+    function atualizarContadoresEExibir() {
+        let countEstavel = 0;
+        let countAtencao = 0;
+        let countCritico = 0;
+
+        const servidoresProcessados = servidoresData.map(server => {
+            const cond = calcularCondicaoServidor(server);
+            if (cond === 'estavel') countEstavel++;
+            else if (cond === 'atencao') countAtencao++;
+            else if (cond === 'critico') countCritico++;
+            return { ...server, condicaoCalculada: cond };
+        });
+
+        document.getElementById("count-estavel").innerText = countEstavel;
+        document.getElementById("count-atencao").innerText = countAtencao;
+        document.getElementById("count-critico").innerText = countCritico;
+
+        aplicarFiltrosEBusca(servidoresProcessados);
+    }
+
+    function filtrarPorStatus(status) {
+        filtroStatusAtual = status;
+        
+        document.querySelectorAll('.dot-status').forEach(el => el.classList.remove('active-filter'));
+        document.getElementById(`filtro-${status}`).classList.add('active-filter');
+
+        atualizarContadoresEExibir();
+    }
+
+    function aplicarFiltrosEBusca(servidores) {
+        const termoBusca = document.getElementById("input_busca").value.toLowerCase();
+
+        const filtrados = servidores.filter(server => {
+            if (filtroStatusAtual && server.condicaoCalculada !== filtroStatusAtual) {
+                return false;
+            }
+
+            const apelido = (server.apelido || "").toLowerCase();
+            const hostname = (server.hostname || "").toLowerCase();
+            const modelo = (server.modelo || "").toLowerCase();
+            const mac = (server.mac || "").toLowerCase();
+
+            return apelido.includes(termoBusca) || 
+                   hostname.includes(termoBusca) || 
+                   modelo.includes(termoBusca) || 
+                   mac.includes(termoBusca);
+        });
+
+        listarServidores(filtrados);
+    }
+
+    function pesquisarServidor() {
+        let servidoresProcessados = servidoresData.map(server => ({
+            ...server,
+            condicaoCalculada: calcularCondicaoServidor(server)
+        }));
+        aplicarFiltrosEBusca(servidoresProcessados);
     }
 
     function listarSO() {
@@ -423,12 +557,9 @@
         if (!ipt_SO_create) return;
         ipt_SO_create.innerHTML = "";
         for (let i = 0; i < mockSO.length; i++) {
-            ipt_SO_create.innerHTML += `
-                <option value="${mockSO[i].idSistemaOperacional}">${mockSO[i].nome}</option>
-            `;
+            ipt_SO_create.innerHTML += `<option value="${mockSO[i].idSistemaOperacional}">${mockSO[i].nome}</option>`;
         }
     }
-
 
     function calcularVariacao(arrayMetrica) {
         if (arrayMetrica.length < 2) return "+0.0%";
@@ -438,12 +569,10 @@
         return (diff >= 0 ? `+${diff.toFixed(1)}%` : `${diff.toFixed(1)}%`);
     }
 
-
-    function obterCorGauge(valor, limiteCritico) {
-        const limiteAtencao = limiteCritico - 10;
-        if (valor >= limiteCritico) {
+    function obterCorGauge(valor, limitesComponente) {
+        if (valor >= limitesComponente.critico) {
             return '#ef4444';
-        } else if (valor >= limiteAtencao) {
+        } else if (valor >= limitesComponente.atencao) {
             return '#facc15';
         } else {
             return '#22c55e';
@@ -460,9 +589,15 @@
         if (!serverList) return;
         serverList.innerHTML = "";
 
+        if (servidores.length === 0) {
+            serverList.innerHTML = `<p style="text-align: center; color: #94a3b8; padding: 20px;">Nenhum servidor encontrado com este filtro.</p>`;
+            return;
+        }
+
         for (let i = 0; i < servidores.length; i++) {
             const server = servidores[i];
             const h = server.historico;
+            const condicao = server.condicaoCalculada || calcularCondicaoServidor(server);
 
             const cpuAtual = h.cpu[h.cpu.length - 1];
             const ramAtual = h.ram[h.ram.length - 1];
@@ -472,10 +607,15 @@
             const varRam = calcularVariacao(h.ram);
             const varDisco = calcularVariacao(h.disco);
 
-            let statusBolinhas = server.status == 1
-                ? `<span class="dot dot-green"></span><span class="dot dot-yellow"></span><span class="dot dot-red"></span>`
-                : `<span class="dot dot-gray" style="background:gray;"></span><span class="dot dot-gray" style="background:gray;"></span><span class="dot dot-gray" style="background:gray;"></span>`;
+            let corVerde = condicao === 'estavel' ? '#22c55e' : '#4b5563';
+            let corAmarela = condicao === 'atencao' ? '#facc15' : '#4b5563';
+            let corVermelha = condicao === 'critico' ? '#ef4444' : '#4b5563';
 
+            let statusBolinhas = `
+                <span class="dot dot-green" style="display:inline-block; width:10px; height:10px; border-radius:50%; background:${corVerde}; margin-right:4px;"></span>
+                <span class="dot dot-yellow" style="display:inline-block; width:10px; height:10px; border-radius:50%; background:${corAmarela}; margin-right:4px;"></span>
+                <span class="dot dot-red" style="display:inline-block; width:10px; height:10px; border-radius:50%; background:${corVermelha};"></span>
+            `;
 
             let htmlProcessos = "";
             for (let p = 0; p < h.processos.length; p++) {
@@ -517,7 +657,7 @@
                 <i class="bi bi-trash"></i>
             </button>
 
-            <button class="btn-action" title="Editar" onclick="abrirCardEdit(${server.idServidor}, '${server.hostname}', '${server.modelo}', '${server.apelido}', '${server.mac}')">
+            <button class="btn-action" title="Editar" onclick="abrirCardEdit(${server.idServidor}, '${server.hostname}', '${server.modelo}', '${server.apelido}', ${server.status})">
                 <i class="bi bi-pencil-square"></i>
             </button>
 
@@ -527,7 +667,7 @@
         </div>
     </header>
 
-    <p class="server-name">${server.apelido}</p>
+    <p class="server-name">${server.apelido} (${server.hostname})</p>
 
     <div class="server-metrics-container" id="metrics-${server.idServidor}" style="display: none;">
         <div class="metrics-content">
@@ -613,16 +753,13 @@
     }
 
     function renderCharts(id) {
-        const server = mockServidores.find(s => s.idServidor === id);
+        const server = servidoresData.find(s => s.idServidor === id);
         if (!server) return;
         const h = server.historico;
-        const limCpu = server.limites.cpu;
-        const limRam = server.limites.ram;
-        const limDisco = server.limites.disco;
+        const lims = server.limites;
 
         const lineCanvas = document.getElementById(`line-chart-${id}`);
         if (!lineCanvas) return;
-
 
         const ctxLine = lineCanvas.getContext('2d');
         new Chart(ctxLine, {
@@ -644,7 +781,7 @@
                         display: true,
                         text: 'Variação das Métricas',
                         color: '#fff',
-                        font: { size: 14, family: 'Geist Mono, monospace' }
+                        font: { size: 15, family: 'Geist Mono, monospace', weight: 'bold' }
                     }
                 },
                 scales: {
@@ -654,11 +791,11 @@
             }
         });
 
-        function createGauge(canvasId, value, limitVal) {
+        function createGauge(canvasId, value, limComponente) {
             const canvas = document.getElementById(canvasId);
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
-            const cor = obterCorGauge(value, limitVal);
+            const cor = obterCorGauge(value, limComponente);
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
@@ -679,28 +816,73 @@
             });
         }
 
-        createGauge(`gauge-cpu-${id}`, h.cpu[h.cpu.length - 1], limCpu);
-        createGauge(`gauge-ram-${id}`, h.ram[h.ram.length - 1], limRam);
-        createGauge(`gauge-disco-${id}`, h.disco[h.disco.length - 1], limDisco);
+        createGauge(`gauge-cpu-${id}`, h.cpu[h.cpu.length - 1], { atencao: lims.atencao.cpu, critico: lims.critico.cpu });
+        createGauge(`gauge-ram-${id}`, h.ram[h.ram.length - 1], { atencao: lims.atencao.ram, critico: lims.critico.ram });
+        createGauge(`gauge-disco-${id}`, h.disco[h.disco.length - 1], { atencao: lims.atencao.disco, critico: lims.critico.disco });
     }
 
-    function deletarCard(idServer) {
-        alert("Server Deletado");
+  function deletarCard(idServer) {
+        fetch(`/servidores/deletar/${idServer}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionStorage.ETOKEN || sessionStorage.TOKEN}`
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                alert("Servidor deletado com sucesso!");
+                listar();
+            } else {
+                alert("Houve um erro ao tentar deletar o servidor (Não autorizado).");
+            }
+        }).catch(function (erro) {
+            console.error(`Erro na requisição de exclusão: ${erro}`);
+        });
     }
 
     function editarServidor() {
-        alert("Servidor atualizado com sucesso");
-        fecharCard('cardEditSection');
+        var hostNameVar = document.getElementById("ipt_hostName").value;
+        var apelidoVar = document.getElementById("ipt_apelido").value;
+        var modeloVar = document.getElementById("ipt_modelo").value;
+        var situacaoVar = document.getElementById("ipt_situacao").value;
+
+        if (!hostNameVar || !apelidoVar || !modeloVar) {
+            alert("Preencha todos os campos obrigatórios!");
+            return;
+        }
+
+        fetch(`/servidores/editar/${idServidorEditando}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionStorage.ETOKEN || sessionStorage.TOKEN}`
+            },
+            body: JSON.stringify({
+                hostName: hostNameVar,
+                apelido: apelidoVar,
+                modeloId: modeloVar,
+                situacao: situacaoVar
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                alert("Servidor atualizado com sucesso!");
+                fecharCard('cardEditSection');
+                listar();
+            } else {
+                alert("Houve um erro ao tentar atualizar o servidor (Não autorizado).");
+            }
+        }).catch(function (erro) {
+            console.error(`Erro na requisição de edição: ${erro}`);
+        });
     }
 
-    let idEditar = 0;
-    function abrirCardEdit(idServer, hostName, modelo, apelido, mac) {
+    function abrirCardEdit(idServer, hostName, modelo, apelido, status) {
+        idServidorEditando = idServer;
         document.getElementById("cardEditSection").style.display = "flex";
         document.getElementById("ipt_hostName").value = hostName;
         document.getElementById("ipt_modelo").value = modelo;
         document.getElementById("ipt_apelido").value = apelido;
-        document.getElementById("ipt_mac").value = mac;
-        idEditar = idServer;
+        document.getElementById("ipt_situacao").value = status;
     }
 
     function fecharCard(card) {
@@ -728,14 +910,22 @@
     }
 
     function adicionarServidor() {
-        alert("Servidor adicionado com sucesso!");
+        const hostname = document.getElementById("ipt_hostName_create").value;
+        const mac = document.getElementById("ipt_mac_create").value;
+
+        if (!hostname || !mac) {
+            alert("Preencha os campos obrigatórios (HostName e MAC Address)!");
+            return;
+        }
+
+        alert(`Script gerado com sucesso para ${hostname} (MAC: ${mac})!`);
         fecharCard('cardCreateSection');
     }
 
     function escreverNavbar() {
         if (sessionStorage.CARGO && sessionStorage.CARGO.toLowerCase() == "gestor") {
             document.getElementById("sidebar").innerHTML = `
-        <div class="sidebar_top_wrapper">
+            <div class="sidebar_top_wrapper">
                 <div class="sidebar_logo">
                     <img src="../assets/imgs/sentry_logo_grid-removebg-preview.png" alt="">
                     <span class="text-sidebar">SENTRY</span>
@@ -745,37 +935,23 @@
             </div>
             <div class="sidebar_mid_wrapper">
                 <ul class="sidebar_list">
-                    <a href="analytics.html">
-                        <li class="sidebar_items"><i class="bi bi-columns-gap"></i><span
-                                class="text-sidebar">Analytics</span></li>
-                    </a>
-                    <a href="equipe.html">
-                        <li class="sidebar_items"><i class="bi bi-people-fill"></i><span
-                                class="text-sidebar">Equipe</span></li>
-                    </a>
-                    <a href="ajuda.html">
-                        <li class="sidebar_items"><i class="bi bi-headset"></i><span class="text-sidebar">Ajuda</span>
-                        </li>
-                    </a>
+                    <a href="analytics.html"><li class="sidebar_items"><i class="bi bi-columns-gap"></i><span class="text-sidebar">Analytics</span></li></a>
+                    <a href="equipe.html"><li class="sidebar_items"><i class="bi bi-people-fill"></i><span class="text-sidebar">Equipe</span></li></a>
+                    <a href="ajuda.html"><li class="sidebar_items"><i class="bi bi-headset"></i><span class="text-sidebar">Ajuda</span></li></a>
                 </ul>
             </div>
             <div class="sidebar_bot_wrapper">
                 <div class="sidebar_account_wrapper">
-                    <div class="sidebar_account_photo">
-                        <h3 id="siglas_usuario">GS</h3>
-                    </div>
+                    <div class="sidebar_account_photo"><h3 id="siglas_usuario">GS</h3></div>
                     <div class="sidebar_account_infos">
                         <p class="text-sidebar" id="nome_usuario">Usuário</p>
                         <p class="text-sidebar" id="cargo_usuario">Analista</p>
                     </div>
                 </div>
                 <a class="sidebar_bot_leave" href="../index.html">
-                    <div class="card_logout">
-                        <i class="bi bi-box-arrow-in-right"></i><span class="text-sidebar">Sair</span>
-                    </div>
+                    <div class="card_logout"><i class="bi bi-box-arrow-in-right"></i><span class="text-sidebar">Sair</span></div>
                 </a>
-            </div>
-        `;
+            </div>`;
         }
         document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
         document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";

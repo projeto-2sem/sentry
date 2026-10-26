@@ -40,7 +40,7 @@ async function autenticar(req, res) {
                         }
 
                         res.json({
-                            // token: tokenServer,
+                            token: tokenServer,
                             id: resultadoAutenticar[0].idUsuario,
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome,  

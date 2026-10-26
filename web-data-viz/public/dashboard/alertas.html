@@ -10,6 +10,65 @@
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+   
+        .alertas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .alerta-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 12px;
+            background-color: var(--second-color);
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 16px 20px;
+            transition: background-color 0.2s ease;
+        }
+        .alerta-card:hover {
+            background-color: var(--hover);
+        }
+        .alerta-informacoes {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .alerta-status {
+            padding: 4px 10px;
+            background-color: #ef4444;
+            color: #fff;
+            border-radius: 8px;
+            font-family: "Montserrat", sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .alerta-data, .alerta-horario {
+            color: #94a3b8;
+            font-family: "Montserrat", sans-serif;
+            font-size: 12px;
+        }
+        .alerta-separador {
+            color: #64748b;
+            font-size: 12px;
+        }
+        .alerta-card p {
+            color: var(--text-color);
+            font-family: "Montserrat", sans-serif;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        @media (max-width: 768px) {
+            .alertas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body onload="escreverNavbar()">
@@ -66,76 +125,65 @@
             </div>
         </aside>
 
-        <main class="alertas-main">
-
-            <header class="alertas-header">
-                <h1>Alertas</h1>
+        <main>
+            <header class="server-header">
+                <div class="title-header">
+                    <h1>Alertas</h1>
+                    <time id="date_now">25/10/2026</time>
+                </div>
             </header>
 
-            <section class="alertas-container" id="listaAlertas">
+            <section class="server-content">
+                <div class="server-content-header">
+                    <h2>Histórico de Alertas Recentes</h2>
+                </div>
 
-                <article class="alerta-card">
-                    <div class="alerta-informacoes">
-                        <span class="alerta-status">Crítico</span>
-                        <span class="alerta-data">Data: 15/02/2026</span>
-                        <span class="alerta-separador">|</span>
-                        <span class="alerta-horario">Horário: 12:23</span>
-                    </div>
-                    <p>Servidor paranaicaba está com uso elevado de Disco!</p>
-                </article>
+                <div class="alertas-grid" id="listaAlertas">
+     
+                    <article class="alerta-card">
+                        <div class="alerta-informacoes">
+                            <span class="alerta-status" style="background-color: #ef4444;">Crítico</span>
+                            <span class="alerta-data">Data: 25/10/2026</span>
+                            <span class="alerta-separador">|</span>
+                            <span class="alerta-horario">Horário: 23:30</span>
+                        </div>
+                        <p><strong>SRV-APP-01 (Servidor de Aplicação Principal):</strong> Atingiu uso crítico de CPU em <strong>90.8%</strong>!</p>
+                    </article>
 
-                <article class="alerta-card">
-                    <div class="alerta-informacoes">
-                        <span class="alerta-status">Crítico</span>
-                        <span class="alerta-data">Data: 15/02/2026</span>
-                        <span class="alerta-separador">|</span>
-                        <span class="alerta-horario">Horário: 12:23</span>
-                    </div>
-                    <p>Servidor paranaicaba está com uso elevado de Disco!</p>
-                </article>
+             
+                    <article class="alerta-card">
+                        <div class="alerta-informacoes">
+                            <span class="alerta-status" style="background-color: #facc15; color: #000;">Atenção</span>
+                            <span class="alerta-data">Data: 25/10/2026</span>
+                            <span class="alerta-separador">|</span>
+                            <span class="alerta-horario">Horário: 23:30</span>
+                        </div>
+                        <p><strong>SRV-DB-01 (Servidor Banco de Dados):</strong> Apresenta uso elevado de Memória RAM em <strong>94.0%</strong>.</p>
+                    </article>
 
-                <article class="alerta-card">
-                    <div class="alerta-informacoes">
-                        <span class="alerta-status">Crítico</span>
-                        <span class="alerta-data">Data: 15/02/2026</span>
-                        <span class="alerta-separador">|</span>
-                        <span class="alerta-horario">Horário: 12:23</span>
-                    </div>
-                    <p>Servidor paranaicaba está com uso elevado de Disco!</p>
-                </article>
+               
+                    <article class="alerta-card">
+                        <div class="alerta-informacoes">
+                            <span class="alerta-status" style="background-color: #ef4444;">Crítico</span>
+                            <span class="alerta-data">Data: 25/10/2026</span>
+                            <span class="alerta-separador">|</span>
+                            <span class="alerta-horario">Horário: 23:25</span>
+                        </div>
+                        <p><strong>SRV-FILE-01 (Servidor Arquivos e Storage):</strong> Disco principal atingiu o limite crítico com <strong>94.5%</strong> de ocupação.</p>
+                    </article>
 
-                <article class="alerta-card">
-                    <div class="alerta-informacoes">
-                        <span class="alerta-status">Crítico</span>
-                        <span class="alerta-data">Data: 15/02/2026</span>
-                        <span class="alerta-separador">|</span>
-                        <span class="alerta-horario">Horário: 12:23</span>
-                    </div>
-                    <p>Servidor paranaicaba está com uso elevado de Disco!</p>
-                </article>
-
-                <article class="alerta-card">
-                    <div class="alerta-informacoes">
-                        <span class="alerta-status">Crítico</span>
-                        <span class="alerta-data">Data: 15/02/2026</span>
-                        <span class="alerta-separador">|</span>
-                        <span class="alerta-horario">Horário: 12:23</span>
-                    </div>
-                    <p>Servidor paranaicaba está com uso elevado de Disco!</p>
-                </article>
-
-                <article class="alerta-card">
-                    <div class="alerta-informacoes">
-                        <span class="alerta-status">Crítico</span>
-                        <span class="alerta-data">Data: 15/02/2026</span>
-                        <span class="alerta-separador">|</span>
-                        <span class="alerta-horario">Horário: 12:23</span>
-                    </div>
-                    <p>Servidor paranaicaba está com uso elevado de Disco!</p>
-                </article>
-
+                  
+                    <article class="alerta-card">
+                        <div class="alerta-informacoes">
+                            <span class="alerta-status" style="background-color: #facc15; color: #000;">Atenção</span>
+                            <span class="alerta-data">Data: 25/10/2026</span>
+                            <span class="alerta-separador">|</span>
+                            <span class="alerta-horario">Horário: 22:45</span>
+                        </div>
+                        <p><strong>SRV-APP-01 (Servidor de Aplicação Principal):</strong> Detectada perda de pacotes de rede em <strong>4.8%</strong>.</p>
+                    </article>
+                </div>
             </section>
-
         </main>
 
         <div id="mobile-navbar">
@@ -167,14 +215,18 @@
             </nav>
         </div>
     </div>
+</body>
 
 </html>
 <script>
     document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
     document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO || "Analista";
-    let sigla = sessionStorage.NOME_USUARIO.split(" ");
-    sigla = sigla[0][0] + sigla[1][0];
+    let sigla = sessionStorage.NOME_USUARIO ? sessionStorage.NOME_USUARIO.split(" ") : ["G", "S"];
+    sigla = sigla[0][0] + (sigla[1] ? sigla[1][0] : "S");
     document.getElementById("siglas_usuario").innerText = sigla || "";
+    
+    const today = new Date().toLocaleDateString("pt-BR");
+    document.getElementById("date_now").innerHTML = today;
 
     function move_aside() {
         let move = document.getElementById("btn_move_aside");
@@ -195,7 +247,7 @@
     }
 
     function escreverNavbar() {
-        if (sessionStorage.CARGO.toLowerCase() == "analista") {
+        if (sessionStorage.CARGO && sessionStorage.CARGO.toLowerCase() == "analista") {
             document.getElementById("sidebar").innerHTML = `
         <div class="sidebar_top_wrapper">
                 <div class="sidebar_logo">
@@ -238,7 +290,7 @@
                     </div>
                 </a>
             </div>
-        `
+        `;
 
         document.getElementById("mobile-navbar").innerHTML = `
         <nav class="mobile-navbar">
@@ -261,77 +313,6 @@
                 </ul>
             </nav>
         `;
-
-        } else {
-            document.getElementById("sidebar").innerHTML = `
-        <div class="sidebar_top_wrapper">
-                <div class="sidebar_logo">
-                    <img src="../assets/imgs/sentry_logo_grid-removebg-preview.png" alt="">
-                    <span class="text-sidebar">SENTRY</span>
-                </div>
-                <button class="sidebar_close" type="button" onclick="move_aside()" data-hidden="0"
-                    id="btn_move_aside"><i class="bi bi-chevron-left" id="move_aside"></i></button>
-            </div>
-            <div class="sidebar_mid_wrapper">
-                <ul class="sidebar_list">
-                    <a href="analytics.html">
-                        <li class="sidebar_items"><i class="bi bi-columns-gap"></i><span
-                                class="text-sidebar">Analytics</span></li>
-                    </a>
-                    <a href="equipe.html">
-                        <li class="sidebar_items"><i class="bi bi-people-fill"></i><span
-                                class="text-sidebar">Equipe</span></li>
-                    </a>
-                    <a href="ajuda.html">
-                        <li class="sidebar_items"><i class="bi bi-headset"></i><span class="text-sidebar">Ajuda</span>
-                        </li>
-                    </a>
-                </ul>
-            </div>
-            <div class="sidebar_bot_wrapper">
-                <div class="sidebar_account_wrapper">
-                    <div class="sidebar_account_photo">
-                        <h3 id="siglas_usuario">GS</h3>
-                    </div>
-                    <div class="sidebar_account_infos">
-                        <p class="text-sidebar" id="nome_usuario">Usuário</p>
-                        <p class="text-sidebar" id="cargo_usuario">Analista</p>
-                    </div>
-                </div>
-                <a class="sidebar_bot_leave" href="../index.html">
-                    <div class="card_logout">
-                        <i class="bi bi-box-arrow-in-right"></i><span class="text-sidebar">Sair</span>
-                    </div>
-                </a>
-            </div>
-        `
-
-        document.getElementById("mobile-navbar").innerHTML = `
-        <nav class="mobile-navbar">
-                <ul class="sidebar_list_mobile">
-                    <a href="analytics.html">
-                        <li class="sidebar_items_mobile"><i class="bi bi-columns-gap"></i></li>
-                    </a>
-                    <a href="equipe.html">
-                        <li class="sidebar_items_mobile"><i class="bi bi-people-fill"></i>
-                        </li>
-                    </a>
-                    <a href="ajuda.html">
-                        <li class="sidebar_items_mobile"><i class="bi bi-headset"></i>
-                        </li>
-                    </a>
-                    <a href="../index.html">
-                        <li class="sidebar_items_mobile"><i class="bi bi-box-arrow-in-right"></i>
-                        </li>
-                    </a>
-                </ul>
-            </nav>
-        `;
         }
-        document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
-        document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";
-        let sigla = sessionStorage.NOME_USUARIO.split(" ");
-        sigla = sigla[0][0] + sigla[1][0];
-        document.getElementById("siglas_usuario").innerText = sigla || "";
     }
 </script>
