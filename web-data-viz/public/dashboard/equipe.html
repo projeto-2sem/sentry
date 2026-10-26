@@ -130,7 +130,7 @@
             <header class="server-header">
                 <div class="title-header">
                     <h1>Equipe</h1>
-                    <time id="date_now">19/04/2026</time>
+                    <time id="date_now">30/09/2026</time>
                 </div>
             </header>
             <section id="abrir-modal-codigo" class="add-user">
@@ -219,7 +219,7 @@
     empresaId = sessionStorage.ID_EMPRESA;
     idUsuarioEditar = null;
     const today = new Date().toLocaleDateString("pt-BR");
-    date_now.innerHTML = today
+    // date_now.innerHTML = today
 
     document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
     document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO || "Analista";
