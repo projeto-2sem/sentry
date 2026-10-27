@@ -562,10 +562,10 @@ function listar() {
                                 const mockRef = servidoresMockMVP[index] || servidoresMockMVP[0];
                                 return {
                                     ...srv,
-                                   
                                     apelido: srv.apelido || srv.hostname || mockRef.apelido,
                                     modelo: srv.modelo || mockRef.modelo,
                                     mac: srv.mac || mockRef.mac,
+                                    data_criacao: srv.data_criacao || srv.dtCriacao || srv.dataCriacao || mockRef.data_criacao,
                                     limites: srv.limites || mockRef.limites,
                                     variacoes: srv.variacoes || mockRef.variacoes,
                                     historico: srv.historico || mockRef.historico
