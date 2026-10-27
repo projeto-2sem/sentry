@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .process-cpu-value {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #00F0FF;
+        }
+    </style>
 </head>
 
 <body onload="escreverNavbar()">
@@ -303,7 +310,6 @@
     let sigla = sessionStorage.NOME_USUARIO ? sessionStorage.NOME_USUARIO.split(" ") : ["G", "S"];
     sigla = sigla[0][0] + (sigla[1] ? sigla[1][0] : "S");
     document.getElementById("siglas_usuario").innerText = sigla || "";
-    // const today = new Date().toLocaleDateString("pt-BR");
     document.getElementById("date_now").innerHTML = "30/09/26";
 
     function move_aside() {
@@ -348,6 +354,7 @@
                 cpu: [72.0, 78.4, 85.1, 90.0, 90.8],
                 ram: [40.5, 41.2, 42.0, 42.6, 42.7],
                 disco: [57.1, 57.3, 57.5, 57.6, 57.7],
+                perdaPacoteLinha: [1.0, 1.5, 2.0, 3.5, 4.8], 
                 perdaPacoteVal: 4.8,
                 perdaPacote: "4.8%",
                 processos: [
@@ -380,6 +387,7 @@
                 cpu: [45.0, 42.1, 38.0, 32.0, 27.1],
                 ram: [92.0, 92.5, 93.0, 93.1, 94.0],
                 disco: [69.5, 69.2, 69.0, 69.0, 68.9],
+                perdaPacoteLinha: [0.5, 0.8, 1.0, 1.2, 1.5],
                 perdaPacoteVal: 1.5,
                 perdaPacote: "1.5%",
                 processos: [
@@ -412,6 +420,7 @@
                 cpu: [10.2, 11.0, 12.0, 12.8, 16.7],
                 ram: [41.0, 41.5, 41.9, 42.1, 42.9],
                 disco: [94.0, 94.1, 94.2, 94.4, 94.5],
+                perdaPacoteLinha: [0.1, 0.1, 0.1, 0.1, 0.1],
                 perdaPacoteVal: 0.1,
                 perdaPacote: "0.1%",
                 processos: [
@@ -449,6 +458,7 @@
                 cpu: [72.0, 78.4, 85.1, 90.0, 90.8],                
                 ram: [40.5, 41.2, 42.0, 42.6, 42.7],                 
                 disco: [57.1, 57.3, 57.5, 57.6, 57.7],               
+                perdaPacoteLinha: [1.0, 1.5, 2.0, 3.5, 4.8],
                 perdaPacoteVal: 4.8,                               
                 perdaPacote: "4.8%",
                 processos: [
@@ -478,10 +488,11 @@
             },
             historico: {
                 horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
-                cpu: [45.0, 42.1, 38.0, 32.0, 27.1],                 // Atual: 27.1%
-                ram: [92.0, 92.5, 93.0, 93.1, 94.0],                 // Atual: 94.0%
-                disco: [69.5, 69.2, 69.0, 69.0, 68.9],               // Atual: 68.9%
-                perdaPacoteVal: 1.5,                                 // Atual: 1.5%
+                cpu: [45.0, 42.1, 38.0, 32.0, 27.1],                 
+                ram: [92.0, 92.5, 93.0, 93.1, 94.0],                 
+                disco: [69.5, 69.2, 69.0, 69.0, 68.9],               
+                perdaPacoteLinha: [0.5, 0.8, 1.0, 1.2, 1.5],
+                perdaPacoteVal: 1.5,                                 
                 perdaPacote: "1.5%",
                 processos: [
                     { nome: "svchost.exe", cpu: 14.5 },
@@ -510,10 +521,11 @@
             },
             historico: {
                 horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
-                cpu: [10.2, 11.0, 12.0, 12.8, 16.7],                 // Atual: 16.7%
-                ram: [41.0, 41.5, 41.9, 42.1, 42.9],                 // Atual: 42.9%
-                disco: [94.0, 94.1, 94.2, 94.4, 94.5],               // Atual: 94.5%
-                perdaPacoteVal: 0.1,                                 // Atual: 0.1%
+                cpu: [10.2, 11.0, 12.0, 12.8, 16.7],                 
+                ram: [41.0, 41.5, 41.9, 42.1, 42.9],                 
+                disco: [94.0, 94.1, 94.2, 94.4, 94.5],               
+                perdaPacoteLinha: [0.1, 0.1, 0.1, 0.1, 0.1],
+                perdaPacoteVal: 0.1,                                 
                 perdaPacote: "0.1%",
                 processos: [
                     { nome: "svchost.exe", cpu: 28.8 },
@@ -716,7 +728,7 @@ function listar() {
                         <span class="process-status">Em execução</span>
                     </div>
                     <div class="process-bar"><span style="width: ${Math.min(proc.cpu, 100)}%"></span></div>
-                    <small>CPU: ${proc.cpu}%</small>
+                    <span class="process-cpu-value">CPU: ${proc.cpu}%</span>
                 </div>`;
             }
 
@@ -819,7 +831,7 @@ function listar() {
             <div class="processes-panel">
                 <h3>
                     <i class="bi bi-cpu"></i>
-                    Processos ativos (Extraídos do CSV)
+                    Processos ativos
                 </h3>
                 ${htmlProcessos}
             </div>
@@ -857,15 +869,19 @@ function listar() {
         const lineCanvas = document.getElementById(`line-chart-${id}`);
         if (!lineCanvas) return;
 
+        const dadosPacoteLinha = h.perdaPacoteLinha || [0, 0, 0, 0, h.perdaPacoteVal || 0];
+
         const ctxLine = lineCanvas.getContext('2d');
         new Chart(ctxLine, {
             type: 'line',
             data: {
                 labels: h.horarios,
                 datasets: [
-                    { label: 'CPU (%)', data: h.cpu, borderColor: '#ef4444', borderWidth: 2, fill: false, tension: 0.1 },
-                    { label: 'RAM (%)', data: h.ram, borderColor: '#facc15', borderWidth: 2, fill: false, tension: 0.1 },
-                    { label: 'Disco (%)', data: h.disco, borderColor: '#3b82f6', borderWidth: 2, fill: false, tension: 0.1 }
+                
+                    { label: 'CPU (%)', data: h.cpu, borderColor: '#00F0FF', borderWidth: 2, fill: false, tension: 0.1 },
+                    { label: 'RAM (%)', data: h.ram, borderColor: '#D946EF', borderWidth: 2, fill: false, tension: 0.1 },
+                    { label: 'Disco (%)', data: h.disco, borderColor: '#10B981', borderWidth: 2, fill: false, tension: 0.1 },
+                    { label: 'Perda Pacote (%)', data: dadosPacoteLinha, borderColor: '#F97316', borderWidth: 2, fill: false, tension: 0.1 }
                 ]
             },
             options: {
@@ -1061,3 +1077,4 @@ function listar() {
         }
     }
 </script>
+</html>
