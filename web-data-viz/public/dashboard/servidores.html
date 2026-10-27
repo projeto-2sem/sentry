@@ -65,7 +65,7 @@
             <header class="server-header">
                 <div class="title-header">
                     <h1>Server</h1>
-                    <time id="date_now">26/10/2026</time>
+                    <time id="date_now">30/09/2026</time>
                 </div>
             </header>
             <section class="server-content">
@@ -303,8 +303,8 @@
     let sigla = sessionStorage.NOME_USUARIO ? sessionStorage.NOME_USUARIO.split(" ") : ["G", "S"];
     sigla = sigla[0][0] + (sigla[1] ? sigla[1][0] : "S");
     document.getElementById("siglas_usuario").innerText = sigla || "";
-    const today = new Date().toLocaleDateString("pt-BR");
-    document.getElementById("date_now").innerHTML = today;
+    // const today = new Date().toLocaleDateString("pt-BR");
+    document.getElementById("date_now").innerHTML = "30/09/26";
 
     function move_aside() {
         let move = document.getElementById("btn_move_aside");
