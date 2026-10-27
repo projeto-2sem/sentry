@@ -11,120 +11,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .card input, .card select {
-            border: 2px solid var(--third-color) !important;
-            background-color: var(--first-color);
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            width: 100%;
-        }
-        .card input:focus, .card select:focus {
-            border-color: #60a5fa !important;
-            outline: none;
-            box-shadow: 0 0 6px rgba(47, 129, 247, 0.4);
-        }
-        .inputComTxt {
-            width: 100% !important;
-            margin-bottom: 12px;
-        }
-        .txtDestaque {
-            color: var(--third-color) !important;
-        }
-        
-        .metrics-checkbox-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            background: var(--first-color);
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid var(--third-color);
-            margin-top: 6px;
-            text-align: center;
-        }
-        .metric-check-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            color: #fff;
-            font-size: 13px;
-            font-family: "Montserrat", sans-serif;
-            cursor: pointer;
-        }
-        .metric-check-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--third-color);
-            cursor: pointer;
-        }
-
-        .escalabilidade-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            background: var(--first-color);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid var(--third-color);
-            margin-top: 6px;
-        }
-        .escalabilidade-item {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .escalabilidade-item label {
-            font-size: 11px;
-            color: #94a3b8;
-            font-family: 'Geist Mono', monospace;
+        .process-cpu-value {
+            font-size: 1.15rem;
             font-weight: bold;
-        }
-        .escalabilidade-labels-top {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            margin-bottom: 2px;
-        }
-        .escalabilidade-labels-top span {
-            font-size: 10px;
-            font-family: 'Geist Mono', monospace;
-            text-align: center;
-            font-weight: 600;
-        }
-        .lbl-atencao { color: #facc15 !important; }
-        .lbl-critico { color: #ef4444 !important; }
-
-        .escalabilidade-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-        }
-        .escalabilidade-inputs input {
-            width: 100% !important;
-            height: 42px !important;
-            padding: 6px;
-            background: #0f172a;
-            color: #fff;
-            border: 1px solid var(--third-color) !important;
-            border-radius: 6px;
-            font-size: 14px !important;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .dot-status {
-            cursor: pointer;
-            border: 2px solid transparent;
-            border-radius: 8px;
-            padding: 4px 8px;
-            transition: all 0.2s ease;
-        }
-        .dot-status.active-filter {
-            border-color: var(--third-color);
-            background-color: var(--hover);
+            color: #00F0FF;
         }
     </style>
 </head>
@@ -182,7 +72,7 @@
             <header class="server-header">
                 <div class="title-header">
                     <h1>Server</h1>
-                    <time id="date_now">25/10/2026</time>
+                    <time id="date_now">30/09/2026</time>
                 </div>
             </header>
             <section class="server-content">
@@ -420,8 +310,7 @@
     let sigla = sessionStorage.NOME_USUARIO ? sessionStorage.NOME_USUARIO.split(" ") : ["G", "S"];
     sigla = sigla[0][0] + (sigla[1] ? sigla[1][0] : "S");
     document.getElementById("siglas_usuario").innerText = sigla || "";
-    const today = new Date().toLocaleDateString("pt-BR");
-    document.getElementById("date_now").innerHTML = today;
+    document.getElementById("date_now").innerHTML = "30/09/26";
 
     function move_aside() {
         let move = document.getElementById("btn_move_aside");
@@ -441,8 +330,211 @@
         }
     }
 
-    let servidoresData = [];
+    let servidoresData = [
+        {
+            idServidor: 1,
+            hostname: "SRV-APP-01",
+            apelido: "Servidor Aplicação Principal",
+            modelo: "Dell PowerEdge R750",
+            mac: "00:50:56:a3:4c:11",
+            status: 1,
+            data_criacao: "01/10/2025",
+            limites: {
+                atencao: { cpu: 70, ram: 40, disco: 60, pacote: 2 },
+                critico: { cpu: 80, ram: 50, disco: 70, pacote: 5 }
+            },
+            variacoes: {
+                cpu: "+0.8%",
+                ram: "+0.1%",
+                disco: "+0.1%",
+                pacote: "+0.2%"
+            },
+            historico: {
+                horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
+                cpu: [72.0, 78.4, 85.1, 90.0, 90.8],
+                ram: [40.5, 41.2, 42.0, 42.6, 42.7],
+                disco: [57.1, 57.3, 57.5, 57.6, 57.7],
+                perdaPacoteLinha: [1.0, 1.5, 2.0, 3.5, 4.8], 
+                perdaPacoteVal: 4.8,
+                perdaPacote: "4.8%",
+                processos: [
+                    { nome: "svchost.exe", cpu: 45.5 },
+                    { nome: "lsass.exe", cpu: 8.7 },
+                    { nome: "System", cpu: 8.4 }
+                ]
+            }
+        },
+        {
+            idServidor: 2,
+            hostname: "SRV-DB-01",
+            apelido: "Servidor Banco de Dados",
+            modelo: "Dell PowerEdge R750",
+            mac: "00:50:56:a3:4c:12",
+            status: 1,
+            data_criacao: "01/11/2025",
+            limites: {
+                atencao: { cpu: 70, ram: 80, disco: 60, pacote: 2 },
+                critico: { cpu: 80, ram: 90, disco: 70, pacote: 5 }
+            },
+            variacoes: {
+                cpu: "-4.9%",
+                ram: "+0.9%",
+                disco: "-0.1%",
+                pacote: "-0.2%"
+            },
+            historico: {
+                horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
+                cpu: [45.0, 42.1, 38.0, 32.0, 27.1],
+                ram: [92.0, 92.5, 93.0, 93.1, 94.0],
+                disco: [69.5, 69.2, 69.0, 69.0, 68.9],
+                perdaPacoteLinha: [0.5, 0.8, 1.0, 1.2, 1.5],
+                perdaPacoteVal: 1.5,
+                perdaPacote: "1.5%",
+                processos: [
+                    { nome: "svchost.exe", cpu: 14.5 },
+                    { nome: "lsass.exe", cpu: 3.0 },
+                    { nome: "System", cpu: 3.8 }
+                ]
+            }
+        },
+        {
+            idServidor: 3,
+            hostname: "SRV-FILE-01",
+            apelido: "Servidor Arquivos e Storage",
+            modelo: "Dell PowerEdge R750",
+            mac: "00:50:56:a3:4c:13",
+            status: 1,
+            data_criacao: "01/10/2025",
+            limites: {
+                atencao: { cpu: 70, ram: 40, disco: 85, pacote: 2 },
+                critico: { cpu: 80, ram: 50, disco: 90, pacote: 5 }
+            },
+            variacoes: {
+                cpu: "+3.9%",
+                ram: "+0.8%",
+                disco: "+0.1%",
+                pacote: "0.0%"
+            },
+            historico: {
+                horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
+                cpu: [10.2, 11.0, 12.0, 12.8, 16.7],
+                ram: [41.0, 41.5, 41.9, 42.1, 42.9],
+                disco: [94.0, 94.1, 94.2, 94.4, 94.5],
+                perdaPacoteLinha: [0.1, 0.1, 0.1, 0.1, 0.1],
+                perdaPacoteVal: 0.1,
+                perdaPacote: "0.1%",
+                processos: [
+                    { nome: "svchost.exe", cpu: 28.8 },
+                    { nome: "System", cpu: 6.9 },
+                    { nome: "lsass.exe", cpu: 3.5 }
+                ]
+            }
+        }
+    ];
     let idServidorEditando = null; 
+
+
+    const servidoresMockMVP = [
+        {
+            idServidor: 1,
+            hostname: "SRV-APP-01",
+            apelido: "Servidor Aplicação Principal",
+            modelo: "Dell PowerEdge R750",
+            mac: "00:50:56:a3:4c:11",
+            status: 1,
+            data_criacao: "01/10/2025",
+            limites: {
+                atencao: { cpu: 70, ram: 40, disco: 60, pacote: 2 },
+                critico: { cpu: 80, ram: 50, disco: 70, pacote: 5 }
+            },
+            variacoes: {
+                cpu: "+0.8%",        
+                ram: "+0.1%",        
+                disco: "+0.1%",      
+                pacote: "+0.2%"     
+            },
+            historico: {
+                horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
+                cpu: [72.0, 78.4, 85.1, 90.0, 90.8],                
+                ram: [40.5, 41.2, 42.0, 42.6, 42.7],                 
+                disco: [57.1, 57.3, 57.5, 57.6, 57.7],               
+                perdaPacoteLinha: [1.0, 1.5, 2.0, 3.5, 4.8],
+                perdaPacoteVal: 4.8,                               
+                perdaPacote: "4.8%",
+                processos: [
+                    { nome: "svchost.exe", cpu: 45.5 },
+                    { nome: "lsass.exe", cpu: 8.7 },
+                    { nome: "System", cpu: 8.4 }
+                ]
+            }
+        },
+        {
+            idServidor: 2,
+            hostname: "SRV-DB-01",
+            apelido: "Servidor Banco de Dados",
+            modelo: "Dell PowerEdge R750",
+            mac: "00:50:56:a3:4c:12",
+            status: 1,
+            data_criacao: "01/11/2025",
+            limites: {
+                atencao: { cpu: 70, ram: 80, disco: 60, pacote: 2 },
+                critico: { cpu: 80, ram: 90, disco: 70, pacote: 5 }
+            },
+            variacoes: {
+                cpu: "-4.9%",
+                ram: "+0.9%",
+                disco: "-0.1%",
+                pacote: "-0.2%"
+            },
+            historico: {
+                horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
+                cpu: [45.0, 42.1, 38.0, 32.0, 27.1],                 
+                ram: [92.0, 92.5, 93.0, 93.1, 94.0],                 
+                disco: [69.5, 69.2, 69.0, 69.0, 68.9],               
+                perdaPacoteLinha: [0.5, 0.8, 1.0, 1.2, 1.5],
+                perdaPacoteVal: 1.5,                                 
+                perdaPacote: "1.5%",
+                processos: [
+                    { nome: "svchost.exe", cpu: 14.5 },
+                    { nome: "lsass.exe", cpu: 3.0 },
+                    { nome: "System", cpu: 3.8 }
+                ]
+            }
+        },
+        {
+            idServidor: 3,
+            hostname: "SRV-FILE-01",
+            apelido: "Servidor Arquivos e Storage",
+            modelo: "Dell PowerEdge R750",
+            mac: "00:50:56:a3:4c:13",
+            status: 1,
+            data_criacao: "01/10/2025",
+            limites: {
+                atencao: { cpu: 70, ram: 40, disco: 85, pacote: 2 },
+                critico: { cpu: 80, ram: 50, disco: 90, pacote: 5 }
+            },
+            variacoes: {
+                cpu: "+3.9%",
+                ram: "+0.8%",
+                disco: "+0.1%",
+                pacote: "0.0%"
+            },
+            historico: {
+                horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
+                cpu: [10.2, 11.0, 12.0, 12.8, 16.7],                 
+                ram: [41.0, 41.5, 41.9, 42.1, 42.9],                 
+                disco: [94.0, 94.1, 94.2, 94.4, 94.5],               
+                perdaPacoteLinha: [0.1, 0.1, 0.1, 0.1, 0.1],
+                perdaPacoteVal: 0.1,                                 
+                perdaPacote: "0.1%",
+                processos: [
+                    { nome: "svchost.exe", cpu: 28.8 },
+                    { nome: "System", cpu: 6.9 },
+                    { nome: "lsass.exe", cpu: 3.5 }
+                ]
+            }
+        }
+    ];
 
     const mockSO = [
         { idSistemaOperacional: 1, nome: "Ubuntu Server 22.04" },
@@ -458,36 +550,55 @@
         listar();
     };
 
-    function listar() {
+function listar() {
         listarSO();
         
         fetch(`/servidores/listar/${sessionStorage.ID_EMPRESA || 1}`)
             .then(function (resposta) {
                 if (resposta.ok) {
                     resposta.json().then(function (respostaJson) {
-                        servidoresData = respostaJson;
+                        if (respostaJson && respostaJson.length > 0) {
+                            servidoresData = respostaJson.map((srv, index) => {
+                                const mockRef = servidoresMockMVP[index] || servidoresMockMVP[0];
+                                return {
+                                    ...srv,
+                                   
+                                    apelido: srv.apelido || srv.hostname || mockRef.apelido,
+                                    modelo: srv.modelo || mockRef.modelo,
+                                    mac: srv.mac || mockRef.mac,
+                                    limites: srv.limites || mockRef.limites,
+                                    variacoes: srv.variacoes || mockRef.variacoes,
+                                    historico: srv.historico || mockRef.historico
+                                };
+                            });
+                        } else {
+                            servidoresData = servidoresMockMVP;
+                        }
                         atualizarContadoresEExibir();
                     });
                 } else {
-                    console.error("Nenhum servidor encontrado ou erro na API.");
+                    servidoresData = servidoresMockMVP;
+                    atualizarContadoresEExibir();
                 }
             })
             .catch(function (erro) {
-                console.error(`Erro na requisição: ${erro}`);
+                console.warn("API offline, carregando fallback do MVP.");
+                servidoresData = servidoresMockMVP;
+                atualizarContadoresEExibir();
             });
     }
-
     function calcularCondicaoServidor(server) {
         const h = server.historico;
         const lim = server.limites;
         const cpuAtual = h.cpu[h.cpu.length - 1];
         const ramAtual = h.ram[h.ram.length - 1];
         const discoAtual = h.disco[h.disco.length - 1];
+        const pacoteAtual = h.perdaPacoteVal !== undefined ? h.perdaPacoteVal : parseFloat(h.perdaPacote);
 
-        if (cpuAtual >= lim.critico.cpu || ramAtual >= lim.critico.ram || discoAtual >= lim.critico.disco) {
+        if (cpuAtual >= lim.critico.cpu || ramAtual >= lim.critico.ram || discoAtual >= lim.critico.disco || pacoteAtual >= lim.critico.pacote) {
             return 'critico';
         }
-        if (cpuAtual >= lim.atencao.cpu || ramAtual >= lim.atencao.ram || discoAtual >= lim.atencao.disco) {
+        if (cpuAtual >= lim.atencao.cpu || ramAtual >= lim.atencao.ram || discoAtual >= lim.atencao.disco || pacoteAtual >= lim.atencao.pacote) {
             return 'atencao';
         }
         return 'estavel';
@@ -561,14 +672,6 @@
         }
     }
 
-    function calcularVariacao(arrayMetrica) {
-        if (arrayMetrica.length < 2) return "+0.0%";
-        const atual = arrayMetrica[arrayMetrica.length - 1];
-        const anterior = arrayMetrica[arrayMetrica.length - 2];
-        const diff = Math.round((atual - anterior) * 10) / 10;
-        return (diff >= 0 ? `+${diff.toFixed(1)}%` : `${diff.toFixed(1)}%`);
-    }
-
     function obterCorGauge(valor, limitesComponente) {
         if (valor >= limitesComponente.critico) {
             return '#ef4444';
@@ -597,15 +700,13 @@
         for (let i = 0; i < servidores.length; i++) {
             const server = servidores[i];
             const h = server.historico;
+            const v = server.variacoes || { cpu: "+0.0%", ram: "+0.0%", disco: "+0.0%", pacote: "0.0%" };
             const condicao = server.condicaoCalculada || calcularCondicaoServidor(server);
 
             const cpuAtual = h.cpu[h.cpu.length - 1];
             const ramAtual = h.ram[h.ram.length - 1];
             const discoAtual = h.disco[h.disco.length - 1];
-
-            const varCpu = calcularVariacao(h.cpu);
-            const varRam = calcularVariacao(h.ram);
-            const varDisco = calcularVariacao(h.disco);
+            const pacoteAtual = h.perdaPacote;
 
             let corVerde = condicao === 'estavel' ? '#22c55e' : '#4b5563';
             let corAmarela = condicao === 'atencao' ? '#facc15' : '#4b5563';
@@ -627,7 +728,7 @@
                         <span class="process-status">Em execução</span>
                     </div>
                     <div class="process-bar"><span style="width: ${Math.min(proc.cpu, 100)}%"></span></div>
-                    <small>CPU: ${proc.cpu}%</small>
+                    <span class="process-cpu-value">CPU: ${proc.cpu}%</span>
                 </div>`;
             }
 
@@ -675,20 +776,20 @@
             <div class="metrics-left-panel">
                 <div class="kpi-cards-grid">
                     <div class="kpi-card">
-                        <span>CPU (Var: ${varCpu})</span>
-                        <h2>${cpuAtual}%</h2>
+                        <span>CPU</span>
+                        <h2>${v.cpu}</h2>
                     </div>
                     <div class="kpi-card">
-                        <span>RAM (Var: ${varRam})</span>
-                        <h2>${ramAtual}%</h2>
+                        <span>RAM</span>
+                        <h2>${v.ram}</h2>
                     </div>
                     <div class="kpi-card">
-                        <span>Disco (Var: ${varDisco})</span>
-                        <h2>${discoAtual}%</h2>
+                        <span>DISCO</span>
+                        <h2>${v.disco}</h2>
                     </div>
                     <div class="kpi-card packet-loss-card">
-                        <span>Perda de pacotes</span>
-                        <h2>${h.perdaPacote}</h2>
+                        <span>PERDA DE PACOTES</span>
+                        <h2>${v.pacote}</h2>
                     </div>
                 </div>
                 <div class="chart-container">
@@ -696,7 +797,7 @@
                 </div>
             </div>
 
-            <div class="metrics-right-panel">
+            <div class="metrics-right-panel metrics-right-panel-4">
                 <div class="gauge-wrapper">
                     <span>CPU</span>
                     <div class="gauge-canvas-container">
@@ -718,12 +819,19 @@
                         <div class="gauge-text">${discoAtual}%</div>
                     </div>
                 </div>
+                <div class="gauge-wrapper">
+                    <span>PACOTES</span>
+                    <div class="gauge-canvas-container">
+                        <canvas id="gauge-pacote-${server.idServidor}"></canvas>
+                        <div class="gauge-text">${pacoteAtual}</div>
+                    </div>
+                </div>
             </div>
 
             <div class="processes-panel">
                 <h3>
                     <i class="bi bi-cpu"></i>
-                    Processos ativos (Extraídos do CSV)
+                    Processos ativos
                 </h3>
                 ${htmlProcessos}
             </div>
@@ -761,15 +869,19 @@
         const lineCanvas = document.getElementById(`line-chart-${id}`);
         if (!lineCanvas) return;
 
+        const dadosPacoteLinha = h.perdaPacoteLinha || [0, 0, 0, 0, h.perdaPacoteVal || 0];
+
         const ctxLine = lineCanvas.getContext('2d');
         new Chart(ctxLine, {
             type: 'line',
             data: {
                 labels: h.horarios,
                 datasets: [
-                    { label: 'CPU (%)', data: h.cpu, borderColor: '#ef4444', borderWidth: 2, fill: false, tension: 0.1 },
-                    { label: 'RAM (%)', data: h.ram, borderColor: '#facc15', borderWidth: 2, fill: false, tension: 0.1 },
-                    { label: 'Disco (%)', data: h.disco, borderColor: '#3b82f6', borderWidth: 2, fill: false, tension: 0.1 }
+                
+                    { label: 'CPU (%)', data: h.cpu, borderColor: '#00F0FF', borderWidth: 2, fill: false, tension: 0.1 },
+                    { label: 'RAM (%)', data: h.ram, borderColor: '#D946EF', borderWidth: 2, fill: false, tension: 0.1 },
+                    { label: 'Disco (%)', data: h.disco, borderColor: '#10B981', borderWidth: 2, fill: false, tension: 0.1 },
+                    { label: 'Perda Pacote (%)', data: dadosPacoteLinha, borderColor: '#F97316', borderWidth: 2, fill: false, tension: 0.1 }
                 ]
             },
             options: {
@@ -800,7 +912,7 @@
                 type: 'doughnut',
                 data: {
                     datasets: [{
-                        data: [value, 100 - value],
+                        data: [value, Math.max(0, 100 - value)],
                         backgroundColor: [cor, '#1e293b'],
                         borderWidth: 0
                     }]
@@ -816,12 +928,15 @@
             });
         }
 
+        const pctPacoteNum = h.perdaPacoteVal !== undefined ? h.perdaPacoteVal : parseFloat(h.perdaPacote);
+
         createGauge(`gauge-cpu-${id}`, h.cpu[h.cpu.length - 1], { atencao: lims.atencao.cpu, critico: lims.critico.cpu });
         createGauge(`gauge-ram-${id}`, h.ram[h.ram.length - 1], { atencao: lims.atencao.ram, critico: lims.critico.ram });
         createGauge(`gauge-disco-${id}`, h.disco[h.disco.length - 1], { atencao: lims.atencao.disco, critico: lims.critico.disco });
+        createGauge(`gauge-pacote-${id}`, pctPacoteNum, { atencao: lims.atencao.pacote, critico: lims.critico.pacote });
     }
 
-  function deletarCard(idServer) {
+    function deletarCard(idServer) {
         fetch(`/servidores/deletar/${idServer}`, {
             method: "DELETE",
             headers: {
@@ -962,3 +1077,4 @@
         }
     }
 </script>
+</html>
