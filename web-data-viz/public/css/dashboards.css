@@ -951,15 +951,17 @@ select {
 }
 
 .gauge-wrapper {
-  background-color: #0b1120;
-  border-radius: 8px;
-  padding: 10px;
-  border: 1px solid #1e293b;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
+    background-color: #0b1120;
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #1e293b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 100px;
+  }
 
 .gauge-wrapper span {
   font-size: 0.7rem;
@@ -970,20 +972,25 @@ select {
 }
 
 .gauge-canvas-container {
-  position: relative;
-  width: 120px;
-  height: 60px;
+    position: relative;
+    width: 110px;
+    height: 55px;
 }
 
-
 .gauge-text {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #fff;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+}
+.metrics-right-panel-4 {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 12px !important;
+  align-content: start;
 }
 
 .kpi-cards-grid {
