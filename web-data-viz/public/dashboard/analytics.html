@@ -84,23 +84,23 @@
                             <button id="momento-ano" onclick="escolher_momento('momento-ano')">Ano</button>
                         </div>
                         <div class="div-alertas">
-                            <div class="texto-h2">
+                            <div class="texto-h2" id="texto-h2">
                                 <h2>Alertas</h2>
                             </div>
 
                             <div class="container-tipo">
-                                <div class="caixa-tipo">
+                                <div class="caixa-tipo" id="atencao">
                                     <p>Atenção</p>
                                 </div>
-                                <div class="caixa-tipo">
+                                <div class="caixa-tipo" id="critico">
                                     <p>Crítico</p>
                                 </div>
-                                <div class="caixa-tipo">
+                                <div class="caixa-tipo" id="total">
                                     <p>Total</p>
                                 </div>
-                                <div class="caixa-tipo">
+                                <!-- <div class="caixa-tipo" id="mudanca">
                                     <p>Mudança</p>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="container-grafico" id="container-grafico">
@@ -291,9 +291,7 @@
             trocar_grafico();
 
         } else {
-            momentos[id] = 0;
-            momento.classList.remove("momento-escolhido");
-            trocar_grafico();
+
         }
     }
 
@@ -315,7 +313,16 @@
         }
     }
 
+
     function trocar_grafico() {
+        
+        let ano = 2025;
+        if (!document.getElementById("ano_escolhido")) {
+
+        } else {
+            ano = document.getElementById("ano_escolhido").value;
+        }
+
         grafico_atual = document.getElementById('grafico-alertas');
 
         if (Chart.getChart(grafico_atual)) {
@@ -323,10 +330,38 @@
         }
 
         if (momentos["momento-mes"] == 1) {
+            document.getElementById("texto-h2").innerHTML = `
+            <h2>Alertas</h2>
+            `;
+
+            document.getElementById('atencao').innerHTML = `
+            <p>Atenção</p>
+            <h4>259</h4>
+            `;
+            document.getElementById('critico').innerHTML = `
+            <p>Crítico</p>
+            <h4>381</h4>
+            `;
+            document.getElementById('total').innerHTML = `
+            <p>Total</p>
+            <h4>640</h4>
+            `;
+            document.getElementById('div-servidor').innerHTML = `
+            <p>1- Servidor Arquivos e Storage</p>
+            <p>2- Servidor Aplicação Principal</p>
+            <p>3- Servidor Banco de Dados</p>
+            `;
+
+            document.getElementById('div-componentes').innerHTML = `
+            <p>1- Memória RAM</p>
+            <p>2- Disco</p>
+            <p>3- CPU</p>
+            `;
+
             const data = {
                 labels: ['07/setembro', '14/setembro', '21/setembro', '28/setembro'],
                 datasets: [{
-                    data: [3, 2, 1, 4],
+                    data: [164, 159, 157, 160],
                     fill: false,
                     borderColor: 'red',
                     backgroundColor: 'red',
@@ -380,10 +415,38 @@
             const meuGrafico = new Chart(ctx, config);
 
         } else if (momentos["momento-trimestre"] == 1) {
+            document.getElementById("texto-h2").innerHTML = `
+            <h2>Alertas</h2>
+            `;
+
+            document.getElementById('atencao').innerHTML = `
+            <p>Atenção</p>
+            <h4>864</h4>
+            `;
+            document.getElementById('critico').innerHTML = `
+            <p>Crítico</p>
+            <h4>1262</h4>
+            `;
+            document.getElementById('total').innerHTML = `
+            <p>Total</p>
+            <h4>2126</h4>
+            `;
+            document.getElementById('div-servidor').innerHTML = `
+            <p>1- Servidor Arquivos e Storage</p>
+            <p>2- Servidor Aplicação Principal</p>
+            <p>3- Servidor Banco de Dados</p>
+            `;
+
+            document.getElementById('div-componentes').innerHTML = `
+            <p>1- Memória RAM</p>
+            <p>2- Disco</p>
+            <p>3- CPU</p>
+            `;
+
             const data = {
                 labels: ['30/junho', '15/julho', '31/julho', '15/agosto', '31/agosto', '15/setembro'],
                 datasets: [{
-                    data: [5, 2, 3, 4, 1, 6, 7],
+                    data: [333, 344, 359, 344, 368, 378],
                     fill: false,
                     borderColor: 'red',
                     backgroundColor: 'red',
@@ -437,10 +500,38 @@
             const meuGrafico = new Chart(ctx, config);
 
         } else if (momentos["momento-semestre"] == 1) {
+            document.getElementById("texto-h2").innerHTML = `
+            <h2>Alertas</h2>
+            `;
+
+            document.getElementById('atencao').innerHTML = `
+            <p>Atenção</p>
+            <h4>1642</h4>
+            `;
+            document.getElementById('critico').innerHTML = `
+            <p>Crítico</p>
+            <h4>2407</h4>
+            `;
+            document.getElementById('total').innerHTML = `
+            <p>Total</p>
+            <h4>4049</h4>
+            `;
+            document.getElementById('div-servidor').innerHTML = `
+            <p>1- Servidor Arquivos e Storage</p>
+            <p>2- Servidor Aplicação Principal</p>
+            <p>3- Servidor Banco de Dados</p>
+            `;
+
+            document.getElementById('div-componentes').innerHTML = `
+            <p>1- Memória RAM</p>
+            <p>2- Disco</p>
+            <p>3- CPU</p>
+            `;
+
             const data = {
                 labels: ['Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto'],
                 datasets: [{
-                    data: [6, 2, 3, 4, 5, 1],
+                    data: [660, 656, 647, 670, 704, 712],
                     fill: false,
                     borderColor: 'red',
                     backgroundColor: 'red',
@@ -494,61 +585,181 @@
             const meuGrafico = new Chart(ctx, config);
 
         } else if (momentos["momento-ano"] == 1) {
-            const data = {
-                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                datasets: [{
-                    data: [7, 2, 3, 4, 5, 6, 1, 9, 8, 7, 0, 1],
-                    fill: false,
-                    borderColor: 'red',
-                    backgroundColor: 'red',
-                    tension: 0.1
-                }]
-            };
+            document.getElementById("texto-h2").innerHTML = `
+            <h2>Alertas</h2>
+                                <div class="contato-input">
+                                    <select name="" id="ano_escolhido" onchange="trocar_grafico()">
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                    </select>
+                                </div>
+            `;
 
-            const config = {
-                type: 'line',
-                data: data,
-                options: {
-                    scales: {
-                        x: {
-                            ticks: {
+            document.getElementById("ano_escolhido").value = ano;
+            console.log(ano_escolhido.value);
+
+            if (ano == 2025) {
+                document.getElementById('atencao').innerHTML = `
+            <p>Atenção</p>
+            <h4>774</h4>
+            `;
+                document.getElementById('critico').innerHTML = `
+            <p>Crítico</p>
+            <h4>1022</h4>
+            `;
+                document.getElementById('total').innerHTML = `
+            <p>Total</p>
+            <h4>1796</h4>
+            `;
+                document.getElementById('div-servidor').innerHTML = `
+            <p>1- Servidor Arquivos e Storage</p>
+            <p>2- Servidor Aplicação Principal</p>
+            <p>3- Servidor Banco de Dados</p>
+            `;
+
+                document.getElementById('div-componentes').innerHTML = `
+            <p>1- Memória RAM</p>
+            <p>2- Disco</p>
+            <p>3- CPU</p>
+            `;
+
+                const data = {
+                    labels: ['Outubro', 'Novembro', 'Dezembro'],
+                    datasets: [{
+                        data: [603, 585, 608],
+                        fill: false,
+                        borderColor: 'red',
+                        backgroundColor: 'red',
+                        tension: 0.1
+                    }]
+                };
+
+                const config = {
+                    type: 'line',
+                    data: data,
+                    options: {
+                        scales: {
+                            x: {
+                                ticks: {
+                                    display: false
+                                },
+                                border: {
+                                    color: 'white'
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    display: true,
+                                    font: {
+                                        size: 18
+                                    },
+                                    stepSize: 1
+                                },
+                                border: {
+                                    color: 'white'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
                                 display: false
                             },
-                            border: {
-                                color: 'white'
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                display: true,
-                                font: {
+                            tooltip: {
+                                bodyFont: {
                                     size: 18
                                 },
-                                stepSize: 1
-                            },
-                            border: {
-                                color: 'white'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            bodyFont: {
-                                size: 18
-                            },
-                            titleFont: {
-                                size: 18
+                                titleFont: {
+                                    size: 18
+                                }
                             }
                         }
                     }
-                }
-            };
+                };
 
-            const ctx = document.getElementById('grafico-alertas').getContext('2d');
-            const meuGrafico = new Chart(ctx, config);
+                const ctx = document.getElementById('grafico-alertas').getContext('2d');
+                const meuGrafico = new Chart(ctx, config);
+
+            } else if (ano == 2026) {
+                document.getElementById('atencao').innerHTML = `
+            <p>Atenção</p>
+            <h4>2143</h4>
+            `;
+                document.getElementById('critico').innerHTML = `
+            <p>Crítico</p>
+            <h4>3089</h4>
+            `;
+                document.getElementById('total').innerHTML = `
+            <p>Total</p>
+            <h4>5232</h4>
+            `;
+                document.getElementById('div-servidor').innerHTML = `
+            <p>1- Servidor Arquivos e Storage</p>
+            <p>2- Servidor Aplicação Principal</p>
+            <p>3- Servidor Banco de Dados</p>
+            `;
+
+                document.getElementById('div-componentes').innerHTML = `
+            <p>1- Memória RAM</p>
+            <p>2- Disco</p>
+            <p>3- CPU</p>
+            `;
+
+                const data = {
+                    labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto'],
+                    datasets: [{
+                        data: [618, 565, 660, 656, 647, 670, 704, 712],
+                        fill: false,
+                        borderColor: 'red',
+                        backgroundColor: 'red',
+                        tension: 0.1
+                    }]
+                };
+
+                const config = {
+                    type: 'line',
+                    data: data,
+                    options: {
+                        scales: {
+                            x: {
+                                ticks: {
+                                    display: false
+                                },
+                                border: {
+                                    color: 'white'
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    display: true,
+                                    font: {
+                                        size: 18
+                                    },
+                                    stepSize: 1
+                                },
+                                border: {
+                                    color: 'white'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                bodyFont: {
+                                    size: 18
+                                },
+                                titleFont: {
+                                    size: 18
+                                }
+                            }
+                        }
+                    }
+                };
+
+                const ctx = document.getElementById('grafico-alertas').getContext('2d');
+                const meuGrafico = new Chart(ctx, config);
+            }
 
         }
     }
