@@ -2349,7 +2349,7 @@ select {
 
 /* CSS TELA AJUDA */
 #olivia-chat{
-  border: 1px solid pink;
+  border: 1px solid purple;
   height: 90%;
   width: 70%;
   background-color: #53c190;
@@ -2367,7 +2367,12 @@ select {
 #messages-wrapper{
   width: 95%;
   height: 90%;
+  max-height: 90%;
   border: 1px solid red;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
 }
 #messages-wrapper figure img{
   width: 7rem;
@@ -2387,7 +2392,7 @@ select {
 }
 .message{
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   gap: 1rem;
   width: 60%;
   background-color: pink;
@@ -2395,11 +2400,20 @@ select {
 }
 .message p{
   border: 1px solid yellow;
+  border-radius: 1rem;
   height: fit-content;
   width: 95%;
   display: flex;
   align-items: center;
-  padding: 0 0.5rem;
+  padding: 0.3rem 0.5rem;
   flex-wrap: wrap;
+  word-break: break-word;
+}
+
+.message-line{
+  width: 100%;
+  border: 1px solid orange;
+  display: flex;
+  justify-content: start;
 }
 

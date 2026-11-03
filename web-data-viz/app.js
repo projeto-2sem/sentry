@@ -1,5 +1,5 @@
 // var ambiente_processo = 'producao';
-var ambiente_processo = 'desenvolvimento';
+var ambiente_processo = 'producao';
 
 var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
 // Acima, temos o uso do operador ternário para definir o caminho do arquivo .env
@@ -21,6 +21,7 @@ var servidoresRouter = require("./src/routes/servidores");
 var empresaRouter = require("./src/routes/empresa");
 var emailRouter = require("./src/routes/email");
 var contatoRoutes = require("./src/routes/contato");
+var oliviaRouter = require("./src/routes/olivia");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,6 +35,8 @@ app.use("/servidores", servidoresRouter);
 app.use("/empresa", empresaRouter);
 app.use("/email", emailRouter);
 app.use("/contato", contatoRoutes);
+app.use("/olivia", oliviaRouter)
+
 
 app.listen(PORTA_APP, function () {
     console.log(`
@@ -51,3 +54,4 @@ app.listen(PORTA_APP, function () {
     \tSe .:producao:. você está se conectando ao banco remoto. \n\n
     \t\tPara alterar o ambiente, comente ou descomente as linhas 1 ou 2 no arquivo 'app.js'\n\n`);
 });
+

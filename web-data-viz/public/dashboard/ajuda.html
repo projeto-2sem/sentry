@@ -43,7 +43,8 @@
                                 class="text-sidebar">Equipe</span></li>
                     </a>
                     <a href="ajuda.html">
-                        <li class="sidebar_items selected_items"><i class="bi bi-headset"></i><span class="text-sidebar">Ajuda</span>
+                        <li class="sidebar_items selected_items"><i class="bi bi-headset"></i><span
+                                class="text-sidebar">Ajuda</span>
                         </li>
                     </a>
                 </ul>
@@ -70,14 +71,23 @@
             <h1>Tire suas dúvidas com a OlívIA, a nossa agente de IA preparada para sanar as suas dúvidas!</h1>
             <section id="olivia-chat" class="">
                 <div id="messages-wrapper">
-                    <div class="message">
-                        <figure><img src="../assets/imgs/olivia-pfp.png" alt=""></figure>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus sed perferendis quam minus dolor quidem dolores tempora provident dolorem a accusamus veniam velit saepe omnis molestias, deleniti similique repellat temporibus!dsfdsfdsfsdfsdfsfrewrgghrewqwrethtrewrerhfjtrerwterthjtrterwerhjwretrthfjewrtrthjtrtertrthjtertrhtetrthjhrterthfjhghrtthfjghhtrthfjgh</p>
+                    <div class="message-line">
+                        <div class="message">
+                            <figure><img src="../assets/imgs/olivia-pfp.png" alt=""></figure>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus sed perferendis quam
+                                minus dolor quidem dolores tempora provident dolorem a accusamus veniam velit saepe
+                                omnis molestias, deleniti similique repellat
+                                temporibus!dsfdsfdsfsdfsdfsfrewrgghrewqwrethtrewrerhfjtrerwterthjtrterwerhjwretrthfjewrtrthjtrtertrthjtertrhtetrthjhrterthfjhghrtthfjghhtrthfjgh
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde praesentium doloremque
+                                iure voluptatum ullam ratione nemo blanditiis beatae commodi voluptatem eum impedit
+                                fugit minima, aliquid error distinctio. Quos, tempora quasi!
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div id="input-area">
-                    <input type="text" placeholder="Digite aqui...">
-                    <button>Enviar</button>
+                    <input type="text" placeholder="Digite aqui..." id="pergunta">
+                    <button onclick="gerarResposta()">Enviar</button>
                 </div>
             </section>
         </main>
@@ -205,5 +215,38 @@
         let sigla = sessionStorage.NOME_USUARIO.split(" ");
         sigla = sigla[0][0] + sigla[1][0];
         document.getElementById("siglas_usuario").innerText = sigla || "";
+    }
+
+    async function gerarResposta() {
+        const pergunta = document.getElementById('pergunta').value;
+
+        document.getElementById('messages-wrapper').innerHTML += `
+            <div class="message-line" style="justify-content: end">
+                        <div class="message" style="flex-direction: row-reverse;">
+                            
+                            <p>${pergunta}</p>
+                        </div>
+            </div>
+            `
+
+        const response = await fetch('/olivia/perguntar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ pergunta })
+        });
+
+        const data = await response.json();
+        console.log(data.resultado)
+        resposta.style.display = 'block';
+        document.getElementById('messages-wrapper').innerText = `
+            <div class="message-line">
+                        <div class="message">
+                            <figure><img src="../assets/imgs/olivia-pfp.png" alt=""></figure>
+                            <p>${data.resultado}</p>
+                        </div>
+            </div>
+            `;
     }
 </script>
