@@ -70,6 +70,7 @@ CREATE TABLE servidor (
   hostname VARCHAR(255),
   mac VARCHAR(17),
   modelo VARCHAR(45),
+  regiao VARCHAR(80),
   dataCriacao datetime default current_timestamp,
   dataAtualizacao datetime default current_timestamp on update current_timestamp,
   status TINYINT,
