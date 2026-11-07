@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENTRY | Analytics</title>
+    <link rel="stylesheet" href="../css/dashboards.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="icon" href="../assets/imgs/logo_oficial.png" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body onload="escreverNavbar(), escolher_momento('momento-mes')">
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar_top_wrapper">
+                <div class="sidebar_logo">
+                    <img src="../assets/imgs/sentry_logo_grid-removebg-preview.png" alt="">
+                    <span class="text-sidebar">SENTRY</span>
+                </div>
+                <button class="sidebar_close" type="button" onclick="move_aside()" data-hidden="0"
+                    id="btn_move_aside"><i class="bi bi-chevron-left" id="move_aside"></i></button>
+            </div>
+            <div class="sidebar_mid_wrapper">
+                <ul class="sidebar_list">
+                    <a href="">
+                        <li class="sidebar_items selected_items"><i class="bi bi-columns-gap"></i><span
+                                class="text-sidebar">Analytics</span></li>
+                    </a>
+                    <a href="servidores.html" style="display: none;">
+                        <li class="sidebar_items"><i class="bi bi-database"></i><span class="text-sidebar">Server</span>
+                        </li>
+                    </a>
+                    <a href="alertas.html">
+                        <li class="sidebar_items"><i class="bi bi-exclamation-triangle-fill"></i><span
+                                class="text-sidebar">Alertas</span>
+                        </li>
+                    </a>
+                    <a href="equipe.html">
+                        <li class="sidebar_items"><i class="bi bi-people-fill"></i><span
+                                class="text-sidebar">Equipe</span></li>
+                    </a>
+                    <a href="ajuda.html">
+                        <li class="sidebar_items"><i class="bi bi-headset"></i><span class="text-sidebar">Ajuda</span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+            <div class="sidebar_bot_wrapper">
+                <div class="sidebar_account_wrapper" id="sidebar_account_wrapper">
+                    <div class="sidebar_account_photo">
+                        <h3 id="siglas_usuario">GS</h3>
+                    </div>
+                    <div class="sidebar_account_infos">
+                        <p class="text-sidebar" id="nome_usuario">Usuário</p>
+                        <p class="text-sidebar" id="cargo_usuario">Analista</p>
+                    </div>
+                </div>
+                <a class="sidebar_bot_leave" href="../index.html">
+                    <div class="card_logout">
+                        <i class="bi bi-box-arrow-in-right"></i><span class="text-sidebar">Sair</span>
+                    </div>
+                </a>
+            </div>
+        </aside>
+
+        <main>
+            <header class="server-header">
+                <div class="title-header">
+                    <h1>Network thinking</h1>
+                    <time id="date_now">30/09/2026</time>
+                </div>
+            </header>
+
+            <div class="filter">
+                <button type="submit" class="estilizacao">Novembro</button>
+                <button type="submit" class="estilizacao">Ano</button>
+            </div>
+
+            <!-- KPI: Latência Média Global -->
+            <section class="grafico_processos_rede">
+                <div class="card-kpi">
+                    <div class="header-card">
+                        <h3>Latência Média Global</h3>
+                        <p>Ping RTT atual da planta</p>
+                    </div>
+                    <div class="kpi-valor-container">
+                        <h4 id="valor-latencia">42 ms</h4>
+                        <span class="kpi-status normal">Estável</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ranking de Processos -->
+            <section class="grafico_processos_rede">
+                <div class="card-grafico">
+                    <div class="header-card">
+                        <h3>Ranking do consumo de rede em processos</h3>
+                        <p>MB transferidos no período</p>
+                    </div>
+                    <div class="container-canvas">
+                        <canvas id="rankingProcessosChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gráficos de Região (Lado a Lado) -->
+            <section class="graficos_regiao">
+                <div class="container-regiao">
+                    <div class="card-grafico">
+                        <div class="header-card">
+                            <h3>Regiões de servidores que mais consomem rede</h3>
+                            <p>GB trafegados</p>
+                        </div>
+                        <div class="container-canvas">
+                            <canvas id="regioes_mais_consomem_rede"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card-grafico">
+                        <div class="header-card">
+                            <h3>Regiões de servidores que mais perdem pacotes</h3>
+                            <p>% de perda de pacotes</p>
+                        </div>
+                        <div class="container-canvas">
+                            <canvas id="regioes_que_mais_perde_pacotes"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Erros e Protocolos (Lado a Lado ou Organizados) -->
+            <section class="graficos_regiao">
+                <div class="container-regiao">
+                    <div class="card-grafico">
+                        <div class="header-card">
+                            <h3>Servidores e a progressividade de seus erros</h3>
+                            <p>Erros acumulados — Novembro/2026</p>
+                        </div>
+                        <div class="container-canvas">
+                            <canvas id="grafico_progressividade_erros"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card-grafico">
+                        <div class="header-card">
+                            <h3>Distribuição de Tráfego por Protocolo</h3>
+                            <p>Volume de pacotes por protocolo industrial e de sistema</p>
+                        </div>
+                        <div class="container-canvas">
+                            <canvas id="graficoProtocolos"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="mobile-navbar">
+            <nav class="mobile-navbar">
+                <ul class="sidebar_list_mobile">
+                    <a href="">
+                        <li class="sidebar_items_mobile selected_items"><i class="bi bi-columns-gap"></i></li>
+                    </a>
+                    <a href="servidores.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-database"></i></li>
+                    </a>
+                    <a href="">
+                        <li class="sidebar_items_mobile"><i class="bi bi-exclamation-triangle-fill"></i></li>
+                    </a>
+                    <a href="equipe.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-people-fill"></i></li>
+                    </a>
+                    <a href="">
+                        <li class="sidebar_items_mobile"><i class="bi bi-headset"></i></li>
+                    </a>
+                    <a href="../index.html">
+                        <li class="sidebar_items_mobile"><i class="bi bi-box-arrow-in-right"></i></li>
+                    </a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    const ctx = document.getElementById('rankingProcessosChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['chrome.exe', 'docker', 'backup-svc', 'nginx', 'teams.exe'],
+            datasets: [{
+                data: [4800, 3900, 2750, 1900, 1300],
+                backgroundColor: ['#ef4444', '#2563eb', '#06b6d4', '#f59e0b', '#3b82f6'],
+                borderRadius: 4,
+                barThickness: 20
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) { return `MB ${context.raw}`; }
+                    }
+                }
+            },
+            scales: {
+                x: { grid: { color: '#94a3b8' }, min: 0, max: 6000 },
+                y: { grid: { display: false }, ticks: { color: '#ffffff', font: { size: 12, family: 'monospace' } } }
+            }
+        }
+    });
+
+    const grafico_rede = document.getElementById("regioes_mais_consomem_rede").getContext('2d');
+    new Chart(grafico_rede, {
+        type: 'bar',
+        data: {
+            labels: ['São Paulo', 'Virginia', 'Frankfurt', 'Tóquio', 'Sydney'],
+            datasets: [{
+                data: [1000, 750, 500, 250, 0],
+                backgroundColor: ['#2563eb'],
+                borderRadius: 4,
+                barThickness: 20
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: { label: function (context) { return `${context.raw} MB`; } }
+                }
+            },
+            scales: {
+                x: { grid: { display: false }, ticks: { color: '#ffffff', font: { size: 11 } } },
+                y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#ffffff', font: { size: 12, family: 'monospace' } }, min: 0, max: 1200 }
+            }
+        }
+    });
+
+
+    const grafico_perda_pacotes = document.getElementById("regioes_que_mais_perde_pacotes").getContext('2d');
+    new Chart(grafico_perda_pacotes, {
+        type: 'bar',
+        data: {
+            labels: ['São Paulo', 'Virginia', 'Frankfurt', 'Tóquio', 'Sydney'],
+            datasets: [{
+                data: [8, 6, 4, 2, 0],
+                backgroundColor: ['#ef4444'],
+                borderRadius: 4,
+                barThickness: 20
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: { label: function (context) { return `Perda: ${context.raw}%`; } }
+                }
+            },
+            scales: {
+                x: { grid: { display: false }, ticks: { color: '#ffffff', font: { size: 11 } } },
+                y: {
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: '#ffffff', font: { size: 12, family: 'monospace' }, callback: function (value) { return value + '%'; } },
+                    min: 0,
+                    max: 10
+                }
+            }
+        }
+    });
+
+    const grafico_erros = document.getElementById("grafico_progressividade_erros").getContext('2d');
+    new Chart(grafico_erros, {
+        type: 'line',
+        data: {
+            labels: ['01', '05', '10', '15', '20', '25', '30'],
+            datasets: [
+                {
+                    label: 'Servidor SP-API',
+                    data: [3, 5, 8, 12, 15, 21, 28],
+                    borderColor: '#ef4444',
+                    backgroundColor: '#ef4444',
+                    tension: 0.2,
+                    pointRadius: 4
+                },
+                {
+                    label: 'Servidor DB-Master',
+                    data: [6, 9, 11, 10, 14, 18, 19],
+                    borderColor: '#06b6d4',
+                    backgroundColor: '#06b6d4',
+                    tension: 0.2,
+                    pointRadius: 4
+                },
+                {
+                    label: 'Servidor Storage-01',
+                    data: [1, 2, 4, 5, 7, 8, 10],
+                    borderColor: '#2563eb',
+                    backgroundColor: '#2563eb',
+                    tension: 0.2,
+                    pointRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: { label: function (context) { return `${context.dataset.label}: ${context.raw} erros`; } }
+                }
+            },
+            scales: {
+                x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#ffffff', font: { size: 11, family: 'monospace' } } },
+                y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#ffffff', font: { size: 12, family: 'monospace' }, stepSize: 7 }, min: 0, max: 28 }
+            }
+        }
+    });
+
+    const grafico_protocolos = document.getElementById("graficoProtocolos").getContext('2d');
+    new Chart(grafico_protocolos, {
+        type: 'doughnut',
+        data: {
+            labels: ['Modbus/TCP', 'MQTT', 'HTTP/HTTPS', 'SSH / SFTP', 'Outros'],
+            datasets: [{
+                data: [42, 28, 18, 8, 4],
+                backgroundColor: ['#2563eb', '#06b6d4', '#f59e0b', '#ef4444', '#94a3b8'],
+                borderWidth: 0,
+                hoverOffset: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        color: '#ffffff',
+                        font: { size: 11, family: 'monospace' },
+                        padding: 10
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) { return ` ${context.label}: ${context.raw}% do tráfego`; }
+                    }
+                }
+            },
+            cutout: '70%'
+        }
+    });
+
+    let empresaId = sessionStorage.ID_EMPRESA;
+    let idUsuarioEditar = null;
+
+    if (sessionStorage.NOME_USUARIO) {
+        document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO;
+        document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO || "Analista";
+        let siglaPartes = sessionStorage.NOME_USUARIO.split(" ");
+        let sigla = siglaPartes.length > 1 ? siglaPartes[0][0] + siglaPartes[1][0] : siglaPartes[0][0];
+        document.getElementById("siglas_usuario").innerText = sigla.toUpperCase() || "";
+    }
+
+    function move_aside() {
+        let move = document.getElementById("btn_move_aside");
+        let data = move.dataset.hidden;
+        let class_side_bar = document.querySelector(".sidebar");
+        let i_move_side = document.getElementById("move_aside");
+        if (data == 0) {
+            class_side_bar.classList.add("closed");
+            move.dataset.hidden = 1;
+            i_move_side.classList.replace("bi-chevron-left", "bi-chevron-right");
+            document.getElementById("sidebar_account_wrapper").style.display = "none";
+        } else {
+            class_side_bar.classList.remove("closed");
+            move.dataset.hidden = 0;
+            i_move_side.classList.replace("bi-chevron-right", "bi-chevron-left");
+            document.getElementById("sidebar_account_wrapper").style.display = "flex";
+        }
+    }
+</script>
