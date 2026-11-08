@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="icon" href="../assets/imgs/logo_oficial.png" />
+    <script src="../js/sessao.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="escreverNavbar(), escolher_momento('momento-mes')">
+<body ">
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar_top_wrapper">
@@ -80,15 +81,15 @@
             </div>
 
             <!-- KPI: Latência Média Global -->
-            <section class="grafico_processos_rede">
+            <section class="container-kpis">
                 <div class="card-kpi">
                     <div class="header-card">
                         <h3>Latência Média Global</h3>
                         <p>Ping RTT atual da planta</p>
                     </div>
                     <div class="kpi-valor-container">
-                        <h4 id="valor-latencia">42 ms</h4>
-                        <span class="kpi-status normal">Estável</span>
+                        <h4 id="valor-latencia"></h4>
+                        <span class="span-latencia-global">--</span>
                     </div>
                 </div>
             </section>
@@ -219,8 +220,10 @@
         }
     });
 
+    let GraficoConsumoRede;
+
     const grafico_rede = document.getElementById("regioes_mais_consomem_rede").getContext('2d');
-    new Chart(grafico_rede, {
+   GraficoConsumoRede= new Chart(grafico_rede, {
         type: 'bar',
         data: {
             labels: ['São Paulo', 'Virginia', 'Frankfurt', 'Tóquio', 'Sydney'],
@@ -248,8 +251,9 @@
     });
 
 
+    let graficoPerdaPacotes;
     const grafico_perda_pacotes = document.getElementById("regioes_que_mais_perde_pacotes").getContext('2d');
-    new Chart(grafico_perda_pacotes, {
+   graficoPerdaPacotes= new Chart(grafico_perda_pacotes, {
         type: 'bar',
         data: {
             labels: ['São Paulo', 'Virginia', 'Frankfurt', 'Tóquio', 'Sydney'],
@@ -363,6 +367,9 @@
         }
     });
 
+
+
+
     let empresaId = sessionStorage.ID_EMPRESA;
     let idUsuarioEditar = null;
 
@@ -391,4 +398,137 @@
             document.getElementById("sidebar_account_wrapper").style.display = "flex";
         }
     }
+
+    function verificarStatusLatencia(valorLatencia,limiteAtencao,limiteCritico){
+    const cardKpi= document.querySelector(".card-kpi");
+
+    cardKpi.classList.remove("status-estavel","status-atencao","status-critico");
+
+    if(valorLatencia>=limiteCritico){
+        cardKpi.classList.add("status-critico");
+         return "Crítico";
+    }
+    else if(valorLatencia>=limiteAtencao){
+        cardKpi.classList.add("status-atencao");
+        return "Atenção";
+
+    }
+    else {
+        cardKpi.classList.add("status-estavel");
+        return "Estável";
+    }
+ }
+
+
+ // fonte para abordagem de referencia de mbps industrial monitor direct
+
+// Função para buscar e atualizar a Latência Média Global
+function carregarLatenciaGlobal() {
+    const idEmpresa = sessionStorage.ID_EMPRESA || 1; 
+    fetch(`/analytics/latencia-global?empresaId=${idEmpresa}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                return resposta.json();
+            } else {
+                throw new Error("Erro ao carregar os dados de latência.");
+            }
+        })
+        .then(function (dados) {
+            console.log("Dados de latência recebidos:", dados);
+
+            const valorLatencia = Number(dados.latencia) || 0;            
+            const spanLatencia = document.getElementById("valor-latencia"); // Ajusta para o ID do teu HTML
+            if (spanLatencia) {
+                spanLatencia.innerHTML = `${dados.latencia} ms`;
+            }
+
+
+            
+            const limiteAtencaoRef = 100;
+            const limiteCriticoRef = 500;
+
+            const statusTexto = verificarStatusLatencia(valorLatencia, limiteAtencaoRef, limiteCriticoRef);
+                
+                const spanStatusGlobal = document.querySelector(".span-latencia-global");
+                if (spanStatusGlobal) {
+                    spanStatusGlobal.innerHTML = statusTexto;
+                }
+        })
+        .catch(function (erro) {
+            console.error("Erro na requisição:", erro);
+        });
+}
+
+// Função para buscar os dados de Consumo de Rede por Região
+function atualizarGraficoConsumoRegiao() {
+    fetch("/analytics/consumo-regiao-rede", {
+        method: "GET",
+    })
+    .then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(function (dados) {
+                console.log("Dados de consumo por região recebidos: ", dados);
+
+                var regioes = [];
+                var consumos = [];
+
+                for (let i = 0; i < dados.length; i++) {
+                    regioes.push(dados[i].regiao);
+                    consumos.push(dados[i].totalConsumo);
+                }
+
+                GraficoConsumoRede.data.labels = regioes;
+                GraficoConsumoRede.data.datasets[0].data = consumos;
+                GraficoConsumoRede.update();
+            });
+        } else {
+            console.error("Nenhum dado encontrado ou erro na API.");
+        }
+    })
+    .catch(function (erro) {
+        console.error("Erro na obtenção dos dados p/ gráfico de consumo: ", erro);
+    });
+}
+
+function atualizarGraficoPerdaPacotes(){
+     fetch("/analytics/perda-pacotes-regiao",{
+        method : "GET"
+     })
+
+     .then(function(resposta){
+        if(resposta.ok){
+            resposta.json().then(function (dados){
+                console.log("Dados de perda de pacotes por região", dados);
+
+                 var regioes=[];
+                 var perdidos=[];
+
+                  for(let i=0; i<dados.length;i++){
+                    regioes.push(dados[i].regiao);
+                    perdidos.push(dados[i].mediaPerda)
+
+                  }
+
+                  graficoPerdaPacotes.data.labels=regioes;
+                  graficoPerdaPacotes.data.datasets[0].data=perdidos;
+
+                  graficoPerdaPacotes.update();
+                
+
+        });
+    } else{
+        console.log( "Nenhum dado encontrado") 
+        }
+
+     })
+      .catch(function (erro) {
+        console.error("Erro na obtenção dos dados p/ gráfico de consumo: ", erro);
+    });
+}
+
+ 
+ carregarLatenciaGlobal();
+ atualizarGraficoConsumoRegiao();
+ atualizarGraficoPerdaPacotes();
+
 </script>

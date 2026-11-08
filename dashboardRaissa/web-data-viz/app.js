@@ -1,4 +1,4 @@
-// var ambiente_processo = 'producao';
+
 var ambiente_processo = 'desenvolvimento';
 
 var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
@@ -21,7 +21,7 @@ var servidoresRouter = require("./src/routes/servidores");
 var empresaRouter = require("./src/routes/empresa");
 var emailRouter = require("./src/routes/email");
 var contatoRoutes = require("./src/routes/contato");
-
+var analyticsRouter=require("./src/routes/analytics")
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -34,6 +34,7 @@ app.use("/servidores", servidoresRouter);
 app.use("/empresa", empresaRouter);
 app.use("/email", emailRouter);
 app.use("/contato", contatoRoutes);
+app.use("/analytics",analyticsRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

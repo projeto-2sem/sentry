@@ -1,14 +1,19 @@
 var mysql = require("mysql2");
 
-// CONEXÃO DO BANCO MYSQL SERVER
-var mySqlConfig = {
+// 1. Definimos o objeto de configuração do banco usando as variáveis de ambiente
+const mySqlConfig = {
     host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT
+    database: process.env.DB_DATABASE,
+    port: process.env.DB_PORT || 3306,
+    connectionLimit: 10
 };
 
+// 2. Criamos o pool de conexões usando a configuração acima
+var pool = mysql.createPool(mySqlConfig);
+
+// 3. Função que executa as instruções SQL no banco
 function executar(instrucao) {
 
     if (process.env.AMBIENTE_PROCESSO !== "producao" && process.env.AMBIENTE_PROCESSO !== "desenvolvimento") {
@@ -17,18 +22,24 @@ function executar(instrucao) {
     }
 
     return new Promise(function (resolve, reject) {
-        var conexao = mysql.createConnection(mySqlConfig);
-        conexao.connect();
-        conexao.query(instrucao, function (erro, resultados) {
-            conexao.end();
-            if (erro) {
-                reject(erro);
+        // Usa o pool para obter uma conexão de forma eficiente
+        pool.getConnection(function (err, conexao) {
+            if (err) {
+                console.error("❌ Erro ao obter conexão do pool:", err.sqlMessage || err);
+                return reject(err);
             }
-            console.log(resultados);
-            resolve(resultados);
-        });
-        conexao.on('error', function (erro) {
-            return ("ERRO NO MySQL SERVER: ", erro.sqlMessage);
+
+            conexao.query(instrucao, function (erro, resultados) {
+                conexao.release(); // Devolve a conexão ao pool
+                
+                if (erro) {
+                    console.error("❌ Erro na query:", erro.sqlMessage);
+                    return reject(erro);
+                }
+                
+                console.log("📊 Resultados:", resultados);
+                resolve(resultados);
+            });
         });
     });
 }
