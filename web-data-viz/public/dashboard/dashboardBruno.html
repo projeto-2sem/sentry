@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENTRY | Dashboard Jira</title>
+
+    <link rel="stylesheet" href="../css/dashboardBruno.css">
+</head>
+
+<body>
+
+    <div class="pagina">
+
+        <div class="menu-lateral">
+
+            <div class="logo">
+                <img src="../assets/imgs/sentry_logo_grid-removebg-preview.png" alt="Logo SENTRY">
+                <span>SENTRY</span>
+            </div>
+
+            <div class="menu">
+                <a class="menu-item selecionado" href="#">
+                    <span>Dashboard</span>
+                </a>
+            </div>
+
+            <div class="usuario">
+                <div class="usuario-foto" id="siglas_usuario">BH</div>
+
+                <div class="usuario-dados">
+                    <p id="nome_usuario">Bruno Henrique</p>
+                    <span id="cargo_usuario">Administrador</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="conteudo">
+
+            <div class="topo">
+
+                <div class="titulo">
+                    <p class="subtitulo">VISÃO JIRA</p>
+                    <h1>Dashboard</h1>
+                    <p class="descricao">Acompanhe os incidentes e alertas do Jira.</p>
+                </div>
+
+            </div>
+
+            <div class="filtros">
+
+                <div class="filtro">
+                    <label for="selectPeriodo">Período</label>
+
+                    <select id="selectPeriodo" name="periodo">
+                        <option value="mensal">Mensal</option>
+                        <option value="trimestral">Trimestral</option>
+                        <option value="semestral">Semestral</option>
+                        <option value="anual">Anual</option>
+                    </select>
+                </div>
+
+                <div class="filtro">
+                    <label for="selectAno">Ano</label>
+
+                    <select id="selectAno" name="ano">
+                        <option value="2026">2026</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="indicadores">
+
+                <div class="cartao-indicador">
+                    <div class="indicador-topo">
+                        <span>Total de incidentes</span>
+                    </div>
+
+                    <p class="numero" id="totalIncidentes">128</p>
+                    <p class="texto-indicador">Incidentes registrados no período</p>
+                </div>
+
+                <div class="cartao-indicador">
+                    <div class="indicador-topo">
+                        <span>Alta prioridade</span>
+                    </div>
+
+                    <p class="numero" id="totalAltaPrioridade">24</p>
+                    <p class="texto-indicador">Incidentes de alta prioridade</p>
+                </div>
+
+                <div class="cartao-indicador">
+                    <div class="indicador-topo">
+                        <span>Servidores afetados</span>
+                    </div>
+
+                    <p class="numero" id="totalServidores">8</p>
+                    <p class="texto-indicador">Servidores com incidentes registrados</p>
+                </div>
+
+                <div class="cartao-indicador">
+                    <div class="indicador-topo">
+                        <span>Métrica predominante</span>
+                    </div>
+
+                    <p class="numero" id="metricaPredominante">CPU</p>
+
+                    <p class="texto-indicador">
+                        <span id="quantidadeMetrica">46</span>
+                        incidentes registrados
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="graficos">
+
+                <div class="cartao-grafico">
+
+                    <div class="grafico-titulo">
+                        <div>
+                            <h2>Alertas por métrica</h2>
+                            <p>Quantidade de alertas por recurso</p>
+                        </div>
+                    </div>
+
+                    <div class="area-grafico">
+                        <canvas id="graficoMetricas"></canvas>
+                    </div>
+
+                </div>
+
+                <div class="cartao-grafico">
+
+                    <div class="grafico-titulo">
+                        <div>
+                            <h2>Evolução dos alertas</h2>
+                            <p>Alertas críticos e médios ao longo do tempo</p>
+                        </div>
+                    </div>
+
+                    <div class="area-grafico">
+                        <canvas id="graficoEvolucao"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    let metricas = ['CPU', 'Memória RAM', 'Disco', 'Rede'];
+    let quantidadeAlertas = [46, 32, 28, 22];
+
+    let datas = [
+        '01/10', '05/10', '09/10', '13/10',
+        '17/10', '21/10', '25/10', '28/10'
+    ];
+
+    let alertasCriticos = [5, 8, 4, 12, 9, 15, 7, 4];
+    let alertasMedios = [12, 16, 11, 20, 15, 24, 18, 10];
+
+
+    new Chart(document.getElementById('graficoMetricas'), {
+
+        type: 'bar',
+
+        data: {
+            labels: metricas,
+
+            datasets: [{
+                label: 'Quantidade de alertas',
+                data: quantidadeAlertas,
+
+                backgroundColor: [
+                    '#fb5a00',
+                    '#38bdf8',
+                    '#a78bfa',
+                    '#4ade80'
+                ],
+
+                borderRadius: 5
+            }]
+        },
+
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+
+            scales: {
+                x: {
+                    beginAtZero: true,
+
+                    ticks: {
+                        precision: 0,
+                        color: '#94a3b8'
+                    },
+
+                    grid: {
+                        color: '#263248'
+                    }
+                },
+
+                y: {
+                    ticks: {
+                        color: '#cbd5e1'
+                    },
+
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+
+    });
+
+
+    new Chart(document.getElementById('graficoEvolucao'), {
+
+        type: 'line',
+
+        data: {
+            labels: datas,
+
+            datasets: [
+                {
+                    label: 'Alertas críticos',
+                    data: alertasCriticos,
+                    borderColor: '#fb5a00',
+                    backgroundColor: '#fb5a00',
+                    tension: 0.3
+                },
+
+                {
+                    label: 'Alertas médios',
+                    data: alertasMedios,
+                    borderColor: '#38bdf8',
+                    backgroundColor: '#38bdf8',
+                    tension: 0.3
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            scales: {
+                y: {
+                    beginAtZero: true,
+
+                    ticks: {
+                        precision: 0,
+                        color: '#94a3b8'
+                    },
+
+                    grid: {
+                        color: '#263248'
+                    }
+                },
+
+                x: {
+                    ticks: {
+                        color: '#94a3b8'
+                    },
+
+                    grid: {
+                        color: '#263248'
+                    }
+                }
+            },
+
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#f1f5f9'
+                    }
+                }
+            }
+        }
+
+    });
+</script>
