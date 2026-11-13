@@ -6,8 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SENTRY | Dashboard Jira</title>
-
+    
     <link rel="stylesheet" href="../css/dashboardBruno.css">
+    <link rel="icon" href="../assets/imgs/logo_oficial.png">
 </head>
 
 <body>
@@ -17,7 +18,7 @@
         <div class="menu-lateral">
 
             <div class="logo">
-                <img src="../assets/imgs/sentry_logo_grid-removebg-preview.png" alt="Logo SENTRY">
+                <img src="../assets/imgs/sentry_logo_grid-removebg-preview.png">
                 <span>SENTRY</span>
             </div>
 
@@ -28,11 +29,11 @@
             </div>
 
             <div class="usuario">
-                <div class="usuario-foto" id="siglas_usuario">BH</div>
+                <div class="usuario-foto" id="siglas_usuario">GS</div>
 
                 <div class="usuario-dados">
-                    <p id="nome_usuario">Bruno Henrique</p>
-                    <span id="cargo_usuario">Administrador</span>
+                    <p id="nome_usuario">Gerson </p>
+                    <span id="cargo_usuario">Analista</span>
                 </div>
             </div>
 
@@ -188,10 +189,10 @@
                 data: quantidadeAlertas,
 
                 backgroundColor: [
-                    '#fb5a00',
-                    '#38bdf8',
-                    '#a78bfa',
-                    '#4ade80'
+                    '#2563EB',
+                    '#3B82F6',
+                    '#60A5FA',
+                    '#93C5FD'
                 ],
 
                 borderRadius: 5
@@ -249,16 +250,16 @@
                 {
                     label: 'Alertas críticos',
                     data: alertasCriticos,
-                    borderColor: '#fb5a00',
-                    backgroundColor: '#fb5a00',
+                    borderColor: '#2563EB',
+                    backgroundColor: '#2563EB',
                     tension: 0.3
                 },
 
                 {
                     label: 'Alertas médios',
                     data: alertasMedios,
-                    borderColor: '#38bdf8',
-                    backgroundColor: '#38bdf8',
+                    borderColor: '#93C5FD',
+                    backgroundColor: '#93C5FD',
                     tension: 0.3
                 }
             ]

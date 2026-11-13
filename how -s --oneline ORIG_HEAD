@@ -1,0 +1,32 @@
+[33mfe434df[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mDashboard-Bruno[m[33m, [m[1;31morigin/Dashboard-Bruno[m[33m)[m HEAD@{0}: reset: moving to ORIG_HEAD
+[33mfe434df[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mDashboard-Bruno[m[33m, [m[1;31morigin/Dashboard-Bruno[m[33m)[m HEAD@{1}: checkout: moving from DashboardBruno to Dashboard-Bruno
+[33m337b2cf[m[33m ([m[1;31morigin/DashboardBruno[m[33m, [m[1;32mDashboardBruno[m[33m)[m refs/remotes/origin/DashboardBruno@{0}: update by push
+[33m337b2cf[m[33m ([m[1;31morigin/DashboardBruno[m[33m, [m[1;32mDashboardBruno[m[33m)[m refs/heads/DashboardBruno@{0}: commit: teste
+[33m337b2cf[m[33m ([m[1;31morigin/DashboardBruno[m[33m, [m[1;32mDashboardBruno[m[33m)[m HEAD@{2}: commit: teste
+[33m96b34d7[m[33m ([m[1;31morigin/dashboard[m[33m)[m refs/heads/DashboardBruno@{1}: branch: Created from origin/DashboardBruno
+[33m96b34d7[m[33m ([m[1;31morigin/dashboard[m[33m)[m HEAD@{3}: checkout: moving from Dashboard-Bruno to DashboardBruno
+[33m96b34d7[m[33m ([m[1;31morigin/dashboard[m[33m)[m refs/remotes/origin/DashboardBruno@{1}: pull: storing head
+[33mfe434df[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mDashboard-Bruno[m[33m, [m[1;31morigin/Dashboard-Bruno[m[33m)[m HEAD@{4}: checkout: moving from main to Dashboard-Bruno
+[33m21acd83[m[33m ([m[1;32mmain[m[33m)[m HEAD@{5}: checkout: moving from main to main
+[33m21acd83[m[33m ([m[1;32mmain[m[33m)[m HEAD@{6}: checkout: moving from Dashboard-Bruno to main
+[33mfe434df[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mDashboard-Bruno[m[33m, [m[1;31morigin/Dashboard-Bruno[m[33m)[m HEAD@{7}: checkout: moving from main to Dashboard-Bruno
+[33m21acd83[m[33m ([m[1;32mmain[m[33m)[m HEAD@{8}: checkout: moving from Dashboard-Bruno to main
+[33m5be5c53[m[33m ([m[1;31morigin/dashboard-financeiro[m[33m)[m refs/remotes/origin/dashboard-financeiro@{0}: pull: fast-forward
+[33mfe434df[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mDashboard-Bruno[m[33m, [m[1;31morigin/Dashboard-Bruno[m[33m)[m refs/heads/Dashboard-Bruno@{0}: reset: moving to origin/Dashboard-Bruno
+[33mfe434df[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mDashboard-Bruno[m[33m, [m[1;31morigin/Dashboard-Bruno[m[33m)[m HEAD@{9}: reset: moving to origin/Dashboard-Bruno
+[33mfe434df[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mDashboard-Bruno[m[33m, [m[1;31morigin/Dashboard-Bruno[m[33m)[m refs/remotes/origin/Dashboard-Bruno@{0}: fetch origin: fast-forward
+[33m24dcaf9[m refs/remotes/origin/dashboard-financeiro@{1}: fetch origin: storing head
+[33ma6aac73[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/dashboardJulia[m[33m, [m[1;31morigin/HEAD[m[33m)[m refs/remotes/origin/dashboardJulia@{0}: fetch origin: storing head
+[33m827caa2[m[33m ([m[1;31morigin/dashboardRaissa[m[33m)[m refs/remotes/origin/dashboardRaissa@{0}: fetch origin: storing head
+[33maf4fe33[m[33m ([m[1;31morigin/dashboardRicardo[m[33m)[m refs/remotes/origin/dashboardRicardo@{0}: fetch origin: storing head
+[33ma6aac73[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/dashboardJulia[m[33m, [m[1;31morigin/HEAD[m[33m)[m refs/remotes/origin/main@{0}: fetch origin: fast-forward
+[33maeb82dd[m[33m ([m[1;31morigin/tela-ajuda[m[33m)[m refs/remotes/origin/tela-ajuda@{0}: fetch origin: storing head
+[33m5272b50[m[33m ([m[1;31morigin/dev[m[33m)[m HEAD@{10}: reset: moving to HEAD
+[33m5272b50[m[33m ([m[1;31morigin/dev[m[33m)[m HEAD@{11}: checkout: moving from main to Dashboard-Bruno
+[33m21acd83[m[33m ([m[1;32mmain[m[33m)[m refs/remotes/origin/Dashboard-Bruno@{1}: pull: forced-update
+[33m21acd83[m[33m ([m[1;32mmain[m[33m)[m HEAD@{12}: checkout: moving from Dashboard-Bruno to main
+[33m5272b50[m[33m ([m[1;31morigin/dev[m[33m)[m refs/heads/Dashboard-Bruno@{1}: branch: Created from origin/Dashboard-Bruno
+[33m5272b50[m[33m ([m[1;31morigin/dev[m[33m)[m HEAD@{13}: checkout: moving from main to Dashboard-Bruno
+[33m21acd83[m[33m ([m[1;32mmain[m[33m)[m refs/heads/main@{0}: clone: from https://github.com/projeto-2sem/sentry.git
+[33m21acd83[m[33m ([m[1;32mmain[m[33m)[m refs/remotes/origin/HEAD@{0}: clone: from https://github.com/projeto-2sem/sentry.git
+[33m21acd83[m[33m ([m[1;32mmain[m[33m)[m HEAD@{14}: clone: from https://github.com/projeto-2sem/sentry.git
