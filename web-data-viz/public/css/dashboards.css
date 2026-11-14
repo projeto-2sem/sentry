@@ -4,7 +4,8 @@
 
 
 :root {
-  --first-color: #030A14;
+  --first-color: #0b1120;
+  --kpi-color: #111c30;
   --second-color: #0B1624;
   --third-color: #2F81F7;
   --text-color: #FFF;
@@ -1284,7 +1285,7 @@ select {
 }
 
 .div-alertas {
-  background-color: #101d2d;
+  background-color: #111c30;
   width: 100%;
   height: 680px;
   display: flex;
