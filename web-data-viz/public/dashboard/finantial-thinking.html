@@ -61,7 +61,7 @@
 
             <section id="title-header">
                 <h1>Financial Thinking</h1>
-                <time id="date_now">30/09/2026</time>
+                <time id="date_now"></time>
             </section>
 
             <section id="filter-wrapper">
@@ -343,6 +343,13 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    const dataAtual = new Date()
+    const dia = dataAtual.getDate()
+    const mes = dataAtual.getMonth() +1
+    const ano = dataAtual.getFullYear()
+    document.getElementById("date_now").innerHTML = dia + "/" + mes + "/" + ano;
+    
+
     function move_aside() {
         let move = document.getElementById("btn_move_aside");
         let data = move.dataset.hidden;
@@ -364,18 +371,18 @@
     // setup 
     const labels = ["CPU", "RAM", "Disco"]
     const data = {
-        labels: labels, // Ex: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul']
+        labels: labels, 
         datasets: [
             {
-                label: 'Primeira Coluna',
+                label: 'Prioritário',
                 data: [1200, 1300, 1400],
                 backgroundColor: 'rgba(54, 162, 235, 0.5)', // Azul
                 borderColor: 'rgb(54, 162, 235)',
                 borderWidth: 1
             },
             {
-                label: 'Segunda Coluna',
-                data: [1000, 1700, 1350], // Novos dados para a 2ª barra
+                label: 'Recomendado',
+                data: [1000, 1700, 1350], 
                 backgroundColor: 'rgba(255, 99, 132, 0.5)', // Vermelho/Rosa
                 borderColor: 'rgb(255, 99, 132)',
                 borderWidth: 1

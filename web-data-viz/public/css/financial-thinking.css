@@ -5,7 +5,7 @@
 
 :root {
   --first-color: #030A14;
-  --second-color: #0B1624;
+  --second-color: #1e2b3c;
   --third-color: #2F81F7;
   --text-color: #FFF;
   --hover: #101D2D;
@@ -547,13 +547,12 @@ main {
   max-width: 100%;
   .server-wrapper{
     /* border: 1px solid pink; */
-    padding: 1rem 1rem;
+    padding: 1rem 0rem;
     display: flex;
     align-items: center;
     gap: 3rem;
     overflow-x: auto;
     max-width: 100%;
-    min-width: 0;
 
     .server{
       /* border: 1px solid orangered; */
@@ -567,6 +566,7 @@ main {
       gap: 1rem;
       background-color: var(--second-color);
       border-radius: 1rem;
+      box-shadow: 0.1rem 0.3rem 0.2rem var(--third-color);
 
       .server-header{
         /* border: 1px solid yellow; */
@@ -630,6 +630,7 @@ main {
       align-items: center;
       gap: 1rem;
       background-color: var(--second-color);
+      box-shadow: 0.1rem 0.3rem 0.2rem var(--third-color);
 
       figure{
         width: 90%;
@@ -638,6 +639,11 @@ main {
         border-radius: 1rem;
         background-color: gray;
       }
+    }
+
+    .product:hover{
+      scale: 1.05;
+      transition: 0.3s;
     }
   }
 }
@@ -653,6 +659,12 @@ main {
     align-items: center;
     justify-content: space-between;
     max-height: 30rem;
+
+    #price-per-component{
+      background-color: var(--second-color);
+      border-radius: 1rem;
+    }
+    
   }
 }
 
