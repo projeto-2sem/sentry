@@ -109,7 +109,9 @@
                 console.log(resposta);
                     // aqui guarda o jwt token no session storage
                 resposta.json().then(json => {
+
                     console.log(json);
+                    
                     console.log(JSON.stringify(json));
                     sessionStorage.TOKEN = json.token;
                     sessionStorage.EMAIL_USUARIO = json.email;

@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const SECRET = process.env.JWT_SECRET;
 
 /*
  JWT
@@ -40,7 +41,9 @@ function autenticarToken(req, res, next) {
         req.user = {
             id: verificacao.id,
             email: verificacao.email,
-            username: verificacao.username
+            username: verificacao.username,
+            empresaId:verificacao.empresaId
+
         };
 
         // 5. Se o token for válido a função next é iniciada e o a validação segue para o fluxo que já conhecemos do controller.

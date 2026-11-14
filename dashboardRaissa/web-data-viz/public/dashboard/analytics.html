@@ -9,11 +9,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="icon" href="../assets/imgs/logo_oficial.png" />
     <script src="../js/sessao.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body ">
+<body>
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar_top_wrapper">
@@ -29,23 +28,6 @@
                     <a href="">
                         <li class="sidebar_items selected_items"><i class="bi bi-columns-gap"></i><span
                                 class="text-sidebar">Analytics</span></li>
-                    </a>
-                    <a href="servidores.html" style="display: none;">
-                        <li class="sidebar_items"><i class="bi bi-database"></i><span class="text-sidebar">Server</span>
-                        </li>
-                    </a>
-                    <a href="alertas.html">
-                        <li class="sidebar_items"><i class="bi bi-exclamation-triangle-fill"></i><span
-                                class="text-sidebar">Alertas</span>
-                        </li>
-                    </a>
-                    <a href="equipe.html">
-                        <li class="sidebar_items"><i class="bi bi-people-fill"></i><span
-                                class="text-sidebar">Equipe</span></li>
-                    </a>
-                    <a href="ajuda.html">
-                        <li class="sidebar_items"><i class="bi bi-headset"></i><span class="text-sidebar">Ajuda</span>
-                        </li>
                     </a>
                 </ul>
             </div>
@@ -71,49 +53,74 @@
             <header class="server-header">
                 <div class="title-header">
                     <h1>Network thinking</h1>
-                    <time id="date_now">30/09/2026</time>
                 </div>
+
+                <!-- Agrupador para alinhar a Região e os Filtros de Data à direita -->
+                <div class="header-controls">
+                    <!-- Filtro por Região -->
+                    <div class="filter-group">
+                        <label for="regiaoSelect">Região:</label>
+                        <select id="regiaoSelect" onchange="mudarRegiao()">
+                            <option value="sp">São Paulo (SP)</option>
+                            <option value="campinas">Campinas (CPQ)</option>
+                            <option value="sjc">São José dos Campos (SJC)</option>
+                        </select>
+                        <!-- Filtros de Período  -->
+                        <div class="filter">
+                            <button type="submit" class="estilizacao">Mes</button>
+                            <button type="submit" class="estilizacao">Ano</button>
+                        </div>
+                    </div>
+                </div>
+
+
             </header>
 
-            <div class="filter">
-                <button type="submit" class="estilizacao">Novembro</button>
-                <button type="submit" class="estilizacao">Ano</button>
-            </div>
 
-            <!-- KPI: Latência Média Global -->
+
+
             <section class="container-kpis">
-                <div class="card-kpi">
+
+
+                <div class="card-kpi card-kpi-critico">
                     <div class="header-card">
-                        <h3>Latência Média Global</h3>
-                        <p>Ping RTT atual da planta</p>
+                        <h3>Prioridade de Rede</h3>
+                        <p>Servidores críticos na região</p>
                     </div>
                     <div class="kpi-valor-container">
-                        <h4 id="valor-latencia"></h4>
-                        <span class="span-latencia-global">--</span>
+                        <h4 id="valor-alertas-rede">2</h4>
+                        <span class="span-alerta-global">Críticos</span>
                     </div>
                 </div>
-            </section>
 
-            <!-- Ranking de Processos -->
-            <section class="grafico_processos_rede">
-                <div class="card-grafico">
+               
+
+                <div class="card-kpi">
                     <div class="header-card">
-                        <h3>Ranking do consumo de rede em processos</h3>
-                        <p>MB transferidos no período</p>
-                    </div>
-                    <div class="container-canvas">
-                        <canvas id="rankingProcessosChart"></canvas>
+                        <h3>Taxa de pacotes perdidos</h3>
+                        <p>total vs perdidos ¨%</p>
                     </div>
                 </div>
+
+                <div class="card-kpi">
+                    <div class="header-card">
+                        <h3>Varição de atrasos</h3>
+                        <p>milesegundos</p>
+                    </div>
+                    <div class="kpi-valor-container">
+                        <h4 id="valor-taxa-rececao">80 ms</h4>
+                        <span>%</span>
+                    </div>
+                </div>
+
             </section>
 
-            <!-- Gráficos de Região (Lado a Lado) -->
             <section class="graficos_regiao">
                 <div class="container-regiao">
                     <div class="card-grafico">
                         <div class="header-card">
-                            <h3>Regiões de servidores que mais consomem rede</h3>
-                            <p>GB trafegados</p>
+                            <h3>Evolução temporal da perda de pacotes</h3>
+                            <p>MB trafegados</p>
                         </div>
                         <div class="container-canvas">
                             <canvas id="regioes_mais_consomem_rede"></canvas>
@@ -122,36 +129,11 @@
 
                     <div class="card-grafico">
                         <div class="header-card">
-                            <h3>Regiões de servidores que mais perdem pacotes</h3>
-                            <p>% de perda de pacotes</p>
+                            <h3>Servidores com maior perda de pacotes</h3>
+                            <p>Top gargalos da região</p>
                         </div>
                         <div class="container-canvas">
                             <canvas id="regioes_que_mais_perde_pacotes"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Erros e Protocolos (Lado a Lado ou Organizados) -->
-            <section class="graficos_regiao">
-                <div class="container-regiao">
-                    <div class="card-grafico">
-                        <div class="header-card">
-                            <h3>Servidores e a progressividade de seus erros</h3>
-                            <p>Erros acumulados — Novembro/2026</p>
-                        </div>
-                        <div class="container-canvas">
-                            <canvas id="grafico_progressividade_erros"></canvas>
-                        </div>
-                    </div>
-
-                    <div class="card-grafico">
-                        <div class="header-card">
-                            <h3>Distribuição de Tráfego por Protocolo</h3>
-                            <p>Volume de pacotes por protocolo industrial e de sistema</p>
-                        </div>
-                        <div class="container-canvas">
-                            <canvas id="graficoProtocolos"></canvas>
                         </div>
                     </div>
                 </div>
@@ -188,15 +170,101 @@
 </html>
 
 <script>
+  let grafico_evolucaoTrafego;
 
-    const ctx = document.getElementById('rankingProcessosChart').getContext('2d');
-    new Chart(ctx, {
+const grafico_rede = document.getElementById("regioes_mais_consomem_rede").getContext('2d');
+grafico_evolucaoTrafego = new Chart(grafico_rede, {
+    type: 'line',
+    data: {
+        // Eixo X: Horários ao longo do dia
+        labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+        datasets: [
+            {
+                label: 'srv-sp-01',
+                data: [120, 150, 140, 200, 1150, 400, 300, 250], // Pico às 12:00
+                borderColor: '#2F81F7',
+                backgroundColor: 'rgba(47, 129, 247, 0.15)',
+                borderWidth: 3,
+                pointBackgroundColor: '#2F81F7',
+                pointRadius: 4,
+                fill: true,
+                tension: 0.3
+            },
+            {
+                label: 'srv-sp-02',
+                data: [80, 90, 85, 100, 300, 250, 220, 190],
+                borderColor: '#10B981',
+                backgroundColor: 'rgba(16, 185, 129, 0.15)',
+                borderWidth: 3,
+                pointBackgroundColor: '#10B981',
+                pointRadius: 4,
+                fill: false,
+                tension: 0.3
+            },
+            {
+                label: 'srv-sp-03',
+                data: [50, 60, 55, 70, 120, 90, 80, 75],
+                borderColor: '#F59E0B',
+                backgroundColor: 'rgba(245, 158, 11, 0.15)',
+                borderWidth: 3,
+                pointBackgroundColor: '#F59E0B',
+                pointRadius: 4,
+                fill: false,
+                tension: 0.3
+            },
+            {
+                label: 'srv-sp-04',
+                data: [90, 110, 95, 130, 450, 310, 280, 210],
+                borderColor: '#EF4444',
+                backgroundColor: 'rgba(239, 68, 68, 0.15)',
+                borderWidth: 3,
+                pointBackgroundColor: '#EF4444',
+                pointRadius: 4,
+                fill: false,
+                tension: 0.3
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { 
+                display: true,
+                labels: { color: '#ffffff', font: { size: 12 } }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        return `${context.dataset.label}: ${context.raw} MB`;
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                grid: { display: false },
+                ticks: { color: '#ffffff', font: { size: 11 } }
+            },
+            y: {
+                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                ticks: { color: '#ffffff', font: { size: 12, family: 'monospace' } },
+                min: 0,
+                max: 1200
+            }
+        }
+    }
+});
+
+    let grafico_maior_Consumo_rede;
+    const grafico_consumo_rede = document.getElementById("regioes_que_mais_perde_pacotes").getContext('2d');
+    grafico_maior_Consumo_rede = new Chart(grafico_consumo_rede, {
         type: 'bar',
         data: {
-            labels: ['chrome.exe', 'docker', 'backup-svc', 'nginx', 'teams.exe'],
+            labels: ['srv-sp-01', 'srv-sp-02', 'srv-sp-03', 'srv-sp-04'],
             datasets: [{
-                data: [4800, 3900, 2750, 1900, 1300],
-                backgroundColor: ['#ef4444', '#2563eb', '#06b6d4', '#f59e0b', '#3b82f6'],
+                data: [900, 450, 300, 150],
+                backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6', '#3b82f6'],
                 borderRadius: 4,
                 barThickness: 20
             }]
@@ -208,170 +276,33 @@
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    callbacks: {
-                        label: function (context) { return `MB ${context.raw}`; }
-                    }
+                    callbacks: { label: function (context) { return `Tráfego: ${context.raw} MB`; } }
                 }
             },
             scales: {
-                x: { grid: { color: '#94a3b8' }, min: 0, max: 6000 },
+                x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#ffffff', font: { size: 11 } } },
                 y: { grid: { display: false }, ticks: { color: '#ffffff', font: { size: 12, family: 'monospace' } } }
             }
         }
     });
 
-    let GraficoConsumoRede;
+         
 
-    const grafico_rede = document.getElementById("regioes_mais_consomem_rede").getContext('2d');
-   GraficoConsumoRede= new Chart(grafico_rede, {
-        type: 'bar',
-        data: {
-            labels: ['São Paulo', 'Virginia', 'Frankfurt', 'Tóquio', 'Sydney'],
-            datasets: [{
-                data: [1000, 750, 500, 250, 0],
-                backgroundColor: ['#2563eb'],
-                borderRadius: 4,
-                barThickness: 20
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: { label: function (context) { return `${context.raw} MB`; } }
-                }
-            },
-            scales: {
-                x: { grid: { display: false }, ticks: { color: '#ffffff', font: { size: 11 } } },
-                y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#ffffff', font: { size: 12, family: 'monospace' } }, min: 0, max: 1200 }
-            }
-        }
-    });
+    function carregarDadosDoBucket() {
+    fetch(`/analytics/dados-s3`)
+        .then(res => res.json())
+        .then(data => {
+            console.log("Dados vindos do S3:", data);
+            
+            // Exemplo: Atualizar um gráfico ou elemento da tela com os dados do S3
+            // grafico_evolucaoTrafego.data.labels = data.timestamps;
+            // grafico_evolucaoTrafego.data.datasets[0].data = data.valores;
+            // grafico_evolucaoTrafego.update();
+        })
+        .catch(error => console.error("Erro ao carregar dados do S3:", error));
+}
 
 
-    let graficoPerdaPacotes;
-    const grafico_perda_pacotes = document.getElementById("regioes_que_mais_perde_pacotes").getContext('2d');
-   graficoPerdaPacotes= new Chart(grafico_perda_pacotes, {
-        type: 'bar',
-        data: {
-            labels: ['São Paulo', 'Virginia', 'Frankfurt', 'Tóquio', 'Sydney'],
-            datasets: [{
-                data: [8, 6, 4, 2, 0],
-                backgroundColor: ['#ef4444'],
-                borderRadius: 4,
-                barThickness: 20
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: { label: function (context) { return `Perda: ${context.raw}%`; } }
-                }
-            },
-            scales: {
-                x: { grid: { display: false }, ticks: { color: '#ffffff', font: { size: 11 } } },
-                y: {
-                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                    ticks: { color: '#ffffff', font: { size: 12, family: 'monospace' }, callback: function (value) { return value + '%'; } },
-                    min: 0,
-                    max: 10
-                }
-            }
-        }
-    });
-
-    const grafico_erros = document.getElementById("grafico_progressividade_erros").getContext('2d');
-    new Chart(grafico_erros, {
-        type: 'line',
-        data: {
-            labels: ['01', '05', '10', '15', '20', '25', '30'],
-            datasets: [
-                {
-                    label: 'Servidor SP-API',
-                    data: [3, 5, 8, 12, 15, 21, 28],
-                    borderColor: '#ef4444',
-                    backgroundColor: '#ef4444',
-                    tension: 0.2,
-                    pointRadius: 4
-                },
-                {
-                    label: 'Servidor DB-Master',
-                    data: [6, 9, 11, 10, 14, 18, 19],
-                    borderColor: '#06b6d4',
-                    backgroundColor: '#06b6d4',
-                    tension: 0.2,
-                    pointRadius: 4
-                },
-                {
-                    label: 'Servidor Storage-01',
-                    data: [1, 2, 4, 5, 7, 8, 10],
-                    borderColor: '#2563eb',
-                    backgroundColor: '#2563eb',
-                    tension: 0.2,
-                    pointRadius: 4
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: { label: function (context) { return `${context.dataset.label}: ${context.raw} erros`; } }
-                }
-            },
-            scales: {
-                x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#ffffff', font: { size: 11, family: 'monospace' } } },
-                y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#ffffff', font: { size: 12, family: 'monospace' }, stepSize: 7 }, min: 0, max: 28 }
-            }
-        }
-    });
-
-    const grafico_protocolos = document.getElementById("graficoProtocolos").getContext('2d');
-    new Chart(grafico_protocolos, {
-        type: 'doughnut',
-        data: {
-            labels: ['Modbus/TCP', 'MQTT', 'HTTP/HTTPS', 'SSH / SFTP', 'Outros'],
-            datasets: [{
-                data: [42, 28, 18, 8, 4],
-                backgroundColor: ['#2563eb', '#06b6d4', '#f59e0b', '#ef4444', '#94a3b8'],
-                borderWidth: 0,
-                hoverOffset: 6
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'right',
-                    labels: {
-                        color: '#ffffff',
-                        font: { size: 11, family: 'monospace' },
-                        padding: 10
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function (context) { return ` ${context.label}: ${context.raw}% do tráfego`; }
-                    }
-                }
-            },
-            cutout: '70%'
-        }
-    });
-
-
-
-
-    let empresaId = sessionStorage.ID_EMPRESA;
-    let idUsuarioEditar = null;
 
     if (sessionStorage.NOME_USUARIO) {
         document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO;
@@ -380,8 +311,7 @@
         let sigla = siglaPartes.length > 1 ? siglaPartes[0][0] + siglaPartes[1][0] : siglaPartes[0][0];
         document.getElementById("siglas_usuario").innerText = sigla.toUpperCase() || "";
     }
-
-    function move_aside() {
+function move_aside() {
         let move = document.getElementById("btn_move_aside");
         let data = move.dataset.hidden;
         let class_side_bar = document.querySelector(".sidebar");
@@ -390,145 +320,108 @@
             class_side_bar.classList.add("closed");
             move.dataset.hidden = 1;
             i_move_side.classList.replace("bi-chevron-left", "bi-chevron-right");
-            document.getElementById("sidebar_account_wrapper").style.display = "none";
+            let accWrapper = document.getElementById("sidebar_account_wrapper");
+            if (accWrapper) accWrapper.style.display = "none";
         } else {
             class_side_bar.classList.remove("closed");
             move.dataset.hidden = 0;
             i_move_side.classList.replace("bi-chevron-right", "bi-chevron-left");
-            document.getElementById("sidebar_account_wrapper").style.display = "flex";
+            let accWrapper = document.getElementById("sidebar_account_wrapper");
+            if (accWrapper) accWrapper.style.display = "flex";
         }
     }
 
-    function verificarStatusLatencia(valorLatencia,limiteAtencao,limiteCritico){
-    const cardKpi= document.querySelector(".card-kpi");
+function buscarServidoresDaEmpresa() {
+    console.log("Buscando servidores da empresa autenticada via JWT...");
 
-    cardKpi.classList.remove("status-estavel","status-atencao","status-critico");
+    // 1. Pega o token salvo no sessionStorage durante o login
+    const token = sessionStorage.TOKEN;
 
-    if(valorLatencia>=limiteCritico){
-        cardKpi.classList.add("status-critico");
-         return "Crítico";
-    }
-    else if(valorLatencia>=limiteAtencao){
-        cardKpi.classList.add("status-atencao");
-        return "Atenção";
-
-    }
-    else {
-        cardKpi.classList.add("status-estavel");
-        return "Estável";
-    }
- }
-
-
- // fonte para abordagem de referencia de mbps industrial monitor direct
-
-// Função para buscar e atualizar a Latência Média Global
-function carregarLatenciaGlobal() {
-    const idEmpresa = sessionStorage.ID_EMPRESA || 1; 
-    fetch(`/analytics/latencia-global?empresaId=${idEmpresa}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                return resposta.json();
-            } else {
-                throw new Error("Erro ao carregar os dados de latência.");
-            }
-        })
-        .then(function (dados) {
-            console.log("Dados de latência recebidos:", dados);
-
-            const valorLatencia = Number(dados.latencia) || 0;            
-            const spanLatencia = document.getElementById("valor-latencia"); // Ajusta para o ID do teu HTML
-            if (spanLatencia) {
-                spanLatencia.innerHTML = `${dados.latencia} ms`;
-            }
-
-
-            
-            const limiteAtencaoRef = 100;
-            const limiteCriticoRef = 500;
-
-            const statusTexto = verificarStatusLatencia(valorLatencia, limiteAtencaoRef, limiteCriticoRef);
-                
-                const spanStatusGlobal = document.querySelector(".span-latencia-global");
-                if (spanStatusGlobal) {
-                    spanStatusGlobal.innerHTML = statusTexto;
-                }
-        })
-        .catch(function (erro) {
-            console.error("Erro na requisição:", erro);
-        });
-}
-
-// Função para buscar os dados de Consumo de Rede por Região
-function atualizarGraficoConsumoRegiao() {
-    fetch("/analytics/consumo-regiao-rede", {
-        method: "GET",
+    fetch('/analytics/listar', {
+        method: 'GET', 
+        headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}` // <-- O Authorization fica DENTRO de headers
+        }
     })
-    .then(function (resposta) {
+    .then(async function (resposta) {
+        console.log("Status HTTP da resposta:", resposta.status); 
+        
         if (resposta.ok) {
-            resposta.json().then(function (dados) {
-                console.log("Dados de consumo por região recebidos: ", dados);
-
-                var regioes = [];
-                var consumos = [];
-
-                for (let i = 0; i < dados.length; i++) {
-                    regioes.push(dados[i].regiao);
-                    consumos.push(dados[i].totalConsumo);
-                }
-
-                GraficoConsumoRede.data.labels = regioes;
-                GraficoConsumoRede.data.datasets[0].data = consumos;
-                GraficoConsumoRede.update();
+            let servidores = await resposta.json();
+            console.log("Servidores encontrados com segurança:", servidores);
+            servidores.forEach(servidor => {
+                console.log(`Servidor: ${servidor.apelido} (${servidor.regiao})`);
             });
         } else {
-            console.error("Nenhum dado encontrado ou erro na API.");
+            let erroTexto = await resposta.text();
+            console.error("Erro na API de servidores:", resposta.status, erroTexto);
         }
     })
     .catch(function (erro) {
-        console.error("Erro na obtenção dos dados p/ gráfico de consumo: ", erro);
+        console.error(`Erro de rede na captura dos servidores: ${erro}`);
     });
 }
+    buscarServidoresDaEmpresa();
 
-function atualizarGraficoPerdaPacotes(){
-     fetch("/analytics/perda-pacotes-regiao",{
-        method : "GET"
-     })
+    function mudarRegiao() {
+        let selectRegiao = document.getElementById("regiaoSelect");
+        let regiaoSelecionada = selectRegiao.value;
 
-     .then(function(resposta){
-        if(resposta.ok){
-            resposta.json().then(function (dados){
-                console.log("Dados de perda de pacotes por região", dados);
-
-                 var regioes=[];
-                 var perdidos=[];
-
-                  for(let i=0; i<dados.length;i++){
-                    regioes.push(dados[i].regiao);
-                    perdidos.push(dados[i].mediaPerda)
-
-                  }
-
-                  graficoPerdaPacotes.data.labels=regioes;
-                  graficoPerdaPacotes.data.datasets[0].data=perdidos;
-
-                  graficoPerdaPacotes.update();
-                
-
-        });
-    } else{
-        console.log( "Nenhum dado encontrado") 
+        if (regiaoSelecionada === 'sp') {
+            selectRegiao.style.backgroundColor = '#ef4444';
+        } else if (regiaoSelecionada === 'campinas') {
+            selectRegiao.style.backgroundColor = '#f59e0b'; 
+        } else {
+            selectRegiao.style.backgroundColor = '#3b82f6'; 
         }
 
-     })
-      .catch(function (erro) {
-        console.error("Erro na obtenção dos dados p/ gráfico de consumo: ", erro);
-    });
-}
+        console.log("Região alterada para:", regiaoSelecionada);
+        carregarDadosAnalytics(regiaoSelecionada);
+    }
 
- 
- carregarLatenciaGlobal();
- atualizarGraficoConsumoRegiao();
- atualizarGraficoPerdaPacotes();
+    function carregarDadosAnalytics(regiao = '') {
+        // CORRIGIDO: Uso correto de ?regiao=
+        fetch(`/analytics/kpis?regiao=${regiao}`)
+            .then(res => res.json())
+            .then(data => {
+                let elAlertas = document.getElementById("valor-alertas-rede");
+                let elBanda = document.getElementById("valor-largura-banda");
+                let elTaxa = document.getElementById("valor-taxa-rececao");
 
+                if (elAlertas) elAlertas.innerText = data.alertasCriticos || 2;
+                if (elBanda) elBanda.innerText = data.larguraBandaTotal || 0;
+                if (elTaxa) elTaxa.innerText = data.taxaRececao || '80 ms';
+            }).catch(err => console.error("Erro nos KPIs:", err));
+
+        // CORRIGIDO: Removido texto órfão e tratado o retorno
+        fetch(`/analytics/evolucao-trafego?regiao=${regiao}`)
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) {
+                    let labels = data.map(item => item.horario);
+                    let valores = data.map(item => item.totalTrafego);
+
+                    grafico_evolucaoTrafego.data.labels = labels;
+                    grafico_evolucaoTrafego.data.datasets[0].data = valores;
+                    grafico_evolucaoTrafego.update();
+                }
+            }).catch(err => console.error("Erro no gráfico de tráfego:", err));
+
+        fetch(`/analytics/top-servidores?regiao=${regiao}`)
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) {
+                    let labels = data.map(item => item.servidor);
+                    let valores = data.map(item => item.consumoTotal);
+
+                    grafico_maior_Consumo_rede.data.labels = labels;
+                    grafico_maior_Consumo_rede.data.datasets[0].data = valores;
+                    grafico_maior_Consumo_rede.update();
+                }
+            }).catch(err => console.error("Erro no gráfico de servidores:", err));
+    }
+
+    // Carrega os dados iniciais do dashboard
+    carregarDadosAnalytics();
 </script>
