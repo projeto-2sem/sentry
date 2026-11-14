@@ -21,15 +21,15 @@
   list-style-type: none;
 }
 
-.r{
+.r {
   background-color: red;
 }
 
-.g{
+.g {
   background-color: green;
 }
 
-.y{
+.y {
   background-color: yellow;
 }
 
@@ -274,7 +274,7 @@ main {
 
 .server-list::-webkit-scrollbar {
 
- 
+
   height: 20px;
   width: 2px;
 }
@@ -430,44 +430,56 @@ main {
   }
 }
 
-#title-header{
+#title-header {
   /* border: 1px solid blue; */
   width: 100%;
   display: flex;
   border-bottom: 1px solid gray;
   align-items: center;
   justify-content: space-between;
+
+  h1 {
+    font-size: clamp(0.5rem, 1rem, 1.5rem);
+  }
 }
 
-#filter-wrapper{
+#filter-wrapper {
   /* border: 1px solid red; */
   display: flex;
   gap: 3rem;
   align-items: center;
+  font-size: clamp(0.5rem, 1rem, 1.5rem);
 
-  .filter{
+  .filter {
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    min-width: 2rem;
+
+    p {
+      font-size: clamp(0.5rem, 1rem, 1.5rem);
+    }
   }
 
-  select{
+  select {
     padding: 0.5rem;
     background-color: var(--third-color);
     color: var(--text-color);
     font-size: 1rem;
     border-radius: 0.5rem;
+    min-width: 2rem
   }
 }
 
-#kpi-wrapper{
+#kpi-wrapper {
   /* border: 1px solid green; */
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   height: fit-content;
+  flex-wrap: wrap;
 
-  .box{
+  .box {
     border-top: 3px solid var(--third-color);
     border-bottom: 3px solid var(--third-color);
     width: 20%;
@@ -480,6 +492,10 @@ main {
     gap: 20%;
     background-color: var(--second-color);
     font-weight: bold;
+
+    p {
+      font-size: clamp(0.3rem, 1rem, 1.5rem);
+    }
   }
 }
 
@@ -524,29 +540,32 @@ main {
   }
 } */
 
-#price-per-component{
+#price-per-component {
   /* border: 1px solid aqua; */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  .chartBox{
+
+  .chartBox {
     /* border: 1px solid white; */
     width: 100%;
     height: 100%;
 
   }
+
   width: 55%;
   height: 25rem;
 }
 
-#servers-wrapper{
+#servers-wrapper {
   /* border: 1px solid brown; */
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 100%;
-  .server-wrapper{
+
+  .server-wrapper {
     /* border: 1px solid pink; */
     padding: 1rem 0rem;
     display: flex;
@@ -555,7 +574,7 @@ main {
     overflow-x: auto;
     max-width: 100%;
 
-    .server{
+    .server {
       /* border: 1px solid orangered; */
       width: 22rem;
       display: flex;
@@ -569,7 +588,7 @@ main {
       border-radius: 1rem;
       box-shadow: 0.1rem 0.3rem 0.2rem var(--third-color);
 
-      .server-header{
+      .server-header {
         /* border: 1px solid yellow; */
         display: flex;
         align-items: center;
@@ -578,19 +597,19 @@ main {
         width: 100%;
       }
 
-      .components-necessity{
+      .components-necessity {
         /* border: 1px solid aqua; */
         width: 100%;
         display: flex;
         gap: 2rem;
         padding-left: 0.5rem;
 
-        .component{
+        .component {
           display: flex;
           align-items: center;
           gap: 0.5rem;
 
-          .circle{
+          .circle {
             width: 2rem;
             height: 2rem;
             border-radius: 50%;
@@ -601,26 +620,27 @@ main {
   }
 }
 
-#products-wrapper{
+#products-wrapper {
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   gap: 2rem;
   width: 45%;
   max-height: 85%;
-  .products{
+
+  .products {
     /* border: 1px solid blue; */
     display: flex;
     width: 100%;
     gap: 2rem;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     align-items: center;
     justify-content: center;
     overflow-y: scroll;
     height: 100%;
     max-height: 100%;
 
-    .product{
+    .product {
       /* border: 1px solid orange; */
       height: 15rem;
       width: 40%;
@@ -633,7 +653,7 @@ main {
       background-color: var(--second-color);
       box-shadow: 0.1rem 0.3rem 0.2rem var(--third-color);
 
-      figure{
+      figure {
         width: 90%;
         height: 60%;
         /* border: 1px solid yellow; */
@@ -642,49 +662,110 @@ main {
       }
     }
 
-    .product:hover{
+    .product:hover {
       scale: 1.05;
       transition: 0.3s;
     }
   }
 }
 
-#product-graph-wrapper{
+#product-graph-wrapper {
   display: flex;
   flex-direction: column;
   /* border: 1px solid orange; */
   height: 30rem;
-  .product-graph-content{
+
+  .product-graph-content {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     max-height: 30rem;
 
-    #price-per-component{
+    #price-per-component {
       background-color: var(--second-color);
       border-radius: 1rem;
     }
-    
+
   }
 }
 
+@media (max-width: 480px) {
+
+  main {
+    /* border: 1px solid red; */
+    margin: 0 auto;
+    width: 95%;
+  }
+
+  #kpi-wrapper {
+    gap: 1rem;
+
+    .box {
+      width: 40%;
+
+      p {
+        font-size: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid black;
+      }
+
+      p:last-child {
+        font-size: 1rem;
+      } 
+    }
+  }
+
+  #product-graph-wrapper {
+    /* border: 1px solid red; */
+    width: 100%;
+    height: fit-content;
+
+    .product-graph-content {
+      flex-direction: column;
+      gap: 1rem;
+
+      #price-per-component {
+        width: 100%;
+        /* border: 1px solid yellow; */
+        align-items: center;
+        justify-content: center;
+        height: 50%;
+
+        .chartBox {
+          width: 100%;
+          height: 100%;
+          /* border: 1px solid blue; */
+        }
+      }
+
+      #products-wrapper {
+        width: 100%;
+
+        .products {
+          width: 100%;
+          /* border: 1px solid black; */
+          flex-direction: row;
+          overflow-x: auto;
+          overflow-y: hidden;
+          max-width: 100%;
+          max-height: 100%;
+
+          .product {
+            width: 60%;
+            height: 10rem;
+
+            p {
+              font-size: 0.7rem;
+            }
+
+          }
+        }
+      }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
+  }
+}
