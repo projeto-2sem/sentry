@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -78,7 +79,6 @@
 
                 <div class="filtro">
                     <label for="selectAno">Ano</label>
-
                     <select id="selectAno" name="ano"></select>
                 </div>
 
@@ -172,17 +172,17 @@
 
     </div>
 
-    <div class="fundo-modal" id="modalServidores">
+    <div class="fundo-servidores" id="fundoServidores">
 
-        <div class="janela-modal">
+        <div class="janela-servidores">
 
-            <div class="topo-modal">
+            <div class="topo-servidores">
                 <div>
                     <h2>Servidores afetados</h2>
                     <p>Servidores com incidentes no período selecionado</p>
                 </div>
 
-                <button id="fecharModal" class="botao-fechar">×</button>
+                <button id="fecharServidores" class="fechar-servidores">×</button>
             </div>
 
             <div id="listaServidores" class="lista-servidores"></div>
@@ -258,7 +258,7 @@ let graficoMetricas = new Chart(document.getElementById("graficoMetricas"), {
         datasets: [{
             label: "Quantidade de incidentes",
             data: [0, 0, 0, 0],
-            backgroundColor: ["#2563EB", "#3B82F6", "#60A5FA", "#93C5FD"]
+            backgroundColor: ["#38BDF8", "#0EA5E9", "#2563EB", "#818CF8"]
         }]
     },
     options: {
@@ -271,9 +271,28 @@ let graficoMetricas = new Chart(document.getElementById("graficoMetricas"), {
                     color: "white"
                 }
             }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: "white"
+                },
+                grid: {
+                    color: "#475569"
+                }
+            },
+            y: {
+                ticks: {
+                    color: "white"
+                },
+                grid: {
+                    color: "#475569"
+                }
+            }
         }
     }
 });
+
 
 let graficoEvolucao = new Chart(document.getElementById("graficoEvolucao"), {
     type: "line",
@@ -283,15 +302,15 @@ let graficoEvolucao = new Chart(document.getElementById("graficoEvolucao"), {
             {
                 label: "Críticos",
                 data: [],
-                borderColor: "#2563EB",
-                backgroundColor: "#2563EB",
+                borderColor: "red",
+                backgroundColor: "red",
                 tension: 0.3
             },
             {
                 label: "Alertas",
                 data: [],
-                borderColor: "#93C5FD",
-                backgroundColor: "#93C5FD",
+                borderColor: "yellow",
+                backgroundColor: "yellow",
                 tension: 0.3
             }
         ]
@@ -303,6 +322,24 @@ let graficoEvolucao = new Chart(document.getElementById("graficoEvolucao"), {
             legend: {
                 labels: {
                     color: "white"
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: "white"
+                },
+                grid: {
+                    color: "#475569"
+                }
+            },
+            y: {
+                ticks: {
+                    color: "white"
+                },
+                grid: {
+                    color: "#475569"
                 }
             }
         }
@@ -665,12 +702,12 @@ function mostrarServidores() {
         }
     }
 
-    document.getElementById("modalServidores").style.display = "flex";
+    document.getElementById("fundoServidores").style.display = "flex";
 }
 
 
-function fecharModal() {
-    document.getElementById("modalServidores").style.display = "none";
+function fecharServidores() {
+    document.getElementById("fundoServidores").style.display = "none";
 }
 
 
@@ -716,8 +753,8 @@ document.getElementById("botaoServidores").onclick = function() {
     mostrarServidores();
 };
 
-document.getElementById("fecharModal").onclick = function() {
-    fecharModal();
+document.getElementById("fecharServidores").onclick = function() {
+    fecharServidores();
 };
 
 buscarIncidentes();
