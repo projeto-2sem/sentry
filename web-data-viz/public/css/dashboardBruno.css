@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');
@@ -59,7 +58,9 @@ html, body {
 }
 
 .menu-item {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 16px 18px;
     border-radius: 10px;
     text-decoration: none;
@@ -82,6 +83,14 @@ html, body {
     background-color: #172c46;
     border-left: 3px solid #38bdf8;
     font-weight: 700;
+}
+
+.icone-menu {
+    display: block;
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .usuario {
@@ -214,6 +223,14 @@ html, body {
     color: #22c55e;
 }
 
+.cartao-atualizacao.erro .ponto-atualizacao {
+    background-color: #ef4444;
+}
+
+.cartao-atualizacao.erro .atualizacao-status {
+    color: #ef4444;
+}
+
 .filtros {
     display: flex;
     flex-wrap: nowrap;
@@ -267,11 +284,6 @@ html, body {
     flex: 1;
     min-width: 0;
     transition: 0.3s;
-}
-
-.cartao-indicador:hover {
-    transform: scale(1.03);
-    border-color: #38bdf8;
 }
 
 .indicador-topo {
@@ -474,39 +486,8 @@ html, body {
     overflow-wrap: anywhere;
 }
 
-@media (max-width: 1000px) and (min-width: 801px) {
-    .menu-lateral {
-        width: 210px;
-        min-width: 210px;
-    }
+@media (max-width: 1000px) and (min-width: 601px) {
 
-    .conteudo {
-        padding: 18px;
-    }
-
-    .indicadores {
-        gap: 10px;
-    }
-
-    .cartao-indicador {
-        padding: 13px;
-    }
-
-    .numero {
-        font-size: 31px;
-    }
-
-    .botao-servidores {
-        padding: 6px 8px;
-        font-size: 10px;
-    }
-
-    .cartao-atualizacao {
-        min-width: 190px;
-    }
-}
-
-@media (max-width: 800px) and (min-width: 601px) {
     .menu-lateral {
         width: 200px;
         min-width: 200px;
@@ -537,6 +518,7 @@ html, body {
     .indicadores {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 
     .cartao-indicador {
@@ -547,10 +529,16 @@ html, body {
         font-size: 32px;
     }
 
+    .botao-servidores {
+        padding: 6px 8px;
+        font-size: 10px;
+    }
+
     .graficos {
         flex-direction: column;
+        flex: none;
         gap: 15px;
-        overflow-y: auto;
+        overflow: visible;
     }
 
     .cartao-grafico {
@@ -569,6 +557,7 @@ html, body {
 }
 
 @media (max-width: 600px) {
+
     html, body {
         height: auto;
         min-height: 100%;
@@ -601,18 +590,34 @@ html, body {
 
     .menu {
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: center;
         gap: 10px;
     }
 
     .menu-item {
-        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 54px;
+        height: 48px;
+        flex: none;
         text-align: center;
-        padding: 13px 5px;
+        padding: 8px;
         font-size: 14px;
         border-left: none;
         border-top: 3px solid #38bdf8;
         border-radius: 9px;
+    }
+
+    .texto-menu {
+        display: none;
+    }
+
+    .icone-menu {
+        display: block;
+        width: 25px;
+        height: 25px;
+        margin-right: 0;
     }
 
     .conteudo {
@@ -745,6 +750,7 @@ html, body {
 }
 
 @media (max-width: 360px) {
+
     .conteudo {
         padding-left: 11px;
         padding-right: 11px;

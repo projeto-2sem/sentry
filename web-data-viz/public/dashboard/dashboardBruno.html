@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -24,7 +23,8 @@
 
             <div class="menu">
                 <a class="menu-item selecionado" href="#">
-                    <span>Dashboard</span>
+                    <img src="../assets/icon/jiraIcon.png" class="icone-menu">
+                    <span class="texto-menu">Incidentes</span>
                 </a>
             </div>
 
@@ -49,7 +49,7 @@
                     <p class="descricao">Acompanhe os incidentes e alertas do Jira.</p>
                 </div>
 
-                <div class="cartao-atualizacao">
+                <div class="cartao-atualizacao" id="cartaoAtualizacao">
                     <div class="atualizacao-topo">
                         <span class="ponto-atualizacao"></span>
                         <span>Última atualização</span>
@@ -197,8 +197,15 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
 let incidentes = [];
 let servidoresAtuais = [];
+
+function mostrarErroApi(mensagem) {
+    document.getElementById("cartaoAtualizacao").className = "cartao-atualizacao erro";
+
+    document.getElementById("statusAtualizacao").textContent = mensagem;
+}
 
 function atualizarHorario() {
     let agora = new Date();
@@ -237,6 +244,8 @@ function atualizarHorario() {
     document.getElementById("dataAtualizacao").textContent =
         dia + "/" + mes + "/" + ano;
 
+    document.getElementById("cartaoAtualizacao").className = "cartao-atualizacao";
+
     document.getElementById("statusAtualizacao").textContent =
         "Dados recebidos com sucesso";
 }
@@ -255,7 +264,14 @@ let graficoMetricas = new Chart(document.getElementById("graficoMetricas"), {
     options: {
         indexAxis: "y",
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                labels: {
+                    color: "white"
+                }
+            }
+        }
     }
 });
 
@@ -272,7 +288,7 @@ let graficoEvolucao = new Chart(document.getElementById("graficoEvolucao"), {
                 tension: 0.3
             },
             {
-                label: "Médios",
+                label: "Alertas",
                 data: [],
                 borderColor: "#93C5FD",
                 backgroundColor: "#93C5FD",
@@ -282,7 +298,14 @@ let graficoEvolucao = new Chart(document.getElementById("graficoEvolucao"), {
     },
     options: {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                labels: {
+                    color: "white"
+                }
+            }
+        }
     }
 });
 
@@ -654,12 +677,16 @@ function fecharModal() {
 function buscarIncidentes() {
     fetch("http://localhost:8080/jira/incidentes")
         .then(function(resposta) {
+
+            if (resposta.status != 200) {
+                throw new Error("Erro na resposta da API");
+            }
+
             return resposta.json();
         })
         .then(function(dados) {
             if (dados.issues == null) {
-                document.getElementById("statusAtualizacao").textContent =
-                    "Não foi possível receber os dados";
+                mostrarErroApi("Não foi possível receber os dados");
                 return;
             }
 
@@ -670,8 +697,7 @@ function buscarIncidentes() {
             atualizarHorario();
         })
         .catch(function(erro) {
-            document.getElementById("statusAtualizacao").textContent =
-                "Falha na conexão com a API";
+            mostrarErroApi("Falha na conexão com a API");
 
             console.error("Erro ao buscar incidentes:", erro);
         });
@@ -699,4 +725,5 @@ buscarIncidentes();
 setInterval(function() {
     buscarIncidentes();
 }, 5000);
+
 </script>
