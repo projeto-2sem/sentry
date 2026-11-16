@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SENTRY | Dashboard Jira</title>
-    
+
     <link rel="stylesheet" href="../css/dashboardBruno.css">
     <link rel="icon" href="../assets/imgs/logo_oficial.png">
 </head>
@@ -32,7 +32,7 @@
                 <div class="usuario-foto" id="siglas_usuario">GS</div>
 
                 <div class="usuario-dados">
-                    <p id="nome_usuario">Gerson </p>
+                    <p id="nome_usuario">Gerson</p>
                     <span id="cargo_usuario">Analista</span>
                 </div>
             </div>
@@ -49,6 +49,17 @@
                     <p class="descricao">Acompanhe os incidentes e alertas do Jira.</p>
                 </div>
 
+                <div class="cartao-atualizacao">
+                    <div class="atualizacao-topo">
+                        <span class="ponto-atualizacao"></span>
+                        <span>Última atualização</span>
+                    </div>
+
+                    <p class="atualizacao-horario" id="ultimaAtualizacao">Aguardando dados...</p>
+                    <p class="atualizacao-data" id="dataAtualizacao">Aguardando conexão com a API</p>
+                    <p class="atualizacao-status" id="statusAtualizacao">Conectando...</p>
+                </div>
+
             </div>
 
             <div class="filtros">
@@ -57,7 +68,8 @@
                     <label for="selectPeriodo">Período</label>
 
                     <select id="selectPeriodo" name="periodo">
-                        <option value="mensal">Mensal</option>
+                        <option value="semanal">Semanal</option>
+                        <option value="mensal" selected>Mensal</option>
                         <option value="trimestral">Trimestral</option>
                         <option value="semestral">Semestral</option>
                         <option value="anual">Anual</option>
@@ -67,11 +79,7 @@
                 <div class="filtro">
                     <label for="selectAno">Ano</label>
 
-                    <select id="selectAno" name="ano">
-                        <option value="2026">2026</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                    </select>
+                    <select id="selectAno" name="ano"></select>
                 </div>
 
             </div>
@@ -83,26 +91,32 @@
                         <span>Total de incidentes</span>
                     </div>
 
-                    <p class="numero" id="totalIncidentes">128</p>
+                    <p class="numero" id="totalIncidentes">0</p>
                     <p class="texto-indicador">Incidentes registrados no período</p>
                 </div>
 
                 <div class="cartao-indicador">
                     <div class="indicador-topo">
-                        <span>Alta prioridade</span>
+                        <span>Alta prioridade (Críticos)</span>
                     </div>
 
-                    <p class="numero" id="totalAltaPrioridade">24</p>
+                    <p class="numero" id="totalAltaPrioridade">0</p>
                     <p class="texto-indicador">Incidentes de alta prioridade</p>
                 </div>
 
-                <div class="cartao-indicador">
+                <div class="cartao-indicador indicador-servidores">
+
                     <div class="indicador-topo">
                         <span>Servidores afetados</span>
+
+                        <button id="botaoServidores" class="botao-servidores">
+                            Ver servidores
+                        </button>
                     </div>
 
-                    <p class="numero" id="totalServidores">8</p>
+                    <p class="numero" id="totalServidores">0</p>
                     <p class="texto-indicador">Servidores com incidentes registrados</p>
+
                 </div>
 
                 <div class="cartao-indicador">
@@ -110,10 +124,10 @@
                         <span>Métrica predominante</span>
                     </div>
 
-                    <p class="numero" id="metricaPredominante">CPU</p>
+                    <p class="numero" id="metricaPredominante">-</p>
 
                     <p class="texto-indicador">
-                        <span id="quantidadeMetrica">46</span>
+                        <span id="quantidadeMetrica">0</span>
                         incidentes registrados
                     </p>
                 </div>
@@ -158,150 +172,531 @@
 
     </div>
 
+    <div class="fundo-modal" id="modalServidores">
+
+        <div class="janela-modal">
+
+            <div class="topo-modal">
+                <div>
+                    <h2>Servidores afetados</h2>
+                    <p>Servidores com incidentes no período selecionado</p>
+                </div>
+
+                <button id="fecharModal" class="botao-fechar">×</button>
+            </div>
+
+            <div id="listaServidores" class="lista-servidores"></div>
+
+        </div>
+
+    </div>
+
 </body>
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+let incidentes = [];
+let servidoresAtuais = [];
 
-    let metricas = ['CPU', 'Memória RAM', 'Disco', 'Rede'];
-    let quantidadeAlertas = [46, 32, 28, 22];
+function atualizarHorario() {
+    let agora = new Date();
 
-    let datas = [
-        '01/10', '05/10', '09/10', '13/10',
-        '17/10', '21/10', '25/10', '28/10'
+    let dia = agora.getDate();
+    let mes = agora.getMonth() + 1;
+    let ano = agora.getFullYear();
+
+    let hora = agora.getHours();
+    let minutos = agora.getMinutes();
+    let segundos = agora.getSeconds();
+
+    if (dia < 10) {
+        dia = "0" + dia;
+    }
+
+    if (mes < 10) {
+        mes = "0" + mes;
+    }
+
+    if (hora < 10) {
+        hora = "0" + hora;
+    }
+
+    if (minutos < 10) {
+        minutos = "0" + minutos;
+    }
+
+    if (segundos < 10) {
+        segundos = "0" + segundos;
+    }
+
+    document.getElementById("ultimaAtualizacao").textContent =
+        hora + ":" + minutos + ":" + segundos;
+
+    document.getElementById("dataAtualizacao").textContent =
+        dia + "/" + mes + "/" + ano;
+
+    document.getElementById("statusAtualizacao").textContent =
+        "Dados recebidos com sucesso";
+}
+
+
+let graficoMetricas = new Chart(document.getElementById("graficoMetricas"), {
+    type: "bar",
+    data: {
+        labels: ["CPU", "Memória RAM", "Disco", "Rede"],
+        datasets: [{
+            label: "Quantidade de incidentes",
+            data: [0, 0, 0, 0],
+            backgroundColor: ["#2563EB", "#3B82F6", "#60A5FA", "#93C5FD"]
+        }]
+    },
+    options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+
+let graficoEvolucao = new Chart(document.getElementById("graficoEvolucao"), {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: [
+            {
+                label: "Críticos",
+                data: [],
+                borderColor: "#2563EB",
+                backgroundColor: "#2563EB",
+                tension: 0.3
+            },
+            {
+                label: "Médios",
+                data: [],
+                borderColor: "#93C5FD",
+                backgroundColor: "#93C5FD",
+                tension: 0.3
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+
+
+function atualizarAnos() {
+    let anos = [];
+
+    for (let i = 0; i < incidentes.length; i++) {
+        let incidente = incidentes[i];
+
+        if (incidente.fields != null && incidente.fields.created != null) {
+            let data = new Date(incidente.fields.created);
+            let ano = data.getFullYear();
+
+            if (anos.indexOf(ano) == -1) {
+                anos.push(ano);
+            }
+        }
+    }
+
+    for (let i = 0; i < anos.length; i++) {
+        for (let j = 0; j < anos.length - 1; j++) {
+            if (anos[j] < anos[j + 1]) {
+                let auxiliar = anos[j];
+                anos[j] = anos[j + 1];
+                anos[j + 1] = auxiliar;
+            }
+        }
+    }
+
+    let campoAno = document.getElementById("selectAno");
+    let anoSelecionado = campoAno.value;
+
+    campoAno.innerHTML = "";
+
+    if (anos.length == 0) {
+        campoAno.innerHTML = "<option value=''>Sem anos disponíveis</option>";
+        return;
+    }
+
+    for (let i = 0; i < anos.length; i++) {
+        campoAno.innerHTML += "<option value='" + anos[i] + "'>" + anos[i] + "</option>";
+    }
+
+    if (anos.indexOf(Number(anoSelecionado)) != -1) {
+        campoAno.value = anoSelecionado;
+    } else {
+        campoAno.value = anos[0];
+    }
+}
+
+
+function atualizarDashboard() {
+    let periodo = document.getElementById("selectPeriodo").value;
+    let ano = Number(document.getElementById("selectAno").value);
+
+    if (ano == 0) {
+        return;
+    }
+
+    let hoje = new Date();
+
+    let dataInicio = new Date(ano, hoje.getMonth(), hoje.getDate());
+    let dataFim = new Date(ano, hoje.getMonth(), hoje.getDate());
+
+    if (periodo == "semanal") {
+        let diaSemana = dataInicio.getDay();
+
+        if (diaSemana == 0) {
+            diaSemana = 7;
+        }
+
+        dataInicio.setDate(dataInicio.getDate() - diaSemana + 1);
+        dataFim = new Date(dataInicio);
+        dataFim.setDate(dataFim.getDate() + 6);
+    }
+
+    if (periodo == "mensal") {
+        dataInicio = new Date(ano, hoje.getMonth(), 1);
+        dataFim = new Date(ano, hoje.getMonth() + 1, 0);
+    }
+
+    if (periodo == "trimestral") {
+        let trimestre = 0;
+
+        if (hoje.getMonth() >= 3 && hoje.getMonth() <= 5) {
+            trimestre = 1;
+        }
+
+        if (hoje.getMonth() >= 6 && hoje.getMonth() <= 8) {
+            trimestre = 2;
+        }
+
+        if (hoje.getMonth() >= 9) {
+            trimestre = 3;
+        }
+
+        let mesInicio = trimestre * 3;
+
+        dataInicio = new Date(ano, mesInicio, 1);
+        dataFim = new Date(ano, mesInicio + 3, 0);
+    }
+
+    if (periodo == "semestral") {
+        let semestre = 0;
+
+        if (hoje.getMonth() >= 6) {
+            semestre = 1;
+        }
+
+        let mesInicio = semestre * 6;
+
+        dataInicio = new Date(ano, mesInicio, 1);
+        dataFim = new Date(ano, mesInicio + 6, 0);
+    }
+
+    if (periodo == "anual") {
+        dataInicio = new Date(ano, 0, 1);
+        dataFim = new Date(ano, 11, 31);
+    }
+
+    let total = 0;
+    let totalAlta = 0;
+
+    let totalCPU = 0;
+    let totalRAM = 0;
+    let totalDisco = 0;
+    let totalRede = 0;
+
+    let servidores = [];
+
+    let datas = [];
+    let alertasCriticos = [];
+    let alertasMedios = [];
+
+    for (let i = 0; i < incidentes.length; i++) {
+        let incidente = incidentes[i];
+
+        if (incidente.fields != null) {
+            if (incidente.fields.created != null) {
+
+                let dataIncidente = new Date(incidente.fields.created);
+
+                if (dataIncidente >= dataInicio && dataIncidente <= dataFim) {
+
+                    total++;
+
+                    let resumo = "";
+
+                    if (incidente.fields.summary != null) {
+                        resumo = incidente.fields.summary.toUpperCase();
+                    }
+
+                    let prioridade = "";
+
+                    if (incidente.fields.priority != null) {
+                        if (incidente.fields.priority.name != null) {
+                            prioridade = incidente.fields.priority.name.toUpperCase();
+                        }
+                    }
+
+                    let critico = false;
+
+                    if (prioridade == "HIGH" || prioridade == "HIGHEST" || prioridade == "BLOCKER") {
+                        critico = true;
+                    }
+
+                    if (resumo.includes("CRITICO") || resumo.includes("CRÍTICO")) {
+                        critico = true;
+                    }
+
+                    if (critico) {
+                        totalAlta++;
+                    }
+
+                    if (resumo.includes("CPU")) {
+                        totalCPU++;
+                    }
+
+                    if (resumo.includes("MEMORIA") || resumo.includes("MEMÓRIA") || resumo.includes("RAM")) {
+                        totalRAM++;
+                    }
+
+                    if (resumo.includes("DISCO")) {
+                        totalDisco++;
+                    }
+
+                    if (resumo.includes("REDE") || resumo.includes("PACOTE")) {
+                        totalRede++;
+                    }
+
+                    let posicaoServidor = resumo.indexOf("NO SERVIDOR ");
+
+                    if (posicaoServidor != -1) {
+                        let inicio = posicaoServidor + 12;
+                        let nomeServidor = "";
+
+                        for (let j = inicio; j < resumo.length; j++) {
+                            let letra = resumo[j];
+
+                            if (letra == "." || letra == "," || letra == ";" || letra == "\n") {
+                                break;
+                            }
+
+                            nomeServidor += letra;
+                        }
+
+                        if (nomeServidor != "" && servidores.indexOf(nomeServidor) == -1) {
+                            servidores.push(nomeServidor);
+                        }
+                    }
+
+                    let dia = dataIncidente.getDate();
+                    let mes = dataIncidente.getMonth() + 1;
+                    let anoIncidente = dataIncidente.getFullYear();
+
+                    if (dia < 10) {
+                        dia = "0" + dia;
+                    }
+
+                    if (mes < 10) {
+                        mes = "0" + mes;
+                    }
+
+                    let dataTexto = anoIncidente + "-" + mes + "-" + dia;
+                    let posicaoData = -1;
+
+                    for (let j = 0; j < datas.length; j++) {
+                        let diaSalvo = datas[j].getDate();
+                        let mesSalvo = datas[j].getMonth() + 1;
+                        let anoSalvo = datas[j].getFullYear();
+
+                        if (diaSalvo < 10) {
+                            diaSalvo = "0" + diaSalvo;
+                        }
+
+                        if (mesSalvo < 10) {
+                            mesSalvo = "0" + mesSalvo;
+                        }
+
+                        let dataSalvaTexto = anoSalvo + "-" + mesSalvo + "-" + diaSalvo;
+
+                        if (dataSalvaTexto == dataTexto) {
+                            posicaoData = j;
+                        }
+                    }
+
+                    if (posicaoData == -1) {
+                        datas.push(dataIncidente);
+                        alertasCriticos.push(0);
+                        alertasMedios.push(0);
+
+                        posicaoData = datas.length - 1;
+                    }
+
+                    if (critico) {
+                        alertasCriticos[posicaoData]++;
+                    }
+
+                    if (prioridade == "MEDIUM") {
+                        alertasMedios[posicaoData]++;
+                    }
+                }
+            }
+        }
+    }
+
+    servidoresAtuais = servidores;
+
+    document.getElementById("totalIncidentes").textContent = total;
+    document.getElementById("totalAltaPrioridade").textContent = totalAlta;
+    document.getElementById("totalServidores").textContent = servidores.length;
+
+    let maiorMetrica = totalCPU;
+    let nomeMetrica = "CPU";
+
+    if (totalRAM > maiorMetrica) {
+        maiorMetrica = totalRAM;
+        nomeMetrica = "Memória RAM";
+    }
+
+    if (totalDisco > maiorMetrica) {
+        maiorMetrica = totalDisco;
+        nomeMetrica = "Disco";
+    }
+
+    if (totalRede > maiorMetrica) {
+        maiorMetrica = totalRede;
+        nomeMetrica = "Rede";
+    }
+
+    document.getElementById("metricaPredominante").textContent = nomeMetrica;
+    document.getElementById("quantidadeMetrica").textContent = maiorMetrica;
+
+    graficoMetricas.data.datasets[0].data = [
+        totalCPU,
+        totalRAM,
+        totalDisco,
+        totalRede
     ];
 
-    let alertasCriticos = [5, 8, 4, 12, 9, 15, 7, 4];
-    let alertasMedios = [12, 16, 11, 20, 15, 24, 18, 10];
+    graficoMetricas.update();
 
+    for (let i = 0; i < datas.length; i++) {
+        for (let j = 0; j < datas.length - 1; j++) {
+            if (datas[j] > datas[j + 1]) {
+                let auxiliarData = datas[j];
+                datas[j] = datas[j + 1];
+                datas[j + 1] = auxiliarData;
 
-    new Chart(document.getElementById('graficoMetricas'), {
+                let auxiliarCritico = alertasCriticos[j];
+                alertasCriticos[j] = alertasCriticos[j + 1];
+                alertasCriticos[j + 1] = auxiliarCritico;
 
-        type: 'bar',
-
-        data: {
-            labels: metricas,
-
-            datasets: [{
-                label: 'Quantidade de alertas',
-                data: quantidadeAlertas,
-
-                backgroundColor: [
-                    '#2563EB',
-                    '#3B82F6',
-                    '#60A5FA',
-                    '#93C5FD'
-                ],
-
-                borderRadius: 5
-            }]
-        },
-
-        options: {
-            indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
-
-            scales: {
-                x: {
-                    beginAtZero: true,
-
-                    ticks: {
-                        precision: 0,
-                        color: '#94a3b8'
-                    },
-
-                    grid: {
-                        color: '#263248'
-                    }
-                },
-
-                y: {
-                    ticks: {
-                        color: '#cbd5e1'
-                    },
-
-                    grid: {
-                        display: false
-                    }
-                }
-            },
-
-            plugins: {
-                legend: {
-                    display: false
-                }
+                let auxiliarMedio = alertasMedios[j];
+                alertasMedios[j] = alertasMedios[j + 1];
+                alertasMedios[j + 1] = auxiliarMedio;
             }
         }
+    }
 
-    });
+    let datasFormatadas = [];
 
+    for (let i = 0; i < datas.length; i++) {
+        let dia = datas[i].getDate();
+        let mes = datas[i].getMonth() + 1;
 
-    new Chart(document.getElementById('graficoEvolucao'), {
-
-        type: 'line',
-
-        data: {
-            labels: datas,
-
-            datasets: [
-                {
-                    label: 'Alertas críticos',
-                    data: alertasCriticos,
-                    borderColor: '#2563EB',
-                    backgroundColor: '#2563EB',
-                    tension: 0.3
-                },
-
-                {
-                    label: 'Alertas médios',
-                    data: alertasMedios,
-                    borderColor: '#93C5FD',
-                    backgroundColor: '#93C5FD',
-                    tension: 0.3
-                }
-            ]
-        },
-
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-
-            scales: {
-                y: {
-                    beginAtZero: true,
-
-                    ticks: {
-                        precision: 0,
-                        color: '#94a3b8'
-                    },
-
-                    grid: {
-                        color: '#263248'
-                    }
-                },
-
-                x: {
-                    ticks: {
-                        color: '#94a3b8'
-                    },
-
-                    grid: {
-                        color: '#263248'
-                    }
-                }
-            },
-
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#f1f5f9'
-                    }
-                }
-            }
+        if (dia < 10) {
+            dia = "0" + dia;
         }
 
-    });
+        if (mes < 10) {
+            mes = "0" + mes;
+        }
+
+        datasFormatadas.push(dia + "/" + mes);
+    }
+
+    graficoEvolucao.data.labels = datasFormatadas;
+    graficoEvolucao.data.datasets[0].data = alertasCriticos;
+    graficoEvolucao.data.datasets[1].data = alertasMedios;
+
+    graficoEvolucao.update();
+}
+
+
+function mostrarServidores() {
+    let lista = document.getElementById("listaServidores");
+
+    lista.innerHTML = "";
+
+    if (servidoresAtuais.length == 0) {
+        lista.innerHTML = "<p>Nenhum servidor afetado neste período.</p>";
+    } else {
+        for (let i = 0; i < servidoresAtuais.length; i++) {
+            lista.innerHTML += "<div class='item-servidor'>" + servidoresAtuais[i] + "</div>";
+        }
+    }
+
+    document.getElementById("modalServidores").style.display = "flex";
+}
+
+
+function fecharModal() {
+    document.getElementById("modalServidores").style.display = "none";
+}
+
+
+function buscarIncidentes() {
+    fetch("http://localhost:8080/jira/incidentes")
+        .then(function(resposta) {
+            return resposta.json();
+        })
+        .then(function(dados) {
+            if (dados.issues == null) {
+                document.getElementById("statusAtualizacao").textContent =
+                    "Não foi possível receber os dados";
+                return;
+            }
+
+            incidentes = dados.issues;
+
+            atualizarAnos();
+            atualizarDashboard();
+            atualizarHorario();
+        })
+        .catch(function(erro) {
+            document.getElementById("statusAtualizacao").textContent =
+                "Falha na conexão com a API";
+
+            console.error("Erro ao buscar incidentes:", erro);
+        });
+}
+
+
+document.getElementById("selectPeriodo").onchange = function() {
+    atualizarDashboard();
+};
+
+document.getElementById("selectAno").onchange = function() {
+    atualizarDashboard();
+};
+
+document.getElementById("botaoServidores").onclick = function() {
+    mostrarServidores();
+};
+
+document.getElementById("fecharModal").onclick = function() {
+    fecharModal();
+};
+
+buscarIncidentes();
+
+setInterval(function() {
+    buscarIncidentes();
+}, 5000);
 </script>
