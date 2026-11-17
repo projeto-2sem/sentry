@@ -1,0 +1,195 @@
+        html, body, .container {
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        main.no-scroll-main {
+            height: 100vh;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .server-header {
+            margin-bottom: 0;
+            padding-bottom: 0.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .health-score-badge {
+            background-color: #0b1120;
+            border: 1px solid #22c55e;
+            border-radius: 8px;
+            padding: 4px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .health-score-value {
+            font-family: "Geist Mono", monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #22c55e;
+        }
+
+        .component-tabs {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .tab-btn {
+            background-color: var(--second-color);
+            border: 1px solid #1e293b;
+            color: #94a3b8;
+            padding: 5px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: "Geist", sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .tab-btn.active-tab {
+            background-color: var(--third-color);
+            color: #ffffff;
+            border-color: var(--third-color);
+        }
+
+        /* KPIs Retangulares com Border-Left e Bolinha */
+        .kpi-grid-componente {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .kpi-retangulo-comp {
+            background-color: var(--second-color);
+            border: 1px solid #1e293b;
+            border-left: 5px solid var(--third-color);
+            border-radius: 8px;
+            padding: 0.55rem 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .kpi-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .dashboard-grid-aws {
+            display: grid;
+            grid-template-columns: 1.55fr 1fr;
+            gap: 0.8rem;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .pilha-graficos {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-height: 0;
+        }
+
+        .card-grafico-box {
+            background-color: #101d2d;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 0.6rem 0.8rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .chart-container-local {
+            position: relative;
+            flex: 1;
+            width: 100%;
+            min-height: 0;
+        }
+        .card-direto-acao {
+            background-color: var(--second-color);
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            min-height: 0;
+        }
+
+        .card-direto-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 0.6rem;
+            flex-shrink: 0;
+        }
+
+        .badge-risco-direto {
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            font-family: "Geist Mono", monospace;
+        }
+
+        .blocos-diagnostico-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 0.7rem;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .bloco-info-direta {
+            background-color: #0b1120;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .bloco-info-direta span.titulo-bloco {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bloco-info-direta p {
+            font-size: 0.85rem;
+            color: #f1f5f9;
+            line-height: 1.45;
+            margin: 0;
+        }
