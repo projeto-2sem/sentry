@@ -1,0 +1,213 @@
+:root {
+  --first-color: #0b1120;
+  --kpi-color: #111c30;
+  --second-color: #0B1624;
+  --third-color: #2F81F7;
+  --text-color: #FFF;
+  --hover: #101D2D;
+  --contrast: rgba(0, 0, 0, 0.5);
+}
+
+.kpis {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+
+    span {
+        font-size: 26px;
+        justify-content: space-around;
+        margin-left: 10px;
+    }
+
+    h1 {
+        font-size: 60px;
+        margin-left: 15px;
+    }
+}
+
+.kpi-critico {
+    background: var(--kpi-color);
+    border-left: 7px solid rgb(255, 0, 0);
+    height: 140px;
+    border-radius: 7px;
+    width: 32.6%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    div {
+        display: flex;
+    }
+}
+
+.kpi-atencao {
+    background: var(--kpi-color);
+    border-left: 7px solid rgb(255, 230, 0);
+    height: 140px;
+    border-radius: 7px;
+    width: 32.6%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    div {
+        display: flex;
+    }
+}
+
+.kpi-estavel {
+    background: var(--kpi-color);
+    border-left: 7px solid rgb(0, 255, 21);
+    height: 140px;
+    border-radius: 7px;
+    width: 32.6%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    div {
+        display: flex;
+    }
+}
+
+.bola-vermelha {
+    width: 15px;
+    height: 15px;
+    margin-left: 15px;
+    border-radius: 20px;
+    background-color: rgb(255, 0, 0);
+    border: 2px solid rgba(255, 0, 0, 0.8);
+    margin-top: 10px;
+}
+
+.bola-amarela {
+    width: 15px;
+    height: 15px;
+    border-radius: 20px;
+    background-color: rgb(255, 230, 0);
+    border: 2px solid rgba(255, 230, 0, 0.8);
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.bola-verde {
+    width: 15px;
+    height: 15px;
+    border-radius: 20px;
+    background-color: rgb(0, 255, 21);
+    border: 2px solid rgba(0, 255, 21, 0.8);
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.servidores-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+
+    .span {
+        font-size: 20px;
+        margin-top: 50px;
+    }
+}
+
+.div-problemas {
+    width: 49.5%;
+    height: 565px;
+    background-color: var(--kpi-color);
+    border-radius: 7px;
+
+    table {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-size: 21px;
+    }
+
+    tr {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-bottom: 2px solid rgba(105, 105, 105, 0.389);
+    }
+
+    th {
+        width: 165px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        font-family: "Geist", sans-serif;
+    }
+
+    td {
+        width: 165px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        font-family: "Montserrat", sans-serif;
+    }
+
+    .tipo {
+        background-color: rgba(255, 0, 0, 0.21);
+        border-radius: 10px;
+        color: rgb(255, 0, 0);
+        height: 40px;
+    }
+
+    button {
+        font-size: 21px;
+        background-color: #2F81F7;
+        border: none;
+        width: 110px;
+        height: 40px;
+        border-radius: 20px;
+        font-family: "Montserrat", sans-serif;
+        cursor: pointer;
+    }
+}
+
+.div-servidores {
+    width: 49.5%;
+    height: 565px;
+    background-color: var(--kpi-color);
+    border-radius: 7px;
+}
+
+@media (max-width: 768px) {
+
+    .container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .kpis {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .kpi-critico {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .kpi-atencao {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .kpi-estavel {
+        width: 100%;
+    }
+
+    .servidores-container {
+        flex-direction: column;
+    }
+
+}

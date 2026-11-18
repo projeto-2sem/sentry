@@ -4,7 +4,8 @@
 
 
 :root {
-  --first-color: #030A14;
+  --first-color: #0b1120;
+  --kpi-color: #111c30;
   --second-color: #0B1624;
   --third-color: #2F81F7;
   --text-color: #FFF;
@@ -53,8 +54,8 @@ a {
 .sidebar {
   display: flex;
   flex-direction: column;
-  width: 17.5rem;
-  background-color: var(--second-color);
+  width: 15.5rem;
+  background-color: var(--kpi-color);
   height: 100vh;
   min-height: 100vh;
   padding: 1rem 2rem;
@@ -194,8 +195,9 @@ a {
 main {
   display: flex;
   flex-direction: column;
-  width: 86%;
-  padding: 3rem;
+  width: 90%;
+  padding-top: 2rem;
+  padding-right: 2rem;
   gap: 2rem;
   margin-left: 17.5rem;
 }
@@ -251,7 +253,8 @@ main {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
+  justify-content: center;
+  align-items: center;
   overflow-y: auto;
   border-radius: 20px;
   height: auto;
@@ -265,7 +268,7 @@ main {
 }
 
 .server-card {
-  background-color: var(--second-color);
+  background-color: var(--kpi-color);
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
@@ -802,7 +805,7 @@ select {
   height: 80px;
   border-radius: 8px;
   gap: 20px;
-  background-color: var(--second-color);
+  background-color: var(--kpi-color);
 }
 
 .status-left h1 {
@@ -1646,7 +1649,7 @@ select {
     flex-wrap: wrap;
     gap: 18px;
     padding: 12px 18px;
-    background-color: var(--second-color);
+    background-color: var(--kpi-color);
     border: 1px solid #1e293b;
     border-radius: 10px;
 }

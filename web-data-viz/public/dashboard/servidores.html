@@ -8,6 +8,7 @@
 
     <link rel="icon" href="../assets/imgs/logo_oficial.png">
     <link rel="stylesheet" href="../css/dashboards.css">
+    <link rel="stylesheet" href="../css/dashboard-julia.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -21,7 +22,7 @@
 
 <body onload="escreverNavbar()">
     <div class="container">
-   
+
         <aside class="sidebar" id="sidebar">
             <div class="sidebar_top_wrapper">
                 <div class="sidebar_logo">
@@ -67,7 +68,7 @@
             </div>
         </aside>
 
-  
+
         <main>
             <header class="server-header">
                 <div class="title-header">
@@ -80,51 +81,113 @@
                     <h1 id="totalServidores">Total de servidores: 0</h1>
                 </header>
 
+                <div class="kpis">
+                    <div class="kpi-critico">
+                        <div class="titulos-kpis">
+                            <div class="bola-vermelha"></div>
+                            <span>Servidores críticos</span>
+                        </div>
+                        <h1>0</h1>
+                    </div>
+                    <div class="kpi-atencao">
+                        <div>
+                            <div class="bola-amarela"></div>
+                            <span>Servidores atenção</span>
+                        </div>
+                        <h1>0</h1>
+                    </div>
+                    <div class="kpi-estavel">
+                        <div>
+                            <div class="bola-verde"></div>
+                            <span>Servidores estáveis</span>
+                        </div>
+                        <h1>0</h1>
+                    </div>
+                </div>
+
+                <div class="servidores-container">
+                    <div class="div-problemas">
+                        <div>
+                            <span class="span">Problemas</span>
+                        </div>
+                        <table>
+                            <tr>
+                                <th>Servidor</th>
+                                <th>Componente</th>
+                                <th>Métrica</th>
+                                <th>Gravidade</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td>SRV</td>
+                                <td>CPU</td>
+                                <td>98%</td>
+                                <td class="tipo">CRÍTICO</td>
+                                <td><button>Detalhes</button></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="div-servidores">
+                        <div>
+                            <span class="span">Servidores</span>
+                        </div>
+                        <div class="server-list" id="serverList"></div>
+                    </div>
+                </div>
+
                 <div class="status-container">
                     <div class="status-left">
                         <h1> STATUS </h1>
+
                         <div class="server-status">
-                       
                             <div onclick="filtrarPorStatus('estavel')" class="dot-status" id="filtro-estavel">
-                                <img src="../assets/imgs/circulo-verde.png" alt="Status Verde" class="img-circulo"> 
+                                <img src="../assets/imgs/circulo-verde.png" alt="Status Verde" class="img-circulo">
                                 <span id="count-estavel">0</span>
                             </div>
-                           
+
                             <div onclick="filtrarPorStatus('atencao')" class="dot-status" id="filtro-atencao">
                                 <img src="../assets/imgs/circulo-amarelo.png" alt="Status Amarelo" class="img-circulo">
                                 <span id="count-atencao">0</span>
                             </div>
-                          
-                            <div onclick="filtrarPorStatus('critico')" class="dot-status active-filter" id="filtro-critico">
-                                <img src="../assets/imgs/circulo-vermelho.png" alt="Status Vermelho" class="img-circulo"> 
+
+                            <div onclick="filtrarPorStatus('critico')" class="dot-status active-filter"
+                                id="filtro-critico">
+                                <img src="../assets/imgs/circulo-vermelho.png" alt="Status Vermelho"
+                                    class="img-circulo">
                                 <span id="count-critico">0</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="status-legend">
-                        <div class="legend-item"><span class="legend-dot status-critical"></span><span>Crítico</span></div>
-                        <div class="legend-item"><span class="legend-dot status-attention"></span><span>Atenção</span></div>
-                        <div class="legend-item"><span class="legend-dot status-stable"></span><span>Estável</span></div>
+                        <div class="legend-item"><span class="legend-dot status-critical"></span><span>Crítico</span>
+                        </div>
+                        <div class="legend-item"><span class="legend-dot status-attention"></span><span>Atenção</span>
+                        </div>
+                        <div class="legend-item"><span class="legend-dot status-stable"></span><span>Estável</span>
+                        </div>
                     </div>
 
-                  
-                    <button class="btn-adicionar" onclick="abrirCardCreate()" title="Adicionar Servidor e Escalabilidade">
+
+                    <button class="btn-adicionar" onclick="abrirCardCreate()"
+                        title="Adicionar Servidor e Escalabilidade">
                         <i class="bi bi-plus-lg"></i>
                     </button>
                 </div>
 
                 <div class="search-bar">
-                    <input id="input_busca" type="text" placeholder="Pesquisar servidor (Hostname, Apelido, Modelo)..." onkeyup="pesquisarServidor()">
+                    <input id="input_busca" type="text" placeholder="Pesquisar servidor (Hostname, Apelido, Modelo)..."
+                        onkeyup="pesquisarServidor()">
                     <button class="btn-buscar" onclick="pesquisarServidor()"><span> Buscar </span></button>
                 </div>
 
-                <div class="server-list" id="serverList"></div>
+                <!-- <div class="server-list" id="serverList"></div> -->
             </section>
         </main>
     </div>
 
-   
+
     <div class="cardEditSection" id="cardDeleteSection">
         <div id="cardExclusao" class="card card-delete">
             <div class="headCard">
@@ -178,7 +241,7 @@
         </div>
     </div>
 
- 
+
     <div class="cardCreateSection" id="cardCreateSection">
         <div id="cardCreate" class="card" style="width: 580px; max-height: 90vh; overflow-y: auto;">
             <div class="headCard">
@@ -211,7 +274,7 @@
                     <select id="ipt_SO_create"></select>
                 </div>
 
-                
+
                 <div class="inputComTxt" style="margin-top: 10px;">
                     <span class="txtInput">Métricas Monitoradas <span class="txtDestaque">*</span></span>
                     <div class="metrics-checkbox-grid">
@@ -234,12 +297,12 @@
                     </div>
                 </div>
 
-               
+
                 <div class="inputComTxt" style="margin-top: 10px;">
                     <span class="txtInput">Limites dos Componentes (%) <span class="txtDestaque">*</span></span>
-                    
+
                     <div class="escalabilidade-grid">
-               
+
                         <div class="escalabilidade-item">
                             <label>CPU (%)</label>
                             <div class="escalabilidade-labels-top">
@@ -252,7 +315,7 @@
                             </div>
                         </div>
 
-                       
+
                         <div class="escalabilidade-item">
                             <label>RAM (%)</label>
                             <div class="escalabilidade-labels-top">
@@ -265,7 +328,7 @@
                             </div>
                         </div>
 
-                       
+
                         <div class="escalabilidade-item">
                             <label>Disco (%)</label>
                             <div class="escalabilidade-labels-top">
@@ -354,7 +417,7 @@
                 cpu: [72.0, 78.4, 85.1, 90.0, 90.8],
                 ram: [40.5, 41.2, 42.0, 42.6, 42.7],
                 disco: [57.1, 57.3, 57.5, 57.6, 57.7],
-                perdaPacoteLinha: [1.0, 1.5, 2.0, 3.5, 4.8], 
+                perdaPacoteLinha: [1.0, 1.5, 2.0, 3.5, 4.8],
                 perdaPacoteVal: 4.8,
                 perdaPacote: "4.8%",
                 processos: [
@@ -431,7 +494,7 @@
             }
         }
     ];
-    let idServidorEditando = null; 
+    let idServidorEditando = null;
 
 
     const servidoresMockMVP = [
@@ -448,18 +511,18 @@
                 critico: { cpu: 80, ram: 50, disco: 70, pacote: 5 }
             },
             variacoes: {
-                cpu: "+0.8%",        
-                ram: "+0.1%",        
-                disco: "+0.1%",      
-                pacote: "+0.2%"     
+                cpu: "+0.8%",
+                ram: "+0.1%",
+                disco: "+0.1%",
+                pacote: "+0.2%"
             },
             historico: {
                 horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
-                cpu: [72.0, 78.4, 85.1, 90.0, 90.8],                
-                ram: [40.5, 41.2, 42.0, 42.6, 42.7],                 
-                disco: [57.1, 57.3, 57.5, 57.6, 57.7],               
+                cpu: [72.0, 78.4, 85.1, 90.0, 90.8],
+                ram: [40.5, 41.2, 42.0, 42.6, 42.7],
+                disco: [57.1, 57.3, 57.5, 57.6, 57.7],
                 perdaPacoteLinha: [1.0, 1.5, 2.0, 3.5, 4.8],
-                perdaPacoteVal: 4.8,                               
+                perdaPacoteVal: 4.8,
                 perdaPacote: "4.8%",
                 processos: [
                     { nome: "svchost.exe", cpu: 45.5 },
@@ -488,11 +551,11 @@
             },
             historico: {
                 horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
-                cpu: [45.0, 42.1, 38.0, 32.0, 27.1],                 
-                ram: [92.0, 92.5, 93.0, 93.1, 94.0],                 
-                disco: [69.5, 69.2, 69.0, 69.0, 68.9],               
+                cpu: [45.0, 42.1, 38.0, 32.0, 27.1],
+                ram: [92.0, 92.5, 93.0, 93.1, 94.0],
+                disco: [69.5, 69.2, 69.0, 69.0, 68.9],
                 perdaPacoteLinha: [0.5, 0.8, 1.0, 1.2, 1.5],
-                perdaPacoteVal: 1.5,                                 
+                perdaPacoteVal: 1.5,
                 perdaPacote: "1.5%",
                 processos: [
                     { nome: "svchost.exe", cpu: 14.5 },
@@ -521,11 +584,11 @@
             },
             historico: {
                 horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
-                cpu: [10.2, 11.0, 12.0, 12.8, 16.7],                 
-                ram: [41.0, 41.5, 41.9, 42.1, 42.9],                 
-                disco: [94.0, 94.1, 94.2, 94.4, 94.5],               
+                cpu: [10.2, 11.0, 12.0, 12.8, 16.7],
+                ram: [41.0, 41.5, 41.9, 42.1, 42.9],
+                disco: [94.0, 94.1, 94.2, 94.4, 94.5],
                 perdaPacoteLinha: [0.1, 0.1, 0.1, 0.1, 0.1],
-                perdaPacoteVal: 0.1,                                 
+                perdaPacoteVal: 0.1,
                 perdaPacote: "0.1%",
                 processos: [
                     { nome: "svchost.exe", cpu: 28.8 },
@@ -550,9 +613,9 @@
         listar();
     };
 
-function listar() {
+    function listar() {
         listarSO();
-        
+
         fetch(`/servidores/listar/${sessionStorage.ID_EMPRESA || 1}`)
             .then(function (resposta) {
                 if (resposta.ok) {
@@ -626,7 +689,7 @@ function listar() {
 
     function filtrarPorStatus(status) {
         filtroStatusAtual = status;
-        
+
         document.querySelectorAll('.dot-status').forEach(el => el.classList.remove('active-filter'));
         document.getElementById(`filtro-${status}`).classList.add('active-filter');
 
@@ -646,10 +709,10 @@ function listar() {
             const modelo = (server.modelo || "").toLowerCase();
             const mac = (server.mac || "").toLowerCase();
 
-            return apelido.includes(termoBusca) || 
-                   hostname.includes(termoBusca) || 
-                   modelo.includes(termoBusca) || 
-                   mac.includes(termoBusca);
+            return apelido.includes(termoBusca) ||
+                hostname.includes(termoBusca) ||
+                modelo.includes(termoBusca) ||
+                mac.includes(termoBusca);
         });
 
         listarServidores(filtrados);
@@ -773,30 +836,6 @@ function listar() {
     <div class="server-metrics-container" id="metrics-${server.idServidor}" style="display: none;">
         <div class="metrics-content">
 
-            <div class="metrics-left-panel">
-                <div class="kpi-cards-grid">
-                    <div class="kpi-card">
-                        <span>CPU</span>
-                        <h2>${v.cpu}</h2>
-                    </div>
-                    <div class="kpi-card">
-                        <span>RAM</span>
-                        <h2>${v.ram}</h2>
-                    </div>
-                    <div class="kpi-card">
-                        <span>DISCO</span>
-                        <h2>${v.disco}</h2>
-                    </div>
-                    <div class="kpi-card packet-loss-card">
-                        <span>PERDA DE PACOTES</span>
-                        <h2>${v.pacote}</h2>
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="line-chart-${server.idServidor}"></canvas>
-                </div>
-            </div>
-
             <div class="metrics-right-panel metrics-right-panel-4">
                 <div class="gauge-wrapper">
                     <span>CPU</span>
@@ -828,13 +867,7 @@ function listar() {
                 </div>
             </div>
 
-            <div class="processes-panel">
-                <h3>
-                    <i class="bi bi-cpu"></i>
-                    Processos ativos
-                </h3>
-                ${htmlProcessos}
-            </div>
+            
 
         </div>
     </div>
@@ -877,7 +910,7 @@ function listar() {
             data: {
                 labels: h.horarios,
                 datasets: [
-                
+
                     { label: 'CPU (%)', data: h.cpu, borderColor: '#00F0FF', borderWidth: 2, fill: false, tension: 0.1 },
                     { label: 'RAM (%)', data: h.ram, borderColor: '#D946EF', borderWidth: 2, fill: false, tension: 0.1 },
                     { label: 'Disco (%)', data: h.disco, borderColor: '#10B981', borderWidth: 2, fill: false, tension: 0.1 },
@@ -1077,4 +1110,5 @@ function listar() {
         }
     }
 </script>
+
 </html>
