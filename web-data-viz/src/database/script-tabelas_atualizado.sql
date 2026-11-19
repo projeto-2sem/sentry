@@ -96,6 +96,15 @@ CREATE TABLE servidor_medicao (
   FOREIGN KEY (servidorId) REFERENCES servidor(idServidor),
   FOREIGN KEY (tipoMedicaoId) REFERENCES tipo_medicao(idTipoMedicao)
 );
+
+CREATE TABLE alertas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    servidorId INT NOT NULL,
+    componente VARCHAR(50) NOT NULL,
+    tipo_alerta VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    FOREIGN KEY (servidorId) REFERENCES servidor(idServidor)
+);
  
  INSERT INTO cargo (nomeCargo) VALUE ("analista");
  INSERT INTO cargo (nomeCargo) VALUES ("gestor");
