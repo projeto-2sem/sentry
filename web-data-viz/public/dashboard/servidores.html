@@ -79,6 +79,10 @@
             <section class="server-content">
                 <header class="server-content-header">
                     <h1 id="totalServidores">Total de servidores: 0</h1>
+                    <button class="btn-adicionar" onclick="abrirCardCreate()"
+                        title="Adicionar Servidor e Escalabilidade">
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
                 </header>
 
                 <div class="kpis">
@@ -87,21 +91,21 @@
                             <div class="bola-vermelha"></div>
                             <span>Servidores críticos</span>
                         </div>
-                        <h1>0</h1>
+                        <h1 id="count-critico">0</h1>
                     </div>
                     <div class="kpi-atencao">
                         <div>
                             <div class="bola-amarela"></div>
                             <span>Servidores atenção</span>
                         </div>
-                        <h1>0</h1>
+                        <h1 id="count-atencao">0</h1>
                     </div>
                     <div class="kpi-estavel">
                         <div>
                             <div class="bola-verde"></div>
                             <span>Servidores estáveis</span>
                         </div>
-                        <h1>0</h1>
+                        <h1 id="count-estavel">0</h1>
                     </div>
                 </div>
 
@@ -110,33 +114,192 @@
                         <div>
                             <span class="span">Problemas</span>
                         </div>
-                        <table>
-                            <tr>
-                                <th>Servidor</th>
-                                <th>Componente</th>
-                                <th>Métrica</th>
-                                <th>Gravidade</th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td>SRV</td>
-                                <td>CPU</td>
-                                <td>98%</td>
-                                <td class="tipo">CRÍTICO</td>
-                                <td><button>Detalhes</button></td>
-                            </tr>
-                        </table>
+                        <div class="scrollbar">
+                            <table>
+                                <tr>
+                                    <th>Servidor</th>
+                                    <th>Componente</th>
+                                    <th>Métrica</th>
+                                    <th>Gravidade</th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <td>SRV</td>
+                                    <td>CPU</td>
+                                    <td>98%</td>
+                                    <td class="tipo">CRÍTICO</td>
+                                    <td><button>Detalhes</button></td>
+                                </tr>
+                                <tr>
+                                    <td>SRV</td>
+                                    <td>CPU</td>
+                                    <td>98%</td>
+                                    <td class="tipo">CRÍTICO</td>
+                                    <td><button>Detalhes</button></td>
+                                </tr>
+                                <tr>
+                                    <td>SRV</td>
+                                    <td>CPU</td>
+                                    <td>98%</td>
+                                    <td class="tipo">CRÍTICO</td>
+                                    <td><button>Detalhes</button></td>
+                                </tr>
+                                <tr>
+                                    <td>SRV</td>
+                                    <td>CPU</td>
+                                    <td>98%</td>
+                                    <td class="tipo">CRÍTICO</td>
+                                    <td><button>Detalhes</button></td>
+                                </tr>
+                                <tr>
+                                    <td>SRV</td>
+                                    <td>CPU</td>
+                                    <td>98%</td>
+                                    <td class="tipo">CRÍTICO</td>
+                                    <td><button>Detalhes</button></td>
+                                </tr>
+                                <tr>
+                                    <td>SRV</td>
+                                    <td>CPU</td>
+                                    <td>98%</td>
+                                    <td class="tipo">CRÍTICO</td>
+                                    <td><button>Detalhes</button></td>
+                                </tr>
+                                <tr>
+                                    <td>SRV</td>
+                                    <td>CPU</td>
+                                    <td>98%</td>
+                                    <td class="tipo">CRÍTICO</td>
+                                    <td><button>Detalhes</button></td>
+                                </tr>
+                                <tr>
+                                    <td>SRV</td>
+                                    <td>CPU</td>
+                                    <td>98%</td>
+                                    <td class="tipo">CRÍTICO</td>
+                                    <td><button>Detalhes</button></td>
+                                </tr>
+                                <tr>
+                                    <td>SRV</td>
+                                    <td>CPU</td>
+                                    <td>98%</td>
+                                    <td class="tipo">CRÍTICO</td>
+                                    <td><button>Detalhes</button></td>
+                                </tr>
+                                <tr>
+                                    <td>SRV</td>
+                                    <td>CPU</td>
+                                    <td>98%</td>
+                                    <td class="tipo">CRÍTICO</td>
+                                    <td><button>Detalhes</button></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
 
                     <div class="div-servidores">
                         <div>
                             <span class="span">Servidores</span>
                         </div>
-                        <div class="server-list" id="serverList"></div>
+                        <div class="scrollbar">
+                            <div class="search-bar">
+                                <input id="input_busca" type="text"
+                                    placeholder="  Pesquisar servidor (Hostname, Apelido, Modelo)..."
+                                    onkeyup="pesquisarServidor()">
+                                <button class="btn-buscar" onclick="pesquisarServidor()"><span> Buscar </span></button>
+                            </div>
+                            <div class="server-list" id="serverList">
+                                <article class="server-card dark-card">
+                                    <header class="server-card-header">
+                                        <div class="server-card-details">
+                                            <span class="badge-status badge-ativo">
+                                                Ativo
+                                            </span>
+
+                                            <p class="server-info-text">
+                                                Instalação: 01/10/2025
+                                                <span class="separator">|</span>
+                                                Dell PowerEdge R750
+                                                <span class="separator">|</span>
+                                                MAC: 00:50:56:a3:4c:13
+                                            </p>
+                                        </div>
+
+                                        <div class="server-card-actions">
+                                            <div class="status-dots">
+                                                <span class="dot dot-green"
+                                                    style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#4b5563; margin-right:4px;"></span>
+                                                <span class="dot dot-yellow"
+                                                    style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#4b5563; margin-right:4px;"></span>
+                                                <span class="dot dot-red"
+                                                    style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#22c55e;"></span>
+                                            </div>
+
+                                            <button class="btn-action" title="Excluir">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+
+                                            <button class="btn-action" title="Editar">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+
+                                            <button class="btn-action btn-expand" title="Expandir Métricas">
+                                                <i class="bi bi-chevron-down"></i>
+                                            </button>
+                                        </div>
+                                    </header>
+
+                                    <div>
+                                        <p class="server-name">Servidor Arquivos e Storage (SRV-FILE-01)</p>
+                                        <button>k</button>
+                                    </div>
+
+                                    <div class="server-metrics-container" style="display: none;">
+                                        <div class="metrics-content">
+
+                                            <div class="metrics-right-panel metrics-right-panel-4">
+                                                <div class="gauge-wrapper">
+                                                    <span>CPU</span>
+                                                    <div class="gauge-canvas-container">
+                                                        <canvas id="gauge-cpu-3"></canvas>
+                                                        <div class="gauge-text">5%</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="gauge-wrapper">
+                                                    <span>RAM</span>
+                                                    <div class="gauge-canvas-container">
+                                                        <canvas id="gauge-ram-3"></canvas>
+                                                        <div class="gauge-text">5%</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="gauge-wrapper">
+                                                    <span>DISCO</span>
+                                                    <div class="gauge-canvas-container">
+                                                        <canvas id="gauge-disco-3"></canvas>
+                                                        <div class="gauge-text">5%</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="gauge-wrapper">
+                                                    <span>PACOTES</span>
+                                                    <div class="gauge-canvas-container">
+                                                        <canvas id="gauge-pacote-3"></canvas>
+                                                        <div class="gauge-text">0.1%</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="status-container">
+                <!-- <div class="status-container">
                     <div class="status-left">
                         <h1> STATUS </h1>
 
@@ -157,8 +320,8 @@
                                     class="img-circulo">
                                 <span id="count-critico">0</span>
                             </div>
-                        </div>
-                    </div>
+                        </div> -->
+                <!-- </div>
 
                     <div class="status-legend">
                         <div class="legend-item"><span class="legend-dot status-critical"></span><span>Crítico</span>
@@ -167,24 +330,59 @@
                         </div>
                         <div class="legend-item"><span class="legend-dot status-stable"></span><span>Estável</span>
                         </div>
-                    </div>
+                    </div> -->
 
 
-                    <button class="btn-adicionar" onclick="abrirCardCreate()"
+                <!-- <button class="btn-adicionar" onclick="abrirCardCreate()"
                         title="Adicionar Servidor e Escalabilidade">
                         <i class="bi bi-plus-lg"></i>
-                    </button>
-                </div>
+                    </button> -->
+    </div> -->
 
-                <div class="search-bar">
+    <!-- <div class="search-bar">
                     <input id="input_busca" type="text" placeholder="Pesquisar servidor (Hostname, Apelido, Modelo)..."
                         onkeyup="pesquisarServidor()">
                     <button class="btn-buscar" onclick="pesquisarServidor()"><span> Buscar </span></button>
-                </div>
+                </div> -->
 
-                <!-- <div class="server-list" id="serverList"></div> -->
-            </section>
-        </main>
+    <!-- <div class="server-list" id="serverList"></div> -->
+    </section>
+    </main>
+    </div>
+
+
+    <div class="card-contato" id="card-contato">
+        <div class="contato-content">
+            <span class="fechar-card" id="fechar-card" onclick="fecharCard('card-contato')">&times;</span>
+            <h2>Mande email para outro funcionário</h2>
+            <p class="card-subtitulo">
+                Preencha os dados abaixo.
+            </p>
+
+            <div class="contato-input">
+                <label for="contato_nome">Nome do Administrador</label>
+                <input type="text" id="contato_nome" placeholder="Digite seu nome" />
+            </div>
+
+            <div class="contato-input">
+                <label for="contato_senha">Chave de segurança do seu email</label>
+                <input type="text" id="contato_senha" placeholder="Digite sua senha" />
+            </div>
+
+            <div class="contato-input">
+                <label for="contato_nome">Email do Destinatário</label>
+                <input type="text" id="contato_email" placeholder="email@exemplo.com" />
+            </div>
+
+            <div class="contato-input">
+                <label for="contato_nome">Mensagem</label>
+                <textarea id="contato_mensagem" placeholder="Digite sua mensagem" rows="4"></textarea>
+            </div>
+
+            <button class="btn-enviar-contato" id="btn-enviar-contato" onclick="email()">
+                Enviar mensagem
+            </button>
+        </div>
     </div>
 
 
@@ -414,9 +612,9 @@
             },
             historico: {
                 horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
-                cpu: [72.0, 78.4, 85.1, 90.0, 90.8],
-                ram: [40.5, 41.2, 42.0, 42.6, 42.7],
-                disco: [57.1, 57.3, 57.5, 57.6, 57.7],
+                cpu: [72.0, 78.4, 85.1, 90.0, 10.8],
+                ram: [40.5, 41.2, 42.0, 42.6, 10.7],
+                disco: [57.1, 57.3, 57.5, 57.6, 10.7],
                 perdaPacoteLinha: [1.0, 1.5, 2.0, 3.5, 4.8],
                 perdaPacoteVal: 4.8,
                 perdaPacote: "4.8%",
@@ -448,9 +646,13 @@
             historico: {
                 horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
                 cpu: [45.0, 42.1, 38.0, 32.0, 27.1],
+                situacaoCpu: null,
                 ram: [92.0, 92.5, 93.0, 93.1, 94.0],
+                situacaoRam: null,
                 disco: [69.5, 69.2, 69.0, 69.0, 68.9],
+                situacaoDisco: null,
                 perdaPacoteLinha: [0.5, 0.8, 1.0, 1.2, 1.5],
+                situacaoPerda: null,
                 perdaPacoteVal: 1.5,
                 perdaPacote: "1.5%",
                 processos: [
@@ -480,9 +682,9 @@
             },
             historico: {
                 horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
-                cpu: [10.2, 11.0, 12.0, 12.8, 16.7],
-                ram: [41.0, 41.5, 41.9, 42.1, 42.9],
-                disco: [94.0, 94.1, 94.2, 94.4, 94.5],
+                cpu: [5, 5, 5, 5, 5],
+                ram: [5, 5, 5, 5, 5],
+                disco: [5, 5, 5, 5, 5],
                 perdaPacoteLinha: [0.1, 0.1, 0.1, 0.1, 0.1],
                 perdaPacoteVal: 0.1,
                 perdaPacote: "0.1%",
@@ -584,10 +786,10 @@
             },
             historico: {
                 horarios: ["22:15", "22:30", "22:45", "23:00", "23:30"],
-                cpu: [10.2, 11.0, 12.0, 12.8, 16.7],
-                ram: [41.0, 41.5, 41.9, 42.1, 42.9],
-                disco: [94.0, 94.1, 94.2, 94.4, 94.5],
-                perdaPacoteLinha: [0.1, 0.1, 0.1, 0.1, 0.1],
+                cpu: [5, 5, 5, 5, 5],
+                ram: [5, 5, 5, 5, 5],
+                disco: [5, 5, 5, 5, 5],
+                perdaPacoteLinha: [5, 5, 5, 5, 5],
                 perdaPacoteVal: 0.1,
                 perdaPacote: "0.1%",
                 processos: [
@@ -625,15 +827,17 @@
                                 const mockRef = servidoresMockMVP[index] || servidoresMockMVP[0];
                                 return {
                                     ...srv,
-                                    apelido: srv.apelido || srv.hostname || mockRef.apelido,
-                                    modelo: srv.modelo || mockRef.modelo,
-                                    mac: srv.mac || mockRef.mac,
-                                    data_criacao: srv.data_criacao || srv.dtCriacao || srv.dataCriacao || mockRef.data_criacao,
-                                    limites: srv.limites || mockRef.limites,
-                                    variacoes: srv.variacoes || mockRef.variacoes,
-                                    historico: srv.historico || mockRef.historico
+                                    apelido: srv.apelido || srv.hostname,
+                                    modelo: srv.modelo,
+                                    mac: srv.mac,
+                                    data_criacao: srv.data_criacao || srv.dtCriacao || srv.dataCriacao,
+                                    limites: srv.limites,
+                                    variacoes: srv.variacoes,
+                                    historico: srv.historico
                                 };
                             });
+
+                            console.log(servidoresData);
                         } else {
                             servidoresData = servidoresMockMVP;
                         }
@@ -650,6 +854,35 @@
                 atualizarContadoresEExibir();
             });
     }
+
+    function calcularCondicaoComponente(server) {
+        const h = server.historico;
+        const lim = server.limites;
+        const cpuAtual = h.cpu[h.cpu.length - 1];
+        const ramAtual = h.ram[h.ram.length - 1];
+        const discoAtual = h.disco[h.disco.length - 1];
+        const pacoteAtual = h.perdaPacoteVal !== undefined ? h.perdaPacoteVal : parseFloat(h.perdaPacote);
+
+        const metricas = {
+            cpu: cpuAtual,
+            ram: ramAtual,
+            disco: discoAtual,
+            pacote: pacoteAtual
+        };
+
+        Object.entries(metricas).forEach(([metrica, valor]) => {
+            if (valor >= lim.critico[metrica]) {
+                h[`situacao${metrica.charAt(0).toUpperCase() + metrica.slice(1)}`] = 'critico';
+            } else if (valor >= lim.atencao[metrica]) {
+                h[`situacao${metrica.charAt(0).toUpperCase() + metrica.slice(1)}`] = 'atencao';
+            } else {
+                h[`situacao${metrica.charAt(0).toUpperCase() + metrica.slice(1)}`] = 'estavel';
+            }
+        });
+
+        return;
+    }
+
     function calcularCondicaoServidor(server) {
         const h = server.historico;
         const lim = server.limites;
@@ -674,6 +907,7 @@
 
         const servidoresProcessados = servidoresData.map(server => {
             const cond = calcularCondicaoServidor(server);
+            calcularCondicaoComponente(server);
             if (cond === 'estavel') countEstavel++;
             else if (cond === 'atencao') countAtencao++;
             else if (cond === 'critico') countCritico++;
@@ -700,19 +934,15 @@
         const termoBusca = document.getElementById("input_busca").value.toLowerCase();
 
         const filtrados = servidores.filter(server => {
-            if (filtroStatusAtual && server.condicaoCalculada !== filtroStatusAtual) {
-                return false;
-            }
-
             const apelido = (server.apelido || "").toLowerCase();
             const hostname = (server.hostname || "").toLowerCase();
             const modelo = (server.modelo || "").toLowerCase();
             const mac = (server.mac || "").toLowerCase();
 
-            return apelido.includes(termoBusca) ||
-                hostname.includes(termoBusca) ||
-                modelo.includes(termoBusca) ||
-                mac.includes(termoBusca);
+            return apelido ||
+                hostname ||
+                modelo ||
+                mac;
         });
 
         listarServidores(filtrados);
@@ -753,7 +983,8 @@
 
         const serverList = document.getElementById("serverList");
         if (!serverList) return;
-        serverList.innerHTML = "";
+        serverList.innerHTML = `
+        `;
 
         if (servidores.length === 0) {
             serverList.innerHTML = `<p style="text-align: center; color: #94a3b8; padding: 20px;">Nenhum servidor encontrado com este filtro.</p>`;
@@ -782,18 +1013,18 @@
             `;
 
             let htmlProcessos = "";
-            for (let p = 0; p < h.processos.length; p++) {
-                let proc = h.processos[p];
-                htmlProcessos += `
-                <div class="process-item">
-                    <div class="process-info">
-                        <span class="process-name">${proc.nome}</span>
-                        <span class="process-status">Em execução</span>
-                    </div>
-                    <div class="process-bar"><span style="width: ${Math.min(proc.cpu, 100)}%"></span></div>
-                    <span class="process-cpu-value">CPU: ${proc.cpu}%</span>
-                </div>`;
-            }
+            // for (let p = 0; p < h.processos.length; p++) {
+            //     let proc = h.processos[p];
+            //     htmlProcessos += `
+            //     <div class="process-item">
+            //         <div class="process-info">
+            //             <span class="process-name">${proc.nome}</span>
+            //             <span class="process-status">Em execução</span>
+            //         </div>
+            //         <div class="process-bar"><span style="width: ${Math.min(proc.cpu, 100)}%"></span></div>
+            //         <span class="process-cpu-value">CPU: ${proc.cpu}%</span>
+            //     </div>`;
+            // }
 
             serverList.innerHTML += `
 <article class="server-card dark-card">
@@ -831,7 +1062,10 @@
         </div>
     </header>
 
-    <p class="server-name">${server.apelido} (${server.hostname})</p>
+    <div class="div-name">
+        <p class="server-name">${server.apelido} (${server.hostname})</p>
+         <button>Previsão</button>
+    </div>
 
     <div class="server-metrics-container" id="metrics-${server.idServidor}" style="display: none;">
         <div class="metrics-content">

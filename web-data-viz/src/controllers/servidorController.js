@@ -53,14 +53,13 @@ function listar(req, res) {
                     servidor.historico = {
                         horarios: ['22:15', '22:30', '22:45', '23:00', '23:30'],
                         cpu: [10.5, 11.2, 12.0, 12.8, 16.7],
+                        situacaoCpu: 0,
                         ram: [41.2, 41.5, 41.9, 42.1, 42.9],
-                        disco: [94.8, 94.7, 94.6, 94.6, 94.5],
+                        situacaoRam: 0,
+                        disco: [94.8, 94.7, 94.6, 94.6, 10.5],
+                        situacaoDisco: 0,
                         perdaPacote: "0.1%",
-                        processos: [
-                            { nome: "svchost.exe", cpu: 28.8 },
-                            { nome: "System", cpu: 6.9 },
-                            { nome: "lsass.exe", cpu: 3.5 }
-                        ]
+                        situacaoPacote: 0
                     };
                 }
 

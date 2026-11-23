@@ -268,8 +268,8 @@ main {
 }
 
 .server-card {
-  background-color: var(--kpi-color);
-  padding: 1rem 2rem;
+  background-color: var(--first-color);
+  padding: 1rem 1.4rem;
   display: flex;
   flex-direction: column;
   border-radius: 2rem;
@@ -287,14 +287,26 @@ main {
   display: flex;
   gap: 2rem;
   align-items: center;
+  width: 600px;
 }
 
-.server-card-details-status {
+.badge-ativo {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #15803D;
-  color: #BBF7D0;
+  color: white;
+  border-radius: 0.7rem;
+  width: 5rem;
+  height: 2rem;
+}
+
+.badge-inativo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #801515;
+  color: white;
   border-radius: 0.7rem;
   width: 5rem;
   height: 2rem;
@@ -835,13 +847,13 @@ select {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
-  padding: 40px;
+  width: 40px;
+  height: 40px;
+  padding: 35px;
   border-radius: 12px;
   border: none;
   color: white;
-  font-size: 50px;
+  font-size: 40px;
   background-color: var(--third-color);
   cursor: pointer;
   transition: background-color 0.2s;
@@ -861,9 +873,9 @@ select {
 
 #input_busca {
   border: none;
-  height: 60px;
-  width: 1500px;
-  font-size: 32px;
+  height: 40px;
+  width: 710px;
+  font-size: 24px;
 }
 
 .btn-filtro {
@@ -890,16 +902,17 @@ select {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
-  height: 50px;
-  padding: 40px;
+  width: 100px;
+  height: 30px;
+  padding: 20px;
   border-radius: 12px;
   border: none;
   color: white;
-  font-size: 25px;
+  font-size: 22px;
   background-color: var(--third-color);
   cursor: pointer;
   transition: background-color 0.2s;
+  margin-left: -15px;
 }
 
 .btn-buscar:hover {
@@ -916,6 +929,7 @@ select {
   display: flex;
   gap: 20px;
   align-items: stretch;
+  justify-content: center;
 }
 
 .metrics-left-panel {
@@ -939,6 +953,7 @@ select {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: center;
 }
 .cardCreateSection, .cardEditSection, cardDeleteSection {
     display: none; 
@@ -994,6 +1009,7 @@ select {
   grid-template-columns: repeat(2, 1fr) !important;
   gap: 12px !important;
   align-content: start;
+  justify-content: center;
 }
 
 .kpi-cards-grid {
@@ -1968,12 +1984,31 @@ select {
   }
 }
 
+.div-name {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+        font-size: 21px;
+        background-color: #2F81F7;
+        border: none;
+        width: 110px;
+        height: 40px;
+        border-radius: 12px;
+        font-family: "Montserrat", sans-serif;
+        cursor: pointer;
+        color: white;
+    }
+}
+
 .metrics-content {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr);
+    display: flex;
     gap: 16px;
     align-items: start;
     width: 100%;
+    justify-content: center;
 }
 
 .metrics-left-panel {
@@ -2001,6 +2036,7 @@ select {
     flex-direction: column;
     gap: 12px;
     min-width: 0;
+    align-items: center;
 }
 
 .processes-panel {
