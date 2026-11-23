@@ -152,16 +152,25 @@
                     </div>
                     <div class="donut-values">
                         <span>
-                            <p>CPU</p>
-                            <p>33.3%</p>
+                            <div class="legend"></div>
+                            <div class="infos">
+                                <p>CPU</p>
+                                <p>33.3%</p>
+                            </div>
                         </span>
                         <span>
-                            <p>RAM</p>
-                            <p>33.3%</p>
+                            <div class="legend"></div>
+                            <div class="infos">
+                                <p>RAM</p>
+                                <p>33.3%</p>
+                            </div>
                         </span>
                         <span>
-                            <p>DISCO</p>
-                            <p>33.3%</p>
+                            <div class="legend"></div>
+                            <div class="infos">
+                                <p>DISCO</p>
+                                <p>33.3%</p>
+                            </div>
                         </span>
                     </div>
                 </div>
@@ -200,108 +209,95 @@
 
     const ctxHistorico = document.getElementById("grafico_historico");
 
-    const labels = [
-        "05/11", "06/11", "07/11", "08/11", "09/11",
-        "10/11", "11/11", "12/11", "13/11", "14/11",
-        "15/11", "16/11", "17/11", "18/11", "19/11",
-        "20/11", "21/11", "22/11", "23/11"
-    ];
 
     new Chart(ctxHistorico, {
-        type: "line",
+    type: 'bar',
 
-        data: {
-            labels: labels,
+    data: {
+        labels: ['01/11', '02/11', '03/11', '04/11', '05/11', '06/11', '07/11'],
 
-            datasets: [
-                {
-                    label: "Alertas (real)",
-                    data: [8, 10, 9, 12, 11, 14, 13, 16, 15, 18, 17, 21, 20, 24],
-                    borderColor: "#2F81F7",
-                    borderWidth: 3,
-                    pointRadius: 0,
-                    tension: 0
-                },
-                {
-                    label: "Previsão",
-                    data: [null, null, null, null, null, null, null, null, null, null, null, null, null, 24, 23, 24, 25, 26, 28],
-                    borderColor: "#ff7043",
-                    borderWidth: 2,
-                    borderDash: [6, 4],
-                    pointRadius: 0,
-                    tension: 0
-                },
-                {
-                    label: "Limite de atenção",
-                    data: labels.map(() => 15),
-                    borderColor: "#ffc400",
-                    borderDash: [3, 4],
-                    borderWidth: 1.5,
-                    pointRadius: 0
-                },
-                {
-                    label: "Limite crítico",
-                    data: labels.map(() => 28),
-                    borderColor: "#ff3038",
-                    borderWidth: 1.5,
-                    pointRadius: 0
-                }
-            ]
+        datasets: [
+            {
+                label: 'Críticos',
+                data: [12, 8, 15, 10, 18, 7, 11],
+                backgroundColor: '#EF4444',
+                stack: 'alertas',
+                barThickness: 30
+            },
+            {
+                label: 'Atenção',
+                data: [20, 15, 18, 25, 12, 22, 16],
+                backgroundColor: '#F59E0B',
+                stack: 'alertas',
+                barThickness: 30
+            },
+            {
+                label: 'Total de alertas',
+                data: [32, 23, 33, 35, 30, 29, 27],
+                type: 'line',
+                borderColor: '#2F81F7',
+                backgroundColor: '#2F81F7',
+                borderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                tension: 0
+            }
+        ]
+    },
+
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        interaction: {
+            mode: 'index',
+            intersect: false
         },
 
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-
-            interaction: {
-                intersect: false,
-                mode: "index"
-            },
-
-            plugins: {
-                legend: {
-                    labels: {
-                        color: "#FFF",
-                        font: {
-                            family: "Montserrat",
-                            size: 11
-                        }
-                    }
+        plugins: {
+            legend: {
+                position: 'top',
+                labels: {
+                    color: '#FFFFFF',
+                    usePointStyle: true,
+                    padding: 20
                 }
             },
 
-            scales: {
-                x: {
-                    ticks: {
-                        color: "#999"
-                    },
-                    grid: {
-                        display: false
-                    }
+            tooltip: {
+                backgroundColor: '#111C30',
+                titleColor: '#FFFFFF',
+                bodyColor: '#FFFFFF',
+                borderColor: '#2F81F7',
+                borderWidth: 1
+            }
+        },
+
+        scales: {
+            x: {
+                stacked: true,
+                ticks: {
+                    color: '#A0AEC0'
                 },
+                grid: {
+                    display: false
+                }
+            },
 
-                y: {
-                    min: 0,
-                    max: 36,
-
-                    title: {
-                        display: true,
-                        text: "Alertas por dia",
-                        color: "#999"
-                    },
-
-                    ticks: {
-                        stepSize: 5,
-                        color: "#999"
-                    },
-
-                    grid: {
-                        color: "rgba(255,255,255,0.10)"
-                    }
+            y: {
+                stacked: true,
+                beginAtZero: true,
+                ticks: {
+                    color: '#A0AEC0',
+                    precision: 0
+                },
+                grid: {
+                    color: 'rgba(255,255,255,0.08)'
                 }
             }
         }
-    });
+    }
+});
 
     const ctxComponentes = document.getElementById("grafico_componentes");
 
