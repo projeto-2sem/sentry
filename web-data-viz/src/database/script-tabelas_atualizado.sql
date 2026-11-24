@@ -102,7 +102,7 @@ CREATE TABLE alertas (
     servidorId INT NOT NULL,
     componente VARCHAR(50) NOT NULL,
     tipo_alerta VARCHAR(20) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (servidorId) REFERENCES servidor(idServidor)
 );
  
