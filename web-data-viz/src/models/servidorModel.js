@@ -13,7 +13,7 @@ function listar(idEmpresa) {
             DATE_FORMAT(s.dataCriacao, '%d/%m/%Y') dataCriacao
         FROM servidor s
         JOIN sistema_operacional so ON s.sistemaOperacionalId = so.idSistemaOperacional
-        WHERE empresaId = ${idEmpresa};
+        WHERE empresaId = ${idEmpresa} AND s.status = 1;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

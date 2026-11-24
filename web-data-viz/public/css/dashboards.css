@@ -269,18 +269,20 @@ main {
 
 .server-card {
   background-color: var(--first-color);
-  padding: 1rem 1.4rem;
+  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   border-radius: 2rem;
   box-shadow: 0 3px 3px rgba(255, 255, 255, 0.1);
   gap: 2rem;
+  width: 63rem;
 }
 
 .server-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 }
 
 .server-card-details {
@@ -874,7 +876,7 @@ select {
 #input_busca {
   border: none;
   height: 40px;
-  width: 710px;
+  width: 910px;
   font-size: 24px;
 }
 

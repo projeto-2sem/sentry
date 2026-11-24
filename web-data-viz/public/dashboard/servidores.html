@@ -256,7 +256,7 @@
 
                                     <div class="server-metrics-container" style="display: none;">
                                         <div class="metrics-content">
-
+                                            <button></button>
                                             <div class="metrics-right-panel metrics-right-panel-4">
                                                 <div class="gauge-wrapper">
                                                     <span>CPU</span>
@@ -351,9 +351,9 @@
     </div>
 
 
-    <div class="card-contato" id="card-contato">
-        <div class="contato-content">
-            <span class="fechar-card" id="fechar-card" onclick="fecharCard('card-contato')">&times;</span>
+    <div class="card-componentes" id="card-componentes">
+        <div class="componentes-content">
+            <span class="fechar-card" id="fechar-card" onclick="fecharCardComponentes('card-componentes')">&times;</span>
             <h2>Mande email para outro funcionário</h2>
             <p class="card-subtitulo">
                 Preencha os dados abaixo.
@@ -566,6 +566,15 @@
 
 <script src="../js/sessao.js"></script>
 <script>
+    function abrirCardCreateComponentes(card) {
+        document.getElementById(card).style.display = "flex";
+    }
+
+    function fecharCardComponentes(card) {
+        document.getElementById(card).style.display = "none";
+    }
+
+
     document.getElementById("nome_usuario").innerText = sessionStorage.NOME_USUARIO || "Usuário";
     document.getElementById("cargo_usuario").innerText = sessionStorage.CARGO == "gestor" ? "Gestor" : "Analista";
     let sigla = sessionStorage.NOME_USUARIO ? sessionStorage.NOME_USUARIO.split(" ") : ["G", "S"];
@@ -1068,8 +1077,9 @@
     </div>
 
     <div class="server-metrics-container" id="metrics-${server.idServidor}" style="display: none;">
+        <button onclick="abrirCardCreateComponentes('card-componentes')" class="button-componentes">Detalhe</button>
         <div class="metrics-content">
-
+            
             <div class="metrics-right-panel metrics-right-panel-4">
                 <div class="gauge-wrapper">
                     <span>CPU</span>

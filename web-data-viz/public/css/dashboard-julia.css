@@ -105,6 +105,7 @@
     display: flex;
     width: 100%;
     justify-content: space-around;
+    flex-direction: row-reverse;
 
     .span {
         font-size: 26px;
@@ -113,7 +114,7 @@
 }
 
 .div-problemas {
-    width: 49.5%;
+    width: 37.5%;
     height: 565px;
     background-color: var(--kpi-color);
     border-radius: 7px;
@@ -134,7 +135,7 @@
     }
 
     th {
-        width: 165px;
+        width: 125px;
         height: 50px;
         display: flex;
         justify-content: center;
@@ -144,7 +145,7 @@
     }
 
     td {
-        width: 165px;
+        width: 125px;
         height: 50px;
         display: flex;
         justify-content: center;
@@ -174,10 +175,63 @@
 }
 
 .div-servidores {
-    width: 49.5%;
+    width: 61.5%;
     height: 565px;
     background-color: var(--kpi-color);
     border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+
+    .button-componentes {
+        font-size: 21px;
+        background-color: #2F81F7;
+        border: none;
+        width: 110px;
+        height: 40px;
+        border-radius: 12px;
+        font-family: "Montserrat", sans-serif;
+        cursor: pointer;
+        color: white;
+    }
+}
+
+.card-componentes {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 18, 36, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card-componentes.active {
+  display: flex;
+}
+
+.componentes-content {
+  position: relative;
+  background-color: #071224;
+  border: 1px solid #0d56df;
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 200rem;
+  max-height: 500rem;
+  height: 59rem;
+  overflow-y: auto;
+  animation: modal-in 0.25s ease;
+}
+
+.componentes-content h2 {
+  font-family: "Geist", sans-serif;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
 .scrollbar {
