@@ -131,10 +131,63 @@ function adicionar(req, res) {
         });
 }
 
+const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
+
+const s3Client = new S3Client({
+    region: process.env.BUCKET_REGION,
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    }
+});
+
+// Converte o stream retornado pelo S3 em texto
+async function streamParaTexto(stream) {
+    const chunks = [];
+    for await (const chunk of stream) {
+        chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
+    }
+    return Buffer.concat(chunks).toString("utf-8");
+}
+
+async function buscarPredicaoBucket(req, res) {
+    try {
+        const { servidor } = req.params;
+
+        // Se quiser usar uma chave dinâmica por servidor, pode usar:
+        // const key = process.env.BUCKET_FILE_KEY || `dados/${servidor.toLowerCase()}.json`;
+        const key = process.env.BUCKET_FILE_KEY;
+
+        const comando = new GetObjectCommand({
+            Bucket: process.env.BUCKET_NAME,
+            Key: key
+        });
+
+        const respostaS3 = await s3Client.send(comando);
+        const conteudoTexto = await streamParaTexto(respostaS3.Body);
+        const dadosJson = JSON.parse(conteudoTexto);
+
+        // Caso o JSON no bucket já tenha o formato { cpu: {...}, ram: {...}, disco: {...} }
+        // ou venha aninhado por servidor { "SRV-APP-01": { cpu: {...}, ... } }
+        const payload = dadosJson[servidor] || dadosJson;
+
+        return res.status(200).json(payload);
+    } catch (erro) {
+        console.error("Erro ao buscar predição no bucket:", erro);
+        return res.status(500).json({
+            mensagem: "Erro ao consultar dados no bucket",
+            detalhe: erro.message
+        });
+    }
+}
+
+
+
 module.exports = {
     listar,
     deletar,
     editar,
     listarSO,
-    adicionar
+    adicionar,
+    buscarPredicaoBucket
 }

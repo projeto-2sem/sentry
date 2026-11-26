@@ -28,5 +28,11 @@ router.post("/adicionar/:idEmpresa",auth, function(req, res){
     servidorController.adicionar(req, res);
 });
 
+router.post("/predicao/:servidor",auth, function(req, res){
+    servidorController.buscarPredicaoBucket(req, res);
+});
+
+
+
 
 module.exports = router;

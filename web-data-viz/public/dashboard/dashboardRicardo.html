@@ -359,7 +359,46 @@
         });
     }
 
+    let componenteAtual = 'cpu';
+
+    async function carregarDadosController(servidor = "SRV-APP-01") {
+        try {
+            // Ajuste a URL base se o front rodar em porta diferente do back-end (ex: http://localhost:3333/servidores/predicao/...)
+            const resposta = await fetch(`/servidores/predicao/${encodeURIComponent(servidor)}`);
+
+            if (!resposta.ok) {
+                throw new Error(`HTTP ${resposta.status}`);
+            }
+
+            const dadosApi = await resposta.json();
+
+            // Mescla os dados vindos do controller com os dados locais
+            if (dadosApi.cpu) dadosAvancados.cpu = { ...dadosAvancados.cpu, ...dadosApi.cpu };
+            if (dadosApi.ram) dadosAvancados.ram = { ...dadosAvancados.ram, ...dadosApi.ram };
+            if (dadosApi.disco) dadosAvancados.disco = { ...dadosAvancados.disco, ...dadosApi.disco };
+        } catch (erro) {
+            console.warn("Não foi possível carregar dados do controller, mantendo dados locais:", erro);
+        } finally {
+            mudarComponente(componenteAtual);
+        }
+    }
+
+    // Sobrescreve/atualiza o mudarComponente para lembrar qual aba está ativa
+    const mudarComponenteOriginal = mudarComponente;
+    mudarComponente = function(tipo) {
+        componenteAtual = tipo;
+        mudarComponenteOriginal(tipo);
+    };
+
+    window.onload = function () {
+        if (typeof escreverNavbar === "function") {
+            escreverNavbar();
+        }
+        carregarDadosController("SRV-APP-01");
+    };
+
     window.onload = function () {
         mudarComponente('cpu');
     };
+    
 </script>
